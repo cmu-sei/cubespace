@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47760c011d64c734093a67a4709256d2, type: 3}
+  m_Name: BackdropSpriteMap
+  m_EditorClassIdentifier: 
+  pairs:
+  - locationID: bkd_exoarch
+    locationImage: {fileID: 21300000, guid: 31d5ebaf92cdaf94c960938f0b727d5f, type: 3}
+  - locationID: bkd_redradr
+    locationImage: {fileID: 21300000, guid: 8fa8336a70dc9cb4c9ed4d01a8acab87, type: 3}
+  - locationID: bkd_antruins
+    locationImage: {fileID: 21300000, guid: 609096c15574bed4d9a1b519773a54fd, type: 3}
+  - locationID: bkd_astld_initial
+    locationImage: {fileID: 21300000, guid: 384a208b79eb9c6479d42b1d6334f63f, type: 3}
+  - locationID: bkd_astfld_incorrect
+    locationImage: {fileID: 21300000, guid: ae9e0ab2fbc0ca94aa5740f20c9675ec, type: 3}
+  - locationID: bkd_astfld_correct
+    locationImage: {fileID: 21300000, guid: 4804fd8f21afbc84a9ff690953aff822, type: 3}
+  - locationID: bkd_cllctn
+    locationImage: {fileID: 21300000, guid: a08bed6704aa5b548a3aec3c01b218c4, type: 3}
+  - locationID: bkd_lgpt22
+    locationImage: {fileID: 21300000, guid: 62ef9c019179a5c478d6bc9486d53bb0, type: 3}
+  - locationID: bkd_mars
+    locationImage: {fileID: 21300000, guid: 467f2af05830c1647a61bd66c0268fdb, type: 3}
+  - locationID: bkd_plto
+    locationImage: {fileID: 21300000, guid: 483a5b78c5fa2494295e7c302bfdc4b5, type: 3}
+  - locationID: bkd_stars
+    locationImage: {fileID: 21300000, guid: 9ae6fe9278b4adc459064ad79f772292, type: 3}

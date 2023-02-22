@@ -1,0 +1,13 @@
+FROM ubuntu:20.04
+
+RUN useradd unityserver
+RUN mkdir -p /home/unityserver
+
+WORKDIR /home/unityserver
+
+COPY Server_Build.x86_64 UnityPlayer.so ./
+COPY Server_Build_Data/ ./Server_Build_Data/
+
+USER unityserver
+
+CMD ["./Server_Build.x86_64"]

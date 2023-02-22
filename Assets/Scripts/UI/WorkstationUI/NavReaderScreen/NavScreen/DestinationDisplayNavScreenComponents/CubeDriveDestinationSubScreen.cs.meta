@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f39bd78e8edf459a8bcbc4374d6a99f4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
+  - CubeEncodedText: {instanceID: 0}
+  - isDataCubeText: {instanceID: 0}
+  - cubeINNavReaderSquare: {instanceID: 0}
+  - cubeEjectedSquare: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

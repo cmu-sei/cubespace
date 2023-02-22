@@ -1,0 +1,198 @@
+name: Game Build
+on:
+  pull_request:
+  release:
+    types: [ "published" ]
+  push:
+    branches:
+      - dev
+      - test
+  workflow_dispatch:
+env:
+  REGISTRY: ghcr.io
+  ORGANIZATION: cmu-sei
+
+jobs:
+  # Phase 1 - Unity Build
+  build:
+    name: Build game
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2021.3.4f1
+        targetPlatform:
+          - StandaloneLinux64 # Target build for Linux standalone
+          - WebGL # Target build for WebGL
+        include:
+          - targetPlatform: StandaloneLinux64
+            dockerImage: cubespace-server
+          - targetPlatform: WebGL
+            dockerImage: cubespace-client
+    steps:
+      # Checkout
+      - name: Checkout project repo
+        uses: actions/checkout@v2.4.2
+        with:
+          fetch-depth: 0
+          lfs: false
+  
+      # Restore Cache
+      - name: Restore cached Library folder if it exists
+        uses: actions/cache@v3.0.8
+        id: cache-exists
+        with:
+          path: Library
+          key:
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
+            Library-${{ matrix.projectPath }}-
+            Library-
+      
+      # Test (no tests)
+      # Build
+      - name: Build ${{ matrix.targetPlatform }}
+        uses: game-ci/unity-builder@v2.1.1
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          buildMethod: UnityBuilderAction.BuildScript.BuildGame
+          # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+        
+      # Upload
+      - name: Upload game artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.targetPlatform }} Build
+          path: build/${{ matrix.targetPlatform }}
+      
+      # Phase 2 - Docker Containerization
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.ORGANIZATION }}/${{ matrix.dockerImage }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./build/${{ matrix.targetPlatform }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: Dockerfile.${{ matrix.targetPlatform }}
+
+      - name: Cleanup Docker System
+        run: docker system prune -a -f
+    
+    # Output cache exists variable
+    outputs:
+      cache-exists: ${{ steps.cache-exists.outputs.cache-hit }}
+      
+  # Rebuild and upload if the cache did not exist to avoid server error
+  rebuild:
+    name: Rebuild game
+    runs-on: self-hosted
+    needs: build
+    if: ${{ needs.build.outputs.cache-exists != 'true' }}
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2021.3.4f1
+        targetPlatform:
+          - StandaloneLinux64 # Target build for Linux standalone
+          - WebGL # Target build for WebGL
+        include:
+          - targetPlatform: StandaloneLinux64
+            dockerImage: cubespace-server
+          - targetPlatform: WebGL
+            dockerImage: cubespace-client
+    steps:
+      # Checkout
+      - name: Checkout project repo
+        uses: actions/checkout@v2.4.2
+        with:
+          fetch-depth: 0
+          lfs: false
+  
+      # Restore Cache
+      - name: Restore cached Library folder if it exists
+        uses: actions/cache@v3.0.8
+        id: cache-exists
+        with:
+          path: Library
+          key:
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-${{ hashFiles(matrix.projectPath) }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}-
+            Library-${{ matrix.projectPath }}-
+            Library-
+
+      # Test (no tests)
+      # Build
+      - name: Build ${{ matrix.targetPlatform }}
+        uses: game-ci/unity-builder@v2.1.1
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          buildMethod: UnityBuilderAction.BuildScript.BuildGame
+          # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+
+      # Upload
+      - name: Upload game artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.targetPlatform }} Build
+          path: build/${{ matrix.targetPlatform }}
+
+      # Phase 2 - Docker Containerization
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.ORGANIZATION }}/${{ matrix.dockerImage }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./build/${{ matrix.targetPlatform }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: Dockerfile.${{ matrix.targetPlatform }}
+
+      - name: Cleanup Docker System
+        run: docker system prune -a -f

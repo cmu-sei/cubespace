@@ -1,0 +1,49 @@
+{
+    "MonoBehaviour": {
+        "m_Enabled": true,
+        "m_EditorHideFlags": 0,
+        "m_Name": "FBX Export Settings",
+        "m_EditorClassIdentifier": "",
+        "Verbose": false,
+        "launchAfterInstallation": true,
+        "HideSendToUnityMenu": true,
+        "BakeAnimation": false,
+        "showConvertToPrefabDialog": true,
+        "integrationSavePath": "D:\\FacStudio22\\faculty-studio\\main\\K2_Project",
+        "selectedDCCApp": 1,
+        "prefabSavePaths": [
+            "."
+        ],
+        "fbxSavePaths": [
+            "fbx_transfer",
+            "."
+        ],
+        "selectedFbxPath": 0,
+        "selectedPrefabPath": 0,
+        "dccOptionNames": [
+            "3ds Max 2020",
+            "3ds Max 2023",
+            "Maya 2019"
+        ],
+        "dccOptionPaths": [
+            "C:/Program Files/Autodesk/3ds Max 2020/3dsmax.exe",
+            "C:/Program Files/Autodesk/3ds Max 2023/3dsmax.exe",
+            "C:/Program Files/Autodesk/Maya2019/bin/maya.exe"
+        ],
+        "exportModelSettingsSerialize": {
+            "exportFormat": 0,
+            "animatedSkinnedMesh": false,
+            "mayaCompatibleNaming": false,
+            "include": 2,
+            "lodLevel": 0,
+            "objectPosition": 0,
+            "exportUnrendered": true,
+            "preserveImportSettings": false
+        },
+        "convertToPrefabSettingsSerialize": {
+            "exportFormat": 0,
+            "animatedSkinnedMesh": false,
+            "mayaCompatibleNaming": true
+        }
+    }
+}

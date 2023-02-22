@@ -1,0 +1,43 @@
+mergeInto(LibraryManager.library, {
+	OpenWindow: function(link)
+	{
+		var url = Pointer_stringify(link);
+		document.win = window.open(url);
+		document.onmouseup = null;
+		console.log(document.win);
+	},
+	 
+	CloseWindow: function()
+	{
+		document.win.close();
+	},
+	 
+	OpenEmbededWindow: function(link)
+	{
+		var url = Pointer_stringify(link);
+	
+		//Create the Window
+		var iframe    = document.createElement('iframe');
+		iframe.id     = "vm-window";
+		iframe.src    = url;
+		iframe.width  = "93%";
+		iframe.height = "84%" 
+		iframe.frameborder = "1";
+		iframe.style       = "position: absolute; top:5%; left: 3%";	
+		var divReference   = document.getElementById('unity-canvas');
+		divReference.after(iframe);
+		
+		//Create the Close Button
+		var closeButton = document.createElement('button');
+		closeButton.id     = "close-button";
+		closeButton.style  = "position: absolute; top: 3%; left: 90%;";
+		closeButton.onclick = function () 
+				{ 
+					document.getElementById('vm-window').remove(); 
+					document.getElementById('close-button').remove();
+				};
+		closeButton.innerHTML = "Close";
+		iframe.after(closeButton);
+			
+	},
+});

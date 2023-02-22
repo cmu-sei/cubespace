@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 97043b2dfe8348648a354a2bf7ae06f9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - missionIconMap: {fileID: 11400000, guid: 00d399a3828711249a4de95121a11eff, type: 2}
+  - backgroundSelectedObj: {instanceID: 0}
+  - backgroundCompletedObj: {instanceID: 0}
+  - missionIcon: {instanceID: 0}
+  - titleText: {instanceID: 0}
+  - missionDescription: {instanceID: 0}
+  - itemCenterPosition: {instanceID: 0}
+  - selectButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

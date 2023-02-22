@@ -1,0 +1,8 @@
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
+COPY Build/ ./Build/
+COPY StreamingAssets/ ./StreamingAssets/
+COPY TemplateData/ ./TemplateData/
+COPY index.html ./

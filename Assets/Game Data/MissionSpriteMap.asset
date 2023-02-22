@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47760c011d64c734093a67a4709256d2, type: 3}
+  m_Name: MissionSpriteMap
+  m_EditorClassIdentifier: 
+  pairs:
+  - locationID: lagrange
+    locationImage: {fileID: -1127972580, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: museum
+    locationImage: {fileID: 619862712, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: raider
+    locationImage: {fileID: 320314085, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: xeno
+    locationImage: {fileID: -1903059572, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: ruins
+    locationImage: {fileID: -175899372, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: exo
+    locationImage: {fileID: 1640015094, guid: 87131f3682f28f14d9cd86433175d808, type: 3}
+  - locationID: empty
+    locationImage: {fileID: -2083680387, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
+  - locationID: completedBg
+    locationImage: {fileID: 410277137, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}

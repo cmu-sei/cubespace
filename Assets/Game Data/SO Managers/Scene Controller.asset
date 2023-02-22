@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b45bf0d44c2420f80e1bd969fe20be1, type: 3}
+  m_Name: Scene Controller
+  m_EditorClassIdentifier: 
+  GameplayScene: Assets/Scenes/Main/Main.unity
+  WorkstationScene: Assets/Scenes/Workstations/Workstations.unity
+  HUDScene: Assets/Scenes/HUD/HUD Workshop.unity

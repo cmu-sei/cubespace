@@ -1,0 +1,9 @@
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
+COPY WebGL/Build/ ./Build/
+COPY WebGL/StreamingAssets/ ./StreamingAssets/
+COPY WebGL/TemplateData/ ./TemplateData/
+COPY WebGL/index.html ./
+RUN curl -o jump.mp4 http://k2.etc.cmu.edu/tmpVideoStore/Warp_Entire_Sequence_v1.mp4

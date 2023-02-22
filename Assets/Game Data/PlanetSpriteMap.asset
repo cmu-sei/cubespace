@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47760c011d64c734093a67a4709256d2, type: 3}
+  m_Name: PlanetSpriteMap
+  m_EditorClassIdentifier: 
+  pairs:
+  - locationID: dunesea
+    locationImage: {fileID: 21300000, guid: bc85b4d5d29929e4f91da77296044018, type: 3}
+  - locationID: placeholder1
+    locationImage: {fileID: 21300000, guid: 2ab0400828f28d945ad6f2b2e606a782, type: 3}
+  - locationID: placeholder2
+    locationImage: {fileID: 21300000, guid: 9b583d640dea2754197ba7f6133ed14c, type: 3}
+  - locationID: placeholder3
+    locationImage: {fileID: 21300000, guid: a48f525250d463e4c9fbda647abba1f0, type: 3}
+  - locationID: placeholder4
+    locationImage: {fileID: 21300000, guid: bc85b4d5d29929e4f91da77296044018, type: 3}

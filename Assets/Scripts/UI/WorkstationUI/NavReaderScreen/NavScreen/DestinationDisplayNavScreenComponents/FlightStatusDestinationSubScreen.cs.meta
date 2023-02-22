@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 70b3ed9e630f406987e2dbd4fd92d27e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
+  - flightStatusReadySpinningUISquare: {instanceID: 0}
+  - launchAngleValText: {instanceID: 0}
+  - correctionAngleValText: {instanceID: 0}
+  - cubeSpaceTrajectoryValText: {instanceID: 0}
+  - _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

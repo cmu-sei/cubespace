@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 287b701ecc20afe4fa8c924034452270
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - missionIconMap: {fileID: 11400000, guid: 00d399a3828711249a4de95121a11eff, type: 2}
+  - missionSlider: {instanceID: 0}
+  - missionDetails: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
