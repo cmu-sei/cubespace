@@ -46,6 +46,7 @@ jobs:
       # Restore Cache
       - name: Restore cached Library folder if it exists
         uses: actions/cache@v3.0.8
+        id: cache-exists
         with:
           path: Library
           key:
@@ -55,7 +56,22 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      # Test (no tests)
+      # Generate Library when cache does not exist
+      - name: Generate Library folder
+        uses: game-ci/unity-builder@v2.1.1
+        if: ${{ !steps.cache-exists.outputs.cache-hit && (matrix.targetPlatform == 'StandaloneLinux64') }}
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          buildMethod: UnityBuilderAction.BuildScript.BuildGame
+          # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          customImage: ${{ matrix.customImage }}
+
       # Build
       - name: Build ${{ matrix.targetPlatform }}
         uses: game-ci/unity-builder@v2.1.1
