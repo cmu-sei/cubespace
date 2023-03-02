@@ -8,9 +8,6 @@ on:
       - dev
       - test
   workflow_dispatch:
-env:
-  REGISTRY: ghcr.io
-  ORGANIZATION: cmu-sei
 
 jobs:
   # Phase 1 - Unity Build
@@ -31,10 +28,8 @@ jobs:
         include:
           - targetPlatform: StandaloneLinux64
             dockerImage: cubespace-server
-            customImage: "unityci/editor:2021.3.4f1-linux-il2cpp-1"
           - targetPlatform: WebGL
             dockerImage: cubespace-client
-            customImage: ""
     steps:
       # Checkout
       - name: Checkout project repo
@@ -70,7 +65,6 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          customImage: ${{ matrix.customImage }}
 
       # Build
       - name: Build ${{ matrix.targetPlatform }}
@@ -85,7 +79,6 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          customImage: ${{ matrix.customImage }}
 
       # Upload
       - name: Upload game artifact
