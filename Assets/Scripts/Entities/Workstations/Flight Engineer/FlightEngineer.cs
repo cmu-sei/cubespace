@@ -376,9 +376,10 @@ namespace Entities.Workstations
         /// </summary>
         /// <param name="id">The ID of the dial whose current angle should be updated.</param>
         /// <param name="angle">The current angle of the dial.</param>
-        public void ChangeDialAngle(DialID id, int angle) 
+        /// <param name="resetTarget">Whether to reset the dial target to -1.</param>
+        public void ChangeDialAngle(DialID id, int angle, bool resetTarget=false) 
         {
-            CmdSetDialInfo(id, angle, GetDialInfo(id).target);
+            CmdSetDialInfo(id, angle, resetTarget ? -1 : GetDialInfo(id).target);
         }
 
         /// <summary>

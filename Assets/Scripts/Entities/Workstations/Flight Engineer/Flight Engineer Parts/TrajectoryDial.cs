@@ -255,7 +255,7 @@ namespace Entities.Workstations.FlightEngineerParts
             // Reset the visual rotation of the dial, the total angle, and the stored angle of the dial on the server
             transform.rotation = originalRot;
             totalAngle = 0;
-            flightEngineer.ChangeDialAngle(dialID, 0);
+            flightEngineer.ChangeDialAngle(dialID, 0, true);
 
             // Set the emission power of the pipes and disable the mouseover cursor
             inPipe.SetEmissionPower(WorkstationPipe.OFF_EMISSION_POWER);
