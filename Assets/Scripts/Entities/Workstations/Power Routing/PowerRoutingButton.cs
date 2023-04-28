@@ -119,7 +119,7 @@ namespace Entities.Workstations.PowerRouting
         /// <summary>
         /// Toggles the power state on PowerRouting when this button is clicked.
         /// </summary>
-        private void OnButtonClick()
+        public void OnButtonClick()
 		{
 			_powerRouting.TogglePowerState(workstationToPower);
 		}

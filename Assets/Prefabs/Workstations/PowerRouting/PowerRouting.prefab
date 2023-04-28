@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &596740078788181422
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,15 +266,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  alwaysHasPower: 1
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
+  soundSource: {fileID: 5136578909927178284}
   stationID: 2
   usedInLaunchMode: 0
   usedInExplorationMode: 0
-  soundSource: {fileID: 5136578909927178284}
+  timeToZoom: 1.5
+  alwaysHasPower: 1
   playerAtWorkstation: {fileID: 0}
   totalPower: 5
+  outerPipes:
+  - {fileID: 1052661403844124287}
+  - {fileID: 2526550123112427092}
+  - {fileID: 3706774529737391292}
+  - {fileID: 7358631036145083}
+  - {fileID: 8603485720220707169}
+  - {fileID: 3893570834208567780}
+  - {fileID: 3073934909255439894}
+  - {fileID: 818749005464079103}
+  fadeOpacity: 0.0627451
   powerLights:
   - {fileID: 7200338280284144715}
   - {fileID: 2864779958069828801}
@@ -292,16 +303,6 @@ MonoBehaviour:
   - {fileID: 4233732150351692430}
   - {fileID: 3300538694056525604}
   - {fileID: 5812839332844884601}
-  outerPipes:
-  - {fileID: 1052661403844124287}
-  - {fileID: 2526550123112427092}
-  - {fileID: 3706774529737391292}
-  - {fileID: 7358631036145083}
-  - {fileID: 8603485720220707169}
-  - {fileID: 3893570834208567780}
-  - {fileID: 3073934909255439894}
-  - {fileID: 818749005464079103}
-  fadeOpacity: 0.0627451
 --- !u!114 &4801649559790912924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,9 +416,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &719501408290826172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,9 +1388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &1220970437360309646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,9 +1487,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &1239077379535961976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,9 +1829,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 0.8595643, b: 0, a: 1}
 --- !u!1 &1775418922960697818
 GameObject:
@@ -1928,9 +1929,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &1826787959458891486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,9 +2145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &2348220897988762515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,9 +2281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &2772634000758127616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,9 +2380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &3207911250688850666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,9 +2479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &3249186766587427160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,9 +3080,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 0.8595643, b: 0, a: 1}
 --- !u!1 &4437037772582967246
 GameObject:
@@ -3095,6 +3096,8 @@ GameObject:
   - component: {fileID: 4900608263607241421}
   - component: {fileID: 2031352513599872454}
   - component: {fileID: 7516497494536708579}
+  - component: {fileID: 6129945401997460766}
+  - component: {fileID: 4071981707479785083}
   m_Layer: 8
   m_Name: LaunchLight
   m_TagString: Untagged
@@ -3183,10 +3186,45 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 0.080019675, g: 0.8679245, b: 0, a: 1}
+--- !u!114 &6129945401997460766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437037772582967246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d36be800207b8a4db63d38962106a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonsToTriggerOnClick:
+  - {fileID: 5766462533013103687}
+  - {fileID: 4701326433403176731}
+  - {fileID: 4072084734283670064}
+  - {fileID: 3300538694056525604}
+  - {fileID: 5812839332844884601}
+  powerRouting: {fileID: 322232841441439651}
+  powerForExploration: 0
+  _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
+    type: 2}
+--- !u!135 &4071981707479785083
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437037772582967246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.02856763
+  m_Center: {x: 0.009915718, y: 0.00000013038517, z: -0.00000014621764}
 --- !u!1 &4568743521582951050
 GameObject:
   m_ObjectHideFlags: 0
@@ -3366,9 +3404,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &5041956653924949238
 GameObject:
   m_ObjectHideFlags: 0
@@ -3504,9 +3542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &5110218521654770762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +3952,8 @@ GameObject:
   - component: {fileID: 7843820341332138551}
   - component: {fileID: 195795173948019495}
   - component: {fileID: 1010636095773212920}
+  - component: {fileID: 3577489884223284945}
+  - component: {fileID: 4963454745730882281}
   m_Layer: 8
   m_Name: ExplorationLight
   m_TagString: Untagged
@@ -4002,10 +4042,43 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 0, g: 0.078431375, b: 1, a: 1}
+--- !u!114 &3577489884223284945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827727729446074376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d36be800207b8a4db63d38962106a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonsToTriggerOnClick:
+  - {fileID: 4233732150351692430}
+  - {fileID: 6976524617400927611}
+  - {fileID: 4178677628487482390}
+  powerRouting: {fileID: 322232841441439651}
+  powerForExploration: 1
+  _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
+    type: 2}
+--- !u!135 &4963454745730882281
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827727729446074376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.028567612
+  m_Center: {x: 0.0100059975, y: 0.00000018626454, z: -0.00000011175871}
 --- !u!1 &5841650333826292477
 GameObject:
   m_ObjectHideFlags: 0
@@ -4102,9 +4175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &5963410857742203463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,9 +4339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &6250789575389228693
 GameObject:
   m_ObjectHideFlags: 0
@@ -4605,9 +4678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &6775811614179683605
 GameObject:
   m_ObjectHideFlags: 0
@@ -4859,9 +4932,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 0.8595643, b: 0, a: 1}
 --- !u!1 &7488487918968158976
 GameObject:
@@ -4959,9 +5032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 0.3
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 0.3
 --- !u!1 &7715848487025490018
 GameObject:
   m_ObjectHideFlags: 0
@@ -5179,9 +5252,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 0.8595643, b: 0, a: 1}
 --- !u!1 &8109776906321840549
 GameObject:
@@ -5282,9 +5355,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 0.8595643, b: 0, a: 1}
 --- !u!1 &8790851156909704372
 GameObject:
@@ -5382,9 +5455,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 2
+  fadeTime: 1
 --- !u!1 &8882890779339061491
 GameObject:
   m_ObjectHideFlags: 0

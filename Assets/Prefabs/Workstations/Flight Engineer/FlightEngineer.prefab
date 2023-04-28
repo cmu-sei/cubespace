@@ -351,9 +351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &266471193900207001
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,9 +538,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &605876712788402911
 GameObject:
@@ -802,7 +802,7 @@ MonoBehaviour:
   flightEngineer: {fileID: 3475794272385976408}
   inPipe: {fileID: 6104709612363111571}
   outPipe: {fileID: 8971624626716889976}
-  angleText: {fileID: 7227974893348330330}
+  angleText: {fileID: 4843042715172740461}
   mouseoverCursor: {fileID: 2741034934142396493}
   dialID: 0
 --- !u!1 &776746973220724714
@@ -906,10 +906,10 @@ MonoBehaviour:
   interactable: 1
   activated: 0
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
-  switchRotation: 180
-  animator: {fileID: 6219996630823505123}
-  id: 0
   flightEngineer: {fileID: 3475794272385976408}
+  animator: {fileID: 6219996630823505123}
+  switchRotation: 180
+  id: 0
 --- !u!136 &6265885567946395411
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1221,9 +1221,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &1251075539534744669
 GameObject:
@@ -1321,9 +1321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &1320463954021117388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,9 +1586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &1593518726311364451
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba176e205ca4841049d298dc00ee1d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationSpeed: 0.08
   LEDs:
   - {fileID: 2973785076368627433}
   - {fileID: 1046003365856852666}
@@ -2355,6 +2354,7 @@ MonoBehaviour:
   - {fileID: 7783848410973380153}
   - {fileID: 246713080132064102}
   LEDCount: 0
+  animationSpeed: 0.08
 --- !u!1 &2496163048244536925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2938,9 +2938,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &3335002881432250700
 GameObject:
@@ -3124,9 +3124,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &3489671195573073711
 GameObject:
@@ -3644,9 +3644,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &4371146678989455565
 GameObject:
@@ -4178,9 +4178,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &5199378120369277598
 GameObject:
@@ -4444,9 +4444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &5687273269871312211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4582,7 +4582,7 @@ MonoBehaviour:
   flightEngineer: {fileID: 3475794272385976408}
   inPipe: {fileID: 1879782662579238858}
   outPipe: {fileID: 6673443455127337280}
-  angleText: {fileID: 5837629924575301548}
+  angleText: {fileID: 8536696320152455579}
   mouseoverCursor: {fileID: 2049160465220709205}
   dialID: 2
 --- !u!1 &5712749059941587294
@@ -4847,9 +4847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &5944361230138755691
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,10 +5201,10 @@ MonoBehaviour:
   interactable: 1
   activated: 0
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
-  switchRotation: 180
-  animator: {fileID: 1376405772702868706}
-  id: 1
   flightEngineer: {fileID: 3475794272385976408}
+  animator: {fileID: 1376405772702868706}
+  switchRotation: 180
+  id: 1
 --- !u!136 &7253587756380010593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5828,9 +5828,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &6899394245434892174
 GameObject:
@@ -6027,6 +6027,8 @@ MonoBehaviour:
   - {fileID: 3210458755857685732}
   - {fileID: 1879782662579238858}
   LEDParent: {fileID: 6447845268098994819}
+  maximumEmissionPower: 4
+  timeToWaitBeforeReset: 2.5
 --- !u!136 &3875764323921408174
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6307,9 +6309,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &7227974892515494620
 GameObject:
@@ -6755,10 +6757,11 @@ MonoBehaviour:
   syncInterval: 0.1
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
+  soundSource: {fileID: 7917308044179199670}
   stationID: 0
   usedInLaunchMode: 1
   usedInExplorationMode: 0
-  soundSource: {fileID: 7917308044179199670}
+  timeToZoom: 1.5
   alwaysHasPower: 0
   playerAtWorkstation: {fileID: 0}
   launchDial: {fileID: 5504172984905958111}
@@ -7611,9 +7614,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &7768218150351012441
 GameObject:
@@ -7714,9 +7717,9 @@ MonoBehaviour:
   lit: 0
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &7769182193203044516
 GameObject:
@@ -8409,10 +8412,10 @@ MonoBehaviour:
   interactable: 1
   activated: 0
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
-  switchRotation: 180
-  animator: {fileID: 505569829689423712}
-  id: 3
   flightEngineer: {fileID: 3475794272385976408}
+  animator: {fileID: 505569829689423712}
+  switchRotation: 180
+  id: 3
 --- !u!136 &1497892174871282231
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8528,10 +8531,10 @@ MonoBehaviour:
   interactable: 1
   activated: 0
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
-  switchRotation: 180
-  animator: {fileID: 3912372778391263639}
-  id: 2
   flightEngineer: {fileID: 3475794272385976408}
+  animator: {fileID: 3912372778391263639}
+  switchRotation: 180
+  id: 2
 --- !u!136 &8002842875435322452
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8769,7 +8772,7 @@ MonoBehaviour:
   flightEngineer: {fileID: 3475794272385976408}
   inPipe: {fileID: 3210458755857685732}
   outPipe: {fileID: 4303891018922429162}
-  angleText: {fileID: 8413164911633123680}
+  angleText: {fileID: 6033290264666066775}
   mouseoverCursor: {fileID: 6624814103974707840}
   dialID: 1
 --- !u!1 &8905182706624391754
@@ -8952,9 +8955,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a36003d8fa0d4521a38d46fb7e8f025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   workstationID: 0
+  fadeTime: 1
 --- !u!1 &8988734909599805507
 GameObject:
   m_ObjectHideFlags: 0
@@ -9501,6 +9504,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5020045855440426892, guid: f6813186069d54022884a1de9e807136,
+        type: 3}
+      propertyPath: trajectoryDial
+      value: 
+      objectReference: {fileID: 2234630934192807995}
     - target: {fileID: 6098784523624438649, guid: f6813186069d54022884a1de9e807136,
         type: 3}
       propertyPath: workstation
@@ -9633,24 +9641,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6813186069d54022884a1de9e807136, type: 3}
---- !u!114 &5837629924575301548 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6386692805300448347, guid: f6813186069d54022884a1de9e807136,
-    type: 3}
-  m_PrefabInstance: {fileID: 693970200373601271}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5837629924575301551 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6386692805300448344, guid: f6813186069d54022884a1de9e807136,
     type: 3}
   m_PrefabInstance: {fileID: 693970200373601271}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8536696320152455579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9212405690615458412, guid: f6813186069d54022884a1de9e807136,
+    type: 3}
+  m_PrefabInstance: {fileID: 693970200373601271}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1088655174827943350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10124,6 +10132,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5020045855440426892, guid: f6813186069d54022884a1de9e807136,
+        type: 3}
+      propertyPath: trajectoryDial
+      value: 
+      objectReference: {fileID: 1340011584704670691}
     - target: {fileID: 6098784523624438649, guid: f6813186069d54022884a1de9e807136,
         type: 3}
       propertyPath: workstation
@@ -10256,16 +10269,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6813186069d54022884a1de9e807136, type: 3}
---- !u!114 &8413164911633123680 stripped
+--- !u!114 &6033290264666066775 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6386692805300448347, guid: f6813186069d54022884a1de9e807136,
+  m_CorrespondingSourceObject: {fileID: 9212405690615458412, guid: f6813186069d54022884a1de9e807136,
     type: 3}
   m_PrefabInstance: {fileID: 3198549338130588987}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8413164911633123683 stripped
@@ -10491,6 +10504,11 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5020045855440426892, guid: f6813186069d54022884a1de9e807136,
+        type: 3}
+      propertyPath: trajectoryDial
+      value: 
+      objectReference: {fileID: 5504172984905958111}
     - target: {fileID: 6098784523624438649, guid: f6813186069d54022884a1de9e807136,
         type: 3}
       propertyPath: workstation
@@ -10623,24 +10641,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6813186069d54022884a1de9e807136, type: 3}
---- !u!224 &7227974893348330329 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6386692805300448344, guid: f6813186069d54022884a1de9e807136,
-    type: 3}
-  m_PrefabInstance: {fileID: 4390160375992153857}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7227974893348330330 stripped
+--- !u!114 &4843042715172740461 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6386692805300448347, guid: f6813186069d54022884a1de9e807136,
+  m_CorrespondingSourceObject: {fileID: 9212405690615458412, guid: f6813186069d54022884a1de9e807136,
     type: 3}
   m_PrefabInstance: {fileID: 4390160375992153857}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7227974893348330329 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6386692805300448344, guid: f6813186069d54022884a1de9e807136,
+    type: 3}
+  m_PrefabInstance: {fileID: 4390160375992153857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4446156810377637526
 PrefabInstance:
   m_ObjectHideFlags: 0
