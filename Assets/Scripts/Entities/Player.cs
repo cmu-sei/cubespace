@@ -100,7 +100,9 @@ namespace Entities
             {
                 NewLocalPlayerEvent?.Invoke(this);
                 // Send client token to server to Gamebrain for verification
+                #if !UNITY_EDITOR
                 CmdSendClientToken(LoadingSystem.Instance.token);
+                #endif
             }
 
             _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -287,7 +289,7 @@ namespace Entities
             base.OnStopLocalPlayer();
         }
 
-        #region Command Wrappers
+#region Command Wrappers
         /// <summary>
         /// Places the player inside the workstation view.
         /// </summary>
@@ -304,9 +306,9 @@ namespace Entities
         {
             CmdSetOccupiedWorkstation(WorkstationID.NULL);
         }
-        #endregion
+#endregion
 
-        #region Commands
+#region Commands
         /// <summary>
         /// Sets the workstation the player has occupied on the server.
         /// </summary>
@@ -335,7 +337,7 @@ namespace Entities
             agent.avoidancePriority = priority;
         }
 
-        #endregion
+#endregion
     }
 }
 

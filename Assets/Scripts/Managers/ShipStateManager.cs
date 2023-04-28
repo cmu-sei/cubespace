@@ -337,7 +337,7 @@ namespace Managers
             if (data.ship != null && data.currentStatus.currentLocation != null)
             {
                 // Try to find the current location in the location dictionary
-                if (data.locationMap.TryGetValue(data.currentStatus.currentLocation, out var loc))
+                if (data.locationMap != null && data.locationMap.TryGetValue(data.currentStatus.currentLocation, out var loc))
                 {
                     // Mark the current location as the one found in the dictionary; this calls currentLocation's SyncVar Hook on clients
                     currentLocation = loc;
@@ -579,22 +579,45 @@ namespace Managers
         /// <param name="locationIndex">The index of the location to set as the destination of a jump.</param>
         public void SetLocation(int locationIndex)
         {
-            // Return if the index is not within the bounds of the location list
-            if (locationIndex < 0 || locationIndex >= unlockedLocations.Count)
-            {
-                Debug.Log("Location index is not within the bounds of the unlocked locations.");
-                return;
-            }
-
-            // Set a variable that the location is set
-            locationSet = true;
             // Set the current set location index and get the location using it
-            currentSetLocationIndex = locationIndex;
-            Location loc = unlockedLocations[locationIndex];
+            FlightEngineer flightEngineer = (FlightEngineer)_workstationManager.GetWorkstation(WorkstationID.FlightEngineer);
 
-            // Set the targets of each dial
-            FlightEngineer flightEngineer = (FlightEngineer) _workstationManager.GetWorkstation(WorkstationID.FlightEngineer);
-            flightEngineer.SetAllDialTargets(loc.trajectoryLaunch, loc.trajectoryCorrection, loc.trajectoryCube);
+            if (locationIndex == -1)
+            {
+                locationSet = false;
+                currentSetLocationIndex = 0;
+
+                // Make the targets of each dial negative
+                flightEngineer.SetAllDialTargets(-1, -1, -1);
+
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.Log("Location index of -1 received; probably called via a reset.");
+                }
+            }
+            else if (locationIndex < 0 || locationIndex >= unlockedLocations.Count)
+            {
+                // Return if the index is not within the bounds of the location list
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.Log("Location index is not within the bounds of the unlocked locations.");
+                }
+            }
+            else
+            {
+                // Set a variable that the location is set
+                locationSet = true;
+                currentSetLocationIndex = locationIndex;
+
+                // Set the targets of each dial
+                Location loc = unlockedLocations[locationIndex];
+                flightEngineer.SetAllDialTargets(loc.trajectoryLaunch, loc.trajectoryCorrection, loc.trajectoryCube);
+
+                if (networkManager.isInDebugMode)
+                {
+                    Debug.Log($"Location index of {locationIndex} received");
+                }
+            }
         }
         #endregion
 
@@ -796,8 +819,7 @@ namespace Managers
             SetAllThrusters(false);
 
             // Reset location
-            currentSetLocationIndex = 0;
-            locationSet = false;
+            SetLocation(-1);
 
             // Reset ship workstations
             RpcResetLaunchWorkstations();
@@ -828,7 +850,10 @@ namespace Managers
             }
             else
             {
-                Debug.LogWarning("currentLocation not (yet) set. This is fine if we haven't pulled data yet.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogWarning("currentLocation not (yet) set. This is fine if we haven't pulled data yet.");
+                }
                 return new Location();
             }
         }
@@ -890,7 +915,10 @@ namespace Managers
             // Otherwise return null
             else
             {
-                Debug.LogError("No unlocked locations exist.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("No unlocked locations exist.");
+                }
                 return null;
             }
         }

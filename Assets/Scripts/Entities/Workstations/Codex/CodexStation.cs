@@ -213,7 +213,6 @@ namespace Entities.Workstations.CodexStationParts
             // Otherwise, if the hologram is active, remove pieces from it
             else if (codexHologram.IsActive)
             {
-                Debug.LogWarning("Number of codex pieces decreased");
                 codexHologram.SetNumberActivePieces(newVal);
             }
         }

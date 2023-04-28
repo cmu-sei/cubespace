@@ -164,7 +164,7 @@ namespace Entities.Workstations
         protected virtual void Update()
         {
             #if UNITY_EDITOR
-            if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer && Input.GetKeyDown(KeyCode.A))
+            if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer && Input.GetKeyDown(KeyCode.P))
             {
                 ChangePower(!IsPowered);
             }
@@ -186,7 +186,7 @@ namespace Entities.Workstations
                     isPowered = AlwaysHasPower || powerRouting.GetPowerStateForWorkstation(stationID);
                 }
             }
-            else
+            else if (((CustomNetworkManager) NetworkManager.singleton).isInDebugMode)
             {
                 Debug.Log("No workstations.");
             }

@@ -140,7 +140,6 @@ public class UIReveal : MaskableGraphic
         yield return new WaitForSeconds(revealTime);
 
         ToggleHorizontal();
-        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
         // Wait for the animation to be over
         while (animAdvance != 2)

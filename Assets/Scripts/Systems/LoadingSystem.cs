@@ -163,7 +163,6 @@ namespace Systems
             {
                 loadingGroup.alpha = 1.0f;
                 loadedPastInitialScene = true;
-                Debug.Log("Loaded past the initial scene.");
             }
             // Otherwise, loading has failed
             else

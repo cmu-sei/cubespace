@@ -280,7 +280,10 @@ namespace Entities.Workstations
             // If that fails, return default values and give an error message
             catch
             {
-                Debug.LogWarning("Invalid DialID provided to Flight Engineer: " + id);
+                if (((CustomNetworkManager) NetworkManager.singleton).isInDebugMode)
+                {
+                    Debug.LogWarning("Invalid DialID provided to Flight Engineer: " + id);
+                }
                 return new DialInfo(0, -1);
             }
         }

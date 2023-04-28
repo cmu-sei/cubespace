@@ -25,11 +25,18 @@ namespace Systems.GameBrain
 	public class NetworkGameBrainInterface : GameBrainInterface
 	{
 		/// <summary>
+		/// The network manager object used to manage the game.
+		/// </summary>
+		CustomNetworkManager networkManager;
+
+		/// <summary>
 		/// Unity event function that grabs the command line functions provided and makes a request for an access token on the server.
 		/// </summary>
 		void Start()
 		{
 			GrabURIsOnCommandArguments();
+
+			networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
 			// Ask for an access token if running the server
 			#if UNITY_SERVER
@@ -217,7 +224,10 @@ namespace Systems.GameBrain
 		/// <returns>A yield return while waiting for the web request to finish.</returns>
 		private IEnumerator NetworkRoutine<T>(string uri, DataCallback<T> callback, NetUtility.HTTPMethod httpMethod, string token = null, string requestBody = null, string contentType = null) where T : IDeserializableFromJSON<T>
 		{
-			Debug.Log($"Attempting to access {uri}");
+			if (networkManager && networkManager.isInDebugMode)
+            {
+				Debug.Log($"Attempting to access {uri}");
+            }
 			string response = "{}";
 
 			// Make the web request and wait for the result
@@ -243,7 +253,10 @@ namespace Systems.GameBrain
         /// <returns>The response as JSON.</returns>
         private string ConvertTeamActiveResponse(string response)
 		{
-			Debug.Log($"Team active response: {response}");
+			if (networkManager && networkManager.isInDebugMode)
+            {
+				Debug.Log($"Team active response: {response}");
+            }
 			switch (response)
 			{
 				case "true":
@@ -279,8 +292,11 @@ namespace Systems.GameBrain
 				}
 				catch (ArgumentException e)
 				{
-					Debug.Log($"Encountered an exception while trying to parse JSON. Exception: {e}");
-					Debug.Log($"Response received: {response}");
+					if (networkManager && networkManager.isInDebugMode)
+                    {
+						Debug.Log($"Encountered an exception while trying to parse JSON. Exception: {e}");
+						Debug.Log($"Response received: {response}");
+                    }
 				}
 			}
 		}
@@ -304,19 +320,11 @@ namespace Systems.GameBrain
 			{
 				baseURI = _uriBase;
 			}
-			else
-			{
-				Debug.LogWarning($"No Base URI supplied. Defaulting to {baseURI}.");
-			}
 
 			// If the Gamebrain URI was provided, set it
 			if (providedArguments.TryGetValue("gamebrainURI", out string _gamebrainURI) && !string.IsNullOrEmpty(_gamebrainURI))
 			{
 				gamebrainURI = _gamebrainURI;
-			}
-			else
-			{
-				Debug.LogWarning($"No Gamebrain URI supplied. Defaulting to {gamebrainURI}.");
 			}
 
 			// If the Identity URI was provided, set it
@@ -324,29 +332,17 @@ namespace Systems.GameBrain
 			{
 				identityURI = _identityURI;
 			}
-			else
-			{
-				Debug.LogWarning($"No Identity URI supplied. Defaulting to {identityURI}.");
-			}
 
 			// If the client ID is provided, set it
 			if (providedArguments.TryGetValue("clientID", out string _clientID) && !string.IsNullOrEmpty(_clientID))
 			{
 				ClientCredentialSender.SetClientID(_clientID);
 			}
-			else
-			{
-				Debug.LogWarning("No Client ID supplied. Defaulting to 'game-server'");
-			}
 
 			// If the client secret is provided, set it
 			if (providedArguments.TryGetValue("clientSecret", out string _clientSecret) && !string.IsNullOrEmpty(_clientSecret))
 			{
 				ClientCredentialSender.SetClientSecret(_clientSecret);
-			}
-			else
-			{
-				Debug.LogWarning("No Client Secret supplied. Defaulting to '*******************'");
 			}
 
 			// Print the URIs supplied

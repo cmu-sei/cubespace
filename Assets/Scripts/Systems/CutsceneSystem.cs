@@ -53,7 +53,7 @@ namespace Systems
         // The specific play icon
         [SerializeField]
         private Sprite playSprite;
-        
+
         [Header("")]
         // The video screen shown while watching a previous video stored in the Mission Log
         [SerializeField]
@@ -132,7 +132,7 @@ namespace Systems
 
                 // Subscribe to possibly play the cutscene after the video player is prepared
                 _videoPlayer.prepareCompleted += VideoPlayerOnPrepareCompleted;
-                
+
                 // Set the Canvas to be visible
                 canvasObject.SetActive(true);
                 // Disable the visibility of all video items
@@ -165,14 +165,20 @@ namespace Systems
             // No video player set
             if (!_videoPlayer || !_videoPlayer.targetTexture)
             {
-                Debug.LogError("No video player or render texture set for CutsceneSystem!");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("No video player or render texture set for CutsceneSystem!");
+                }
                 return false;
             }
             // Already trying to play another video
             else if (_cutsceneCoroutine != null)
             {
                 // Stop an existing cutscene and the video player
-                Debug.LogWarning("Trying to prepare video while another cutscene is playing! Cancelling the previous cutscene.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogWarning("Trying to prepare video while another cutscene is playing! Cancelling the previous cutscene.");
+                }
                 StopCoroutine(_cutsceneCoroutine);
                 _videoPlayer.Stop();
                 // Disable some video controls
@@ -183,7 +189,10 @@ namespace Systems
             // No URL provided
             if (string.IsNullOrEmpty(videoURL))
             {
-                Debug.LogError("no URL, can't play video");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("no URL, can't play video");
+                }
                 return false;
             }
 
@@ -191,21 +200,30 @@ namespace Systems
             Uri uriResult;
             if (!Uri.TryCreate(videoURL, UriKind.Absolute, out uriResult))
             {
-                Debug.LogError($"URL provided is not a valid URL. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided is not a valid URL. URL provided: {videoURL}");
+                }
                 return false;
             }
 
             // URL does not use HTTPS
             if (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps)
             {
-                Debug.LogError($"URL provided does not use HTTP or HTTPS. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided does not use HTTP or HTTPS. URL provided: {videoURL}");
+                }
                 return false;
             }
 
             // URL is not a video
             if (!Regex.IsMatch(videoURL, ".*\\.(avi|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4|ogg|mp3|oga|aac|mpeg|webm)", RegexOptions.IgnoreCase))
             {
-                Debug.LogError($"URL provided is not a video. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided is not a video. URL provided: {videoURL}");
+                }
                 return false;
             }
 
@@ -280,13 +298,19 @@ namespace Systems
             // If the video player is not prepared yet, stop an attempt to play the cutscene
             if (!_videoPlayer.isPrepared)
             {
-                Debug.LogError("Cutscene video player not ready!");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("Cutscene video player not ready!");
+                }
                 return;
             }
             // Otherwise, if there is already a cutscene playing, stop an attempt to play the cutscene
             else if (_cutsceneCoroutine != null)
             {
-                Debug.LogWarning("Cutscene video played while another was playing! Player must be re-prepared. Ignoring request to play a cutscene.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogWarning("Cutscene video played while another was playing! Player must be re-prepared. Ignoring request to play a cutscene.");
+                }
                 return;
             }
 
@@ -339,7 +363,7 @@ namespace Systems
 
             // Call an action on the cutscene finishing
             OnCutsceneFinish?.Invoke();
-            
+
             // Remove the cutscene coroutine
             _cutsceneCoroutine = null;
 
@@ -354,27 +378,14 @@ namespace Systems
         /// <summary>
         /// Sets whether the video is paused.
         /// </summary>
-        /// <param name="paused">Whether the video is paused.</param>
         public void FlipPaused()
         {
-            // Flip whether the video is paused
-            paused = !_videoPlayer.isPaused;
+            // Set the correct sprite on the pause button image depending on if the video is paused or not
+            pauseImage.sprite = paused ? pauseSprite : playSprite;
 
             // If the video is now paused, physically pause the video
-            if (paused)
-            {
-                _videoPlayer.Pause();
-            }
-            // Otherwise, play the video
-            else 
-            {
-                _videoPlayer.Play();
-            }
-
-            // Set the correct sprite on the pause button image depending on if the video is paused or not
-            pauseImage.sprite = paused ? playSprite : pauseSprite;
-            // Reset the playback speed
-            _videoPlayer.playbackSpeed = 1f;
+            _videoPlayer.playbackSpeed = paused ? 1.0f : 0.0f;
+            paused = !paused;
         }
 
         /// <summary>
@@ -384,6 +395,8 @@ namespace Systems
         {
             // Stop the video player and unpause it (if paused)
             _videoPlayer.Stop();
+            pauseImage.sprite = pauseSprite;
+            _videoPlayer.playbackSpeed = 1f;
             paused = false;
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
             // Call an action for exiting the cutscene
@@ -403,13 +416,13 @@ namespace Systems
         /// <summary>
         /// Fast forwards the video, or sets it back to its original speed if already fast forwarding.
         /// </summary>
-        public void FastForward() 
+        public void FastForward()
         {
-            if (_videoPlayer.playbackSpeed == 2f) 
+            if (_videoPlayer.playbackSpeed == 2f)
             {
                 _videoPlayer.playbackSpeed = 1f;
-            } 
-            else 
+            }
+            else
             {
                 _videoPlayer.playbackSpeed = 2f;
             }

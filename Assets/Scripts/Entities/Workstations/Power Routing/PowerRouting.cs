@@ -14,6 +14,7 @@ using Mirror;
 using System.Linq;
 using Managers;
 using Systems.GameBrain;
+using System.Collections;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -79,6 +80,11 @@ namespace Entities.Workstations.PowerRouting
         /// The text showing the name of the location.
         /// </summary>
         private UICurrentShipLocationText locationText;
+
+        /// <summary>
+        /// The CustomNetworkManager component of the main NetworkManager singleton.
+        /// </summary>
+        private CustomNetworkManager networkManager;
         #endregion
 
         #region Unity event functions
@@ -102,7 +108,7 @@ namespace Entities.Workstations.PowerRouting
                 }
                 else
                 {
-                    Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
+                    // Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
                 }
             }
         }
@@ -110,9 +116,28 @@ namespace Entities.Workstations.PowerRouting
         /// <summary>
         /// Unity event function that gets a reference to the location text.
         /// </summary>
-        private void OnEnable()
+        protected override void Start()
         {
-            locationText = GameObject.Find("Text_LocationName").GetComponent<UICurrentShipLocationText>();
+            base.Start();
+
+            networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
+            StartCoroutine(FindLocationLabel());
+        }
+
+        private IEnumerator FindLocationLabel()
+        {
+            while (locationText == null)
+            {
+                try
+                {
+                    locationText = GameObject.Find("Text_LocationName").GetComponent<UICurrentShipLocationText>();
+                }
+                catch
+                {
+                    // Location text not found, keep looping
+                }
+                yield return null;
+            }
         }
         #endregion
 
@@ -161,7 +186,10 @@ namespace Entities.Workstations.PowerRouting
         {
             if (newPower < 0 || newPower > totalPower)
             {
-                Debug.LogError("Power managed to get out of range!");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("Power managed to get out of range!");
+                }
             }
             ChangePoweredLightStrip(GetPowerRemaining());
 
@@ -410,7 +438,10 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
+                }
                 return false;
             }
         }
