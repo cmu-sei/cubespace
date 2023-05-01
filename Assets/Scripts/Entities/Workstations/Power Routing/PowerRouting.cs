@@ -75,7 +75,7 @@ namespace Entities.Workstations.PowerRouting
         /// <summary>
         /// A dictionary mapping WorkstationIDs to buttons on the PowerRouting workstation.
         /// </summary>
-        private Dictionary<WorkstationID, PowerRoutingButton> workstationButtonDict;
+        public Dictionary<WorkstationID, PowerRoutingButton> workstationButtonDict;
         /// <summary>
         /// The text showing the name of the location.
         /// </summary>

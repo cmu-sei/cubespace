@@ -84,6 +84,8 @@ MonoBehaviour:
   masterMixer: {fileID: 24300002, guid: 2c4af0275188e4e799c263ab050302f5, type: 2}
   listener: {fileID: 2856333374351180170}
   following: {fileID: 0}
+  pitchRaisePerThruster: 0.1
+  volumeRaisePerThruster: 0.2
 --- !u!114 &463604992520561157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundRefManager: {fileID: 4736787722470233510}
   audioSourceParent: {fileID: 1362739106011539992}
+  audioSourceLimit: 1000
   masterVolume: 0
   sfxVolume: 0
   transmissionVolume: 0

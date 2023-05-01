@@ -211,6 +211,11 @@ namespace Audio {
             // Pull a new AudioSource from the pool
             AudioSource source = CreateInstance(soundType, index);
 
+            if (source == null)
+            {
+                return null;
+            }
+
             // Set other attributes of the AudioSource
             source.transform.position = transform.position;
             source.outputAudioMixerGroup = soundRefManager.AmbienceMixerGroup;
@@ -279,15 +284,18 @@ namespace Audio {
         /// <param name="transform">The transform of an object with the position where the AudioSource should be placed.</param>
         public void AttachInstanceToGameObject(AudioSource source, Transform transform) {
 
-            // Set the position of the AudioSource and its parent
-            source.transform.position = transform.position;
-            source.transform.parent = audioSourceParent.transform;
-            // Set other attributes of the AudioSource
-            source.spatialBlend = 1.0f;
-            source.outputAudioMixerGroup = soundRefManager.SpatializedSFXMixerGroup;
+            if (source != null && transform != null)
+            {
+                // Set the position of the AudioSource and its parent
+                source.transform.position = transform.position;
+                source.transform.parent = audioSourceParent.transform;
+                // Set other attributes of the AudioSource
+                source.spatialBlend = 1.0f;
+                source.outputAudioMixerGroup = soundRefManager.SpatializedSFXMixerGroup;
 
-            // Play the AudioSource
-            source.Play();
+                // Play the AudioSource
+                source.Play();
+            }
         }
 
         /// <summary>
@@ -404,21 +412,24 @@ namespace Audio {
         /// <returns></returns>
         private IEnumerator FadeInCoroutine(AudioSource source, float fadeTime, float targetVolume = 1f)
         {
-            // Initially, the sound is muted
-            source.volume = 0;
-
-            // Start playing the AudioSource
-            source.Play();
-    
-            // Fade in a bit every frame
-            while (source.volume < targetVolume)
+            if (source != null)
             {
-                source.volume += targetVolume * Time.deltaTime / fadeTime;
-                yield return null;
+                // Initially, the sound is muted
+                source.volume = 0;
+
+                // Start playing the AudioSource
+                source.Play();
+
+                // Fade in a bit every frame
+                while (source.volume < targetVolume)
+                {
+                    source.volume += targetVolume * Time.deltaTime / fadeTime;
+                    yield return null;
+                }
+
+                // Set the volume following the fade in process
+                source.volume = targetVolume;
             }
-    
-            // Set the volume following the fade in process
-            source.volume = targetVolume;
         }
     }
 }
