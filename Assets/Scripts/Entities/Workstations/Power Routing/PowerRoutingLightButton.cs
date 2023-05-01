@@ -39,15 +39,13 @@ namespace Entities.Workstations.PowerRouting
 
             if (powerForExploration)
             {
-                // Power on all exploration mode workstations if they were not powered on before
-                if (!wasAllPoweredForExploration)
+                if (!wasAllPoweredForExploration || wasAllPoweredForLaunch)
                 {
                     ToggleAllInExplorationMode();
                 }
             }
             else
             {
-                // Power on all launch mode workstations if they were not powered on before
                 if (!wasAllPoweredForLaunch)
                 {
                     ToggleAllInLaunchMode();
