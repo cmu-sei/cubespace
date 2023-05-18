@@ -80,19 +80,28 @@ namespace Managers
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             // Get the Player component of the object with the network connection representing the player
-            Debug.Log($"Player with connection id {conn.connectionId} disconnected");
+            if (isInDebugMode)
+            {
+                Debug.Log($"Player with connection id {conn.connectionId} disconnected");
+            }
             Player player = conn.identity.GetComponent<Player>();
             
             // Remove the cube from that player if they were holding it
             if (ShipStateManager.Instance.PlayerIsHoldingCube(player)) 
             {
-                Debug.Log("Player that disconnected was holding the cube! Reseting cube at Nav Reader");
+                if (isInDebugMode)
+                {
+                    Debug.Log("Player that disconnected was holding the cube! Reseting cube at Nav Reader");
+                }
                 ShipStateManager.Instance.SetCubeState(CubeState.InNavReader);
             }
             // If the player was at a workstation, remove them from that workstation before they disconnect
             if (player.OccupiedWorkstation != WorkstationID.NULL)
             {
-                Debug.Log("Player that disconnected was at a workstation! Making that station's terminal usable again...");
+                if (isInDebugMode)
+                {
+                    Debug.Log("Player that disconnected was at a workstation! Making that station's terminal usable again...");
+                }
                 workstationManager.ExitTerminal(player.OccupiedWorkstation);
             }
 

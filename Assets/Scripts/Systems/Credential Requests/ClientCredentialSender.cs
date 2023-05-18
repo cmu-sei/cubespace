@@ -77,7 +77,6 @@ namespace Systems.CredentialRequests
         public void GetServerToken()
         {
             // Create the OAuth 2.0 authorization request for client credentials
-            Debug.Log("Attempting to send client credentials...");
             string authorizationRequestBody = string.Format(authTokenRequestStructure, clientID, clientSecret, audience);
 
             // Retrieve an authorization token for the game server
@@ -91,7 +90,6 @@ namespace Systems.CredentialRequests
         private void SetToken(TokenResponse response)
         {
             // Set the access token used by the server to be the one received in the response
-            Debug.Log("Client credentials accepted on server.");
             ShipStateManager.Instance.token = response.access_token;
 
             // Wait for the token to almost expire, then ask for credentials again
@@ -106,7 +104,6 @@ namespace Systems.CredentialRequests
         private IEnumerator RefreshServerToken(float delay)
         {
             yield return new WaitForSeconds(delay);
-            Debug.Log("Refreshing the Client Credentials...");
             GetServerToken();
         }
         #endregion
@@ -122,7 +119,6 @@ namespace Systems.CredentialRequests
         /// <returns>An array containing the endpoint to get the team ID and the JSON of the client token and machine name.</returns>
         public string[] MakeTokenURIAndJSON(string clientToken)
         {
-            Debug.Log("Sending client token to the gamebrain...");
             string json = JsonUtility.ToJson(new PostData(clientToken));
             return new string[] { getTeamIDEndpointURI, json };
         }

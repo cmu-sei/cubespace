@@ -56,11 +56,15 @@ namespace Systems.GameBrain
 		private bool checkIfTeamIsActive = true;
 		private int lastShipDataHash;
 
+		private CustomNetworkManager networkManager;
+
 		/// <summary>
 		/// Starts polling for new ship data.
 		/// </summary>
 		void Start()
         {
+			networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
+
 			StartCoroutine(Poll());
         }
 
@@ -189,7 +193,7 @@ namespace Systems.GameBrain
 				OnJumpResponse?.Invoke(response);
 			}
 			// If the jump fails, write a message to the server
-			else
+			else if (networkManager && networkManager.isInDebugMode)
 			{
 				Debug.LogWarning($"Jump Failed! if jump was attempted in earnest, it should not have failed. Message: {response.message}");
 			}
@@ -226,7 +230,10 @@ namespace Systems.GameBrain
 			// Shut the server down if everyone's gone and the team isn't active - it should automatically get restarted by Kubernetes
 			if (ShipStateManager.Instance != null && !isTeamActiveResponse.success && ShipStateManager.Instance.teamID != "")
 			{
-				Debug.Log("Restaring server");
+				if (networkManager && networkManager.isInDebugMode)
+                {
+					Debug.Log("Restaring server");
+                }
 				Application.Quit();
 			}
 		}

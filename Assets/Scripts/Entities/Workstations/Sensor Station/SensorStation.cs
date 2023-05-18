@@ -313,11 +313,6 @@ namespace Entities.Workstations.SensorStationParts
 
             if (response.eventWaiting)
             {
-                if (firstContactComplete)
-                {
-                    Debug.Log("Scanned more than once?");
-                }
-
                 RpcSetScanFromCommEvent(response.eventWaiting, response.incomingTransmission);
             }
             else

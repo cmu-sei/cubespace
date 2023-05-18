@@ -41,7 +41,7 @@ namespace Entities.Workstations.FlightEngineerParts
         /// The formatted current angle of the dial.
         /// </summary>
         [SerializeField]
-        private TextMeshProUGUI angleText;
+        private TMP_InputField angleText;
 
         /// <summary>
         /// The custom cursor object displayed when mousing over a dial.
@@ -255,7 +255,7 @@ namespace Entities.Workstations.FlightEngineerParts
             // Reset the visual rotation of the dial, the total angle, and the stored angle of the dial on the server
             transform.rotation = originalRot;
             totalAngle = 0;
-            flightEngineer.ChangeDialAngle(dialID, 0);
+            flightEngineer.ChangeDialAngle(dialID, 0, true);
 
             // Set the emission power of the pipes and disable the mouseover cursor
             inPipe.SetEmissionPower(WorkstationPipe.OFF_EMISSION_POWER);
@@ -330,6 +330,15 @@ namespace Entities.Workstations.FlightEngineerParts
         {
             yield return new WaitForSeconds(Random.Range(0f, 0.8f));
             Audio.AudioPlayer.Instance.FlightEngineerTubeOn((int) dialID);
+        }
+
+        /// <summary>
+        /// Manually rotates the dial to a specified angle.
+        /// </summary>
+        /// <param name="enteredAngle">The angle to manually rotate the dial to.</param>
+        public void ManuallyRotateDial(int enteredAngle)
+        {
+            flightEngineer.ChangeDialAngle(dialID, enteredAngle);
         }
         #endregion
 

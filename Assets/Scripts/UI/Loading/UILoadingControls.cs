@@ -127,7 +127,7 @@ public class UILoadingControls : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Caught exception when destroying the LoadingSystem - this is not an error.");
+            // Not an error, just caught an exception when destroying the LoadingSystem
         }
     }
 }

@@ -280,7 +280,10 @@ namespace Entities.Workstations
             // If that fails, return default values and give an error message
             catch
             {
-                Debug.LogWarning("Invalid DialID provided to Flight Engineer: " + id);
+                if (((CustomNetworkManager) NetworkManager.singleton).isInDebugMode)
+                {
+                    Debug.LogWarning("Invalid DialID provided to Flight Engineer: " + id);
+                }
                 return new DialInfo(0, -1);
             }
         }
@@ -373,9 +376,10 @@ namespace Entities.Workstations
         /// </summary>
         /// <param name="id">The ID of the dial whose current angle should be updated.</param>
         /// <param name="angle">The current angle of the dial.</param>
-        public void ChangeDialAngle(DialID id, int angle) 
+        /// <param name="resetTarget">Whether to reset the dial target to -1.</param>
+        public void ChangeDialAngle(DialID id, int angle, bool resetTarget=false) 
         {
-            CmdSetDialInfo(id, angle, GetDialInfo(id).target);
+            CmdSetDialInfo(id, angle, resetTarget ? -1 : GetDialInfo(id).target);
         }
 
         /// <summary>
