@@ -83,6 +83,12 @@ namespace UI.HUD
 		private TextMeshProUGUI buttonText;
 
 		/// <summary>
+		/// If this button only closes the panel.
+		/// </summary>
+		[SerializeField]
+		private bool closeOnly = false;
+
+		/// <summary>
 		/// Whether the HUD panel is already open.
 		/// </summary>
 		private bool panelOpen;
@@ -98,7 +104,6 @@ namespace UI.HUD
 			_button.onClick.RemoveAllListeners();
 			_button.onClick.AddListener(OnClick);
 
-
 			if (_button.GetComponentInChildren<TextMeshProUGUI>() != null)
 			{
 				buttonText = _button.GetComponentInChildren<TextMeshProUGUI>();
@@ -106,7 +111,7 @@ namespace UI.HUD
 				normalText = buttonText.text;
 			}	
 
-			panelOpen = false;
+			panelOpen = closeOnly;
 			_buttonAudio.activated = false;
 			_image.color = palette.GetPaletteColor(offColor);
 		}
@@ -116,7 +121,7 @@ namespace UI.HUD
 		/// </summary>
 		public void OnClick()
 		{
-			if (panelOpen)
+			if (panelOpen || closeOnly)
 			{
 				_image.color = palette.GetPaletteColor(offColor);
 				controllerCloseFunction?.Invoke();

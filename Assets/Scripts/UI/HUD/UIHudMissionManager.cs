@@ -18,7 +18,7 @@ using UI.HUD;
 /// <summary>
 /// The component which populates mission UI from the Unity server and is responsible for selecting missions.
 /// </summary>
-public class UIHudMissionManager : MonoBehaviour
+public class UIHudMissionManager : Singleton<UIHudMissionManager>
 {
     /// <summary>
     /// The map of missions to icons.
@@ -29,12 +29,17 @@ public class UIHudMissionManager : MonoBehaviour
     /// The list of mission items, which should be stored in numeric order.
     /// </summary>
     [SerializeField]
-    private UIHudMissionItem[] missionItems;
+    private List<UIHudMissionItem> missionItems;
     /// <summary>
     /// A reference to the scripted slider for highlighting items.
     /// </summary>
     [SerializeField]
     private UIHudMissionSlider missionSlider;
+    /// <summary>
+    /// Mission listing prefab to spawn in, in case more items need to be displayed.
+    /// </summary>
+    [SerializeField]
+    private GameObject missionListingItemPrefab;
 
     /// <summary>
     /// The details of each mission.
@@ -46,6 +51,11 @@ public class UIHudMissionManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject vignetteObject;
+    /// <summary>
+    /// Mission list parent object, holding the mission list items.
+    /// </summary>
+    [SerializeField]
+    private Transform missionListParent;
 
     /// <summary>
     /// The last selected mission's index.
@@ -55,8 +65,10 @@ public class UIHudMissionManager : MonoBehaviour
     /// <summary>
     /// Unity event function that initiates the mission and icon mapping.
     /// </summary>
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         missionIconMap.InitiateDictionary();
     }
 
@@ -76,7 +88,7 @@ public class UIHudMissionManager : MonoBehaviour
             SetFromMissionData(ShipStateManager.Instance.MissionData);
         }
 
-        if (missionItems != null && missionItems.Length > 0)
+        if (missionItems != null && missionItems.Count > 0)
         {
             SelectMission(missionItems[lastSelectedIndex]);
         }
@@ -111,7 +123,12 @@ public class UIHudMissionManager : MonoBehaviour
     {
         for (int i = 0; i < missionData.Count; i++)
         {
-            if (missionItems.Length > i && missionData[i].visible)
+            if (i >= missionItems.Count)
+            {
+                missionItems.Add(Instantiate(missionListingItemPrefab, missionListParent).GetComponent<UIHudMissionItem>());
+            }
+
+            if (missionData.Count > i && missionData[i].visible)
             {
                 missionItems[i].gameObject.SetActive(true);
                 missionItems[i].SetMissionData(missionData[i]);
@@ -120,7 +137,7 @@ public class UIHudMissionManager : MonoBehaviour
             {
                 missionItems[i].gameObject.SetActive(false);
             }
-        
+
             if (i == lastSelectedIndex)
             {
                 missionDetails.SetMissionData(missionItems[i].VisibleMissionData);
@@ -134,16 +151,22 @@ public class UIHudMissionManager : MonoBehaviour
     /// <param name="item">The UI piece for a mission.</param>
     public void SelectMission(UIHudMissionItem item)
     {
-        var index = Array.IndexOf(missionItems, item);
+        var index = Array.IndexOf(missionItems.ToArray(), item);
         lastSelectedIndex = index;
 
         // Set the status as selected on every item in the array
-        for (int i = 0; i < missionItems.Length; i++)
+        for (int i = 0; i < missionItems.Count; i++)
         {
             missionItems[i].SetSelected(i == index);
         }
         missionDetails.SetMissionData(item.VisibleMissionData);
         missionSlider.SetPosition(item);
+    }
+
+    public void SelectMission(int index)
+    {
+        UIHudMissionItem item = missionItems[index];
+        SelectMission(item);
     }
 }
 

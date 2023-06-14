@@ -29,3 +29,7 @@ MonoBehaviour:
     locationImage: {fileID: -2083680387, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
   - locationID: completedBg
     locationImage: {fileID: 410277137, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
+  - locationID: camera
+    locationImage: {fileID: 21300000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  - locationID: reset
+    locationImage: {fileID: 21300000, guid: a94c9a7eb94ceec4a8d67a1890e22e51, type: 3}

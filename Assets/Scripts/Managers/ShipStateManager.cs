@@ -321,6 +321,7 @@ namespace Managers
 
             // Update the team's session data to whatever was received
             session = data.session;
+
             // Mark whether first contact was completed
             firstContactEstablished = data.currentStatus.firstContactComplete;
             // Update the network name to what's included in the data
@@ -750,6 +751,18 @@ namespace Managers
                 {
                     MissionData.Add(data.missions[i]);
                 }
+
+                if (UI.HUD.HUDController.Instance)
+                {
+                    UI.HUD.HUDController.Instance.AddSystemOrSetData(data.missions[i], i);
+                }
+
+                /*
+                if (UI.HUD.HUDController.Instance && UI.HUD.HUDController.Instance.systems.Count > i)
+                {
+                    UI.HUD.HUDController.Instance.systems[i].SetSystemMission(data.missions[i], i);
+                }
+                */
             }
 
             // Call the RPC function after the mission data is set

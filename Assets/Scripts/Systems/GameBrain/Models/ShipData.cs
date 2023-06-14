@@ -60,7 +60,7 @@ namespace Systems.GameBrain
 			}
 
 			// Build the location dictionary
-			BuildLocationMap();	
+			BuildLocationMap();
 		}
 
 		/// <summary>
@@ -89,6 +89,20 @@ namespace Systems.GameBrain
 		public int teamCodexCount;
 		// The URL of the jump cutscene
 		public string jumpCutsceneURL;
+		// The timestamp when the game starts
+		public string gameStartTime;
+		// The timestamp when the game ends
+		public string gameEndTime;
+		// The DateTime when the game starts
+		public DateTime gameStartDateTime;
+		// The DateTime when the game ends
+		public DateTime gameEndDateTime;
+		// The title to give the timer
+		public string timerTitle;
+		// Whether to use the galaxy display map
+		public bool useGalaxyDisplayMap;
+		// Whether to display codices
+		public bool useCodices;
 	}
 
 	/// <summary>
@@ -141,6 +155,18 @@ namespace Systems.GameBrain
 	{
 		// The ID of the mission
 		public string missionID;
+		// The possible number of points that can be achieved (base + full bonus)
+		public int possibleMaximumScore;
+		// The base number of points this challenge has at its base
+		public int baseSolveValue;
+		// The number of bonus points remaining
+		public int bonusRemaining;
+		// THe challenge associated with this one; for ship challenges, this should be null
+		public string[] associatedChallenges;
+		// The number of teams who have attempted the challenge
+		public int totalTeams;
+		// The number of teams who have solved the challenge
+		public int solveTeams;
 		// Boolean that must be true for the mission to appear in the Mission Log
 		public bool visible;
 		// If the mission has been completed
@@ -159,6 +185,14 @@ namespace Systems.GameBrain
 		public string[] roleList;
 		// A list of the different tasks used in this mission
 		public TaskData[] taskList;
+		// The x position of the mission on the galaxy map
+		public float galaxyMapXPos;
+		// The y position of the mission on the galaxy map
+		public float galaxyMapYPos;
+		// The x position of the target of the mission on the galaxy map
+		public float galaxyMapTargetXPos;
+		// The y position of the target of the mission on the galaxy map
+		public float galaxyMapTargetYPos;
 
 		/// <summary>
 		/// Checks this mission against another mission object to see if they're the same.

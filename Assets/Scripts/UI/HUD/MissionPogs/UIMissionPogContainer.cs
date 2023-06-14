@@ -13,6 +13,7 @@ using Mirror;
 using Systems.GameBrain;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace UI.HUD
 {
@@ -71,6 +72,8 @@ namespace UI.HUD
 		{
 			ClearChildren();
 			CreateIcons();
+
+			StartCoroutine(WaitToClearIcons());
 		}
 
 		/// <summary>
@@ -87,6 +90,21 @@ namespace UI.HUD
 		private void OnDisable()
 		{
 			ShipStateManager.OnMissionDataChange -= UpdateIcons;
+		}
+
+		/// <summary>
+		/// Clears mission pogs if needed.
+		/// </summary>
+		/// <returns>A yield return while waiting for the ShipStateManager to activate.</returns>
+		private IEnumerator WaitToClearIcons()
+        {
+			yield return new WaitUntil(() => ShipStateManager.Instance && ShipStateManager.Instance.Session != null);
+
+			Debug.Log(">" + ShipStateManager.Instance.Session.useCodices);
+			if (!ShipStateManager.Instance.Session.useCodices)
+			{
+				ClearChildren();
+			}
 		}
 		
 		/// <summary>

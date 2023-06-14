@@ -2133,7 +2133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  localJSONData: {fileID: 4900000, guid: f8e8ec2f8fa108242acc11166a5f2811, type: 3}
+  localJSONData: {fileID: 4900000, guid: 4cbea72fb58b3154aaf05dfc27f2d8de, type: 3}
 --- !u!114 &358994812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5605,7 +5605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &900826102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6662,7 +6662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _gameBrainInterface: {fileID: 1442502887}
+  _gameBrainInterface: {fileID: 358994811}
   pollingDelay: 2
   lastGameData:
     session:

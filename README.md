@@ -1,12 +1,9 @@
-![screenshot](screenshot.png)
-
 # Cubespace
+Cubespace Application (In-browser client + Linux headless server)
 
-Cubespace is a game-based environment for delivering cybersecurity exercises and competitions. The Cubespace client operates entirely in the browser and allows for delivery of both narrative and technical content. Native integration with the [TopoMojo](https://github.com/cmu-sei/topomojo) challenge platform provides access to hosted virtual machines that make up ship, starbase, and planetary computer systems.
+---
 
-## Build Instructions
-
-### Building the Game from Unity using the Codebase
+## Building the Game from Unity using the Codebase
 
 Before proceeding, please make sure you have a Unity account and license, whether a personal account or professional one, and that you download the project in "CODEBASE LINK".
 
@@ -21,7 +18,7 @@ Before proceeding, please make sure you have a Unity account and license, whethe
 6. Select Build and choose a file location. 
 
 
-### Turning the WebGL Build into a Docker Image
+## Turning the WebGL Build into a Docker Image
 
 Ensure the build is placed on a Linux environment before starting.
 1. Get Dockerfile.WebGL from the root project folder.
@@ -30,7 +27,7 @@ Ensure the build is placed on a Linux environment before starting.
 `sudo docker build -f Dockerfile.WebGL -t unityclient:{version_number} .`
 
 
-### Turning the Dedicated Server Build into a Docker Image
+## Turning the Dedicated Server Build into a Docker Image
 
 Ensure the build is placed on a Linux environment before starting.
 1. Download Dockerfile.StandaloneLinux64 from the root project folder.
@@ -39,15 +36,17 @@ Ensure the build is placed on a Linux environment before starting.
 `sudo docker build -f Dockerfile.StandaloneLinux64 -t unityserver:{version_number} .`
 
 
-### Running the Builds in Docker
+## Running the Builds in Docker
 
-#### Client
+### Client
 `sudo docker container run --name UnityClient -p 5000:80 -it unityclient`
 
-#### Server
+### Server
 `sudo docker container run --name UnityServer -p 7778:7778 -it unityserver`
 
-Note that the port number can be specified following the -p flag. These port numbers were originally specified for the [Foundry Appliance](https://github.com/cmu-sei/foundry-appliance).
+Note that the port number can be specified following the -p flag. These port numbers were originally specified for the Foundry appliance.
+
+---
 
 ## Configuring the Server
 
@@ -64,7 +63,7 @@ and end the argument with a `/`.
 - `-dev`: Enables developer shortcuts and hotkeys. This takes no additional values and is only really useful in-editor.
 - `-debug`: Enables verbose logging. This takes no additional values.
 
-### Hotkeys (dev mode only)
+#### Hotkeys (dev mode only)
 - A: Abort launch sequence
 - H: Hide HUD
 - J: Jump to location (if already chosen)

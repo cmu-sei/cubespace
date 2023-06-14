@@ -96,7 +96,7 @@ public class UILoadingControls : MonoBehaviour
     {
         if (LoadingSystem.Instance)
         {
-            NetworkManager.singleton.networkAddress = LoadingSystem.Instance.serverLink;
+            // NetworkManager.singleton.networkAddress = LoadingSystem.Instance.serverLink;
             LoadingSystem.OnLoadStarted += NetworkManager.singleton.StartClient;
             LoadingSystem.Instance.BeginLoad();
         }
