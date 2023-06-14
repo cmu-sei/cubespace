@@ -233,12 +233,46 @@ namespace Systems.GameBrain
 			// Make the web request and wait for the result
 			yield return StartCoroutine(NetUtility.WebRequest(uri, (x) => response = x, httpMethod, token, requestBody, contentType));
 
+			// If the URI is meant to check if the team is still active, we need to call a funciton that specially converts the response to make it more parsable
+			if (uri.Contains("team_active"))
+			{
+				response = ConvertTeamActiveResponse(response);
+			}
+
 			// Handle the response received
 			HandleNetworkResult(response, callback);
 		}
         #endregion
 
         #region Helper methods
+        /// <summary>
+        /// Converts the response of a team active call to be a string structured as a GenericResponse JSON so it can be interpreted and used.
+        /// This call is necessary because the team active call returns a string of a boolean, rather than a GenericResponse structure.
+        /// </summary>
+        /// <param name="response">The response received from a team active call.</param>
+        /// <returns>The response as JSON.</returns>
+        private string ConvertTeamActiveResponse(string response)
+		{
+			if (networkManager && networkManager.isInDebugMode)
+            {
+				Debug.Log($"Team active response: {response}");
+            }
+			switch (response)
+			{
+				case "true":
+					response = JsonUtility.ToJson(new GenericResponse { success = true, message = response });
+					break;
+				case "false":
+					response = JsonUtility.ToJson(new GenericResponse { success = false, message = response });
+					break;
+				default:
+					Debug.Log($"Received unexpected response from team_active. Received: {response}. Aborting generic response conversion.");
+					break;
+			}
+
+			return response;
+		}
+
 		/// <summary>
 		/// Handles the result of a network call.
 		/// </summary>
@@ -277,8 +311,15 @@ namespace Systems.GameBrain
 			// Create a dictionary to hold the arguments provided
             Dictionary<string, string> providedArguments = ParseCommandLineArgs();
 			// Create variables with defaults to store the URIs we may or may not find
+			string baseURI = "https://foundry.local";
 			string gamebrainURI = "https://foundry.local/gamebrain";
 			string identityURI = "https://foundry.local/identity";
+
+			// If the base URI was provided, set it
+			if (providedArguments.TryGetValue("uriBase", out string _uriBase) && !string.IsNullOrEmpty(_uriBase))
+			{
+				baseURI = _uriBase;
+			}
 
 			// If the Gamebrain URI was provided, set it
 			if (providedArguments.TryGetValue("gamebrainURI", out string _gamebrainURI) && !string.IsNullOrEmpty(_gamebrainURI))
@@ -305,11 +346,12 @@ namespace Systems.GameBrain
 			}
 
 			// Print the URIs supplied
-			//Debug.Log($"Gamebrain URI: {gamebrainURI}");
-			//Debug.Log($"Identity URI: {identityURI}");
+			Debug.Log($"Base URI: {baseURI}");
+			Debug.Log($"Gamebrain URI: {gamebrainURI}");
+			Debug.Log($"Identity URI: {identityURI}");
 
 			// Set the URIs elsewhere for later use and construct the server token and team endpoints
-			NetConfiguration.SetURIs(gamebrainURI, identityURI);
+			NetConfiguration.SetURIs(baseURI, gamebrainURI, identityURI);
 			ClientCredentialSender.SetServerEndpointURIs();
 
 			// Get the CustomNetworkManager to set global parameters if needed

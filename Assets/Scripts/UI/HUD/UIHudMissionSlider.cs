@@ -8,7 +8,6 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using System;
 using UnityEngine;
 
 namespace UI.HUD
@@ -48,13 +47,9 @@ namespace UI.HUD
         /// Sets the position of this slider to be the given mission's centered position.
         /// </summary>
         /// <param name="mission">The mission item in the UI whose position should be set.</param>
-        public void SetPosition(UIHudMissionItem mission, bool instant = false)
+        public void SetPosition(UIHudMissionItem mission)
         {
             currentPosition = mission.ItemCenterPosition;
-            if (instant)
-            {
-                transform.position = GetTargetPosition();
-            }
         }
 
         /// <summary>
@@ -65,14 +60,9 @@ namespace UI.HUD
             if (currentPosition)
             {
                 // Set the target to the current position OR the current position but our own x, depending on if lockXMovement is true or not
-                var target = GetTargetPosition();
+                var target = lockXMovement ? new Vector3(transform.position.x, currentPosition.position.y, currentPosition.position.z) : currentPosition.position;
                 transform.position = Vector3.SmoothDamp(transform.position, target, ref currentVelocity, smoothTime, maxSpeed);
             }
-        }
-
-        private Vector3 GetTargetPosition()
-        {
-            return lockXMovement ? new Vector3(transform.position.x, currentPosition.position.y, currentPosition.position.z) : currentPosition.position;
         }
     }
 }

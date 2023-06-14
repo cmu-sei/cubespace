@@ -31,7 +31,6 @@ namespace Systems.GameBrain
         public override void GetShipData(DataCallback<GameData> callback)
 		{
 			gameData = GameData.CreateFromJSON(localJSONData.text);
-			gameData.Initiate();
 			callback.Invoke(GameData);
 		}
 

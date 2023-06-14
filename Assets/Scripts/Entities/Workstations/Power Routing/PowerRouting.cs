@@ -76,13 +76,15 @@ namespace Entities.Workstations.PowerRouting
         /// A dictionary mapping WorkstationIDs to buttons on the PowerRouting workstation.
         /// </summary>
         public Dictionary<WorkstationID, PowerRoutingButton> workstationButtonDict;
+        /// <summary>
+        /// The text showing the name of the location.
+        /// </summary>
+        private UICurrentShipLocationText locationText;
 
         /// <summary>
         /// The CustomNetworkManager component of the main NetworkManager singleton.
         /// </summary>
         private CustomNetworkManager networkManager;
-
-        private NetworkIdentity networkIdentity;
         #endregion
 
         #region Unity event functions
@@ -119,7 +121,23 @@ namespace Entities.Workstations.PowerRouting
             base.Start();
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
-            networkIdentity = GetComponent<NetworkIdentity>();
+            StartCoroutine(FindLocationLabel());
+        }
+
+        private IEnumerator FindLocationLabel()
+        {
+            while (locationText == null)
+            {
+                try
+                {
+                    locationText = GameObject.Find("Text_LocationName").GetComponent<UICurrentShipLocationText>();
+                }
+                catch
+                {
+                    // Location text not found, keep looping
+                }
+                yield return null;
+            }
         }
         #endregion
 
@@ -224,9 +242,9 @@ namespace Entities.Workstations.PowerRouting
             }
 
             // Make the text transparent so that the "Available Power" sign is visible
-            if (UICurrentShipLocationText.Instance)
+            if (locationText)
             {
-                UICurrentShipLocationText.Instance.AdjustOpacity(fadeOpacity);
+                locationText.AdjustOpacity(fadeOpacity);
             }
         }
 
@@ -242,9 +260,9 @@ namespace Entities.Workstations.PowerRouting
             }
 
             // Make the text opaque again
-            if (UICurrentShipLocationText.Instance)
+            if (locationText)
             {
-                UICurrentShipLocationText.Instance.AdjustOpacity(1);
+                locationText.AdjustOpacity(1);
             }
         }
 
@@ -288,21 +306,13 @@ namespace Entities.Workstations.PowerRouting
 
         #region Commands
         /// <summary>
-        /// Try to change the power state stored on the server if possible.
+        /// Change the power state stored on the server.
         /// </summary>
-        /// <param name="workstationID">The workstation whose power state should chang.</param>
-        /// <param name="state">Resulting powered state of this operation.</param>
+        /// <param name="workstationID">The workstation whose power state has changed.</param>
+        /// <param name="state">Whether the given workstation is powered.</param>
         [Command(requiresAuthority = false)]
-        public void CmdTryChangeSystemPowerState(NetworkIdentity client, WorkstationID workstationID, bool state)
+        public void CmdChangeSystemPowerState(WorkstationID workstationID, bool state)
         {
-            // Trying to turn something on while there's no power
-            if ((!PowerIsAvailable() && state))
-            {
-                Debug.LogWarning("Tried to power a workstation on while there was no power remaining! Reverting client's power state");
-                TargetClientRevertLocalWorkstationPowerState(client.connectionToClient, workstationID, state);
-                return;
-            }
-
             // Update the workstation to be powered
             systemIDPowerStates[workstationID] = state;
             // Get the number of powered workstations
@@ -333,15 +343,6 @@ namespace Entities.Workstations.PowerRouting
         }
         #endregion
 
-        /// <summary>
-        /// Reverts clients local UI and any other immediate state changes from changing power
-        /// </summary>
-        [TargetRpc]
-        public void TargetClientRevertLocalWorkstationPowerState(NetworkConnection target, WorkstationID workstationID, bool stateFailedToChangeTo)
-        {
-            TogglePowerStateRoutingUI(workstationID, !stateFailedToChangeTo);
-        }
-
         #region Power status methods
         /// <summary>
         /// Turns the lights on the powered light strip on or off.
@@ -370,22 +371,15 @@ namespace Entities.Workstations.PowerRouting
             bool workstationPower = GetPowerStateForWorkstation(workstationID);
 
             // There is available power to "spend" and this system is currently unpowered || This system is currently powered
-            //   This check happens locally, if succesful a command is sent to the server to actually change the power state
-            //   On the server this check happens again against the server's state, if that check is succesful, it changes the power state.
-            //   Without the check on the server, the following bug occurs:
-            //   Player hits launch mode button -> check passes command sent to server -> player hits exploration mode button immediatly after ->
-            //   -> check passes again because first command hasn't reached server so actual state hasn't changed -> second command get's sent to server ->
-            //   -> server recieves first command and powers up launch stations -> server recieves second command and powers up exploration stations -> every station is on :(
             if ((PowerIsAvailable() && !workstationPower) || workstationPower)
             {
                 // Switch the state to be powered or unpowered based on its previous state
-                CmdTryChangeSystemPowerState(netIdentity, workstationID, !workstationPower);
-                // Toggle the button UI locally, immediatly. Get's reverted by TargetRPC function if necessary 
+                CmdChangeSystemPowerState(workstationID, !workstationPower);
+                // Toggle the button UI
                 TogglePowerStateRoutingUI(workstationID, !workstationPower);
             }
             else
             {
-                Debug.Log("Failed to toggle power for " + workstationID);
                 workstationButtonDict[workstationID].OnPowerFail();
             }
         }
@@ -444,11 +438,10 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                // In editor, running as Client+Server, workstations register themselves in this dictionary in Awake and OnStartServer get's called in Awake, meaning that
-                // when they go to check their power state in OnStartServer, they may not have been registered yet, resulting in this case, which is not a problem since it should return false anyways.
-                // (See Workstation.cs line 193)
-                // Shouldn't be a problem in real build since OnStartServer will be called after Awake and if they're called at the same time every station that calls this starts powered off anyways
-                // Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
+                }
                 return false;
             }
         }

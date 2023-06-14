@@ -8,13 +8,12 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using Managers;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System;
+using Managers;
 using Systems.GameBrain;
 using UI.HUD;
-using UnityEngine;
 
 /// <summary>
 /// The component which populates mission UI from the Unity server and is responsible for selecting missions.
@@ -47,7 +46,11 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     [SerializeField]
     private UIHudMissionDetailsPanel missionDetails;
-
+    /// <summary>
+    /// The vignette used in the back of the mission log to obfuscate the rest of the game.
+    /// </summary>
+    [SerializeField]
+    private GameObject vignetteObject;
     /// <summary>
     /// Mission list parent object, holding the mission list items.
     /// </summary>
@@ -74,7 +77,21 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     public void OnEnable()
     {
-        ShipStateManager.OnMissionDatasChange += OnMissionDataChange;
+        ShipStateManager.OnMissionDataChange += OnMissionDataChange;
+        if (vignetteObject)
+        {
+            vignetteObject.SetActive(true);
+        }
+
+        if (ShipStateManager.Instance)
+        {
+            SetFromMissionData(ShipStateManager.Instance.MissionData);
+        }
+
+        if (missionItems != null && missionItems.Count > 0)
+        {
+            SelectMission(missionItems[lastSelectedIndex]);
+        }
     }
 
     /// <summary>
@@ -82,7 +99,11 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     private void OnDisable()
     {
-        ShipStateManager.OnMissionDatasChange -= OnMissionDataChange;
+        ShipStateManager.OnMissionDataChange -= OnMissionDataChange;
+        if (vignetteObject)
+        {
+            vignetteObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -91,57 +112,23 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// <param name="data">The mission data received.</param>
     private void OnMissionDataChange(List<MissionData> data)
     {
-        SetMissionItemsFromMissionData(data);
-        UpdateDetailsForSelectedMission(data);
+        SetFromMissionData(data);
     }
 
     /// <summary>
-    /// Called when the mission log is opened to initialize the mission log. Starts a coroutine to wait a frame before initialization
-    /// </summary>
-    public void OnOpen()
-    {
-        StartCoroutine(Co_Open());
-    }
-
-    // Hack to get around text not getting set properly
-    private IEnumerator Co_Open()
-    {
-        // If you set the text in the details panel without waiting a frame, they don't actually update. Waiting a frame adds a little skip but seems to work reliably
-        yield return null;
-
-        SetMissionItemsFromMissionData(ShipStateManager.Instance.MissionDatas);
-
-        // If the last selected mission is still valid, open the log to it
-        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionItems.Count && missionItems[lastSelectedIndex].CachedMissionData.visible)
-        {
-            SelectMission(missionItems[lastSelectedIndex]);
-        }
-        // Else default to first in the list
-        else if (missionItems.Count > 0 && missionItems[0].CachedMissionData.visible)
-        {
-            SelectMission(missionItems[0]);
-        }
-        else
-        {
-            Debug.LogWarning("Mission log failed to open previously selected mission");
-        }
-    }
-
-    /// <summary>
-    /// Sets the missions displayed from the mission data. Called when you open the mission log and when OnMissionsChanged is fired while the log is open
+    /// Sets the missions displayed from the mission data.
     /// </summary>
     /// <param name="missionData">The mission data received.</param>
-    public void SetMissionItemsFromMissionData(List<MissionData> missionData)
+    public void SetFromMissionData(List<MissionData> missionData)
     {
         for (int i = 0; i < missionData.Count; i++)
         {
             if (i >= missionItems.Count)
             {
-                GameObject missionListing = Instantiate(missionListingItemPrefab, missionListParent);
-                missionItems.Add(missionListing.GetComponent<UIHudMissionItem>());
+                missionItems.Add(Instantiate(missionListingItemPrefab, missionListParent).GetComponent<UIHudMissionItem>());
             }
 
-            if (missionData[i].visible)
+            if (missionData.Count > i && missionData[i].visible)
             {
                 missionItems[i].gameObject.SetActive(true);
                 missionItems[i].SetMissionData(missionData[i]);
@@ -150,17 +137,11 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
             {
                 missionItems[i].gameObject.SetActive(false);
             }
-        }
-    }
 
-    /// <summary>
-    /// Updates the details panel for the currently selected mission when new mission data is recieved
-    /// </summary>
-    private void UpdateDetailsForSelectedMission(List<MissionData> missionData)
-    {
-        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionData.Count && missionData[lastSelectedIndex].visible)
-        {
-            missionDetails.SetMissionDetailsData(missionData[lastSelectedIndex]);
+            if (i == lastSelectedIndex)
+            {
+                missionDetails.SetMissionData(missionItems[i].VisibleMissionData);
+            }
         }
     }
 
@@ -168,7 +149,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// Selects a given mission within the UI.
     /// </summary>
     /// <param name="item">The UI piece for a mission.</param>
-    public void SelectMission(UIHudMissionItem item, bool jumpToPosition = false)
+    public void SelectMission(UIHudMissionItem item)
     {
         var index = Array.IndexOf(missionItems.ToArray(), item);
         lastSelectedIndex = index;
@@ -178,33 +159,14 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         {
             missionItems[i].SetSelected(i == index);
         }
-        missionDetails.SetMissionDetailsData(item.CachedMissionData);
-        if (jumpToPosition)
-        {
-            ScrollToMission(item);
-        }
-
-        //update after scrolltomission.
-        missionSlider.SetPosition(item, jumpToPosition);
+        missionDetails.SetMissionData(item.VisibleMissionData);
+        missionSlider.SetPosition(item);
     }
 
-    private void ScrollToMission(UIHudMissionItem item)
+    public void SelectMission(int index)
     {
-        //set missionListParent y position such that the scrollbar updates.
-        //the scrollview will clamp/control the y position within bounds and move the scrollbar itself.
-        //0 is the top, some positive y value us the bottom.
-
-        var itemTransform = item.transform as RectTransform;
-        float offset = itemTransform.anchoredPosition.y;
-       
-        var missionParent = missionListParent.transform as RectTransform;
-        missionParent.anchoredPosition = new Vector3(missionParent.anchoredPosition.x, -offset/2);
-    }
-
-    public void SelectMission(int index,bool jumpToPosition =false )
-    {
-        UIHudMissionItem item = missionItems[index]; // TODO: make this search based on id, not index
-        SelectMission(item, jumpToPosition);
+        UIHudMissionItem item = missionItems[index];
+        SelectMission(item);
     }
 }
 

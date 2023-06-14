@@ -19,12 +19,11 @@ using System.Collections.Generic;using UnityEngine;namespace Managers{	/// 
 		/// </summary>
 		/// <param name="imageID">The ID for the location image.</param>
 		/// <param name="defaultID">A default to use in case the function cannot find the image with the given ID.</param>
-		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			// Return null if there is no image ID given or the images dictionary is empty			if (string.IsNullOrEmpty(imageID) || images == null)			{				return null;			}
+		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			// Return null if there is no image ID given or the images dictionary is empty			if (imageID == "" || images == null)			{				return null;			}
 			// If the image ID exists in the dictionary, return the corresponding image			if (images.TryGetValue(imageID, out Sprite image))			{				return image;			}			// Otheriwse, if the default ID was given and is in the dictionary, return it			else if (defaultID != "" && images.TryGetValue(defaultID, out image))
             {
 				return image;
 			}			// If neither case is true, get a random image for this ID and put it in the dictionary
-			// TODO: This should probably require calling this with a flag or something. I don't want this behavior by default
 			var s = GetRandomImage();
 			images.Add(imageID, s);
 			return s;		}		/// <summary>

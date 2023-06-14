@@ -1,6 +1,5 @@
 using Managers;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -19,7 +18,7 @@ namespace Entities.Workstations.PowerRouting
         /// Whether this button is used to power workstation explorations.
         /// </summary>
         [SerializeField]
-        private bool isExplorationButton = false;
+        private bool powerForExploration = false;
 
         /// <summary>
         /// The manager used to control workstation information.
@@ -32,78 +31,66 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         private void OnMouseDown()
         {
-            if (isExplorationButton && powerRouting.GetAllPoweredForExploration())
-            {
-                SetExplorationMode(false);
-                return;
-            }
-            else if (!isExplorationButton && powerRouting.GetAllPoweredForLaunch())
-            {
-                SetLaunchMode(false);
-                return;
-            }
+            bool wasAllPoweredForExploration = powerRouting.GetAllPoweredForExploration();
+            bool wasAllPoweredForLaunch = powerRouting.GetAllPoweredForLaunch();
 
-            DepowerUnneededStations();
+            // Turn everything off
+            DepowerAll();
 
-            if (isExplorationButton)
+            if (powerForExploration)
             {
-                SetExplorationMode(true);
+                if (!wasAllPoweredForExploration || wasAllPoweredForLaunch)
+                {
+                    ToggleAllInExplorationMode();
+                }
             }
             else
             {
-                SetLaunchMode(true);
+                if (!wasAllPoweredForLaunch)
+                {
+                    ToggleAllInLaunchMode();
+                }
             }
         }
 
         /// <summary>
-        /// Powers off all workstations except
+        /// Powers off all workstations.
         /// </summary>
-        private void DepowerUnneededStations()
+        private void DepowerAll()
         {
             foreach (Workstation w in _workstationManager.GetWorkstations())
             {
-                if (isExplorationButton)
+                if (!w.AlwaysHasPower && w.IsPowered)
                 {
-                    if (!w.AlwaysHasPower && !w.UsedInExplorationMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
-                }
-                else
-                {
-                    if (!w.AlwaysHasPower && !w.UsedInLaunchMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
+                    powerRouting.workstationButtonDict[w.StationID].OnButtonClick();
                 }
             }
         }
 
         /// <summary>
-        /// Toggles the power state of all launch mode workstations that are currently unpowered
+        /// Toggles the power state of all launch mode workstations.
         /// </summary>
-        private void SetLaunchMode(bool power)
+        private void ToggleAllInLaunchMode()
         {
-            List<Workstation> ws = _workstationManager.GetLaunchWorkstations();
             foreach (Workstation w in _workstationManager.GetLaunchWorkstations())
             {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
+                if (!w.AlwaysHasPower)
                 {
-                    powerRouting.TogglePowerState(w.StationID);
+                    powerRouting.workstationButtonDict[w.StationID].OnButtonClick();
                 }
             }
         }
 
         /// <summary>
-        /// Toggles the power state of all exploration mode workstations that are currently unpowered
+        /// Toggles the power state of all exploration mode workstations.
         /// </summary>
-        private void SetExplorationMode(bool power)
+        private void ToggleAllInExplorationMode()
         {
             foreach (Workstation w in _workstationManager.GetExplorationWorkstations())
             {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
+                if (!w.AlwaysHasPower)
                 {
-                    powerRouting.TogglePowerState(w.StationID);
+                    powerRouting.workstationButtonDict[w.StationID].OnButtonClick();
                 }
             }
         }

@@ -58,7 +58,7 @@ namespace Systems
         // An action that fires when loading fails
         public static Action OnLoadFailed;
 
-        // The token to pass to ShipStateManager, used by Player.cs when client connects (CmdSendClientToken)
+        // The token to pass to ShipStateManager
         public string token = null;
         // The link to the server the client will connect to
         public string serverLink = null;
@@ -189,7 +189,7 @@ namespace Systems
             {
                 OnLoadFailed.Invoke();
             }
-            Debug.LogError("Loading failed; either the given address is wrong, or the server is not running.");
+            Debug.Log("Loading failed; either the given address is wrong, or the server is not running.");
         }
 
         /// <summary>

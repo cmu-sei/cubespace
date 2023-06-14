@@ -70,11 +70,9 @@ namespace Systems.GameBrain
 		{
 			// Instantiate the dictionary, then add all received locations to it
 			locationMap = new Dictionary<string, Location>();
-
-			if (locations == null) return;
 			foreach (var location in locations)
 			{
-				locationMap.Add(location.locationID, location);
+				locationMap.Add(location.locationID,location);
 			}
 		}
 	}
@@ -93,25 +91,19 @@ namespace Systems.GameBrain
 		public string jumpCutsceneURL;
 		// The timestamp when the game starts
 		public string gameStartTime;
-        // The timestamp on the Gamebrain server
-        public string gameCurrentTime;
-        // The timestamp when the game ends
-        public string gameEndTime;
+		// The timestamp when the game ends
+		public string gameEndTime;
 		// The DateTime when the game starts
 		public DateTime gameStartDateTime;
 		// The DateTime when the game ends
 		public DateTime gameEndDateTime;
-		// The current time on the Gamebrain server; ensure this name matches the one in the JSON sent by Gamebrain
-		public DateTime gameCurrentDateTime;
 		// The title to give the timer
 		public string timerTitle;
 		// Whether to use the galaxy display map
 		public bool useGalaxyDisplayMap;
-		// Whether to display codices (mission pogs)
+		// Whether to display codices
 		public bool useCodices;
-		// Whether to show empty pogs for incomplete but visable missions
-		public bool displayIncompleteMissionPogs;
-    }
+	}
 
 	/// <summary>
 	/// Class providing URLs for each VM workstation and the Codex workstation.
@@ -119,24 +111,21 @@ namespace Systems.GameBrain
 	[Serializable]
 	public class ShipData
 	{
-		// Codex workstation URL; This is from a previous years competition but remains for backwards compatibility
-		// If this is present the codex station will use it, otherwise if it null the codex station will be *TBD*
+		// Codex workstation URL
 		public string codexURL;
-		// Old structure for VM workstation URLs; each one of these maps to one Cyber Operations station
+		// VM workstation URLs
 		public string workstation1URL;
 		public string workstation2URL;
 		public string workstation3URL;
 		public string workstation4URL;
 		public string workstation5URL;
-        // New data structure for VM URLs available for each mission at CyberOps stations. If this field is present, they will be used over the old structure above
-        public MissionVMs[] challengeURLs;
-
-        /// <summary>
-        /// Gets the URL for a virtual machine workstation given the workstation's ID. This is the old structure, which remains for backwards compatibility
-        /// </summary>
-        /// <param name="stationID">The identifier of the VM/Codex workstation.</param>
-        /// <returns>A URL for the provided workstation.</returns>
-        public string GetURLForStation(WorkstationID stationID)
+		
+		/// <summary>
+		/// Gets the URL for a virtual machine workstation given the workstation's ID.
+		/// </summary>
+		/// <param name="stationID">The identifier of the VM/Codex workstation.</param>
+		/// <returns>A URL for the provided workstation.</returns>
+		public string GetURLForStation(WorkstationID stationID)
 		{
 			switch (stationID)
 			{
@@ -156,45 +145,11 @@ namespace Systems.GameBrain
 					return "";
 			}
 		}
-
-		// If the new data structure is present, use it
-		public bool IsMissionVMsStructureInUse()
-		{
-			return challengeURLs != null && challengeURLs.Length > 0;
-		}
 	}
 
-    /// <summary>
-    /// New data structure for VM URLs available at CyberOps stations for a given mission
-    /// </summary>
-    [Serializable]
-	public class MissionVMs
-	{
-		// ID of the mission; maps to an icon, mission in MissionData, etc
-		public string missionID;
-		// Display name of this mission
-		public string missionName;
-		// The id of the icon for this vm
-		public string missionIcon;
-		// All the vms/challenges available for this mission
-		public ChallengeVM[] vmURLs;
-	}
-
-    /// <summary>
-    /// An individual VM that a user can open from a CyberOps station to complete a challenge
-    /// </summary>
-    [Serializable]
-	public class ChallengeVM
-	{
-		// The display name of this vm
-		public string vmName;
-		// The url to open to connect to this vm
-		public string vmURL;
-	}
-
-    /// <summary>
-    /// A class storing information for a mission, with that data being rendered in the Mission Log.
-    /// </summary>
+	/// <summary>
+	/// A class storing information for a mission, with that data being rendered in the Mission Log.
+	/// </summary>
     [Serializable]
 	public class MissionData
 	{
@@ -206,12 +161,10 @@ namespace Systems.GameBrain
 		public int baseSolveValue;
 		// The number of bonus points remaining
 		public int bonusRemaining;
-		// The currentScore attained for this mission
-		public int currentScore;
-		// All challenges (aka cache challenges) associated with this one which will be unlocked when the player completes this mission
-		public AssociatedChallengeData[] associatedChallenges;
-        // The number of teams who have attempted the challenge
-        public int totalTeams;
+		// THe challenge associated with this one; for ship challenges, this should be null
+		public string[] associatedChallenges;
+		// The number of teams who have attempted the challenge
+		public int totalTeams;
 		// The number of teams who have solved the challenge
 		public int solveTeams;
 		// Boolean that must be true for the mission to appear in the Mission Log
@@ -232,14 +185,14 @@ namespace Systems.GameBrain
 		public string[] roleList;
 		// A list of the different tasks used in this mission
 		public TaskData[] taskList;
-		// The x position of the mission on the galaxy map. Allowable range: [-540, 540]. Give each a circle with diameter 125 t0 avoid overlap
+		// The x position of the mission on the galaxy map
 		public float galaxyMapXPos;
-        // The y position of the mission on the galaxy map. Allowable range: [-320, 320]
-        public float galaxyMapYPos;
-        // The x position of the target of the mission on the galaxy map. Allowable range: [-540, 540]
-        public float galaxyMapTargetXPos;
-        // The y position of the target of the mission on the galaxy map. Allowable range: [-320, 320]
-        public float galaxyMapTargetYPos;
+		// The y position of the mission on the galaxy map
+		public float galaxyMapYPos;
+		// The x position of the target of the mission on the galaxy map
+		public float galaxyMapTargetXPos;
+		// The y position of the target of the mission on the galaxy map
+		public float galaxyMapTargetYPos;
 
 		/// <summary>
 		/// Checks this mission against another mission object to see if they're the same.
@@ -248,36 +201,25 @@ namespace Systems.GameBrain
 		/// <returns>Whether the missions are equal.</returns>
 		public bool IsEquivalentTo(MissionData obj)
 		{
+			// First, order the two task lists, because they also need comparison
+			TaskData[] l = taskList.OrderBy(t => t.taskID).ToArray();
+			TaskData[] l2 = obj.taskList.OrderBy(t => t.taskID).ToArray();
+
 			// Return if the different attributes between the two missions are equal
 			return missionID == obj.missionID
-				//first compare bools and ints
-				&& complete == obj.complete
-				&& totalTeams == obj.totalTeams
-				&& solveTeams == obj.solveTeams
-				&& possibleMaximumScore == obj.possibleMaximumScore
-				&& baseSolveValue == obj.baseSolveValue
-				&& bonusRemaining == obj.bonusRemaining
-				&& currentScore == obj.currentScore
 				&& visible == obj.visible
+				&& complete == obj.complete
 				&& isSpecial == obj.isSpecial
-
-				// then compare strings and arrays
 				&& title == obj.title
 				&& missionIcon == obj.missionIcon
 				&& summaryShort == obj.summaryShort
 				&& summaryLong == obj.summaryLong
 				&& roleList.Length == obj.roleList.Length
 				&& roleList.All(obj.roleList.Contains)
-
-                && IsAssociatedChallengeEquivalent(associatedChallenges, obj.associatedChallenges)
-				&& IsTaskDataEquivalent(taskList, obj.taskList)
-
-				// then compare things we know don't update often
-				&& Math.Abs(galaxyMapXPos - obj.galaxyMapXPos) < Mathf.Epsilon
-				&& Math.Abs(galaxyMapYPos - obj.galaxyMapYPos) < Mathf.Epsilon
-				&& Math.Abs(galaxyMapTargetXPos - obj.galaxyMapTargetXPos) < Mathf.Epsilon
-				&& Mathf.Abs(galaxyMapTargetYPos - obj.galaxyMapTargetYPos) < Mathf.Epsilon;
-        }
+				&& l.Length == l2.Length
+				// The last step is to compare the individual elements of the two task lists
+				&& HelperEquals(l, l2);
+		}
 
 		/// <summary>
 		/// Helper method for comparison between two task lists.
@@ -285,60 +227,19 @@ namespace Systems.GameBrain
 		/// <param name="l">The first task list.</param>
 		/// <param name="l2">The second task list.</param>
 		/// <returns>Whether the two task lists are equal.</returns>
-		private bool IsTaskDataEquivalent(TaskData[] l, TaskData[] l2)
+		private bool HelperEquals(TaskData[] l, TaskData[] l2)
         {
-			// If both are null, return true
-			if (l == null && l2 == null)
-			{
-				return true;
-			}
-			// if only one is null or the lists are different lengths, return false
-			else if (l == null || l2 == null || l.Length != l2.Length)
-			{
-				return false;
-			}
-
-			TaskData[] ol = l.OrderBy(t => t.taskID).ToArray();
-            TaskData[] ol2 = l2.OrderBy(t => t.taskID).ToArray();
-
-            // Loop through all tasks in the two lists and compare them; return false if any two differ
-            for (int i = 0; i < ol.Length; i++)
+			// Loop through all tasks in the two lists and compare them; return false if any two differ
+			for (int i = 0; i < l.Length; i++)
             {
-				if (!ol[i].IsEquivalentTo(ol2[i]))
+				if (!l[i].IsEquivalentTo(l2[i]))
 				{
 					return false;
 				}
             }
 			return true;
         }
-
-        private bool IsAssociatedChallengeEquivalent(AssociatedChallengeData[] l, AssociatedChallengeData[] l2)
-        {
-            // If both are null, return true
-            if (l == null && l2 == null)
-            {
-                return true;
-            }
-            // if only one is null or the lists are different lengths, return false
-            else if (l == null || l2 == null || l.Length != l2.Length)
-            {
-                return false;
-            }
-
-            AssociatedChallengeData[] ol = l.OrderBy(t => t.missionID).ToArray();
-            AssociatedChallengeData[] ol2 = l2.OrderBy(t => t.missionID).ToArray();
-
-            // Loop through all tasks in the two lists and compare them; return false if any two differ
-            for (int i = 0; i < ol.Length; i++)
-            {
-                if (!ol[i].IsEquivalentTo(ol2[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
+	}
 
 	/// <summary>
 	/// Information on a specific task within a mission.
@@ -386,26 +287,9 @@ namespace Systems.GameBrain
 	}
 
 	/// <summary>
-	/// Information on a mission that is linked to another mission (cache missions)
+	/// A class holding information on a communication that takes place at the sensor station.
 	/// </summary>
 	[Serializable]
-	public class AssociatedChallengeData
-	{
-		// The id of the associated mission
-		public string missionID;
-		// The coordinates of the location the mission is at, shown to player in the galaxy map when the mission this is associated with is complete
-		public string unlockCode;
-
-        public bool IsEquivalentTo(AssociatedChallengeData obj)
-        {
-            return missionID == obj.missionID && unlockCode == obj.unlockCode;
-        }
-    }
-
-    /// <summary>
-    /// A class holding information on a communication that takes place at the sensor station.
-    /// </summary>
-    [Serializable]
 	public class CommEvent
 	{
 		// The ID of the comm event

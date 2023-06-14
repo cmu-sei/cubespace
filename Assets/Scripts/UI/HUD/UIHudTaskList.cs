@@ -61,7 +61,6 @@ public class UIHudTaskList : MonoBehaviour
     {
         additionalInfoCloseButton.onClick.AddListener(CloseAdditionalInfo);
         CloseAdditionalInfo();
-        additionalInfoText.text = "";
     }
 
     /// <summary>

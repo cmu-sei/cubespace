@@ -68,7 +68,7 @@ namespace Entities.Workstations
         /// </summary>
         [SerializeField]
         private float timeToZoom = 1.5f;
-        
+
         /// <summary>
         /// Whether this workstation is always powered on, no matter what. Derives from a private variable.
         /// </summary>
@@ -170,13 +170,6 @@ namespace Entities.Workstations
             }
             #endif
         }
-
-        protected void OnDestroy()
-        {
-            _workstationManager.DeregisterWorkstation(stationID, this);
-        }
-        
-
         #endregion
 
         #region Mirror networking methods
@@ -275,7 +268,6 @@ namespace Entities.Workstations
             {
                 StartCoroutine(ExitWorkstationView(CameraManager.Instance.mainVCam, willReset));
                 UI.HUD.UIExitWorkstationButton.Instance.DisableButton();
-                UI.HUD.UICurrentWorkstationPowerStatusDisplay.ExitWorkstation();
             }
         }
 
@@ -367,7 +359,6 @@ namespace Entities.Workstations
             // Set the camera position and enable the exit button
             camDolly.m_PathPosition = camDolly.m_Path.MaxPos;
             UI.HUD.UIExitWorkstationButton.Instance.EnableButton(this);
-            UI.HUD.UICurrentWorkstationPowerStatusDisplay.EnterWorkstation(this);
         }
 
         /// <summary>

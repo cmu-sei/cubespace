@@ -1,4 +1,5 @@
-using Managers;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -59,27 +60,27 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (tooltipType == TooltipType.Display)
         {
             DisplayTooltip.Instance.gameObject.SetActive(true);
-            DisplayTooltip.Instance.SetProperties(system.missionData, flip);
+            DisplayTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
 
         }
         // Sets the position of the tooltip displaying the solve count
         else if (tooltipType == TooltipType.SolveCount)
         {
             SolveCountTooltip.Instance.gameObject.SetActive(true);
-            SolveCountTooltip.Instance.SetProperties(system.missionData, flip);
+            SolveCountTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
             rect = SolveCountTooltip.Instance.rect;
-            finalPosition.y -= 30;
+            finalPosition.y -= 44;
         }
         // Sets the position of the tooltip displaying the number of points
         else
         {
             PointsTooltip.Instance.gameObject.SetActive(true);
-            PointsTooltip.Instance.SetProperties(system.missionData, flip);
+            PointsTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
             rect = PointsTooltip.Instance.rect;
-            finalPosition.y += 30;
+            finalPosition.y += 48;
         }
 
-        // Flip the tooltip if necessary
+        // Flip hte tooltip if necessary
         if (flip)
         {
             finalPosition.x -= (rect.sizeDelta.x / 2 + system.tooltipHorizontalBuffer);

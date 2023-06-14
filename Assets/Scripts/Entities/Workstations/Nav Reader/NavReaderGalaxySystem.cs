@@ -2,7 +2,6 @@ using Managers;
 using System.Collections;
 using Systems.GameBrain;
 using TMPro;
-using UI.ColorPalettes;
 using UI.HUD;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -61,7 +60,20 @@ public class NavReaderGalaxySystem : TooltipControl
     [SerializeField]
     private TextMeshProUGUI solveCountText;
 
+    /// <summary>
+    /// The hex code of the associated cache. In the future, this should be specified and read from the 
+    /// mission data rather than be set here.
+    /// </summary>
     [Header("Configuration Variables")]
+    [SerializeField]
+    private string cacheHexCode = "123ABC";
+    /// <summary>
+    /// The number of teams who have solved this challenge. In the future, this should be replaced in
+    /// SetSystemMission with md.solveCount to read from the mission data.
+    /// </summary>
+    [SerializeField]
+    [Range(0, 5)]
+    private int solveCount = 0;
     /// <summary>
     /// The image map with IDs corresponding to system images.
     /// </summary>
@@ -77,28 +89,33 @@ public class NavReaderGalaxySystem : TooltipControl
     public float tooltipHorizontalBuffer = 40.0f;
 
     /// <summary>
-    /// The line connecting this system to the target point.
+    /// The Image component of the line connecting this system to the target point.
     /// </summary>
-    private GameObject lineObj;
     private Image lineImage;
     /// <summary>
     /// The Image component of the target point.
     /// </summary>
-    private GameObject targetObj;
     private Image targetImage;
 
     /// <summary>
     /// The index of the mission associated with this system.
     /// </summary>
     [HideInInspector]
-    public int index = -1; // TODO: This is only used for selection missions. Should rework all that to use IDs instead and get rid of all referencing to missions by index which is fragile AF
+    public int index = -1;
     /// <summary>
-    /// The mission associated with this system, cached when updated mission data is sent from the ShipStateManager
+    /// The score of the mission associated with this system. In the future, this should be deprecated 
+    /// and the above index should be used to read the current score directly from the mission data.
     /// </summary>
     [HideInInspector]
-    public MissionData missionData = null;
+    public int currentScore = 0;
 
-    [SerializeField] private ColorPalette _palette;
+    /// <summary>
+    /// Unity event function that simply updates the visual state every frame.
+    /// </summary>
+    void Update()
+    {
+        UpdateVisualState();
+    }
 
     /// <summary>
     /// Unity event function that starts a coroutine when the mouse enters this object.
@@ -133,149 +150,71 @@ public class NavReaderGalaxySystem : TooltipControl
             if (Input.GetMouseButtonDown(0))
             {
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(index, true); // TODO: Just pass along missionID and get rid of the index altogether
-                // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
+                UIHudMissionManager.Instance.SelectMission(index);
+                HUDController.Instance.MissionLogButton.OnClick();
             }
+
+            #if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                AdvanceState();
+            }
+            #endif
 
             yield return null;
-        }
-    }
-
-    public void InitializeSystem(MissionData md, int missionIndex, GameObject line, GameObject target)
-    {
-        lineObj = line;
-        targetObj = target;
-        lineImage = line.transform.GetComponent<Image>();
-        targetImage = target.transform.GetChild(0).GetComponent<Image>();
-
-        UpdateSystem(md, missionIndex);
-    }
-
-    /// <summary>
-    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
-    /// </summary>
-    /// <param name="md">The mission data to populate this system with.</param>
-    /// <param name="index">The index of the mission in the mission log.</param>
-    /// <param name="line">The line drawn between the system and its target point.</param>
-    /// <param name="target">The target point.</param>
-    public void UpdateSystem(MissionData md, int missionIndex)
-    {
-        if (lineObj == null || targetObj == null)
-        {
-            Debug.LogError("Tried to update a galaxy map system without initializing it first!");
-            return;
-        }
-
-        index = missionIndex;
-        missionData = md;
-
-        ToggleState(missionData.visible);
-        if (missionData.visible)
-        {
-            // Display the correct score according to what was received
-            if (!missionData.complete)
-            {
-                //For missions that have been started, but not finished, display this score.
-                pointsText.text = (missionData.baseSolveValue + missionData.bonusRemaining).ToString();
-            }
-            else
-            {
-                //for completed missions, show the score we got.
-                pointsText.text = missionData.currentScore.ToString();
-            }
-
-            // Update the solve count and image
-            solveCountText.text = $"{missionData.solveTeams}/{missionData.totalTeams}";
-            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon);
-
-            UpdateVisualState(missionData);
-            UpdatePosition(missionData);
-        }
-    }
-
-    /// <summary>
-    /// Sets whether this mission is visible.
-    /// </summary>
-    /// <param name="isVisible">Whether this mission is visible.</param>
-    private void ToggleState(bool isVisible)
-    {
-        gameObject.SetActive(isVisible);
-        if (lineImage && targetImage)
-        {
-            lineObj.SetActive(isVisible);
-            targetObj.SetActive(isVisible);
         }
     }
 
     /// <summary>
     /// Updates the visual state of this system based on its completion state.
     /// </summary>
-    private void UpdateVisualState(MissionData m)
+    public void UpdateVisualState()
     {
-        Color setColor = _palette.incompleteHighlightColor;
+        Color setColor = HUDController.Instance.incompleteHighlightColor;
 
-        int currentScore = m.currentScore;
+        if (ShipStateManager.Instance)
+        {
+            // Check the base score value
+            int baseSolveValue = ShipStateManager.Instance.MissionData[index].baseSolveValue;
 
-        // If incomplete and not started
-        if (!m.complete && currentScore == 0)
-        {
-            pointsInnerBacking.color = Color.white;
-            pointsText.color = Color.black;
-        }
-        // If partially solved
-        else if (!m.complete && currentScore > 0)
-        {
-            pointsInnerBacking.color = Color.white;
-            pointsText.color = Color.black;
-            setColor = _palette.partiallyCompletedHighlightColor;
-        }
-        // If fully solved
-        else if (m.complete)
-        {
-            // Check to see if all associated missions have been completed
-            bool cacheComplete = true;
-            foreach (AssociatedChallengeData associatedChallenge in m.associatedChallenges)
+            // If incomplete
+            if (currentScore == 0)
             {
-                foreach (MissionData associatedMission in ShipStateManager.Instance.MissionDatas)
-                {
-                    if (associatedMission.missionID == associatedChallenge.missionID)
-                    {
-                        cacheComplete &= associatedMission.complete;
-                    }
-                }
+                pointsInnerBacking.color = Color.white;
+                pointsText.color = Color.black;
             }
-
-            if (cacheComplete)
+            // If partially solved
+            else if (currentScore < baseSolveValue)
             {
-                pointsInnerBacking.color = Color.magenta;
-                pointsText.color = Color.white;
-                setColor = Color.blue;
+                pointsInnerBacking.color = Color.white;
+                pointsText.color = Color.black;
+                setColor = HUDController.Instance.partiallyCompletedHighlightColor;
             }
-            else
+            // If fully solved
+            else if (currentScore >= baseSolveValue)
             {
                 pointsInnerBacking.color = Color.black;
                 pointsText.color = Color.white;
-                setColor = _palette.completedHighlightColor;
+                setColor = HUDController.Instance.completedHighlightColor;
             }
         }
 
         // Flip the display, points, and solve count tooltips if specified
         bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
 
-        // Check if the tooltips are being displayed for this mission, if so update those tooltips with this new data
-        if (DisplayTooltip.Instance.id == m.missionID)
+        if (DisplayTooltip.Instance.index == index)
         {
-            DisplayTooltip.Instance.SetProperties(m, flip);
+            DisplayTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
         }
 
-        if (PointsTooltip.Instance.id == m.missionID)
+        if (PointsTooltip.Instance.index == index)
         {
-            PointsTooltip.Instance.SetProperties(m, flip);
+            PointsTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
         }
 
-        if (SolveCountTooltip.Instance.id == m.missionID)
+        if (SolveCountTooltip.Instance.index == index)
         {
-            SolveCountTooltip.Instance.SetProperties(m, flip);
+            SolveCountTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
         }
 
         // Update colors
@@ -286,39 +225,76 @@ public class NavReaderGalaxySystem : TooltipControl
         pointsBorderImage.color = setColor;
     }
 
-    // Sets the position of the system, line, and target on the galaxy map
-    private void UpdatePosition(MissionData md)
+    /// <summary>
+    /// Advances the solve state of this system based on the current score. This function is only called in-editor.
+    /// </summary>
+    public void AdvanceState()
     {
-        //Allowable x range: [-540, 540]. Allowable y range: [-320, 320]. Give each a circle with diameter 125 to avoid overlap
-        GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
-        targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
-
-        // Get TectTransform references
-        RectTransform lineRect = lineObj.GetComponent<RectTransform>();
-        RectTransform coreDisplayTransform = CoreDisplayRect;
-        RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
-
-        // Get the positions of the RectTransforms
-        Vector2 coreDisplayPosition = coreDisplayTransform.position;
-        Vector2 targetPosition = targetRectTransform.position;
-        Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
-        Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
-
-        // Calculate the distance between the system
-        Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
-        float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
-
-        // Draw the line between the system and its target
-        lineRect.position = midpoint;
-        lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
-        float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
-        lineRect.rotation = Quaternion.Euler(0, 0, z);
+        // Set the mission state to be incomplete
+        if (currentScore >= ShipStateManager.Instance.MissionData[index].baseSolveValue)
+        {
+            currentScore = 0;
+        }
+        else
+        {
+            // Sets the mission state to be partially complete
+            if (currentScore == 0)
+            {
+                currentScore = ShipStateManager.Instance.MissionData[index].baseSolveValue - 1;
+            }
+            // Sets the mission state to be complete
+            else
+            {
+                currentScore = ShipStateManager.Instance.MissionData[index].baseSolveValue;
+            }
+        }
     }
 
-    public void Delete()
+    /// <summary>
+    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log.
+    /// </summary>
+    /// <param name="md">The mission data to populate this system with.</param>
+    /// <param name="index">The index of the mission in the mission log.</param>
+    /// <param name="line">The line drawn between the system and its target point.</param>
+    /// <param name="target">The target point.</param>
+    public void SetSystemMission(MissionData md, int index, Image line = null, Image target = null)
     {
-        Destroy(lineObj);
-        Destroy(targetObj);
-        Destroy(gameObject);
+        if (line && target)
+        {
+            lineImage = line;
+            targetImage = target;
+        }
+
+        // Display the correct score according to what was received
+        if (currentScore < md.baseSolveValue)
+        {
+            pointsText.text = (md.baseSolveValue + md.bonusRemaining).ToString();
+        }
+        else
+        {
+            pointsText.text = currentScore.ToString();
+        }
+
+        // Update the solve count and image
+        solveCountText.text = $"{solveCount}/{md.totalTeams}";
+        spriteImage.sprite = imageMap.GetImage(md.missionIcon);
+
+        this.index = index;
+
+        ToggleState(md.visible);
+    }
+
+    /// <summary>
+    /// Sets whether this mission is visible.
+    /// </summary>
+    /// <param name="isVisible">Whether this mission is visible.</param>
+    public void ToggleState(bool isVisible)
+    {
+        gameObject.SetActive(isVisible);
+        if (lineImage && targetImage)
+        {
+            lineImage.gameObject.SetActive(isVisible);
+            targetImage.gameObject.SetActive(isVisible);
+        }
     }
 }

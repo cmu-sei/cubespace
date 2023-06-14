@@ -27,7 +27,7 @@ namespace UI.HUD
 		/// <summary>
 		/// The tags used for each role.
 		/// </summary>
-		public UIHudRoleTagItem[] RoleTags; // Should have 4 of these set in the editor
+		public UIHudRoleTagItem[] RoleTags;
 
 		//      "Cyber Defense Forensics Analyst"
 		//      "Cyber Defense Incident Responder"
@@ -52,12 +52,12 @@ namespace UI.HUD
 			{
 				if (roles.Length > i && !String.IsNullOrWhiteSpace(roles[i]))
 				{
-					RoleTags[i].gameObject.SetActive(true);
+					RoleTags[i].Show();
 					RoleTags[i].SetRole(roles[i]);
 				}
 				else
 				{
-					RoleTags[i].gameObject.SetActive(false);
+					RoleTags[i].Hide();
 				}
 			}
 			

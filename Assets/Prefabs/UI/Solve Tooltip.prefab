@@ -320,7 +320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab70b8f951847f48810894f29e5d594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   solveTooltipBorderImage: {fileID: 7152566307343294043}
   solveTooltipArrowBorderImage: {fileID: 7012562023474135059}
   rightSolveTooltipArrowBorderImage: {fileID: 1099901924306681193}

@@ -49,17 +49,9 @@ namespace Customization
 			// Synchronize the variable for this player by sending commands
 			if (isLocalPlayer)
 			{
-                // In editor you can start the game without choosing an icon/color, prevents error message
-                if (options == null || options.GetLocalSelectedColorChoice() == null || options.GetLocalSelectedIconChoice().GetID() == null)
-				{
-					return;
-				}
 				CmdSetColorChoice(options.GetLocalSelectedColorChoice());
 				CmdSetIconChoice(options.GetLocalSelectedIconChoice().GetID());
 			}
-
-            // In editor you can start the game without choosing an icon/color
-            if (colorChoice == null || iconChoice == null) return;
 
 			// Update the color and icon on this client to match the selections made
 			UpdateColor(colorChoice);

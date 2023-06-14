@@ -58,7 +58,7 @@ namespace UI.SensorScreen.SensorScreenComponents
         public void ActivateVideoScreen(CommEvent commEvent)
         {
             base.Activate();
-            _videoSystem.PlayVideo(commEvent.videoURL);
+            _videoSystem.PlayVideo(commEvent.videoURL, _sensorScreenController.sensorStation.OnVideoFinished);
         }
         #endregion
     }

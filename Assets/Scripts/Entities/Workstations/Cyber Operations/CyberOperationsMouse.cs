@@ -28,13 +28,13 @@ namespace Entities.Workstations.CyberOperationsParts
 
         #region Unity event functions
         /// <summary>
-        /// Opens the VM confirmation window when this object is clicked.
+        /// Opens the VM confirmation window when this objecct is clicked.
         /// </summary>
         private void OnMouseDown()
         {
             if (Player.LocalCanInput)
             {
-                _cyberOps.OnMouseModelClick();
+                _cyberOps.OpenConfirmationWindow();
             }
         }
         #endregion

@@ -24,16 +24,16 @@ namespace Entities.Workstations.CodexStationParts
     {
         #region Variables
         /// <summary>
-        /// The button used to open the confirmation window.
+        /// The full hologram model of the codex.
         /// </summary>
         [Header("References")]
         [SerializeField]
-        private UnityEngine.UI.Button openConfirmationWindowButton;
+        private CodexHologram codexHologram;
         /// <summary>
-        /// The full hologram model of the codex.
+        /// The canvas containing a button that allows a player to access the Codex VM when enabled.
         /// </summary>
         [SerializeField]
-        private CodexHologram codexHologram;
+        private Canvas VMCanvas;
         /// <summary>
         /// The animator of the codex hologram.
         /// </summary>
@@ -124,16 +124,13 @@ namespace Entities.Workstations.CodexStationParts
             if (IsPowered) 
             {
                 ActivateVisuals();
-                if (!string.IsNullOrEmpty(_vmURL))
-                {
-                    openConfirmationWindowButton.gameObject.SetActive(true);
-                }
+                VMCanvas.enabled = true;
             }
             // Otherwise, hide both items
             else
             {
                 codexHologram.Deactivate();
-                openConfirmationWindowButton.gameObject.SetActive(false);
+                VMCanvas.enabled = false;
             }
         }
 
@@ -163,15 +160,12 @@ namespace Entities.Workstations.CodexStationParts
                 if (isPowered)
                 {
                     ActivateVisuals();
-                    if (!string.IsNullOrEmpty(_vmURL))
-                    {
-                        openConfirmationWindowButton.gameObject.SetActive(true);
-                    }
+                    VMCanvas.enabled = true;
                 }
                 else
                 {
                     DeactivateVisuals();
-                    openConfirmationWindowButton.gameObject.SetActive(false);
+                    VMCanvas.enabled = false;
                 }
             }
         }
@@ -199,14 +193,7 @@ namespace Entities.Workstations.CodexStationParts
         /// <param name="isEnabled">Whether the VM canvas should be shown.</param>
         protected override void SetAccessUIState(bool isEnabled)
         {
-            if (isEnabled && !string.IsNullOrEmpty(_vmURL))
-            {
-                openConfirmationWindowButton.gameObject.SetActive(true);
-            }
-            else
-            {
-                openConfirmationWindowButton.gameObject.SetActive(false);
-            }
+            VMCanvas.enabled = isEnabled;
         }
         #endregion
 

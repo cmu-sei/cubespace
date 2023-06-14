@@ -85,13 +85,11 @@ namespace Systems.GameBrain
 				{
 					case UnityWebRequest.Result.ConnectionError:
 					case UnityWebRequest.Result.DataProcessingError:
-                        //Debug.LogError($"{page}: Error: {webRequest.error}");
-                        Debug.LogError($"{uri}: Error: {webRequest.error}");
-                        yield break;
+						Debug.LogError($"{page}: Error: {webRequest.error}");
+						yield break;
 					case UnityWebRequest.Result.ProtocolError:
-						//Debug.LogError($"{page}: HTTP Error: {webRequest.error}");
-                        Debug.LogError($"{uri}: HTTP Error: {webRequest.error}");
-                        yield break;
+						Debug.LogError($"{page}: HTTP Error: {webRequest.error}");
+						yield break;
 					case UnityWebRequest.Result.Success:
 						response.Invoke(webRequest.downloadHandler.text);
 						break;

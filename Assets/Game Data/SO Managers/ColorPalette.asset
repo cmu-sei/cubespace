@@ -27,9 +27,5 @@ MonoBehaviour:
   UIAccentColorTwo: {r: 0.49803922, g: 0.28235295, b: 0, a: 1}
   UISpecialMissionSelected: {r: 0.60784316, g: 0.16862746, b: 0.16862746, a: 1}
   UISpecialMissionUnseleceted: {r: 0.60784316, g: 0.16862746, b: 0.16862746, a: 0.2627451}
-  incompleteHighlightColor: {r: 0.89411765, g: 0.019607844, b: 0.08235294, a: 1}
-  partiallyCompletedHighlightColor: {r: 0.8352941, g: 0.80784315, b: 0.015686275,
-    a: 1}
-  completedHighlightColor: {r: 0.63529414, g: 0.95686275, b: 0.60784316, a: 1}
   LaunchModePoweredColor: {r: 0, g: 1, b: 0.40392157, a: 1}
   ExplorationModePoweredColor: {r: 0, g: 1, b: 0.99020815, a: 1}

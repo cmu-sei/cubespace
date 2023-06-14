@@ -80,7 +80,7 @@ namespace Systems
         private void OnDestroy()
         {
             // If we've loaded past the initial scene, unsubscribe from the loading failed action
-            if (LoadingSystem.Instance && LoadingSystem.Instance.loadedPastInitialScene)
+            if (LoadingSystem.Instance.loadedPastInitialScene)
             {
                 LoadingSystem.OnLoadFailed -= DisplayReconnectFailureUI;
                 // If this is the server, unsubscribe from the loading action

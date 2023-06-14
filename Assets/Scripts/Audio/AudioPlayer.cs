@@ -238,7 +238,7 @@ namespace Audio
         /* SNAPSHOTS */
 
         /// <summary>
-        /// Sets whether to mute the game via snapshots. Mutes all SFX + transmissions
+        /// Sets whether to mute the game via snapshots.
         /// </summary>
         /// <param name="muted">Whether to mute the snapshot (muting the game).</param>
         public void SetMuteSnapshot(bool muted)
@@ -256,7 +256,7 @@ namespace Audio
         }
 
         /// <summary>
-        /// Sets whether to mute the sound effects via snapshots. Mutes only SFX
+        /// Sets whether to mute the sound effects via snapshots.
         /// </summary>
         /// <param name="muted">Whether to mute the snapshot (muting the sound effects).</param>
         public void SetMuteSFXSnapshot(bool muted)
@@ -265,6 +265,24 @@ namespace Audio
             if (muted)
             {
                 soundRefManager.MuteSFXSnapshot.TransitionTo(1f);
+            }
+            // Otherwise, transition to the default snapshot after one second
+            else
+            {
+                soundRefManager.DefaultSnapshot.TransitionTo(1f);
+            }
+        }
+
+        /// <summary>
+        /// Sets whether to enable the Mission Log sounds via a snapshot when opening or closing it.
+        /// </summary>
+        /// <param name="on"></param>
+        public void SetMissionLogSnapshot(bool on)
+        {
+            // If opening the Mission Log, transition to allowing its sounds after one second
+            if (on)
+            {
+                soundRefManager.MissionLogSnapshot.TransitionTo(1f);
             }
             // Otherwise, transition to the default snapshot after one second
             else

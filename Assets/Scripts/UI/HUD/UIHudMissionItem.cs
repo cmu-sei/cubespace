@@ -88,6 +88,10 @@ namespace UI.HUD
         /// </summary>
         private Coroutine fadeRoutine;
         /// <summary>
+        /// Whether to show this mission item as completed.
+        /// </summary>
+        private bool showAsCompleted = false;
+        /// <summary>
         /// Whether to show this mission item as selected.
         /// </summary>
         private bool showAsSelected = false;
@@ -98,9 +102,9 @@ namespace UI.HUD
         private UIHudMissionManager manager;
 
         /// <summary>
-        /// The mission data associated with this item, cached in SetMissionData
+        /// The mission data visible to the player.
         /// </summary>
-        public MissionData CachedMissionData { get; private set; }
+        public MissionData VisibleMissionData { get; private set; }
 
         /// <summary>
         /// Sets the information for this mission.
@@ -134,7 +138,7 @@ namespace UI.HUD
                 backgroundSelectedObj.enabled = false;
             }
 
-            CachedMissionData = data;
+            VisibleMissionData = data;
             SetCompleted(data.complete);
             titleText.text = data.title;
             missionDescription.text = data.summaryShort;
@@ -151,8 +155,6 @@ namespace UI.HUD
             manager = GetComponentInParent<UIHudMissionManager>();
             group.interactable = false;
             group.alpha = 0;
-            titleText.text = "";
-            missionDescription.text = "";
         }
 
         /// <summary>
@@ -161,6 +163,7 @@ namespace UI.HUD
         /// <param name="isCompleted">Whether the mission is completed.</param>
         public void SetCompleted(bool isCompleted)
         {
+            showAsCompleted = isCompleted;
             backgroundCompletedObj.enabled = isCompleted;
         }
 
@@ -174,12 +177,12 @@ namespace UI.HUD
             if (!instant && !showAsSelected && isSelected)
             {
                 StopFade();
-                fadeRoutine = StartCoroutine(FadeImage(backgroundSelectedObj, 1, fadeTime));
+                StartCoroutine(FadeImage(backgroundSelectedObj, 1, fadeTime));
             }
             else if (!instant && showAsSelected && !isSelected)
             {
                 StopFade();
-                fadeRoutine = StartCoroutine(FadeImage(backgroundSelectedObj, 0, fadeTime));
+                StartCoroutine(FadeImage(backgroundSelectedObj, 0, fadeTime));
             }
 
             if (instant)
@@ -227,11 +230,11 @@ namespace UI.HUD
 
             Color end;
 
-            if (CachedMissionData != null && CachedMissionData.isSpecial && finalAlpha == 1)
+            if (VisibleMissionData != null && VisibleMissionData.isSpecial && finalAlpha == 1)
             {
                 end = ColorPalettes.ColorPalette.GetColor(ColorPalettes.PaletteColor.UISpecialMissionSelected);
             }
-            else if (CachedMissionData != null && CachedMissionData.isSpecial && finalAlpha == 0)
+            else if (VisibleMissionData != null && VisibleMissionData.isSpecial && finalAlpha == 0)
             {
                 end = ColorPalettes.ColorPalette.GetColor(ColorPalettes.PaletteColor.UISpecialMissionUnselected);
             }
@@ -250,8 +253,6 @@ namespace UI.HUD
             }
 
             image.color = end;
-
-            fadeRoutine = null;
         }
     }
 }
