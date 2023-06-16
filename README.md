@@ -3,6 +3,24 @@ Cubespace Application (In-browser client + Linux headless server)
 
 ---
 
+## Running the Game from Unity and Important Notes
+
+To run the game, open the scene Init_1-16.unity and run it from there.
+
+Important Notes:
+- The Gamebrain interface used affects the requests made. This interface is set in the Workstations scene on the ShipStateManager's ShipGameBrainUpdater script's Game Brain Interface field. One of two objects from this scene can be placed here:
+    - Local Game Brain Interface
+        - Reads from a specified text file that provides a JSON structure to run the game. Note that the data sent here is sent with every poll.
+        - Most Gamebrain methods will be spoofed; their callback methods will be called, but the data will not be changed.
+        - Set this when testing locally, but set to the below interface before pushing.
+    - Net Game Brain Interface
+        - Sends requests to a Gamebrain resource to get JSON for the game.
+        - Gamebrain methods here will return legitimate data from Gamebrain, but only if this game is running where a Gamebrain resource exists. For all intents and purposes, you won't need to touch this object except to set it as the used Game Brain Interface before pushing to a build pipeline.
+        - Set this before pushing to GitLab.
+- Running this locally may require modifying the Websocket Transport used (via the NetworkManager). The port is commented out so the game can run on the Kubernetes cluster; running a server instance and a client instance locally will likely require this, so if testing in this manner, uncomment the port.
+
+---
+
 ## Building the Game from Unity using the Codebase
 
 Before proceeding, please make sure you have a Unity account and license, whether a personal account or professional one, and that you download the project in "CODEBASE LINK".

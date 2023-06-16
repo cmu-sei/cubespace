@@ -27,6 +27,13 @@ public class UITimeRemainingText : MonoBehaviour
         StartCoroutine(UpdateTimeDisplay());
     }
 
+    /// <summary>
+    /// Coroutine that updates the time display text.
+    /// 
+    /// todo: This should change once gameCurrentDateTime is implemented. This should instead interpolate between that variable
+    /// and two seconds ahead, rather than just between gameStartDateTime and gameEndDateTime, as local system time changes can
+    /// cause the time remaining to be miscalculated with the current implementation.
+    /// </summary>
     private IEnumerator UpdateTimeDisplay()
     {
         yield return new WaitUntil(() => ShipStateManager.Instance && ShipStateManager.Instance.Session != null);
@@ -44,6 +51,7 @@ public class UITimeRemainingText : MonoBehaviour
             // Set timespan
             TimeSpan span = gameEndDateTime - DateTime.Now;
 
+            // This part should be changed once gameCurrentDateTime is implemented
             while (span.TotalMilliseconds >= 0)
             {
                 // Update the display

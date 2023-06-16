@@ -38,9 +38,8 @@ namespace Entities.Workstations.NavReaderParts
         #endregion
 
         #region Unity event functions
-
         /// <summary>
-        /// 
+        /// Unity event function that turns the renderer on if powered and subscribes to power on and power off events. 
         /// </summary>
         private void Awake()
         {
