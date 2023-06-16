@@ -7,21 +7,46 @@ using Managers;
 using Systems.GameBrain;
 using UI.HUD;
 
+/// <summary>
+/// A tooltip displayed when the solve count UI of a system on the galaxy map is hovered over.
+/// </summary>
 public class SolveCountTooltip : Singleton<SolveCountTooltip>
 {
+    /// <summary>
+    /// The image used as the border of the tooltip.
+    /// </summary>
     [SerializeField]
     private Image solveTooltipBorderImage;
+    /// <summary>
+    /// The image used as the border of the left facing arrow on the tooltip.
+    /// </summary>
     [SerializeField]
     private Image solveTooltipArrowBorderImage;
+    /// <summary>
+    /// The image used as the border of the right facing arrow on the tooltip.
+    /// </summary>
     [SerializeField]
     private Image rightSolveTooltipArrowBorderImage;
+    /// <summary>
+    /// The text used to display the number of teams who have solved the system's mission.
+    /// </summary>
     [SerializeField]
     private TextMeshProUGUI teamsCompletedText;
 
+    /// <summary>
+    /// The index of the mission.
+    /// </summary>
+    [HideInInspector]
     public int index = -1;
+    /// <summary>
+    /// The rect transform on this tooltip.
+    /// </summary>
     [HideInInspector]
     public RectTransform rect;
 
+    /// <summary>
+    /// Unity event function that gets the rect transform on this tooltip.
+    /// </summary>
     public override void Awake()
     {
         base.Awake();

@@ -4,11 +4,20 @@ using UnityEngine;
 
 namespace UI.WorkstationUI.NavReaderScreens
 {
+    /// <summmary>
+    /// A simple script that controls whether the galaxy map can be opened or not.
+    /// </summary>
     public class NavReaderGalaxyDisplay : MonoBehaviour
     {
+        /// <summary>
+        /// The collider of the galaxy display that the mouse can click to open the galaxy map.
+        /// </summary>
         [SerializeField]
         private SphereCollider collider;
 
+        /// <summary>
+        /// Unity event function enables the galaxy map display collider when this script is enabled.
+        /// </summary>
         private void OnEnable()
         {
             if (collider)
@@ -17,6 +26,9 @@ namespace UI.WorkstationUI.NavReaderScreens
             }
         }
 
+        /// <summary>
+        /// Unity event function disables the galaxy map display collider when this script is disabled.
+        /// </summary>
         private void OnDisable()
         {
             if (collider)

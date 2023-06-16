@@ -7,23 +7,51 @@ using Managers;
 using Systems.GameBrain;
 using UI.HUD;
 
+/// <summary>
+/// A tooltip displayed when the main UI of a system on the galaxy map is hovered over.
+/// </summary>
 public class DisplayTooltip : Singleton<DisplayTooltip>
 {
+    /// <summary>
+    /// The image used as the border of the tooltip.
+    /// </summary>
     [SerializeField]
     private Image tooltipBorderImage;
+    /// <summary>
+    /// The image used as the border of the left facing arrow on the tooltip.
+    /// </summary>
     [SerializeField]
     private Image tooltipArrowBorderImage;
+    /// <summary>
+    /// The image used as the border of the right facing arrow on the tooltip.
+    /// </summary>
     [SerializeField]
     private Image rightTooltipArrowBorderImage;
+    /// <summary>
+    /// The text showing the title of the mission.
+    /// </summary>
     [SerializeField]
     private TextMeshProUGUI titleText;
+    /// <summary>
+    /// The text showing the status of the mission. In the future this status text could (and maybe should) be read from the JSON nad inserted here.
+    /// </summary>
     [SerializeField]
     private TextMeshProUGUI tooltipText;
 
+    /// <summary>
+    /// The index of the mission.
+    /// </summary>
+    [HideInInspector]
     public int index = -1;
+    /// <summary>
+    /// The rect transform on this tooltip.
+    /// </summary>
     [HideInInspector]
     public RectTransform rect;
 
+    /// <summary>
+    /// Unity event function that gets the rect transform on this tooltip.
+    /// </summary>
     public override void Awake()
     {
         base.Awake();

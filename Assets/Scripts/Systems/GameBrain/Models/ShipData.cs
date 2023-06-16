@@ -97,6 +97,8 @@ namespace Systems.GameBrain
 		public DateTime gameStartDateTime;
 		// The DateTime when the game ends
 		public DateTime gameEndDateTime;
+		// The current time on the Gamebrain server; ensure this name matches the one in the JSON sent by Gamebrain
+		// public DateTime gameCurrentDateTime;
 		// The title to give the timer
 		public string timerTitle;
 		// Whether to use the galaxy display map
