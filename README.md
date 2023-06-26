@@ -33,7 +33,7 @@ Before proceeding, please make sure you have a Unity account and license, whethe
 3. Go to File > Build Settings.
 4. Select WebGL from the left hand list, then select Build and choose a file location.
 5. Once WebGL finishes building, select Dedicated Server from the left hand list, then select Linux from the Target Platform dropdown if not already selected.
-6. Select Build and choose a file location. 
+6. Select Build and choose a file location.
 
 
 ## Turning the WebGL Build into a Docker Image
