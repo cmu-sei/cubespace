@@ -29,10 +29,6 @@ public class UITimeRemainingText : MonoBehaviour
 
     /// <summary>
     /// Coroutine that updates the time display text.
-    /// 
-    /// todo: This should change once gameCurrentDateTime is implemented. This should instead interpolate between that variable
-    /// and two seconds ahead, rather than just between gameStartDateTime and gameEndDateTime, as local system time changes can
-    /// cause the time remaining to be miscalculated with the current implementation.
     /// </summary>
     private IEnumerator UpdateTimeDisplay()
     {
@@ -43,26 +39,57 @@ public class UITimeRemainingText : MonoBehaviour
             timerTitle.text = ShipStateManager.Instance.Session.timerTitle;
 
             // Set session DateTimes
-            DateTime gameStartDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameStartTime);
-            DateTime gameEndDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameEndTime);
+            DateTime gameStartDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            DateTime gameCurrentDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameCurrentTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+            DateTime gameEndDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameEndTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
 
-            yield return new WaitUntil(() => gameStartDateTime <= DateTime.Now);
+            // Set the timer to show the duration of the game, but don't start updating the timer until the start time
+            timerText.text = string.Format("{0:hh\\:mm\\:ss}", gameEndDateTime - gameStartDateTime);
 
-            // Set timespan
-            TimeSpan span = gameEndDateTime - DateTime.Now;
+            yield return new WaitUntil(() => gameStartDateTime <= gameCurrentDateTime);
 
-            // This part should be changed once gameCurrentDateTime is implemented
+            // Set timespan as provided GameBrain
+            TimeSpan span = gameEndDateTime - gameCurrentDateTime;
+            // Create a variable to track when currentTime gets updated
+            TimeSpan prevSpan = span;
+            // Create an internal timer to interpolate the countdown between polls to GameBrain
+            float internalTimer = Time.deltaTime;
+
+            // Update timer based on GameBrain's clock as provided by gameCurrentTime until gameCurrentTime is beyond gameEndTime
             while (span.TotalMilliseconds >= 0)
             {
                 // Update the display
-                gameStartDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameStartTime);
-                gameEndDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameEndTime);
-                span = gameEndDateTime - DateTime.Now;
+                gameCurrentDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameCurrentTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                gameEndDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameEndTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                span = gameEndDateTime - gameCurrentDateTime;
 
-                timerText.text = string.Format("{0:hh\\:mm\\:ss}", span);
-
+                // Check to see if gameCurrentUpdateTime has been updated by a poll to GameBrain
+                if (span != prevSpan)
+                {
+                    // If so use that time directly and reset the timer used for interpolation
+                    timerText.text = string.Format("{0:hh\\:mm\\:ss}", span);
+                    internalTimer = 0.0f;
+                    prevSpan = span;
+                }
+                else
+                {
+                    // Else use the last time polled plus whatever has accumulated on the internal time since the last poll
+                    internalTimer -= Time.deltaTime;
+                    // If timer crosses 0 in between polls, show 00:00:00 but don't break out of loop until GameBrain actually say currentTime has passed endTime
+                    if (span + TimeSpan.FromSeconds(internalTimer) < TimeSpan.Zero)
+                    {
+                        timerText.text = "00:00:00";
+                    }
+                    else
+                    {
+                        timerText.text = string.Format("{0:hh\\:mm\\:ss}", span + TimeSpan.FromSeconds(internalTimer));
+                    }
+                }
                 yield return null;
             }
+
+            // Set timer to show 00:00:00 once gameCurrentTime is beyond gameEndTime
+            timerText.text = "00:00:00";
         }
     }
 }

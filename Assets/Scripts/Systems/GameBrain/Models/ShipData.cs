@@ -91,14 +91,16 @@ namespace Systems.GameBrain
 		public string jumpCutsceneURL;
 		// The timestamp when the game starts
 		public string gameStartTime;
-		// The timestamp when the game ends
-		public string gameEndTime;
+        // The timestamp on the Gamebrain server
+        public string gameCurrentTime;
+        // The timestamp when the game ends
+        public string gameEndTime;
 		// The DateTime when the game starts
 		public DateTime gameStartDateTime;
 		// The DateTime when the game ends
 		public DateTime gameEndDateTime;
 		// The current time on the Gamebrain server; ensure this name matches the one in the JSON sent by Gamebrain
-		// public DateTime gameCurrentDateTime;
+		public DateTime gameCurrentDateTime;
 		// The title to give the timer
 		public string timerTitle;
 		// Whether to use the galaxy display map

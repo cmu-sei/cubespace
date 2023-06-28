@@ -3,8 +3,9 @@
 		"teamInfoName": "Default Team Name",
 		"teamCodexCount": 0,
 		"jumpCutsceneURL": "https://presidentscup.cisa.gov/files/Kq3tPWBUjmjywQY4GQ6S5FmfxzDwxxUf_Warp_Entire_Sequence_v1.mp4",
-		"gameStartTime": "05/23/2023 9:00:00",
-		"gameEndTime": "05/23/2023 15:00:00",
+		"gameStartTime": "2023-05-23T09:00:00",
+		"gameCurrentTime": "2023-05-23T14:59:30",
+		"gameEndTime": "2023-05-23T15:00:00",
 		"timerTitle": "Time until Reactor Explosion",
 		"useGalaxyDisplayMap": true,
 		"useCodices": false
