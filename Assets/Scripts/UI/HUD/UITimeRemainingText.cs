@@ -1,4 +1,5 @@
 using Managers;
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -99,6 +100,31 @@ public class UITimeRemainingText : MonoBehaviour
 
             // Set timer to show 00:00:00 once gameCurrentTime is beyond gameEndTime
             timerText.text = "00:00:00";
+
+            // Quit the game, stopping the session for everyone connected
+            QuitGame();
+        }
+    }
+
+    /// <summary>
+    /// Quits the game. This is called when GameBrain says the gameCurrentTime is beyond gameEndTime
+    /// </summary>
+    public void QuitGame()
+    {
+        // Stop the host if in host mode
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopHost();
+        }
+        // Stop the client if client-only
+        else if (NetworkClient.isConnected)
+        {
+            NetworkManager.singleton.StopClient();
+        }
+        // Stop the server if server-only
+        else if (NetworkServer.active)
+        {
+            NetworkManager.singleton.StopServer();
         }
     }
 }
