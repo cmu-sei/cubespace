@@ -36,7 +36,8 @@ public class UITimeRemainingText : MonoBehaviour
         if (ShipStateManager.Instance.Session.timerTitle != null)
         {
             // Set the title of the timer
-            timerTitle.text = ShipStateManager.Instance.Session.timerTitle;
+            string title = ShipStateManager.Instance.Session.timerTitle;
+            timerTitle.text = title;
 
             // Set session DateTimes
             DateTime gameStartDateTime = DateTime.Parse(ShipStateManager.Instance.Session.gameStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
@@ -85,6 +86,14 @@ public class UITimeRemainingText : MonoBehaviour
                         timerText.text = string.Format("{0:hh\\:mm\\:ss}", span + TimeSpan.FromSeconds(internalTimer));
                     }
                 }
+
+                // Update timer title displayed if it changes
+                if (ShipStateManager.Instance.Session.timerTitle != null && title != ShipStateManager.Instance.Session.timerTitle)
+                {
+                    title = ShipStateManager.Instance.Session.timerTitle;
+                    timerTitle.text = title;
+                }
+
                 yield return null;
             }
 
