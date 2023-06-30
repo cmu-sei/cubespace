@@ -165,6 +165,8 @@ namespace Systems.GameBrain
 		public int baseSolveValue;
 		// The number of bonus points remaining
 		public int bonusRemaining;
+		// The currentScore attained for this mission
+		public int currentScore;
 		// THe challenge associated with this one; for ship challenges, this should be null
 		public string[] associatedChallenges;
 		// The number of teams who have attempted the challenge

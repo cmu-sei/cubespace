@@ -68,13 +68,6 @@ public class NavReaderGalaxySystem : TooltipControl
     [SerializeField]
     private string cacheHexCode = "123ABC";
     /// <summary>
-    /// The number of teams who have solved this challenge. In the future, this should be replaced in
-    /// SetSystemMission with md.solveCount to read from the mission data.
-    /// </summary>
-    [SerializeField]
-    [Range(0, 5)]
-    private int solveCount = 0;
-    /// <summary>
     /// The image map with IDs corresponding to system images.
     /// </summary>
     [SerializeField]
@@ -102,12 +95,6 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     [HideInInspector]
     public int index = -1;
-    /// <summary>
-    /// The score of the mission associated with this system. In the future, this should be deprecated 
-    /// and the above index should be used to read the current score directly from the mission data.
-    /// </summary>
-    [HideInInspector]
-    public int currentScore = 0;
 
     /// <summary>
     /// Unity event function that simply updates the visual state every frame.
@@ -154,13 +141,6 @@ public class NavReaderGalaxySystem : TooltipControl
                 HUDController.Instance.MissionLogButton.OnClick();
             }
 
-            #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                AdvanceState();
-            }
-            #endif
-
             yield return null;
         }
     }
@@ -174,8 +154,9 @@ public class NavReaderGalaxySystem : TooltipControl
 
         if (ShipStateManager.Instance)
         {
-            // Check the base score value
+            // Check the base score value and current score as relayed by GameBrain
             int baseSolveValue = ShipStateManager.Instance.MissionData[index].baseSolveValue;
+            int currentScore = ShipStateManager.Instance.MissionData[index].currentScore;
 
             // If incomplete
             if (currentScore == 0)
@@ -193,28 +174,51 @@ public class NavReaderGalaxySystem : TooltipControl
             // If fully solved
             else if (currentScore >= baseSolveValue)
             {
-                pointsInnerBacking.color = Color.black;
-                pointsText.color = Color.white;
-                setColor = HUDController.Instance.completedHighlightColor;
+                // Check to see if all associated missions have been completed
+                bool cacheComplete = true;
+                foreach (string associatedMissionName in ShipStateManager.Instance.MissionData[index].associatedChallenges)
+                {
+                    foreach (MissionData mission in ShipStateManager.Instance.MissionData)
+                    {
+                        if (mission.missionID == associatedMissionName)
+                        {
+                            cacheComplete &= mission.complete;
+                        }
+                    }
+                }
+
+                if (cacheComplete)
+                {
+                    // TODO: Change these to real colors/styling
+                    pointsInnerBacking.color = Color.magenta;
+                    pointsText.color = Color.green;
+                    setColor = Color.blue;
+                }
+                else
+                {
+                    pointsInnerBacking.color = Color.black;
+                    pointsText.color = Color.white;
+                    setColor = HUDController.Instance.completedHighlightColor;
+                }
             }
-        }
 
-        // Flip the display, points, and solve count tooltips if specified
-        bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
+            // Flip the display, points, and solve count tooltips if specified
+            bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
 
-        if (DisplayTooltip.Instance.index == index)
-        {
-            DisplayTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
-        }
+            if (DisplayTooltip.Instance.index == index)
+            {
+                DisplayTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+            }
 
-        if (PointsTooltip.Instance.index == index)
-        {
-            PointsTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
-        }
+            if (PointsTooltip.Instance.index == index)
+            {
+                PointsTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+            }
 
-        if (SolveCountTooltip.Instance.index == index)
-        {
-            SolveCountTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+            if (SolveCountTooltip.Instance.index == index)
+            {
+                SolveCountTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+            }
         }
 
         // Update colors
@@ -223,31 +227,6 @@ public class NavReaderGalaxySystem : TooltipControl
         displayBorderImage.color = setColor;
         solveCountBorderImage.color = setColor;
         pointsBorderImage.color = setColor;
-    }
-
-    /// <summary>
-    /// Advances the solve state of this system based on the current score. This function is only called in-editor.
-    /// </summary>
-    public void AdvanceState()
-    {
-        // Set the mission state to be incomplete
-        if (currentScore >= ShipStateManager.Instance.MissionData[index].baseSolveValue)
-        {
-            currentScore = 0;
-        }
-        else
-        {
-            // Sets the mission state to be partially complete
-            if (currentScore == 0)
-            {
-                currentScore = ShipStateManager.Instance.MissionData[index].baseSolveValue - 1;
-            }
-            // Sets the mission state to be complete
-            else
-            {
-                currentScore = ShipStateManager.Instance.MissionData[index].baseSolveValue;
-            }
-        }
     }
 
     /// <summary>
@@ -265,6 +244,8 @@ public class NavReaderGalaxySystem : TooltipControl
             targetImage = target;
         }
 
+        int currentScore = md.currentScore;
+
         // Display the correct score according to what was received
         if (currentScore < md.baseSolveValue)
         {
@@ -276,7 +257,7 @@ public class NavReaderGalaxySystem : TooltipControl
         }
 
         // Update the solve count and image
-        solveCountText.text = $"{solveCount}/{md.totalTeams}";
+        solveCountText.text = $"{md.solveTeams}/{md.totalTeams}";
         spriteImage.sprite = imageMap.GetImage(md.missionIcon);
 
         this.index = index;
