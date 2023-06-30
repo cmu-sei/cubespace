@@ -1,3 +1,5 @@
+using Managers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,19 +57,20 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         // Decide whether to flip this tooltip
         bool flip = systemRect.localPosition.x >= system.flipTooltipXThreshold;
+        int currentScore = ShipStateManager.Instance.MissionData[system.index].currentScore;
 
         // Set the position of the main tooltip
         if (tooltipType == TooltipType.Display)
         {
             DisplayTooltip.Instance.gameObject.SetActive(true);
-            DisplayTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
+            DisplayTooltip.Instance.SetPropertiesFromIndex(system.index, currentScore, flip);
 
         }
         // Sets the position of the tooltip displaying the solve count
         else if (tooltipType == TooltipType.SolveCount)
         {
             SolveCountTooltip.Instance.gameObject.SetActive(true);
-            SolveCountTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
+            SolveCountTooltip.Instance.SetPropertiesFromIndex(system.index, currentScore, flip);
             rect = SolveCountTooltip.Instance.rect;
             finalPosition.y -= 44;
         }
@@ -75,7 +78,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
         {
             PointsTooltip.Instance.gameObject.SetActive(true);
-            PointsTooltip.Instance.SetPropertiesFromIndex(system.index, system.currentScore, flip);
+            PointsTooltip.Instance.SetPropertiesFromIndex(system.index, currentScore, flip);
             rect = PointsTooltip.Instance.rect;
             finalPosition.y += 48;
         }
