@@ -218,9 +218,21 @@ namespace Systems.GameBrain
 
 			// Return if the different attributes between the two missions are equal
 			return missionID == obj.missionID
-				&& visible == obj.visible
-				&& complete == obj.complete
+			       //first compare bools and ints
+			       && complete == obj.complete
+			       && totalTeams == obj.totalTeams
+			       && solveTeams == obj.solveTeams
+				&& possibleMaximumScore == obj.possibleMaximumScore
+				&& baseSolveValue == obj.baseSolveValue
+				&& bonusRemaining == obj.bonusRemaining
+				&& currentScore == obj.currentScore
+				&& associatedChallenges.Length == obj.associatedChallenges.Length
+				&& associatedChallenges.All(obj.associatedChallenges.Contains)
+				&& associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length
+				&& associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains)
+			       && visible == obj.visible
 				&& isSpecial == obj.isSpecial
+			       //then compare strings and arrays
 				&& title == obj.title
 				&& missionIcon == obj.missionIcon
 				&& summaryShort == obj.summaryShort
@@ -228,6 +240,13 @@ namespace Systems.GameBrain
 				&& roleList.Length == obj.roleList.Length
 				&& roleList.All(obj.roleList.Contains)
 				&& l.Length == l2.Length
+			       
+			       //then compare things we know don't update often
+				&& Math.Abs(galaxyMapXPos - obj.galaxyMapXPos) < Mathf.Epsilon
+				&& Math.Abs(galaxyMapYPos - obj.galaxyMapYPos) < Mathf.Epsilon
+				&& Math.Abs(galaxyMapTargetXPos - obj.galaxyMapTargetXPos) < Mathf.Epsilon
+				&& Mathf.Abs(galaxyMapTargetYPos - obj.galaxyMapTargetYPos) < Mathf.Epsilon
+				
 				// The last step is to compare the individual elements of the two task lists
 				&& HelperEquals(l, l2);
 		}

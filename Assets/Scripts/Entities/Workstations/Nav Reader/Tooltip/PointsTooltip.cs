@@ -55,6 +55,11 @@ public class PointsTooltip : Singleton<PointsTooltip>
     private TextMeshProUGUI scoredText;
 
     /// <summary>
+    /// Text showing the number of points that the player currently has.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI currentText;
+
+    /// <summary>
     /// The index of the mission.
     /// </summary>
     [HideInInspector]
@@ -111,5 +116,6 @@ public class PointsTooltip : Singleton<PointsTooltip>
         rightPointsTooltipArrowBorderImage.color = setColor;
         fullText.text = $"{mission.baseSolveValue} PTS";
         bonusText.text = $"{mission.bonusRemaining} PTS";
+        currentText.text = $"{mission.currentScore} PTS";
     }
 }

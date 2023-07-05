@@ -239,12 +239,14 @@ public class NavReaderGalaxySystem : TooltipControl
         int currentScore = md.currentScore;
 
         // Display the correct score according to what was received
-        if (currentScore < md.baseSolveValue)
+        if (!md.complete)
         {
+            //For missions that have been started, but not finished, display this score.
             pointsText.text = (md.baseSolveValue + md.bonusRemaining).ToString();
         }
         else
         {
+            //for completed missions, show the score we got.
             pointsText.text = currentScore.ToString();
         }
 
