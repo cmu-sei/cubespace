@@ -170,6 +170,9 @@ namespace Systems.GameBrain
 		// The challenge associated with this one; for ship challenges, this should be null if there are no associated challenges
 		public string[] associatedChallenges;
 		// The coordinates of the associated challenges, should have same length as associatedChallenges, should have null entries until this mission is complete
+		// example: missions has 1 associated challenge and is incomplete, coords should look like *[ null ]* 
+		// mission has 1 associated challenge and is complete, coords should look like *[ "123456" ]*
+		// mission has 0 associated challenges, coords will look like *null* (not a list)
 		public string[] associatedChallengesCoordinates;
 		// The number of teams who have attempted the challenge
 		public int totalTeams;
