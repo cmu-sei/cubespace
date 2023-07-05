@@ -6,6 +6,7 @@ using TMPro;
 using Managers;
 using Systems.GameBrain;
 using UI.HUD;
+using System.Reflection;
 
 /// <summary>
 /// A tooltip displayed when the points UI of a system on the galaxy map is hovered over.
@@ -77,29 +78,28 @@ public class PointsTooltip : Singleton<PointsTooltip>
     /// Sets the information and visual state of this tooltip.
     /// </summary>
     /// <param name="index">The index of the mission the system references.</param>
-    /// <param name="currentScore">The current score of the mission referenced.</param>
     /// <param name="placeLeft">Whether to place this tooltip to the left of the system.</param>
-    public void SetPropertiesFromIndex(int index, int currentScore, bool placeLeft = false)
+    public void SetPropertiesFromIndex(int index, bool placeLeft = false)
     {
         this.index = index;
-        MissionData md = ShipStateManager.Instance.MissionData[index];
+        MissionData mission = ShipStateManager.Instance.MissionData[index];
         Color setColor = HUDController.Instance.incompleteHighlightColor;
-        if (currentScore == 0)
+        if (!mission.complete && mission.currentScore == 0)
         {
             pointsWrapper.SetActive(true);
             scoredWrapper.SetActive(false);
         }
-        else if (currentScore < md.baseSolveValue)
+        else if (!mission.complete && mission.currentScore > 0)
         {
             pointsWrapper.SetActive(true);
             scoredWrapper.SetActive(false);
             setColor = HUDController.Instance.partiallyCompletedHighlightColor;
         }
-        else if (currentScore >= md.baseSolveValue)
+        else if (mission.complete)
         {
             pointsWrapper.SetActive(false);
             scoredWrapper.SetActive(true);
-            scoredText.text = $"You have scored {currentScore} PTS";
+            scoredText.text = $"You have scored {mission.currentScore} PTS";
             setColor = HUDController.Instance.completedHighlightColor;
         }
 
@@ -109,7 +109,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
         pointsTooltipBorderImage.color = setColor;
         pointsTooltipArrowBorderImage.color = setColor;
         rightPointsTooltipArrowBorderImage.color = setColor;
-        fullText.text = $"{md.baseSolveValue} PTS";
-        bonusText.text = $"{md.bonusRemaining} PTS";
+        fullText.text = $"{mission.baseSolveValue} PTS";
+        bonusText.text = $"{mission.bonusRemaining} PTS";
     }
 }

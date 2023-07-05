@@ -62,23 +62,22 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     /// Sets the information and visual state of this tooltip.
     /// </summary>
     /// <param name="index">The index of the mission the system references.</param>
-    /// <param name="currentScore">The current score of the mission referenced.</param>
     /// <param name="placeLeft">Whether to place this tooltip to the left of the system.</param>
-    public void SetPropertiesFromIndex(int index, int currentScore, bool placeLeft = false)
+    public void SetPropertiesFromIndex(int index, bool placeLeft = false)
     {
         this.index = index;
-        MissionData md = ShipStateManager.Instance.MissionData[index];
+        MissionData mission = ShipStateManager.Instance.MissionData[index];
         Color setColor = HUDController.Instance.incompleteHighlightColor;
-        if (currentScore == 0)
+        if (!mission.complete && mission.currentScore == 0)
         {
             tooltipText.text = "Incomplete";
         }
-        else if (currentScore < md.baseSolveValue)
+        else if (!mission.complete && mission.currentScore > 0)
         {
             tooltipText.text = "Partially completed";
             setColor = HUDController.Instance.partiallyCompletedHighlightColor;
         }
-        else if (currentScore >= md.baseSolveValue)
+        else if (mission.complete)
         {
             tooltipText.text = "Completed";
             setColor = HUDController.Instance.completedHighlightColor;
@@ -91,6 +90,6 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
         tooltipArrowBorderImage.color = setColor;
         rightTooltipArrowBorderImage.color = setColor;
 
-        titleText.text = md.title;
+        titleText.text = mission.title;
     }
 }
