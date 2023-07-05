@@ -60,13 +60,7 @@ public class NavReaderGalaxySystem : TooltipControl
     [SerializeField]
     private TextMeshProUGUI solveCountText;
 
-    /// <summary>
-    /// The hex code of the associated cache. In the future, this should be specified and read from the 
-    /// mission data rather than be set here.
-    /// </summary>
     [Header("Configuration Variables")]
-    [SerializeField]
-    private string cacheHexCode = "123ABC";
     /// <summary>
     /// The image map with IDs corresponding to system images.
     /// </summary>
@@ -154,44 +148,42 @@ public class NavReaderGalaxySystem : TooltipControl
 
         if (ShipStateManager.Instance)
         {
-            // Check the base score value and current score as relayed by GameBrain
-            int baseSolveValue = ShipStateManager.Instance.MissionData[index].baseSolveValue;
-            int currentScore = ShipStateManager.Instance.MissionData[index].currentScore;
+            MissionData mission = ShipStateManager.Instance.MissionData[index];
+            int currentScore = mission.currentScore;
 
-            // If incomplete
-            if (currentScore == 0)
+            // If incomplete and not started
+            if (!mission.complete && currentScore == 0)
             {
                 pointsInnerBacking.color = Color.white;
                 pointsText.color = Color.black;
             }
             // If partially solved
-            else if (currentScore < baseSolveValue)
+            else if (!mission.complete && currentScore > 0)
             {
                 pointsInnerBacking.color = Color.white;
                 pointsText.color = Color.black;
                 setColor = HUDController.Instance.partiallyCompletedHighlightColor;
             }
             // If fully solved
-            else if (currentScore >= baseSolveValue)
+            else if (mission.complete)
             {
                 // Check to see if all associated missions have been completed
                 bool cacheComplete = true;
                 foreach (string associatedMissionName in ShipStateManager.Instance.MissionData[index].associatedChallenges)
                 {
-                    foreach (MissionData mission in ShipStateManager.Instance.MissionData)
+                    foreach (MissionData associatedMission in ShipStateManager.Instance.MissionData)
                     {
-                        if (mission.missionID == associatedMissionName)
+                        if (associatedMission.missionID == associatedMissionName)
                         {
-                            cacheComplete &= mission.complete;
+                            cacheComplete &= associatedMission.complete;
                         }
                     }
                 }
 
                 if (cacheComplete)
                 {
-                    // TODO: Change these to real colors/styling
                     pointsInnerBacking.color = Color.magenta;
-                    pointsText.color = Color.green;
+                    pointsText.color = Color.white;
                     setColor = Color.blue;
                 }
                 else
