@@ -58,6 +58,10 @@ namespace Managers
             {
                 Instantiate(audioPrefab);
             }
+
+            //This resets unity object data and should only be called once per session.
+            workstationManager.Init();
+
         }
 
         /// <summary>

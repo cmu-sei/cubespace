@@ -170,6 +170,13 @@ namespace Entities.Workstations
             }
             #endif
         }
+
+        protected void OnDestroy()
+        {
+            _workstationManager.DeregisterWorkstation(stationID, this);
+        }
+        
+
         #endregion
 
         #region Mirror networking methods
