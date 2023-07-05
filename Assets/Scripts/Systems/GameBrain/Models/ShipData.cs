@@ -167,8 +167,10 @@ namespace Systems.GameBrain
 		public int bonusRemaining;
 		// The currentScore attained for this mission
 		public int currentScore;
-		// THe challenge associated with this one; for ship challenges, this should be null
+		// The challenge associated with this one; for ship challenges, this should be null if there are no associated challenges
 		public string[] associatedChallenges;
+		// The coordinates of the associated challenges, should have same length as associatedChallenges, should have null entries until this mission is complete
+		public string[] associatedChallengesCoordinates;
 		// The number of teams who have attempted the challenge
 		public int totalTeams;
 		// The number of teams who have solved the challenge
