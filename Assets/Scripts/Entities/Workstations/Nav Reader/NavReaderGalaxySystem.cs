@@ -199,17 +199,17 @@ public class NavReaderGalaxySystem : TooltipControl
 
             if (DisplayTooltip.Instance.index == index)
             {
-                DisplayTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+                DisplayTooltip.Instance.SetPropertiesFromIndex(index, flip);
             }
 
             if (PointsTooltip.Instance.index == index)
             {
-                PointsTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+                PointsTooltip.Instance.SetPropertiesFromIndex(index, flip);
             }
 
             if (SolveCountTooltip.Instance.index == index)
             {
-                SolveCountTooltip.Instance.SetPropertiesFromIndex(index, currentScore, flip);
+                SolveCountTooltip.Instance.SetPropertiesFromIndex(index, flip);
             }
         }
 
