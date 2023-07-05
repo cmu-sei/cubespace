@@ -69,6 +69,20 @@ namespace Managers
         #endregion
 
         #region Workstation methods
+
+        
+        /// <summary>
+        /// Clears the lists to prevent editor only bugs with scriptableObjects not being reset. Called once during game launch.
+        /// </summary>
+        public void Init()
+        {
+	        workstations.Clear();
+	        terminals.Clear();
+	        
+	        explorationModeWorkstations.Clear();
+	        launchModeWorkstations.Clear();
+        }
+        
         /// <summary>
         /// Places a workstation under a player's authority and moves their camera into that workstation.
         /// This workstation corresponds to whatever Terminal object the client clicks on.
@@ -119,6 +133,29 @@ namespace Managers
 			// Add the workstation to the dictionary
 			workstations[stationID] = workstation;
 		}
+
+        /// <summary>
+        /// Removes the workstation from reference. Because WorkstationManager is a scriptableObject, it will hold onto objects when entering/exiting play mode, so we reset cleanly here. See registerWorkstation for parameter info.
+        /// </summary>
+        public void DeregisterWorkstation(WorkstationID stationID, Workstation workstation)
+        {
+	        if (workstations.ContainsKey(stationID))
+	        {
+		        workstations.Remove(stationID);
+	        }
+
+	        if (explorationModeWorkstations.Contains(workstation))
+	        {
+		        explorationModeWorkstations.Remove(workstation);
+	        }
+
+	        if (launchModeWorkstations.Contains(workstation))
+	        {
+		        launchModeWorkstations.Remove(workstation);
+	        }
+        }
+        
+
         #endregion
 
         #region Terminal methods
@@ -226,5 +263,7 @@ namespace Managers
 			terminals.Clear();
 		}
 		#endregion
+
+		
 	}
 }
