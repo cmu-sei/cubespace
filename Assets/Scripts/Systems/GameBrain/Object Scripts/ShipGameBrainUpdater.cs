@@ -232,7 +232,7 @@ namespace Systems.GameBrain
 			{
 				if (networkManager && networkManager.isInDebugMode)
                 {
-					Debug.Log("Restaring server");
+					Debug.Log("Restarting server");
                 }
 				Application.Quit();
 			}
