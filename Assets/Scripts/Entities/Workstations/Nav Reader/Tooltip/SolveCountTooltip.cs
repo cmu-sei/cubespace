@@ -50,7 +50,7 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     public override void Awake()
     {
         base.Awake();
-        rect = GetComponent<RectTransform>();
+        rect = transform as RectTransform;
     }
 
     /// <summary>

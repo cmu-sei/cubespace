@@ -70,7 +70,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
     public override void Awake()
     {
         base.Awake();
-        rect = GetComponent<RectTransform>();
+        rect = transform as RectTransform;
     }
 
     /// <summary>

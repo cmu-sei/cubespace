@@ -55,7 +55,7 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     public override void Awake()
     {
         base.Awake();
-        rect = GetComponent<RectTransform>();
+        rect = transform as RectTransform;
     }
 
     /// <summary>
