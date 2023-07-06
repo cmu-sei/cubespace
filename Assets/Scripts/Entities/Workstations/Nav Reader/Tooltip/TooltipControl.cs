@@ -54,7 +54,6 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         // Decide whether to flip this tooltip
         bool flip = systemRect.localPosition.x >= system.flipTooltipXThreshold;
-        int currentScore = ShipStateManager.Instance.MissionData[system.index].currentScore;
 
         // Set the position of the main tooltip
         if (tooltipType == TooltipType.Display)

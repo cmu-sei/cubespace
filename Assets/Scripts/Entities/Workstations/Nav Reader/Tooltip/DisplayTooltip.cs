@@ -81,6 +81,23 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
         {
             tooltipText.text = "Completed";
             setColor = HUDController.Instance.completedHighlightColor;
+
+            // Display coordinates for cache missions once main mission is complete
+            if (mission.associatedChallengesCoordinates != null && mission.associatedChallengesCoordinates.Length > 0)
+            {
+                if (mission.associatedChallengesCoordinates.Length == 1)
+                {
+                    tooltipText.text += "cache at: " + mission.associatedChallengesCoordinates[0];
+                }
+                else
+                {
+                    tooltipText.text += "caches at: " + mission.associatedChallengesCoordinates[0];
+                    for (int i = 1; i < mission.associatedChallengesCoordinates.Length; i++)
+                    {
+                        tooltipText.text += ", " + mission.associatedChallengesCoordinates[i];
+                    }
+                }
+            }
         }
 
         tooltipArrowBorderImage.gameObject.SetActive(!placeLeft);
