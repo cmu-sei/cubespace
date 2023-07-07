@@ -85,16 +85,28 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
             // Display coordinates for cache missions once main mission is complete
             if (mission.associatedChallengesCoordinates != null && mission.associatedChallengesCoordinates.Length > 0)
             {
-                if (mission.associatedChallengesCoordinates.Length == 1)
+                if (mission.associatedChallengesCoordinates.Length == 1 && mission.associatedChallengesCoordinates[0] != null && mission.associatedChallengesCoordinates[0] != "")
                 {
-                    tooltipText.text += "cache at: " + mission.associatedChallengesCoordinates[0];
+                    tooltipText.text = "Cache at: " + mission.associatedChallengesCoordinates[0];
                 }
                 else
                 {
-                    tooltipText.text += "caches at: " + mission.associatedChallengesCoordinates[0];
-                    for (int i = 1; i < mission.associatedChallengesCoordinates.Length; i++)
+                    bool foundNonNullCoord = false;
+                    
+                    for (int i = 0; i < mission.associatedChallengesCoordinates.Length; i++)
                     {
-                        tooltipText.text += ", " + mission.associatedChallengesCoordinates[i];
+                        if (mission.associatedChallengesCoordinates[i] != null && mission.associatedChallengesCoordinates[i] != "")
+                        {
+                            if (!foundNonNullCoord)
+                            {
+                                tooltipText.text = "Caches at: " + mission.associatedChallengesCoordinates[i];
+                                foundNonNullCoord = true;
+                            }
+                            else
+                            {
+                                tooltipText.text += ", " + mission.associatedChallengesCoordinates[i];
+                            }
+                        }
                     }
                 }
             }
