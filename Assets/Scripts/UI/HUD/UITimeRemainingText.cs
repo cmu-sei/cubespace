@@ -17,6 +17,10 @@ public class UITimeRemainingText : MonoBehaviour
     /// The text object which shows the current time remaining.
     /// </summary>
     private TMP_Text timerText;
+    /// <summary>
+    /// UI that pops up when players run out of time.
+    /// </summary>
+    [SerializeField] private GameObject gameOverUIPanel;
 
     /// <summary>
     /// Unity event function that gets the text component when this object first starts.
@@ -24,6 +28,7 @@ public class UITimeRemainingText : MonoBehaviour
     private void Awake()
     {
         timerText = GetComponent<TMP_Text>();
+        gameOverUIPanel.SetActive(false);
 
         StartCoroutine(UpdateTimeDisplay());
     }
@@ -101,7 +106,7 @@ public class UITimeRemainingText : MonoBehaviour
             // Set timer to show 00:00:00 once gameCurrentTime is beyond gameEndTime
             timerText.text = "00:00:00";
 
-            // Quit the game, stopping the session for everyone connected
+            // Quit the game, stopping the session for everyone connected, and show some UI
             QuitGame();
         }
     }
@@ -111,20 +116,7 @@ public class UITimeRemainingText : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        // Stop the host if in host mode
-        if (NetworkServer.active && NetworkClient.isConnected)
-        {
-            NetworkManager.singleton.StopHost();
-        }
-        // Stop the client if client-only
-        else if (NetworkClient.isConnected)
-        {
-            NetworkManager.singleton.StopClient();
-        }
-        // Stop the server if server-only
-        else if (NetworkServer.active)
-        {
-            NetworkManager.singleton.StopServer();
-        }
+        // TODO: Should disconnect players/load a new scene/something better than this
+        gameOverUIPanel.SetActive(true);
     }
 }
