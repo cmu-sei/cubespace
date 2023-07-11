@@ -70,9 +70,11 @@ namespace Systems.GameBrain
 		{
 			// Instantiate the dictionary, then add all received locations to it
 			locationMap = new Dictionary<string, Location>();
+
+			if (locations == null) return;
 			foreach (var location in locations)
 			{
-				locationMap.Add(location.locationID,location);
+				locationMap.Add(location.locationID, location);
 			}
 		}
 	}

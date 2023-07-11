@@ -6662,13 +6662,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _gameBrainInterface: {fileID: 358994811}
+  _gameBrainInterface: {fileID: 1442502887}
   pollingDelay: 2
   lastGameData:
     session:
       teamInfoName: 
       teamCodexCount: 0
       jumpCutsceneURL: 
+      gameStartTime: 
+      gameCurrentTime: 
+      gameEndTime: 
+      timerTitle: 
+      useGalaxyDisplayMap: 0
+      useCodices: 0
     ship:
       codexURL: 
       workstation1URL: 
