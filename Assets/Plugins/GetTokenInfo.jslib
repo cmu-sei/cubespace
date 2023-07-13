@@ -16,7 +16,7 @@ mergeInto(LibraryManager.library,
 		// Get local storage items
 		var tokenURI = window.localStorage.getItem("oidcLink");
 		var tokenString = window.localStorage.getItem(tokenURI);
-		var serverLink = window.localStorage.getItem("gameServerLink");
+		var serverLink = window.localStorage.getItem("gameServerUrl");
 		// Send some variables to the Unity game through messages
 		window.unityInstance.SendMessage("TokenHandler", "RecieveTokenInfo", "" + tokenString);
 		window.unityInstance.SendMessage("TokenHandler", "ReceiveServerLink", "" + serverLink);
