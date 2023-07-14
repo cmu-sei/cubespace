@@ -20,8 +20,10 @@ mergeInto(LibraryManager.library,
 		console.info("TeamId", teamId);
 
 		// Get local storage items
-		const gameData = window.localStorage.getItem(`externalGame:${teamId}`);
-		console.info("Game data", gameData);
+		const gameDataString = window.localStorage.getItem(`externalGame:${teamId}`);
+		console.info("Game data string", gameDataString);
+		const gameData = JSON.parse(gameDataString);
+		console.info("game data (object):", gameData);
 		const tokenUri = gameData.oidcLink;
 		const tokenString = window.localStorage.getItem(tokenUri);
 		const serverLink = gameData.gameServerUrl;
