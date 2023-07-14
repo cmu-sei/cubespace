@@ -35,6 +35,7 @@ public class HandleTokenInfo : MonoBehaviour
         
         // If running as a WebGL instance, retrieve the token information and game server link
         #if UNITY_WEBGL
+        Debug.Log("Getting token info from local storage");
         GetTokenInfo();
         #endif
     }
@@ -46,6 +47,7 @@ public class HandleTokenInfo : MonoBehaviour
     /// <param name="_tokenInfo">The token information as a string.</param>
     public void RecieveTokenInfo(string _tokenInfo)
     {
+        /*
         if (networkManager && networkManager.isInDebugMode)
         {
             Debug.Log("Info Recieved: " + _tokenInfo);
@@ -56,7 +58,9 @@ public class HandleTokenInfo : MonoBehaviour
             Debug.LogError("No Credentials Found");
             return;
         }
+        */
 
+        Debug.Log("Info Recieved: " + _tokenInfo);
         // Set the token in the loading system to be the one retrieved
         LoadingSystem.Instance.token = _tokenInfo;
     }
@@ -68,6 +72,7 @@ public class HandleTokenInfo : MonoBehaviour
     /// <param name="_serverLink">The link to the game server.</param>
     public void ReceiveServerLink(string _serverLink)
     {
+        /*
         if (networkManager && networkManager.isInDebugMode)
         {
             Debug.Log("Server IP Received: " + _serverLink);
@@ -78,7 +83,11 @@ public class HandleTokenInfo : MonoBehaviour
             Debug.LogError("No Credentials Found");
             return;
         }
+        */
 
+        Debug.Log("Server IP Received: " + _serverLink);
+        Debug.Log("Network manager networkAddress is: " + NetworkManager.singleton.networkAddress + "\nSetting it to: " + _serverLink);
+        NetworkManager.singleton.networkAddress = _serverLink;
         // Set the game server link in the loading system to be the one retrieved
         LoadingSystem.Instance.serverLink = _serverLink;
     }
