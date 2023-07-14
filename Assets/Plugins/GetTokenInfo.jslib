@@ -13,10 +13,16 @@ mergeInto(LibraryManager.library,
 	// Retrieves information from local storage to be used for token information and the game server link.
 	GetTokenInfo: function () 
 	{
+		// read the teamId out of the querystring
+		const urlParams = new URLSearchParams(window.location.search);
+		const teamId = urlParams.get("teamId");
+
 		// Get local storage items
-		var tokenURI = window.localStorage.getItem("oidcLink");
-		var tokenString = window.localStorage.getItem(tokenURI);
-		var serverLink = window.localStorage.getItem("gameServerUrl");
+		const gameData = window.localStorage.getItem(`externalGame:${teamId}`);
+		const tokenUri = gameData.oidcLink;
+		const tokenString = window.localStorage.getItem(tokenUri);
+		const serverLink = gameData.gameServerUrl;
+
 		// Send some variables to the Unity game through messages
 		window.unityInstance.SendMessage("TokenHandler", "RecieveTokenInfo", "" + tokenString);
 		window.unityInstance.SendMessage("TokenHandler", "ReceiveServerLink", "" + serverLink);
