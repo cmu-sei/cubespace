@@ -339,8 +339,6 @@ namespace Mirror
                 Debug.LogError("Must set the Network Address field in the manager");
                 return;
             }
-            Debug.Log($"NetworkManager StartClient. Client connecting to address: {networkAddress}");
-
             NetworkClient.Connect(networkAddress);
 
             OnStartClient();

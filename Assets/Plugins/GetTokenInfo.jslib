@@ -15,19 +15,19 @@ mergeInto(LibraryManager.library,
 	{
 		// read the teamId out of the querystring
 		const urlParams = new URLSearchParams(window.location.search);
-		console.info("UrlParams:", urlParams.toString());
+		//console.info("UrlParams:", urlParams.toString());
 		const teamId = urlParams.get("teamId");
-		console.info("TeamId", teamId);
+		//console.info("TeamId", teamId);
 
 		// Get local storage items
 		const gameDataString = window.localStorage.getItem(`externalGame:${teamId}`);
-		console.info("Game data string", gameDataString);
+		//console.info("Game data string", gameDataString);
 		const gameData = JSON.parse(gameDataString);
-		console.info("game data (object):", gameData);
+		//console.info("game data (object):", gameData);
 		const tokenUri = gameData.oidcLink;
 		const tokenString = window.localStorage.getItem(tokenUri);
 		const serverLink = gameData.gameServerUrl;
-		console.info("serverLink", serverLink);
+		//console.info("serverLink", serverLink);
 
 		// Send some variables to the Unity game through messages
 		window.unityInstance.SendMessage("TokenHandler", "RecieveTokenInfo", "" + tokenString);
