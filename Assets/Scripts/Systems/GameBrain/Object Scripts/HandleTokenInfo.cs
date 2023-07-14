@@ -35,7 +35,6 @@ public class HandleTokenInfo : MonoBehaviour
         
         // If running as a WebGL instance, retrieve the token information and game server link
         #if UNITY_WEBGL
-        Debug.Log("Getting token info from local storage");
         GetTokenInfo();
         #endif
     }
@@ -47,7 +46,6 @@ public class HandleTokenInfo : MonoBehaviour
     /// <param name="_tokenInfo">The token information as a string.</param>
     public void RecieveTokenInfo(string _tokenInfo)
     {
-        /*
         if (networkManager && networkManager.isInDebugMode)
         {
             Debug.Log("Info Recieved: " + _tokenInfo);
@@ -58,9 +56,7 @@ public class HandleTokenInfo : MonoBehaviour
             Debug.LogError("No Credentials Found");
             return;
         }
-        */
 
-        Debug.Log("Info Recieved: " + _tokenInfo);
         // Set the token in the loading system to be the one retrieved
         LoadingSystem.Instance.token = _tokenInfo;
     }
@@ -72,7 +68,6 @@ public class HandleTokenInfo : MonoBehaviour
     /// <param name="_serverLink">The link to the game server.</param>
     public void ReceiveServerLink(string _serverLink)
     {
-        /*
         if (networkManager && networkManager.isInDebugMode)
         {
             Debug.Log("Server IP Received: " + _serverLink);
@@ -83,13 +78,15 @@ public class HandleTokenInfo : MonoBehaviour
             Debug.LogError("No Credentials Found");
             return;
         }
-        */
 
-        Debug.Log("Server IP Received: " + _serverLink);
-        Debug.Log("Network manager networkAddress is: " + NetworkManager.singleton.networkAddress + "\nSetting it to: " + _serverLink);
-        NetworkManager.singleton.networkAddress = _serverLink;
         // Set the game server link in the loading system to be the one retrieved
         LoadingSystem.Instance.serverLink = _serverLink;
+
+        // TODO: Investigate this further
+        // Previously was just setting serverlink in loading system but that's not actually used for *anything*
+        // The network manager is what actually needs the address but other places may need it as well
+        // It's unclear why loading system was getting the address in the first place
+        NetworkManager.singleton.networkAddress = _serverLink;
     }
 }
 
