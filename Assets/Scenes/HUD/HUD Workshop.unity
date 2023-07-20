@@ -6789,7 +6789,7 @@ MonoBehaviour:
   MissionPogPrefab: {fileID: 8737326376524990935, guid: 6e48eb863afc35a49af073d0d25ca362,
     type: 3}
   layoutGroupParent: {fileID: 1794512440}
-  pogCount: 5
+  pogCount: 10
   pogs: []
   emptyIconLookupID: empty
   completedIconBgLookupID: completedBg

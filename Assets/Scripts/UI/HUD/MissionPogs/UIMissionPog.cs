@@ -8,7 +8,13 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using NaughtyAttributes;
+using System;
+using Systems.GameBrain;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI.HUD
@@ -16,7 +22,7 @@ namespace UI.HUD
 	/// <summary>
 	/// The pog used for a mission.
 	/// </summary>
-	public class UIMissionPog : MonoBehaviour
+	public class UIMissionPog : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 	{
 		/// <summary>
 		/// The sprite to show when the mission is completed.
@@ -37,17 +43,58 @@ namespace UI.HUD
 		[SerializeField]
 		private Image _bgImage;
 
-		/// <summary>
-		/// Sets the sprite used in the icon image and the background sprite.
-		/// </summary>
-		/// <param name="s">The sprite to use for the icon.</param>
-		public void SetSprite(Sprite s)
+		private int _missionIndex = -1;
+
+		[Header("Tooltip")]
+        /// <summary>
+        /// whether or not tooltips should be shown for this pog when moused over. False if the pog is empty and displayEmptyPogs is true in container
+        /// </summary>
+        private bool _shouldShowTooltip = false;
+        /// <summary>
+        /// whether or not the tooltip is being displayed right now 
+        /// </summary>
+        private bool _tooltipShowing = false;
+
+        [SerializeField]
+        private GameObject _tooltipObject;
+		[SerializeField]
+		private TextMeshProUGUI _tooltipTitleText;
+        [SerializeField]
+        private TextMeshProUGUI _tooltipStatusText;
+
+        public void UpdatePog(bool missionComplete, int missionScore, Sprite missionIcon, string missionName, int missionIndex)
+        {
+			_tooltipTitleText.text = missionName; 
+            if (!missionComplete && missionScore == 0)
+            {
+                _tooltipStatusText.text = "Incomplete";
+            }
+            else if (!missionComplete && missionScore > 0)
+            {
+                _tooltipStatusText.text = "Partially completed";
+            }
+            else if (missionComplete)
+            {
+                _tooltipStatusText.text = "Completed";
+            }
+
+			_missionIndex = missionIndex;
+
+            SetSprite(missionIcon);
+			_shouldShowTooltip = true;
+        }
+
+        /// <summary>
+        /// Sets the sprite used in the icon image and the background sprite.
+        /// </summary>
+        /// <param name="s">The sprite to use for the icon.</param>
+        private void SetSprite(Sprite s)
 		{
 			_iconImage.sprite = s;
 			_iconImage.enabled = true;
 			_bgImage.sprite = completedBgSprite;
 			_bgImage.enabled = true;
-		}
+        }
 
 		/// <summary>
 		/// Clears the appearance of the background sprite.
@@ -57,7 +104,49 @@ namespace UI.HUD
 			_iconImage.enabled = false;
 			_bgImage.sprite = emptyBgSprite;
 			_bgImage.enabled = true;
+
+            _shouldShowTooltip = false;
+			DisableTooltip();
         }
+
+		public void OnPointerEnter(PointerEventData pointerEventData)
+		{
+            if (_shouldShowTooltip && !_tooltipShowing)
+            {
+                EnableTooltip();
+            }
+        }
+
+		public void OnPointerExit(PointerEventData pointerEventData)
+		{
+            if (_tooltipShowing)
+            {
+                DisableTooltip();
+            }
+        }
+
+		public void OnPointerClick(PointerEventData pointerEventData)
+		{
+			if (_shouldShowTooltip && _missionIndex >= 0 && HUDController.Instance && UIHudMissionManager.Instance)
+			{
+                HUDController.Instance.OpenMissionLog();
+                UIHudMissionManager.Instance.SelectMission(_missionIndex, true);
+                HUDController.Instance.MissionLogButton.OnClick();
+				DisableTooltip();
+            }
+        }
+
+		private void EnableTooltip()
+		{
+			_tooltipObject.SetActive(true);
+			_tooltipShowing = true;
+		}
+
+		private void DisableTooltip()
+		{
+            _tooltipObject.SetActive(false);
+            _tooltipShowing = false;
+		}
 	}
 }
 
