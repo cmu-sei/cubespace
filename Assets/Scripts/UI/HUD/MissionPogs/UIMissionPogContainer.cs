@@ -73,7 +73,7 @@ namespace UI.HUD
 			ClearChildren();
 			CreateIcons();
 
-			StartCoroutine(WaitToClearIcons());
+			StartCoroutine(WaitToClearIcons()); // TODO: This doesn't work
 		}
 
 		/// <summary>
@@ -98,8 +98,10 @@ namespace UI.HUD
 		/// <returns>A yield return while waiting for the ShipStateManager to activate.</returns>
 		private IEnumerator WaitToClearIcons()
         {
+			// TODO: This doesn't actually work. It never gets past this WaitUntil
 			yield return new WaitUntil(() => ShipStateManager.Instance && ShipStateManager.Instance.Session != null);
 
+			// TODO: useCodices is currently not having any effect because this code never runs
 			Debug.Log(">" + ShipStateManager.Instance.Session.useCodices);
 			if (!ShipStateManager.Instance.Session.useCodices)
 			{
@@ -110,14 +112,14 @@ namespace UI.HUD
 		/// <summary>
 		/// Updates the icons displayed for each mission based on the mission data received.
 		/// </summary>
-		/// <param name="data">The list of data for missions.</param>
-		private void UpdateIcons(List<MissionData> data)
+		/// <param name="missions">The list of data for missions.</param>
+		private void UpdateIcons(List<MissionData> missions)
 		{
 			// Fill in pogs for completed missions
 			int nextPogIndexToFill = 0;
-			for (int i = 0; i < data.Count; i++)
+			for (int i = 0; i < missions.Count; i++)
 			{
-				if (data[i].complete && data[i].visible && !data[i].isSpecial)
+				if (missions[i].complete && missions[i].visible && !missions[i].isSpecial)
 				{
 					if (nextPogIndexToFill >= pogCount)
                     {
@@ -125,8 +127,8 @@ namespace UI.HUD
 						return;
                     }
 					pogs[nextPogIndexToFill].gameObject.SetActive(true);
-					pogs[nextPogIndexToFill].SetSprite(missionIconLookup.GetImage(data[i].missionIcon));
-					nextPogIndexToFill++;
+					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon), missions[i].title, i);
+                    nextPogIndexToFill++;
 				}
 			}
 
@@ -158,6 +160,7 @@ namespace UI.HUD
 				pogs[i] = pig.GetComponent<UIMissionPog>();
 				pogs[i].emptyBgSprite= missionIconLookup.GetImage(emptyIconLookupID);
 				pogs[i].completedBgSprite = missionIconLookup.GetImage(completedIconBgLookupID);
+				pogs[i].gameObject.SetActive(false);
 			}
 		}
 
