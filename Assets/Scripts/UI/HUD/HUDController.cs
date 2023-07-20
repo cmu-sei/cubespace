@@ -40,8 +40,15 @@ namespace UI.HUD
         [SerializeField]
         private UIHudDisplayToggleButton missionLogButton;
         public UIHudDisplayToggleButton MissionLogButton => missionLogButton;
+
         /// <summary>
-        /// The button used to open the settigns panel.
+        /// The button used to open the galaxy map.
+        /// </summary>
+        [SerializeField] private UIHudDisplayToggleButton galaxyMapUIButton;
+
+        public UIHudDisplayToggleButton GalaxyMapUIButton => galaxyMapUIButton;
+        /// <summary>
+        /// The button used to open the settings panel.
         /// </summary>
         [SerializeField]
         private UIHudDisplayToggleButton settingsButton;
@@ -161,7 +168,15 @@ namespace UI.HUD
             missionLogButton.controllerCloseFunction.AddListener(CloseMissionLog);
             settingsButton.controllerCloseFunction.AddListener(CloseSettings);
             settingsButton.controllerOpenFunction.AddListener(OpenSettings);
+            
             // No open function for the button on the galaxy panel map panel
+            if (galaxyMapUIButton != null)
+            {
+                galaxyMapUIButton.controllerOpenFunction.AddListener(OpenGalaxyMap);
+                galaxyMapUIButton.controllerCloseFunction.AddListener(CloseGalaxyMap);
+            }
+            
+            
             galaxyPanelCloseButton.controllerCloseFunction.AddListener(CloseGalaxyMap);
 
             cubeIcon.SetCube(false);
@@ -308,6 +323,12 @@ namespace UI.HUD
             galaxyMapPanel.SetActive(true);
             raycastingBlocker.SetActive(true);
             IsPanelOpen = true;
+
+            if (galaxyMapUIButton != null)
+            {
+                //fix for multiple options for galaxy map.
+                galaxyMapUIButton.OnPanelUpdatedOverride(true);
+            }
         }
 
         /// <summary>
@@ -320,6 +341,10 @@ namespace UI.HUD
             galaxyMapPanel.SetActive(false);
             raycastingBlocker.SetActive(false);
             IsPanelOpen = false;
+            if (galaxyMapUIButton != null)
+            {
+                galaxyMapUIButton.OnPanelUpdatedOverride(false);
+            }
         }
 
         /// <summary>
