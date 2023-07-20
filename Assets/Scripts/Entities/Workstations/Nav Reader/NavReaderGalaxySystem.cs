@@ -131,7 +131,7 @@ public class NavReaderGalaxySystem : TooltipControl
             if (Input.GetMouseButtonDown(0))
             {
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(index);
+                UIHudMissionManager.Instance.SelectMission(index,true);
                 HUDController.Instance.MissionLogButton.OnClick();
             }
 
