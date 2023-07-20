@@ -149,7 +149,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// Selects a given mission within the UI.
     /// </summary>
     /// <param name="item">The UI piece for a mission.</param>
-    public void SelectMission(UIHudMissionItem item)
+    public void SelectMission(UIHudMissionItem item, bool jumpToPosition = false)
     {
         var index = Array.IndexOf(missionItems.ToArray(), item);
         lastSelectedIndex = index;
@@ -160,13 +160,35 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
             missionItems[i].SetSelected(i == index);
         }
         missionDetails.SetMissionData(item.VisibleMissionData);
-        missionSlider.SetPosition(item);
+        if (jumpToPosition)
+        {
+            ScrollToMission(item);
+        }
+
+        //update after scrolltomission.
+        missionSlider.SetPosition(item, jumpToPosition);
+
     }
 
-    public void SelectMission(int index)
+    private void ScrollToMission(UIHudMissionItem item)
+    {
+        //set missionListParent y position such that the scrollbar updates.
+        //the scrollview will clamp/control the y position within bounds and move the scrollbar itself.
+        //0 is the top, some positive y value us the bottom.
+
+        var itemTransform = item.transform as RectTransform;
+        float offset = itemTransform.anchoredPosition.y;
+       
+        var missionParent = missionListParent.transform as RectTransform;
+        missionParent.anchoredPosition = new Vector3(missionParent.anchoredPosition.x, -offset/2);
+        
+    }
+
+    public void SelectMission(int index,bool jumpToPosition =false )
     {
         UIHudMissionItem item = missionItems[index];
-        SelectMission(item);
+        SelectMission(item, jumpToPosition);
     }
+    
 }
 
