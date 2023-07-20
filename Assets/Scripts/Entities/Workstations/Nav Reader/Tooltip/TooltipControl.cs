@@ -68,7 +68,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             SolveCountTooltip.Instance.gameObject.SetActive(true);
             SolveCountTooltip.Instance.SetPropertiesFromIndex(system.index, flip);
             rect = SolveCountTooltip.Instance.rect;
-            finalPosition.y -= 26;
+            finalPosition.y -= 30;
         }
         // Sets the position of the tooltip displaying the number of points
         else
@@ -79,7 +79,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             finalPosition.y += 30;
         }
 
-        // Flip hte tooltip if necessary
+        // Flip the tooltip if necessary
         if (flip)
         {
             finalPosition.x -= (rect.sizeDelta.x / 2 + system.tooltipHorizontalBuffer);
