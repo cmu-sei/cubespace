@@ -8,7 +8,7 @@
 		"gameEndTime": "2023-05-23T15:00:00",
 		"timerTitle": "Time until Reactor Explosion",
 		"useGalaxyDisplayMap": true,
-		"useCodices": false
+		"useCodices": true
 	},
 	"ship": {
 		"codexURL": "http://k2.etc.cmu.edu/envsim/vmsims/codexworkstation.html",
