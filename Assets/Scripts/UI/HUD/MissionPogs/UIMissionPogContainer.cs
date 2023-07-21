@@ -98,14 +98,21 @@ namespace UI.HUD
 		/// <returns>A yield return while waiting for the ShipStateManager to activate.</returns>
 		private IEnumerator WaitToClearIcons()
         {
-			// TODO: This doesn't actually work. It never gets past this WaitUntil
-			yield return new WaitUntil(() => ShipStateManager.Instance && ShipStateManager.Instance.Session != null);
+			// TODO: This line doesn't work here but does work elsewhere in the project? The while loop works just as well but it's weird anyways
+			//yield return new WaitUntil(() => ShipStateManager.Instance != null && ShipStateManager.Instance.Session != null);
+			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null)
+			{
+				yield return null;
+			}
 
-			// TODO: useCodices is currently not having any effect because this code never runs
-			Debug.Log(">" + ShipStateManager.Instance.Session.useCodices);
 			if (!ShipStateManager.Instance.Session.useCodices)
 			{
+				if ((CustomNetworkManager.singleton as CustomNetworkManager).isInDebugMode || (CustomNetworkManager.singleton as CustomNetworkManager).isInDevMode)
+				{
+                    Debug.Log("useCodices is false, disbaling mission pogs");
+                }
 				ClearChildren();
+				this.enabled = false;
 			}
 		}
 		
