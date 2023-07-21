@@ -40,10 +40,10 @@ namespace UI.HUD
 		private Transform layoutGroupParent;
 
 		/// <summary>
-		/// The maximum amount of icons to display.
+		/// The maximum amount of icons to display. Actual amount will be count of the missions sent by game brain or this max, whichever is lower
 		/// </summary>
 		[SerializeField]
-		private int pogCount = 5;
+		private int maxPogCount = 10;
 		/// <summary>
 		/// The list of mission pogs.
 		/// </summary>
@@ -62,18 +62,18 @@ namespace UI.HUD
 		/// <summary>
 		/// Whether to display empty icons.
 		/// </summary>
-		[SerializeField]
-		private bool displayEmptyIcons = true;
+		private bool displayEmptyIcons = false;
+
+		private bool initialized = false;
+		private int currentPogCount = 0;
+		private int previousMissionCount = 0;
 
 		/// <summary>
-		/// Clears child mission objects and recreates the icons.
+		/// Starts coroutine that waits until session data comes in to initialize pogs
 		/// </summary>
 		private void Awake()
 		{
-			ClearChildren();
-			CreateIcons();
-
-			StartCoroutine(WaitToClearIcons()); // TODO: This doesn't work
+			StartCoroutine(WaitToInitializePogs());
 		}
 
 		/// <summary>
@@ -81,7 +81,7 @@ namespace UI.HUD
 		/// </summary>
 		private void OnEnable()
 		{
-			ShipStateManager.OnMissionDataChange += UpdateIcons;
+			ShipStateManager.OnMissionDataChange += UpdatePogs;
 		}
 
 		/// <summary>
@@ -89,22 +89,23 @@ namespace UI.HUD
 		/// </summary>
 		private void OnDisable()
 		{
-			ShipStateManager.OnMissionDataChange -= UpdateIcons;
+			ShipStateManager.OnMissionDataChange -= UpdatePogs;
 		}
 
 		/// <summary>
-		/// Clears mission pogs if needed.
+		/// Initializes pogs once session data comes in from game brain
 		/// </summary>
-		/// <returns>A yield return while waiting for the ShipStateManager to activate.</returns>
-		private IEnumerator WaitToClearIcons()
+		private IEnumerator WaitToInitializePogs()
         {
 			// TODO: This line doesn't work here but does work elsewhere in the project? The while loop works just as well but it's weird anyways
 			//yield return new WaitUntil(() => ShipStateManager.Instance != null && ShipStateManager.Instance.Session != null);
-			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null)
+
+			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.MissionData == null)
 			{
 				yield return null;
 			}
 
+			// If useCodices is false, disable pogs
 			if (!ShipStateManager.Instance.Session.useCodices)
 			{
 				if ((CustomNetworkManager.singleton as CustomNetworkManager).isInDebugMode || (CustomNetworkManager.singleton as CustomNetworkManager).isInDevMode)
@@ -114,25 +115,38 @@ namespace UI.HUD
 				ClearChildren();
 				this.enabled = false;
 			}
+            // else initialize pogs
+            else
+            {
+                displayEmptyIcons = ShipStateManager.Instance.Session.displayIncompleteMissionPogs;
+				ClearChildren();
+				previousMissionCount = ShipStateManager.Instance.MissionData.Count;
+                CreatePogs(ShipStateManager.Instance.MissionData.Count);
+                initialized = true;
+                UpdatePogs(ShipStateManager.Instance.MissionData);
+            }
 		}
 		
 		/// <summary>
 		/// Updates the icons displayed for each mission based on the mission data received.
 		/// </summary>
 		/// <param name="missions">The list of data for missions.</param>
-		private void UpdateIcons(List<MissionData> missions)
+		private void UpdatePogs(List<MissionData> missions)
 		{
+			if (!initialized) return;
+			else if (previousMissionCount != missions.Count)
+			{
+				previousMissionCount = missions.Count;
+				ClearChildren();
+				CreatePogs(missions.Count);
+			}
+
 			// Fill in pogs for completed missions
 			int nextPogIndexToFill = 0;
-			for (int i = 0; i < missions.Count; i++)
+			for (int i = 0; i < currentPogCount; i++)
 			{
 				if (missions[i].complete && missions[i].visible && !missions[i].isSpecial)
 				{
-					if (nextPogIndexToFill >= pogCount)
-                    {
-						Debug.LogError("Server sent more complete missions than there are pog icons to display them! Either change pogCount in the pogContainer or send less missions with complete == true!");
-						return;
-                    }
 					pogs[nextPogIndexToFill].gameObject.SetActive(true);
 					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon), missions[i].title, i);
                     nextPogIndexToFill++;
@@ -141,11 +155,12 @@ namespace UI.HUD
 
 			// Deal with empty pogs
 			int n = nextPogIndexToFill;
-			while (n < pogs.Length)
+			while (n < currentPogCount)
             {
 				if (displayEmptyIcons)
 				{
 					pogs[n].SetEmpty();
+					pogs[n].gameObject.SetActive(true);
 				}
 				else
 				{
@@ -158,9 +173,15 @@ namespace UI.HUD
 		/// <summary>
 		/// Creates icons for the mission pogs.
 		/// </summary>
-		private void CreateIcons()
+		private void CreatePogs(int pogCount)
 		{
-			pogs = new UIMissionPog[pogCount];
+            if (pogCount > maxPogCount)
+            {
+                Debug.LogError("More missions sent by GameBrain then can be displayed by pogs but useCodices is true!!! Displaying max of: " + maxPogCount);
+				pogCount = maxPogCount;
+            }
+
+            pogs = new UIMissionPog[pogCount];
 			for (int i = 0; i < pogCount; i++)
 			{
 				var pig = Instantiate(MissionPogPrefab, layoutGroupParent);
@@ -169,7 +190,9 @@ namespace UI.HUD
 				pogs[i].completedBgSprite = missionIconLookup.GetImage(completedIconBgLookupID);
 				pogs[i].gameObject.SetActive(false);
 			}
-		}
+
+            currentPogCount = pogCount;
+        }
 
 		/// <summary>
 		/// Clears out all child objects.

@@ -107,9 +107,11 @@ namespace Systems.GameBrain
 		public string timerTitle;
 		// Whether to use the galaxy display map
 		public bool useGalaxyDisplayMap;
-		// Whether to display codices
+		// Whether to display codices (mission pogs)
 		public bool useCodices;
-	}
+		// Whether to show empty pogs for incomplete but visable missions
+		public bool displayIncompleteMissionPogs;
+    }
 
 	/// <summary>
 	/// Class providing URLs for each VM workstation and the Codex workstation.
