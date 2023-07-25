@@ -76,6 +76,7 @@ jobs:
         with:
           buildMethod: UnityBuilderAction.BuildScript.BuildGame
           # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+          allowDirtyBuild: true
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
