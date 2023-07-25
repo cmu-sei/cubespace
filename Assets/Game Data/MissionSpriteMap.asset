@@ -49,19 +49,5 @@ MonoBehaviour:
     locationImage: {fileID: 21300000, guid: 6bf0c4e557dbb864dbf54067d2d84177, type: 3}
   - locationID: conduit
     locationImage: {fileID: 21300000, guid: 4a2af55c69b33cf4c86157dc05680d51, type: 3}
-  - locationID: gravconcache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: reactorcache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: ringrotcache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: ergoconcache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: penmasscache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: electrocache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: radiantcache
-    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
-  - locationID: conduitcache
+  - locationID: cache
     locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
