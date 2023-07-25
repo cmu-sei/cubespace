@@ -33,3 +33,35 @@ MonoBehaviour:
     locationImage: {fileID: 21300000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
   - locationID: reset
     locationImage: {fileID: 21300000, guid: a94c9a7eb94ceec4a8d67a1890e22e51, type: 3}
+  - locationID: gravcon
+    locationImage: {fileID: 21300000, guid: 43a0e8b7468b81147be188a0bd448877, type: 3}
+  - locationID: reactor
+    locationImage: {fileID: 21300000, guid: fd3f996edafe7d840abf9f5fd3837c15, type: 3}
+  - locationID: ringrot
+    locationImage: {fileID: 21300000, guid: 292164febafd94e459e44d90eaba1dd8, type: 3}
+  - locationID: ergocon
+    locationImage: {fileID: 21300000, guid: 6421ccf126e432042a20e96798b5a80d, type: 3}
+  - locationID: penmass
+    locationImage: {fileID: 21300000, guid: dd64d9c7bf5c2204d886a567f23532ac, type: 3}
+  - locationID: electro
+    locationImage: {fileID: 21300000, guid: 2e94a582500135241b24acb7f862a7c5, type: 3}
+  - locationID: radiant
+    locationImage: {fileID: 21300000, guid: 6bf0c4e557dbb864dbf54067d2d84177, type: 3}
+  - locationID: conduit
+    locationImage: {fileID: 21300000, guid: 4a2af55c69b33cf4c86157dc05680d51, type: 3}
+  - locationID: gravconcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: reactorcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: ringrotcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: ergoconcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: penmasscache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: electrocache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: radiantcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: conduitcache
+    locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
