@@ -69,6 +69,8 @@ jobs:
       # Discard any changes to the working tree caused by generating library
       # TMPro SDF files get auto changed which causes an error when you try to build on the now dirty branch
       - name: Clear local changes caused by regenerating library and cache
+        with:
+          path: ${GITHUB_WORKSPACE}
         run: |
           git status
           git restore *
