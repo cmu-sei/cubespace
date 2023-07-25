@@ -71,7 +71,7 @@ jobs:
       - name: Clear local changes caused by regenerating library and cache
         run: |
           git status
-          git restore
+          git restore *
 
       # Build
       - name: Build ${{ matrix.targetPlatform }}
