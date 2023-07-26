@@ -71,10 +71,12 @@ namespace Entities.Workstations.SensorStationParts
         /// <param name="callback">The callback method to invoke within a coroutine upon finishing the video.</param>
         public void PlayVideo(string url, VideoEvent callback)
         {
+            Debug.Log("Sensor station playing: " + url);
             _videoPlayer.targetTexture.Release();
             _videoPlayer.url = url;
             _videoPlayer.EnableAudioTrack(0, true);
             _videoPlayer.Prepare();
+            _videoPlayer.prepareCompleted += (_) => { Debug.Log("Sensor station video prepped"); } ;
             currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback));
         }
 
@@ -104,12 +106,14 @@ namespace Entities.Workstations.SensorStationParts
         /// <returns>A yield return while playing the video.</returns>
         private IEnumerator VideoPlayCoroutine(string url, VideoEvent callback)
         {
+            Debug.Log("sensor station coroutine for this url: " + url);
             UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
             while (!_videoPlayer.isPrepared)
             {
+                Debug.Log("sensor station still prepping???");
                 yield return null;
             }
-
+            Debug.Log("Sensor video prepped playing now");
             _videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
             while (_videoPlayer.isPlaying)
