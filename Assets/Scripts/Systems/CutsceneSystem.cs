@@ -228,7 +228,10 @@ namespace Systems
             autoplayAfterPrepare = playAfterPrepared;
 
             // Prepare the video
+            Debug.Log("Video player clip: " + _videoPlayer.clip);
+            Debug.Log("Video player url: " + _videoPlayer.url);
             Debug.Log("Right before calling prepare");
+            _videoPlayer.errorReceived += (m, _) => { Debug.LogError(m); };
             _videoPlayer.prepareCompleted += (_) => { Debug.Log("Cutscene system finished prepping~~~"); };
             _videoPlayer.Prepare();
             
