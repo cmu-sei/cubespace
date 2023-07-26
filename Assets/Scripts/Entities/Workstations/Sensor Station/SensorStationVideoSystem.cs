@@ -76,6 +76,7 @@ namespace Entities.Workstations.SensorStationParts
             _videoPlayer.url = url;
             _videoPlayer.EnableAudioTrack(0, true);
             _videoPlayer.Prepare();
+            _videoPlayer.prepareCompleted += (_) => { Debug.Log("Sensor station video prepped"); } ;
             currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback));
         }
 
@@ -109,6 +110,7 @@ namespace Entities.Workstations.SensorStationParts
             UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
             while (!_videoPlayer.isPrepared)
             {
+                Debug.Log("sensor station still prepping???");
                 yield return null;
             }
             Debug.Log("Sensor video prepped playing now");
