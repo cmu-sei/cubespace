@@ -245,6 +245,7 @@ namespace Systems.GameBrain
             Debug.LogWarning("EASY STUFF DONE!");
 			*/
 
+			/*
 			Debug.Log("obj.associatedChallengesCoordinates == null: " + (obj.associatedChallengesCoordinates == null).ToString());
             Debug.Log("obj.associatedChallengesCoordinates == new string[0]: " + (obj.associatedChallengesCoordinates == new string[0]).ToString());
 			Debug.Log("obj.associatedChallengesCoordinates: " + obj.associatedChallengesCoordinates.ToString());
@@ -254,6 +255,7 @@ namespace Systems.GameBrain
 			{
 				Debug.Log("coord " + i + ": " + obj.associatedChallengesCoordinates[i]);
 			}
+			*/
 
             // Return if the different attributes between the two missions are equal
             return missionID == obj.missionID
