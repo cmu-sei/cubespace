@@ -176,7 +176,7 @@ namespace Systems.GameBrain
 		// The coordinates of the associated challenges, should have same length as associatedChallenges, should have null entries until this mission is complete
 		// example: missions has 1 associated challenge and is incomplete, coords should look like *[ null ]* 
 		// mission has 1 associated challenge and is complete, coords should look like *[ "123456" ]*
-		// mission has 0 associated challenges, coords will look like *null* (not a list)
+		// mission has 0 associated challenges, coords will look like *null* or []
 		public string[] associatedChallengesCoordinates;
 		// The number of teams who have attempted the challenge
 		public int totalTeams;
@@ -220,6 +220,7 @@ namespace Systems.GameBrain
 			TaskData[] l = taskList.OrderBy(t => t.taskID).ToArray();
 			TaskData[] l2 = obj.taskList.OrderBy(t => t.taskID).ToArray();
 
+			/*
             Debug.Log("missionID: " + missionID + " vs " + "obj.missionID: " + obj.missionID);
             Debug.Log("complete: " + complete + " vs " + "obj.complete: " + obj.complete);
             Debug.Log("totalTeams: " + totalTeams + " vs " + "obj.totalTeams: " + obj.totalTeams);
@@ -242,6 +243,17 @@ namespace Systems.GameBrain
             Debug.Log("roleList.Length: " + roleList.Length + " vs " + "obj.roleList.Length: " + obj.roleList.Length);
             Debug.Log("l.Length: " + l.Length + " vs " + "l2.Length: " + l2.Length);
             Debug.LogWarning("EASY STUFF DONE!");
+			*/
+
+			Debug.Log("obj.associatedChallengesCoordinates == null: " + (obj.associatedChallengesCoordinates == null).ToString());
+            Debug.Log("obj.associatedChallengesCoordinates == new string[0]: " + (obj.associatedChallengesCoordinates == new string[0]).ToString());
+			Debug.Log("obj.associatedChallengesCoordinates: " + obj.associatedChallengesCoordinates.ToString());
+            Debug.Log("obj.associatedChallengesCoordinates.Length: " + obj.associatedChallengesCoordinates.Length);
+
+			for (int i = 0; i < obj.associatedChallengesCoordinates.Length; i++)
+			{
+				Debug.Log("coord " + i + ": " + obj.associatedChallengesCoordinates[i]);
+			}
 
             // Return if the different attributes between the two missions are equal
             return missionID == obj.missionID
