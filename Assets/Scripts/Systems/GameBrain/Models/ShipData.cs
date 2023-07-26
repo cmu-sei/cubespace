@@ -220,8 +220,31 @@ namespace Systems.GameBrain
 			TaskData[] l = taskList.OrderBy(t => t.taskID).ToArray();
 			TaskData[] l2 = obj.taskList.OrderBy(t => t.taskID).ToArray();
 
-			// Return if the different attributes between the two missions are equal
-			return missionID == obj.missionID
+            Debug.Log("missionID: " + missionID + " vs " + "obj.missionID: " + obj.missionID);
+            Debug.Log("complete: " + complete + " vs " + "obj.complete: " + obj.complete);
+            Debug.Log("totalTeams: " + totalTeams + " vs " + "obj.totalTeams: " + obj.totalTeams);
+            Debug.Log("solveTeams: " + solveTeams + " vs " + "obj.solveTeams: " + obj.solveTeams);
+            Debug.Log("possibleMaximumScore: " + possibleMaximumScore + " vs " + "obj.possibleMaximumScore: " + obj.possibleMaximumScore);
+            Debug.Log("baseSolveValue: " + baseSolveValue + " vs " + "obj.baseSolveValue: " + obj.baseSolveValue);
+            Debug.Log("bonusRemaining: " + bonusRemaining + " vs " + "obj.bonusRemaining: " + obj.bonusRemaining);
+            Debug.Log("currentScore: " + currentScore + " vs " + "obj.currentScore: " + obj.currentScore);
+            Debug.Log("associatedChallenges.Length: " + associatedChallenges.Length + " vs " + "obj.associatedChallenges.Length: " + obj.associatedChallenges.Length);
+            Debug.Log("associatedChallengesCoordinates.Length: " + associatedChallengesCoordinates.Length + " vs " + "obj.associatedChallengesCoordinates.Length: " + obj.associatedChallengesCoordinates.Length);
+            Debug.Log("galaxyMapXPos: " + galaxyMapXPos + " vs " + "obj.galaxyMapXPos: " + obj.galaxyMapXPos);
+            Debug.Log("galaxyMapYPos: " + galaxyMapYPos + " vs " + "obj.galaxyMapYPos: " + obj.galaxyMapYPos);
+            Debug.Log("galaxyMapTargetXPos: " + galaxyMapTargetXPos + " vs " + "obj.galaxyMapTargetXPos: " + obj.galaxyMapTargetXPos);
+            Debug.Log("galaxyMapTargetYPos: " + galaxyMapTargetYPos + " vs " + "obj.galaxyMapTargetYPos: " + obj.galaxyMapTargetYPos);
+            Debug.Log("visible: " + visible + " vs " + "obj.visible: " + obj.visible);
+            Debug.Log("isSpecial: " + isSpecial + " vs " + "obj.isSpecial: " + obj.isSpecial);
+            Debug.Log("title: " + title + " vs " + "obj.title: " + obj.title);
+            Debug.Log("summaryShort: " + summaryShort + " vs " + "obj.summaryShort: " + obj.summaryShort);
+            Debug.Log("summaryLong: " + summaryLong + " vs " + "obj.summaryLong: " + obj.summaryLong);
+            Debug.Log("roleList.Length: " + roleList.Length + " vs " + "obj.roleList.Length: " + obj.roleList.Length);
+            Debug.Log("l.Length: " + l.Length + " vs " + "l2.Length: " + l2.Length);
+            Debug.LogWarning("EASY STUFF DONE!");
+
+            // Return if the different attributes between the two missions are equal
+            return missionID == obj.missionID
 			       //first compare bools and ints
 			       && complete == obj.complete
 			       && totalTeams == obj.totalTeams
