@@ -49,11 +49,11 @@
 					"missionID": "gravcon",
 					"descriptionText": "Fix Gravitic Containment",
 					"visible": true,
-					"complete": false,
+					"complete": true,
 					"infoPresent": true,
 					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Gravitic Containment</line-height>",
-					"videoPresent": false,
-					"videoURL": ""
+					"videoPresent": true,
+					"videoURL": "https://presidentscup.cisa.gov/files/11cc8d7f896eed846202d09e572bf0c6-VIDEO-01-1.mp4"
 				}
 			]
 		},
