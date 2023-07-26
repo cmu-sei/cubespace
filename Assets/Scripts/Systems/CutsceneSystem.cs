@@ -162,19 +162,23 @@ namespace Systems
         /// <returns>Whether the preparation was successful.</returns>
         public bool PrepareWebCutscene(string videoURL, bool playAfterPrepared = true, bool hasOverlay = false)
         {
-            Debug.Log("Preparing cutscene at this url: " + videoURL);
-
             // No video player set
             if (!_videoPlayer || !_videoPlayer.targetTexture)
             {
-                Debug.LogError("No video player or render texture set for CutsceneSystem!");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("No video player or render texture set for CutsceneSystem!");
+                }
                 return false;
             }
             // Already trying to play another video
             else if (_cutsceneCoroutine != null)
             {
                 // Stop an existing cutscene and the video player
-                Debug.LogWarning("Trying to prepare video while another cutscene is playing! Cancelling the previous cutscene.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogWarning("Trying to prepare video while another cutscene is playing! Cancelling the previous cutscene.");
+                }
                 StopCoroutine(_cutsceneCoroutine);
                 _videoPlayer.Stop();
                 // Disable some video controls
@@ -185,7 +189,10 @@ namespace Systems
             // No URL provided
             if (string.IsNullOrEmpty(videoURL))
             {
-                Debug.LogError("no URL, can't play video");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("no URL, can't play video");
+                }
                 return false;
             }
 
@@ -193,21 +200,30 @@ namespace Systems
             Uri uriResult;
             if (!Uri.TryCreate(videoURL, UriKind.Absolute, out uriResult))
             {
-                Debug.LogError($"URL provided is not a valid URL. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided is not a valid URL. URL provided: {videoURL}");
+                }
                 return false;
             }
 
             // URL does not use HTTPS
             if (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps)
             {
-                Debug.LogError($"URL provided does not use HTTP or HTTPS. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided does not use HTTP or HTTPS. URL provided: {videoURL}");
+                }
                 return false;
             }
 
             // URL is not a video
             if (!Regex.IsMatch(videoURL, ".*\\.(avi|mpg|rm|mov|wav|asf|3gp|mkv|rmvb|mp4|ogg|mp3|oga|aac|mpeg|webm)", RegexOptions.IgnoreCase))
             {
-                Debug.LogError($"URL provided is not a video. URL provided: {videoURL}");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError($"URL provided is not a video. URL provided: {videoURL}");
+                }
                 return false;
             }
 
@@ -276,21 +292,25 @@ namespace Systems
         /// </summary>
         public void PlayCutscene()
         {
-            Debug.Log("PLAYING CUTSCENE");
-
             // Call an action before the cutscene begins playing
             OnCutsceneStart?.Invoke();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
             // If the video player is not prepared yet, stop an attempt to play the cutscene
             if (!_videoPlayer.isPrepared)
             {
-                Debug.LogError("Cutscene video player not ready!");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogError("Cutscene video player not ready!");
+                }
                 return;
             }
             // Otherwise, if there is already a cutscene playing, stop an attempt to play the cutscene
             else if (_cutsceneCoroutine != null)
             {
-                Debug.LogWarning("Cutscene video played while another was playing! Player must be re-prepared. Ignoring request to play a cutscene.");
+                if (networkManager && networkManager.isInDebugMode)
+                {
+                    Debug.LogWarning("Cutscene video played while another was playing! Player must be re-prepared. Ignoring request to play a cutscene.");
+                }
                 return;
             }
 
@@ -304,7 +324,6 @@ namespace Systems
         /// <returns>A yield while waiting for a video to stop playing or unpause.</returns>
         private IEnumerator PlayCutsceneCoroutine()
         {
-            Debug.Log("COROUTINE STARTED");
             // Lock the local player's input
             Player.LockLocalPlayerInput();
             // Reset the starting frame of the video
