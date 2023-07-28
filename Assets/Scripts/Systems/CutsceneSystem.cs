@@ -246,7 +246,7 @@ namespace Systems
         /// </summary>
         private void PlayLaunchCutscene()
         {
-            PrepareWebCutscene(ShipStateManager.Instance.Session.jumpCutsceneURL, true, false);
+            //PrepareWebCutscene(ShipStateManager.Instance.Session.jumpCutsceneURL, true, false);
         }
 
         /// <summary>
