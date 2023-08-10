@@ -3204,7 +3204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerRouting: {fileID: 322232841441439651}
-  powerForExploration: 0
+  isExplorationButton: 0
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
 --- !u!135 &4071981707479785083
@@ -4068,7 +4068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerRouting: {fileID: 322232841441439651}
-  powerForExploration: 1
+  isExplorationButton: 1
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
 --- !u!135 &4963454745730882281

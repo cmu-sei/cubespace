@@ -18,7 +18,7 @@ namespace Entities.Workstations.PowerRouting
         /// Whether this button is used to power workstation explorations.
         /// </summary>
         [SerializeField]
-        private bool powerForExploration = false;
+        private bool isExplorationButton = false;
 
         /// <summary>
         /// The manager used to control workstation information.
@@ -31,12 +31,12 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         private void OnMouseDown()
         {
-            if (powerForExploration && powerRouting.GetAllPoweredForExploration())
+            if (isExplorationButton && powerRouting.GetAllPoweredForExploration())
             {
                 SetExplorationMode(false);
                 return;
             }
-            else if (!powerForExploration && powerRouting.GetAllPoweredForLaunch())
+            else if (!isExplorationButton && powerRouting.GetAllPoweredForLaunch())
             {
                 SetLaunchMode(false);
                 return;
@@ -44,7 +44,7 @@ namespace Entities.Workstations.PowerRouting
 
             DepowerUnneededStations();
 
-            if (powerForExploration)
+            if (isExplorationButton)
             {
                 SetExplorationMode(true);
             }
@@ -61,7 +61,7 @@ namespace Entities.Workstations.PowerRouting
         {
             foreach (Workstation w in _workstationManager.GetWorkstations())
             {
-                if (powerForExploration)
+                if (isExplorationButton)
                 {
                     if (!w.AlwaysHasPower && !w.UsedInExplorationMode && w.IsPowered)
                     {
