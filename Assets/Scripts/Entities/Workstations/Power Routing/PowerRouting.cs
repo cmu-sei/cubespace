@@ -377,6 +377,11 @@ namespace Entities.Workstations.PowerRouting
                 CmdChangeSystemPowerState(workstationID, !workstationPower);
                 // Toggle the button UI
                 TogglePowerStateRoutingUI(workstationID, !workstationPower);
+
+                // Update power routing state locally, will get updated on server in the command
+                // Prevents mangled states being created due to lag
+                systemIDPowerStates[workstationID] = !workstationPower;
+                poweredStations = systemIDPowerStates.Count(x => x.Value);
             }
             else
             {
