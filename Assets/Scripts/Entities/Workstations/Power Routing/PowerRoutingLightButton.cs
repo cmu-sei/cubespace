@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -86,6 +87,9 @@ namespace Entities.Workstations.PowerRouting
         private void SetLaunchMode(bool power)
         {
             Debug.Log("SetLaunchMode(" + power + ")");
+            List<Workstation> ws = _workstationManager.GetLaunchWorkstations();
+            Debug.Log("Launch workstations array received has this many items: " + ws.Count);
+            Debug.Log(ws);
             foreach (Workstation w in _workstationManager.GetLaunchWorkstations())
             {
                 Debug.Log("SetLaunchMode: Looking at " + w.name + ". isPowered == " + w.IsPowered);
