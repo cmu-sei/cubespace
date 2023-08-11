@@ -59,6 +59,7 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         private void DepowerUnneededStations()
         {
+            Debug.Log("DepowerUnneededStations");
             foreach (Workstation w in _workstationManager.GetWorkstations())
             {
                 if (isExplorationButton)
@@ -72,6 +73,7 @@ namespace Entities.Workstations.PowerRouting
                 {
                     if (!w.AlwaysHasPower && !w.UsedInLaunchMode && w.IsPowered)
                     {
+                        Debug.Log("DepowerUnneededStations: Turning off " + w.name);
                         powerRouting.TogglePowerState(w.StationID);
                     }
                 }
@@ -83,10 +85,13 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         private void SetLaunchMode(bool power)
         {
+            Debug.Log("SetLaunchMode(" + power + ")");
             foreach (Workstation w in _workstationManager.GetLaunchWorkstations())
             {
+                Debug.Log("SetLaunchMode: Looking at " + w.name + ". isPowered == " + w.IsPowered);
                 if (!w.AlwaysHasPower && w.IsPowered != power)
                 {
+                    Debug.Log("SetLaunchMode: toggling " + w.name);
                     powerRouting.TogglePowerState(w.StationID);
                 }
             }
@@ -101,6 +106,7 @@ namespace Entities.Workstations.PowerRouting
             {
                 if (!w.AlwaysHasPower && w.IsPowered != power)
                 {
+                    Debug.Log("SetExplorationMode: toggling " + w.name);
                     powerRouting.TogglePowerState(w.StationID);
                 }
             }

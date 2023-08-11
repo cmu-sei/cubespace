@@ -382,6 +382,7 @@ namespace Entities.Workstations.PowerRouting
                 // Prevents mangled states being created due to lag
                 systemIDPowerStates[workstationID] = !workstationPower;
                 poweredStations = systemIDPowerStates.Count(x => x.Value);
+                Debug.Log("TogglePowerState: poweredStations == " + poweredStations);
             }
             else
             {
