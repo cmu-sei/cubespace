@@ -369,23 +369,26 @@ namespace Entities.Workstations.PowerRouting
         public void TogglePowerState(WorkstationID workstationID)
         {
             bool workstationPower = GetPowerStateForWorkstation(workstationID);
+            Debug.Log("TogglePowerState: " + "attempting to toggle power for " + workstationID);
 
             // There is available power to "spend" and this system is currently unpowered || This system is currently powered
             if ((PowerIsAvailable() && !workstationPower) || workstationPower)
             {
-                // Switch the state to be powered or unpowered based on its previous state
-                CmdChangeSystemPowerState(workstationID, !workstationPower);
-                // Toggle the button UI
-                TogglePowerStateRoutingUI(workstationID, !workstationPower);
-
                 // Update power routing state locally, will get updated on server in the command
                 // Prevents mangled states being created due to lag
                 systemIDPowerStates[workstationID] = !workstationPower;
                 poweredStations = systemIDPowerStates.Count(x => x.Value);
                 Debug.Log("TogglePowerState: poweredStations == " + poweredStations);
+
+
+                // Switch the state to be powered or unpowered based on its previous state
+                CmdChangeSystemPowerState(workstationID, !workstationPower);
+                // Toggle the button UI
+                TogglePowerStateRoutingUI(workstationID, !workstationPower);
             }
             else
             {
+                Debug.Log("Failed to toggle power for " + workstationID);
                 workstationButtonDict[workstationID].OnPowerFail();
             }
         }
@@ -444,10 +447,7 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                if (networkManager && networkManager.isInDebugMode)
-                {
-                    Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
-                }
+                Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
                 return false;
             }
         }
