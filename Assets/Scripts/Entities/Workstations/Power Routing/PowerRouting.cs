@@ -113,8 +113,6 @@ namespace Entities.Workstations.PowerRouting
                     // Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
                 }
             }
-
-            networkIdentity = GetComponent<NetworkIdentity>();
         }
 
         /// <summary>
@@ -125,6 +123,7 @@ namespace Entities.Workstations.PowerRouting
             base.Start();
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
+            networkIdentity = GetComponent<NetworkIdentity>();
             StartCoroutine(FindLocationLabel());
         }
 
@@ -359,7 +358,7 @@ namespace Entities.Workstations.PowerRouting
         /// Reverts clients local UI and any other immediate state changes from changing power
         /// </summary>
         [TargetRpc]
-        public void TargetClientRevertLocalWorkstationPowerState(NetworkConnectionToClient target, WorkstationID workstationID, bool stateFailedToChangeTo)
+        public void TargetClientRevertLocalWorkstationPowerState(NetworkConnection target, WorkstationID workstationID, bool stateFailedToChangeTo)
         {
             TogglePowerStateRoutingUI(workstationID, !stateFailedToChangeTo);
         }
