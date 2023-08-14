@@ -85,6 +85,8 @@ namespace Entities.Workstations.PowerRouting
         /// The CustomNetworkManager component of the main NetworkManager singleton.
         /// </summary>
         private CustomNetworkManager networkManager;
+
+        private NetworkIdentity networkIdentity;
         #endregion
 
         #region Unity event functions
@@ -111,6 +113,8 @@ namespace Entities.Workstations.PowerRouting
                     // Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
                 }
             }
+
+            networkIdentity = GetComponent<NetworkIdentity>();
         }
 
         /// <summary>
@@ -306,13 +310,21 @@ namespace Entities.Workstations.PowerRouting
 
         #region Commands
         /// <summary>
-        /// Change the power state stored on the server.
+        /// Try to change the power state stored on the server if possible.
         /// </summary>
-        /// <param name="workstationID">The workstation whose power state has changed.</param>
-        /// <param name="state">Whether the given workstation is powered.</param>
+        /// <param name="workstationID">The workstation whose power state should chang.</param>
+        /// <param name="state">Resulting powered state of this operation.</param>
         [Command(requiresAuthority = false)]
-        public void CmdChangeSystemPowerState(WorkstationID workstationID, bool state)
+        public void CmdTryChangeSystemPowerState(NetworkIdentity client, WorkstationID workstationID, bool state)
         {
+            // Trying to turn something on while there's no power
+            if ((!PowerIsAvailable() && state))
+            {
+                Debug.LogWarning("Tried to power a workstation on while there was no power remaining! Reverting client's power state");
+                TargetClientRevertLocalWorkstationPowerState(client.connectionToClient, workstationID, state);
+                return;
+            }
+
             // Update the workstation to be powered
             systemIDPowerStates[workstationID] = state;
             // Get the number of powered workstations
@@ -343,6 +355,15 @@ namespace Entities.Workstations.PowerRouting
         }
         #endregion
 
+        /// <summary>
+        /// Reverts clients local UI and any other immediate state changes from changing power
+        /// </summary>
+        [TargetRpc]
+        public void TargetClientRevertLocalWorkstationPowerState(NetworkConnectionToClient target, WorkstationID workstationID, bool stateFailedToChangeTo)
+        {
+            TogglePowerStateRoutingUI(workstationID, !stateFailedToChangeTo);
+        }
+
         #region Power status methods
         /// <summary>
         /// Turns the lights on the powered light strip on or off.
@@ -369,21 +390,19 @@ namespace Entities.Workstations.PowerRouting
         public void TogglePowerState(WorkstationID workstationID)
         {
             bool workstationPower = GetPowerStateForWorkstation(workstationID);
-            Debug.Log("TogglePowerState: " + "attempting to toggle power for " + workstationID);
 
             // There is available power to "spend" and this system is currently unpowered || This system is currently powered
+            //   This check happens locally, if succesful a command is sent to the server to actually change the power state
+            //   On the server this check happens again against the server's state, if that check is succesful, it changes the power state.
+            //   Without the check on the server, the following bug occurs:
+            //   Player hits launch mode button -> check passes command sent to server -> player hits exploration mode button immediatly after ->
+            //   -> check passes again because first command hasn't reached server so actual state hasn't changed -> second command get's sent to server ->
+            //   -> server recieves first command and powers up launch stations -> server recieves second command and powers up exploration stations -> every station is on :(
             if ((PowerIsAvailable() && !workstationPower) || workstationPower)
             {
-                // Update power routing state locally, will get updated on server in the command
-                // Prevents mangled states being created due to lag
-                systemIDPowerStates[workstationID] = !workstationPower;
-                poweredStations = systemIDPowerStates.Count(x => x.Value);
-                Debug.Log("TogglePowerState: poweredStations == " + poweredStations);
-
-
                 // Switch the state to be powered or unpowered based on its previous state
-                CmdChangeSystemPowerState(workstationID, !workstationPower);
-                // Toggle the button UI
+                CmdTryChangeSystemPowerState(netIdentity, workstationID, !workstationPower);
+                // Toggle the button UI locally, immediatly. Get's reverted by TargetRPC function if necessary 
                 TogglePowerStateRoutingUI(workstationID, !workstationPower);
             }
             else
