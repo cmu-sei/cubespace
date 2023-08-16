@@ -7,12 +7,15 @@ using Managers;
 using Systems.GameBrain;
 using UI.HUD;
 using System.Reflection;
+using UI.ColorPalettes;
 
 /// <summary>
 /// A tooltip displayed when the solve count UI of a system on the galaxy map is hovered over.
 /// </summary>
 public class SolveCountTooltip : Singleton<SolveCountTooltip>
 {
+    [SerializeField] private ColorPalette _palette;
+
     /// <summary>
     /// The image used as the border of the tooltip.
     /// </summary>
@@ -63,18 +66,18 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     {
         this.index = index;
         MissionData mission = ShipStateManager.Instance.MissionData[index];
-        Color setColor = HUDController.Instance.incompleteHighlightColor;
+        Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
         {
             // Nothing here
         }
         else if (!mission.complete && mission.currentScore > 0)
         {
-            setColor = HUDController.Instance.partiallyCompletedHighlightColor;
+            setColor = _palette.partiallyCompletedHighlightColor;
         }
         else if (mission.complete)
         {
-            setColor = HUDController.Instance.completedHighlightColor;
+            setColor = _palette.completedHighlightColor;
         }
 
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);

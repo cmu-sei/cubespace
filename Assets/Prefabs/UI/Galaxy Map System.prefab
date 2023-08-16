@@ -488,14 +488,11 @@ MonoBehaviour:
   pointsInnerBacking: {fileID: 4738582822386404439}
   pointsText: {fileID: 3993332594575991321}
   solveCountText: {fileID: 8244730923961684026}
-  duration: 2
-  cacheHexCode: 123ABC
-  solveCount: 0
   imageMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
   flipTooltipXThreshold: 100
   tooltipHorizontalBuffer: 60
   index: -1
-  currentScore: 0
+  _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &2183866066419606952
 GameObject:
   m_ObjectHideFlags: 0

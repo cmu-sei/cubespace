@@ -311,6 +311,7 @@ MonoBehaviour:
   tooltipText: {fileID: 7902048339237847581}
   index: -1
   rect: {fileID: 0}
+  _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &2182081092676713268
 GameObject:
   m_ObjectHideFlags: 0

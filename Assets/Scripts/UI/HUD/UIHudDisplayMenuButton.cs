@@ -1,4 +1,4 @@
-/*
+﻿/*
 Cyber Defenders Video Game
 Copyright 2023 Carnegie Mellon University.
 NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
@@ -8,6 +8,7 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using System;
 using UI.ColorPalettes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,13 +19,14 @@ namespace UI.HUD
 {
 	/// <summary>
 	/// A definition for the button which toggles the display of the UI HUD.
-	/// This has been mostly but not entirely replaced by UIHudDisplayMenuButton during a refactor.
 	/// </summary>
 	[RequireComponent(typeof(Image))]
 	[RequireComponent(typeof(Audio.ButtonAudio))]
 	[RequireComponent(typeof(Button))]
-	public class UIHudDisplayToggleButton : MonoBehaviour
+	public class UIHudDisplayMenuButton : MonoBehaviour
 	{
+		
+		
 		/// <summary>
 		/// An event firing when the controller is opened.
 		/// </summary>
@@ -50,6 +52,8 @@ namespace UI.HUD
 		/// </summary>
 		private Button _button;
 
+		[SerializeField] private HUDController.MenuState menuState;
+		
 		/// <summary>
 		/// The palette color to use on this button while the HUD is active.
 		/// </summary>
@@ -65,9 +69,12 @@ namespace UI.HUD
 		/// </summary>
 		[SerializeField] private ColorPalette palette;
 
+
 		/// <summary>
 		/// The text used when the HUD display can be toggled off.
+		/// Leave empty to disable toggle text behaviour.
 		/// </summary>
+		[Tooltip("When left empty, the text will not change.")]
 		[SerializeField] private string toggledText;
 
 		/// <summary>
@@ -86,14 +93,10 @@ namespace UI.HUD
 		private TextMeshProUGUI buttonText;
 
 		/// <summary>
-		/// If this button only closes the panel.
+		/// The UI component of the mission log button that flashes if the player has not clicked it yet.
 		/// </summary>
-		[SerializeField] private bool closeOnly = false;
-
-		/// <summary>
-		/// Whether the HUD panel is already open.
-		/// </summary>
-		private bool panelOpen;
+		private FlashBox _flashBox;
+		
 
 		/// <summary>
 		/// Unity event function that primarily grabs references to different UI objects and subscribes the button to the OnClick function.
@@ -105,7 +108,8 @@ namespace UI.HUD
 			_button = GetComponent<Button>();
 			_button.onClick.RemoveAllListeners();
 			_button.onClick.AddListener(OnClick);
-
+			_flashBox = GetComponent<FlashBox>();
+			
 			if (_button.GetComponentInChildren<TextMeshProUGUI>() != null)
 			{
 				buttonText = _button.GetComponentInChildren<TextMeshProUGUI>();
@@ -113,9 +117,18 @@ namespace UI.HUD
 				normalText = buttonText.text;
 			}
 
-			panelOpen = closeOnly;
 			_buttonAudio.activated = false;
 			_image.color = palette.GetPaletteColor(offColor);
+		}
+
+		private void OnEnable()
+		{
+			HUDController.Instance.OnMenuStateChange += OnMenuStateChange;
+		}
+
+		private void OnDisable()
+		{
+			HUDController.Instance.OnMenuStateChange -= OnMenuStateChange;
 		}
 
 		public void SetVisuals(bool open)
@@ -140,15 +153,10 @@ namespace UI.HUD
 			}
 		}
 
-		/// <summary>
-		/// Call this if the panel has changed state not by the onclick function, so this button will update it's state to match.
-		/// Like a button click but without calling the function.
-		/// </summary>
-		public void OnPanelUpdatedOverride(bool open)
+		public void OnMenuStateChange(HUDController.MenuState state)
 		{
-			panelOpen = open;
-			SetVisuals(open);
-			_buttonAudio.activated = open;
+			SetVisuals(state != menuState);
+			_buttonAudio.activated = false;
 		}
 
 		/// <summary>
@@ -156,19 +164,16 @@ namespace UI.HUD
 		/// </summary>
 		public void OnClick()
 		{
-			if (panelOpen || closeOnly)
+			//play audio on click or just open
+			_buttonAudio.activated = true;
+
+			//open
+			HUDController.Instance.ToggleMenuState(menuState);
+
+			//stop mission log button from flashing.
+			if (_flashBox != null)
 			{
-				SetVisuals(true);
-				controllerCloseFunction?.Invoke();
-				panelOpen = false;
-				_buttonAudio.activated = false;
-			}
-			else
-			{
-				SetVisuals(false);
-				controllerOpenFunction?.Invoke();
-				panelOpen = true;
-				_buttonAudio.activated = true;
+				_flashBox.stopFlashing = true;
 			}
 		}
 	}
