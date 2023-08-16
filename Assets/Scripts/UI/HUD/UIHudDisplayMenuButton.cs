@@ -14,7 +14,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
-using Managers;
 
 namespace UI.HUD
 {
@@ -26,6 +25,8 @@ namespace UI.HUD
 	[RequireComponent(typeof(Button))]
 	public class UIHudDisplayMenuButton : MonoBehaviour
 	{
+		
+		
 		/// <summary>
 		/// An event firing when the controller is opened.
 		/// </summary>
@@ -163,12 +164,6 @@ namespace UI.HUD
 		/// </summary>
 		public void OnClick()
 		{
-			// Do a lazy check here just to make extra sure the button should be enabled
-			if (menuState == HUDController.MenuState.GalaxyMap && ShipStateManager.Instance != null)
-			{
-				if (!ShipStateManager.Instance.useGalaxyMap) return;
-			}
-
 			//play audio on click or just open
 			_buttonAudio.activated = true;
 
@@ -180,12 +175,6 @@ namespace UI.HUD
 			{
 				_flashBox.stopFlashing = true;
 			}
-		}
-
-		public void SetVisable(bool visible)
-		{
-			_button.gameObject.SetActive(visible);
-			_image.gameObject.SetActive(visible);
 		}
 	}
 }

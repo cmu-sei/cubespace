@@ -131,7 +131,6 @@ namespace UI.HUD
 			{
                 HUDController.Instance.OpenMissionLog();
                 UIHudMissionManager.Instance.SelectMission(_missionIndex, true);
-                HUDController.Instance.MissionLogButton.OnClick();
 				DisableTooltip();
             }
         }

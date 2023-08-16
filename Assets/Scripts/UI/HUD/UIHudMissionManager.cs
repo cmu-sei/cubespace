@@ -46,11 +46,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     [SerializeField]
     private UIHudMissionDetailsPanel missionDetails;
-    /// <summary>
-    /// The vignette used in the back of the mission log to obfuscate the rest of the game.
-    /// </summary>
-    [SerializeField]
-    private GameObject vignetteObject;
+
     /// <summary>
     /// Mission list parent object, holding the mission list items.
     /// </summary>
@@ -78,10 +74,6 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     public void OnEnable()
     {
         ShipStateManager.OnMissionDataChange += OnMissionDataChange;
-        if (vignetteObject)
-        {
-            vignetteObject.SetActive(true);
-        }
 
         if (ShipStateManager.Instance)
         {
@@ -100,10 +92,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     private void OnDisable()
     {
         ShipStateManager.OnMissionDataChange -= OnMissionDataChange;
-        if (vignetteObject)
-        {
-            vignetteObject.SetActive(false);
-        }
+
     }
 
     /// <summary>

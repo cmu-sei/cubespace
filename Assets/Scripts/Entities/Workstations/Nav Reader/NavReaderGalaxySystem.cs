@@ -2,6 +2,7 @@ using Managers;
 using System.Collections;
 using Systems.GameBrain;
 using TMPro;
+using UI.ColorPalettes;
 using UI.HUD;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -90,6 +91,9 @@ public class NavReaderGalaxySystem : TooltipControl
     [HideInInspector]
     public int index = -1;
 
+    [SerializeField] private ColorPalette _palette;
+
+
     /// <summary>
     /// Unity event function that simply updates the visual state every frame.
     /// </summary>
@@ -132,7 +136,7 @@ public class NavReaderGalaxySystem : TooltipControl
             {
                 HUDController.Instance.OpenMissionLog();
                 UIHudMissionManager.Instance.SelectMission(index,true);
-                HUDController.Instance.MissionLogButton.OnClick();
+                // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
             }
 
             yield return null;
@@ -144,7 +148,7 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     public void UpdateVisualState()
     {
-        Color setColor = HUDController.Instance.incompleteHighlightColor;
+        Color setColor = _palette.incompleteHighlightColor;
 
         if (ShipStateManager.Instance)
         {
@@ -162,7 +166,7 @@ public class NavReaderGalaxySystem : TooltipControl
             {
                 pointsInnerBacking.color = Color.white;
                 pointsText.color = Color.black;
-                setColor = HUDController.Instance.partiallyCompletedHighlightColor;
+                setColor = _palette.partiallyCompletedHighlightColor;
             }
             // If fully solved
             else if (mission.complete)
@@ -190,7 +194,7 @@ public class NavReaderGalaxySystem : TooltipControl
                 {
                     pointsInnerBacking.color = Color.black;
                     pointsText.color = Color.white;
-                    setColor = HUDController.Instance.completedHighlightColor;
+                    setColor = _palette.completedHighlightColor;
                 }
             }
 

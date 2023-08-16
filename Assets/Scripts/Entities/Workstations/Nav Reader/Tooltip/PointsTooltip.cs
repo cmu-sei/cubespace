@@ -7,12 +7,14 @@ using Managers;
 using Systems.GameBrain;
 using UI.HUD;
 using System.Reflection;
+using UI.ColorPalettes;
 
 /// <summary>
 /// A tooltip displayed when the points UI of a system on the galaxy map is hovered over.
 /// </summary>
 public class PointsTooltip : Singleton<PointsTooltip>
 {
+    [SerializeField] private ColorPalette _palette;
     /// <summary>
     /// The image used as the border of the tooltip.
     /// </summary>
@@ -88,7 +90,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
     {
         this.index = index;
         MissionData mission = ShipStateManager.Instance.MissionData[index];
-        Color setColor = HUDController.Instance.incompleteHighlightColor;
+        Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
         {
             pointsWrapper.SetActive(true);
@@ -98,14 +100,14 @@ public class PointsTooltip : Singleton<PointsTooltip>
         {
             pointsWrapper.SetActive(true);
             scoredWrapper.SetActive(false);
-            setColor = HUDController.Instance.partiallyCompletedHighlightColor;
+            setColor = _palette.partiallyCompletedHighlightColor;
         }
         else if (mission.complete)
         {
             pointsWrapper.SetActive(false);
             scoredWrapper.SetActive(true);
             scoredText.text = $"You have scored {mission.currentScore} PTS";
-            setColor = HUDController.Instance.completedHighlightColor;
+            setColor = _palette.completedHighlightColor;
         }
 
         pointsTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);

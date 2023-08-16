@@ -18,6 +18,7 @@ namespace UI.HUD
 {
 	/// <summary>
 	/// A definition for the button which toggles the display of the UI HUD.
+	/// This has been mostly but not entirely replaced by UIHudDisplayMenuButton during a refactor.
 	/// </summary>
 	[RequireComponent(typeof(Image))]
 	[RequireComponent(typeof(Audio.ButtonAudio))]

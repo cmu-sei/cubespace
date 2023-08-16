@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f06d4d2687913e489f6a780caba3297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   pointsTooltipBorderImage: {fileID: 2877820247464909340}
   pointsTooltipArrowBorderImage: {fileID: 8228653972393441509}
   rightPointsTooltipArrowBorderImage: {fileID: 7833206585153182437}

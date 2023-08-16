@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Managers;
 using Systems.GameBrain;
+using UI.ColorPalettes;
 using UI.HUD;
 
 /// <summary>
@@ -49,6 +50,9 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     [HideInInspector]
     public RectTransform rect;
 
+    [SerializeField] private ColorPalette _palette;
+
+
     /// <summary>
     /// Unity event function that gets the rect transform on this tooltip.
     /// </summary>
@@ -67,7 +71,7 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     {
         this.index = index;
         MissionData mission = ShipStateManager.Instance.MissionData[index];
-        Color setColor = HUDController.Instance.incompleteHighlightColor;
+        Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
         {
             tooltipText.text = "Incomplete";
@@ -75,12 +79,12 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
         else if (!mission.complete && mission.currentScore > 0)
         {
             tooltipText.text = "Partially completed";
-            setColor = HUDController.Instance.partiallyCompletedHighlightColor;
+            setColor = _palette.partiallyCompletedHighlightColor;
         }
         else if (mission.complete)
         {
             tooltipText.text = "Completed";
-            setColor = HUDController.Instance.completedHighlightColor;
+            setColor = _palette.completedHighlightColor;
 
             // Display coordinates for cache missions once main mission is complete
             if (mission.associatedChallengesCoordinates != null && mission.associatedChallengesCoordinates.Length > 0)

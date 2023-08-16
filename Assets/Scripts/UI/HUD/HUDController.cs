@@ -8,6 +8,7 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using System;
 using UnityEngine;
 using UI.ColorPalettes;
 using Systems;
@@ -24,44 +25,23 @@ namespace UI.HUD
     /// </summary>
     public class HUDController : ConnectedSingleton<HUDController>
     {
+        public Action<MenuState> OnMenuStateChange;
+        public enum MenuState
+        {
+            None,
+            MissionLog, 
+            Settings,
+            GalaxyMap
+        }
+        
         /// <summary>
         /// Whether a panel is open or not.
         /// </summary>
-        public static bool IsPanelOpen = false;
+        public static bool IsPanelOpen => Instance._menuState != MenuState.None;
+
+        private MenuState _menuState;
         
-        /// <summary>
-        /// The button used to exit the workstation.
-        /// </summary>
-        [SerializeField]
-        private UIExitWorkstationButton exitWorkstationButton;
-        /// <summary>
-        /// The button used to open the mission log.
-        /// </summary>
-        [SerializeField]
-        private UIHudDisplayToggleButton missionLogButton;
-        public UIHudDisplayToggleButton MissionLogButton => missionLogButton;
-
-        /// <summary>
-        /// The button used to open the galaxy map.
-        /// </summary>
-        [SerializeField] private UIHudDisplayToggleButton galaxyMapUIButton;
-
-        public UIHudDisplayToggleButton GalaxyMapUIButton => galaxyMapUIButton;
-        /// <summary>
-        /// The button used to open the settings panel.
-        /// </summary>
-        [SerializeField]
-        private UIHudDisplayToggleButton settingsButton;
-        /// <summary>
-        /// The button used to switch off the galaxy map panel.
-        /// </summary>
-        [SerializeField]
-        private UIHudDisplayToggleButton galaxyPanelCloseButton;
-        /// <summary>
-        /// The UI component of the mission log button that flashes if the player has not clicked it yet.
-        /// </summary>
-        [SerializeField]
-        private FlashBox missionLogButtonFlashBox;
+        
 
         /// <summary>
         /// The list of tasks for the player.
@@ -94,11 +74,7 @@ namespace UI.HUD
         /// </summary>
         [SerializeField]
         private GameObject galaxyMapPanel;
-        /// <summary>
-        /// The object preventing the player from clicking on anything while the mission log or settings panel is open.
-        /// </summary>
-        [SerializeField]
-        private GameObject raycastingBlocker;
+
         /// <summary>
         /// The quit button, used to exit the game.
         /// </summary>
@@ -115,46 +91,14 @@ namespace UI.HUD
         [SerializeField]
         private CanvasGroup group;
 
-        /// <summary>
-        /// All systems displayed in the galaxy panel.
-        /// </summary>
-        /// public List<NavReaderGalaxySystem> systems;
-        [Header("Prefabs")]
-        [SerializeField]
-        private GameObject systemPrefab;
-        [SerializeField]
-        private GameObject linePrefab;
-        [SerializeField]
-        private GameObject targetPointPrefab;
-
-        /// <summary>
-        /// The parent of the system objects.
-        /// </summary>
-        [SerializeField]
-        private Transform systemParent;
-        /// <summary>
-        /// The parent of the target objects.
-        /// </summary>
-        [SerializeField]
-        private Transform targetParent;
-        /// <summary>
-        /// The parent of the line objects.
-        /// </summary>
-        public Transform lineParent;
-        /// <summary>
-        /// The IDs of systems to system components.
-        /// </summary>
-        public Dictionary<string, NavReaderGalaxySystem> idsToSystems;
+        [SerializeField] private UIHudGalaxyPanelManager _galaxyPanelManager;
 
         /// <summary>
         /// The custom NetworkManager object used.
         /// </summary>
         private CustomNetworkManager networkManager;
 
-        [Header("Galaxy System State Highlights")]
-        public Color incompleteHighlightColor;
-        public Color partiallyCompletedHighlightColor;
-        public Color completedHighlightColor;
+
 
         /// <summary>
         /// Unity event function that adds listeners to the open/close functions and disables some UI objects.
@@ -164,28 +108,10 @@ namespace UI.HUD
             base.Start();
             LoadingSystem.Instance.UpdateLoadingMessage("Reticulating Splines...");
 
-            missionLogButton.controllerOpenFunction.AddListener(OpenMissionLog);
-            missionLogButton.controllerCloseFunction.AddListener(CloseMissionLog);
-            settingsButton.controllerCloseFunction.AddListener(CloseSettings);
-            settingsButton.controllerOpenFunction.AddListener(OpenSettings);
-            
-            // No open function for the button on the galaxy panel map panel
-            if (galaxyMapUIButton != null)
-            {
-                galaxyMapUIButton.controllerOpenFunction.AddListener(OpenGalaxyMap);
-                galaxyMapUIButton.controllerCloseFunction.AddListener(CloseGalaxyMap);
-            }
-            
-            
-            galaxyPanelCloseButton.controllerCloseFunction.AddListener(CloseGalaxyMap);
-
             cubeIcon.SetCube(false);
-            missionLogPanel.SetActive(false);
-            settingsPanel.SetActive(false);
-            galaxyMapPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
+            
+            SetMenuState(MenuState.None);
 
-            idsToSystems = new Dictionary<string, NavReaderGalaxySystem>();
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
             #if UNITY_EDITOR
@@ -202,7 +128,7 @@ namespace UI.HUD
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                missionLogButton.OnClick();
+                ToggleMenuState(MenuState.MissionLog);
             }
 
             if (networkManager.isInDevMode && Input.GetKeyDown(networkManager.hideHUDKeyCode))
@@ -244,109 +170,88 @@ namespace UI.HUD
             cubeIcon.SetCube(enabled);
         }
 
+        public void ToggleMenuState(MenuState toggleState)
+        {
+            if (toggleState == MenuState.None)
+            {
+                //can't toggle between off and off.
+                return;
+            }
+
+            if (_menuState == MenuState.None)
+            {
+                //turn on when off
+                SetMenuState(toggleState);
+            }
+            else
+            {
+                //close the open state.
+                if (_menuState == toggleState)
+                {
+                    SetMenuState(MenuState.None);
+                }
+                else
+                {
+                    //switch directly to a different state. ie: from missionLog even when settings is open.
+                    SetMenuState(toggleState);
+                }
+            }
+        }
+        public void SetMenuState(MenuState newState)
+        {
+            //change state
+            //this can be done with 'UIMenuPanelActiveWithState', but that only works when gameobjects begin active; which would be a change in how we have treated them, and unexpected.
+            //to fix, we could switch the above script to work on an empty parent object that's always active to enable and disable children.
+            missionLogPanel.SetActive(newState == MenuState.MissionLog);
+            settingsPanel.SetActive(newState == MenuState.Settings);
+            galaxyMapPanel.SetActive(newState == MenuState.GalaxyMap);
+
+            if (newState != MenuState.None)
+            {
+                //any state open
+                Entities.Player.LockLocalPlayerInput();
+                UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
+            }
+            else
+            {
+                //any menu close
+                Entities.Player.UnlockLocalPlayerInput();
+                UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
+
+                //close the mission log specific case
+                if (_menuState == MenuState.MissionLog)
+                {
+                    taskList.CloseAdditionalInfo();
+                }
+                
+            }
+
+            //audio config
+            Audio.AudioPlayer.Instance.SetMissionLogSnapshot(newState == MenuState.MissionLog);
+            
+            //should check for going from state to same, but then would have to deal with init flow.
+            _menuState = newState;
+            OnMenuStateChange?.Invoke(_menuState);
+        }
+
         /// <summary>
-        /// Opens the mission log.
+        /// Convenience wrapper for opening the mission log.
+        /// It just calls SetMenuState(MenuState.MissionLog)
         /// </summary>
         public void OpenMissionLog()
         {
-            if (missionLogButtonFlashBox) missionLogButtonFlashBox.stopFlashing = true;
-
-            if (settingsPanel.activeInHierarchy)
-            {
-                settingsButton.OnClick();
-            }
-
-            if (galaxyMapPanel.activeInHierarchy)
-            {
-                galaxyPanelCloseButton.OnClick();
-            }
-
-            Audio.AudioPlayer.Instance.SetMissionLogSnapshot(true);
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
-            Entities.Player.LockLocalPlayerInput();
-            missionLogPanel.SetActive(true);
-            raycastingBlocker.SetActive(true);
-            IsPanelOpen = true;
+            SetMenuState(MenuState.MissionLog);
         }
 
         /// <summary>
-        /// Closes the mission log.
+        /// Closes the Mission Log, Galaxy Map, or Settings panel.
+        /// Convenience wrapper to SetMenuState(MenuState.None) for easy use with UnityEvents (ie: buttons)
         /// </summary>
-        public void CloseMissionLog()
+        public void CloseAnyPanel()
         {
-			Audio.AudioPlayer.Instance.SetMissionLogSnapshot(false);
-            taskList.CloseAdditionalInfo();
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-            Entities.Player.UnlockLocalPlayerInput();
-            missionLogPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
-            IsPanelOpen = false;
+            SetMenuState(MenuState.None);
         }
-
-        /// <summary>
-        /// Opens the settings window.
-        /// </summary>
-        public void OpenSettings()
-        {
-            if (missionLogPanel.activeInHierarchy)
-            {
-                missionLogButton.OnClick();
-            }
-
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
-            Entities.Player.LockLocalPlayerInput();
-
-            settingsPanel.SetActive(true);
-            raycastingBlocker.SetActive(true);
-            IsPanelOpen = true;
-        }
-
-        /// <summary>
-        /// Closes the settings window.
-        /// </summary>
-        public void CloseSettings()
-        {
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-            Entities.Player.UnlockLocalPlayerInput();
-            settingsPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
-            IsPanelOpen = false;
-        }
-
-        /// <summary>
-        /// Opens the galaxy map window.
-        /// </summary>
-        public void OpenGalaxyMap()
-        {
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
-            Entities.Player.LockLocalPlayerInput();
-            galaxyMapPanel.SetActive(true);
-            raycastingBlocker.SetActive(true);
-            IsPanelOpen = true;
-
-            if (galaxyMapUIButton != null)
-            {
-                //fix for multiple options for galaxy map.
-                galaxyMapUIButton.OnPanelUpdatedOverride(true);
-            }
-        }
-
-        /// <summary>
-        /// Closes the galaxy map window.
-        /// </summary>
-        public void CloseGalaxyMap()
-        {
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-            Entities.Player.UnlockLocalPlayerInput();
-            galaxyMapPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
-            IsPanelOpen = false;
-            if (galaxyMapUIButton != null)
-            {
-                galaxyMapUIButton.OnPanelUpdatedOverride(false);
-            }
-        }
-
+   
         /// <summary>
         /// Quits the game. This is unused.
         /// </summary>
@@ -376,55 +281,7 @@ namespace UI.HUD
         /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
         public void AddSystemOrSetData(MissionData md, int index)
         {
-            // Update system attributes if it already exists
-            if (idsToSystems.ContainsKey(md.missionID))
-            {
-                idsToSystems[md.missionID].SetSystemMission(md, index);
-            }
-            // Set up the system if it doesn't
-            else
-            {
-                // Create a new system on the map from prefabs
-                GameObject systemObj = Instantiate(systemPrefab, systemParent);
-                GameObject lineObj = Instantiate(linePrefab, lineParent);
-                GameObject targetObj = Instantiate(targetPointPrefab, targetParent);
-
-                // Get the system script
-                NavReaderGalaxySystem system = systemObj.GetComponent<NavReaderGalaxySystem>();
-
-                // Get the image components
-                Image lineImage = lineObj.transform.GetComponent<Image>();
-                Image targetImage = targetObj.transform.GetChild(0).GetComponent<Image>();
-
-                // Add the system to the dictionary and set its mission information
-                idsToSystems.Add(md.missionID, system);
-                system.SetSystemMission(md, index, lineImage, targetImage);
-
-                // Set the position of the system
-                systemObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
-                targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
-
-                // Get TectTransform references
-                RectTransform lineRect = lineObj.GetComponent<RectTransform>();
-                RectTransform coreDisplayTransform = system.CoreDisplayRect;
-                RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
-
-                // Get the positions of the RectTransforms
-                Vector2 coreDisplayPosition = coreDisplayTransform.position;
-                Vector2 targetPosition = targetRectTransform.position;
-                Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
-                Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
-
-                // Calculate the distance between the system
-                Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
-                float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
-
-                // Draw the line between the system and its target
-                lineRect.position = midpoint;
-                lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
-                float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
-                lineRect.rotation = Quaternion.Euler(0, 0, z);
-            }
+            _galaxyPanelManager.AddSystemOrSetData(md,index);
         }
     }
 }

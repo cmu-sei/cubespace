@@ -1,6 +1,7 @@
 using Managers;
 using UI.HUD;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI.WorkstationUI.NavReaderScreens
 {
@@ -13,16 +14,16 @@ namespace UI.WorkstationUI.NavReaderScreens
         /// The collider of the galaxy display that the mouse can click to open the galaxy map.
         /// </summary>
         [SerializeField]
-        private SphereCollider collider;
+        private SphereCollider _collider;
 
         /// <summary>
         /// Unity event function enables the galaxy map display collider when this script is enabled.
         /// </summary>
         private void OnEnable()
         {
-            if (collider)
+            if (_collider)
             {
-                collider.enabled = true;
+                _collider.enabled = true;
             }
         }
 
@@ -31,9 +32,9 @@ namespace UI.WorkstationUI.NavReaderScreens
         /// </summary>
         private void OnDisable()
         {
-            if (collider)
+            if (_collider)
             {
-                collider.enabled = false;
+                _collider.enabled = false;
             }
         }
 
@@ -44,7 +45,7 @@ namespace UI.WorkstationUI.NavReaderScreens
         {
             if (ShipStateManager.Instance && ShipStateManager.Instance.Session != null && ShipStateManager.Instance.Session.useGalaxyDisplayMap)
             {
-                HUDController.Instance.OpenGalaxyMap();
+                HUDController.Instance.SetMenuState(HUDController.MenuState.GalaxyMap);
             }
         }
     }

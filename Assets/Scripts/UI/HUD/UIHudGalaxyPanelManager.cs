@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Managers;
 using Mirror;
 using Systems.GameBrain;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,87 +37,69 @@ namespace UI.HUD
 		/// <summary>
 		/// The IDs of systems to system components.
 		/// </summary>
-		private Dictionary<string, NavReaderGalaxySystem> idsToSystems;
+		public Dictionary<string, NavReaderGalaxySystem> idsToSystems;
 
-        private void Start()
-        {
-            // These should be disabled by their controllers but if there's no missions their controllers aren't instantiated and the tooltips stay open.
-            // These calls will be redundant in other cases but will prevent that problem
-            if (DisplayTooltip.Instance != null) DisplayTooltip.Instance.gameObject.SetActive(false);
-            if (SolveCountTooltip.Instance != null) SolveCountTooltip.Instance.gameObject.SetActive(false);
-            if (PointsTooltip.Instance != null) PointsTooltip.Instance.gameObject.SetActive(false);
-        }
-
-        private void OnEnable()
-        {
-            ShipStateManager.OnMissionDatasChange += AddSystemOrSetData;
-
-            // Initialize galaxy map systems
-            if (ShipStateManager.Instance && ShipStateManager.Instance.MissionDatas != null)
-            {
-                AddSystemOrSetData(ShipStateManager.Instance.MissionDatas);
-            }
-        }
-
-        private void OnDisable()
-        {
-            ShipStateManager.OnMissionDatasChange -= AddSystemOrSetData;
-        }
-
-        /// <summary>
-        /// Add systems for each mission to the dictionary and galaxy map and sets them up, or changes their attributes if they already exists.
+		/// <summary>
+        /// Adds the system to the dictionary and galaxy map and sets it up, or changes its attributes if it already exists.
         /// </summary>
         /// <param name="md">The incoming mission data.</param>
         /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
-        public void AddSystemOrSetData(List<MissionData> mds)
+        public void AddSystemOrSetData(MissionData md, int index)
         {
 	        //lazy init because Start doesn't get called when object is inactive.
 	        if (idsToSystems == null)
 	        {
 		        idsToSystems = new Dictionary<string, NavReaderGalaxySystem>();
 	        }
-
-            // Check to see if any missions have been removed from the data since the last update
-            if (idsToSystems.Count > 0)
+	        
+            // Update system attributes if it already exists
+            if (idsToSystems.ContainsKey(md.missionID))
             {
-                List<string> prevSystemIDs = idsToSystems.Keys.ToList();
-
-                foreach (string id in prevSystemIDs)
-                {
-                    if (!mds.Exists((o) => { return o.missionID == id; }))
-                    {
-                        idsToSystems[id].Delete();
-                        idsToSystems.Remove(id);
-                    }
-                }
+                idsToSystems[md.missionID].SetSystemMission(md, index);
             }
-            
-            MissionData md = null;
-            // Update and create new systems as necessary
-            for (int index = 0; index < mds.Count; index++)
+            // Set up the system if it doesn't
+            else
             {
-                md = mds[index];
+                // Create a new system on the map from prefabs
+                GameObject systemObj = Instantiate(systemPrefab, systemParent);
+                GameObject lineObj = Instantiate(linePrefab, lineParent);
+                GameObject targetObj = Instantiate(targetPointPrefab, targetParent);
 
-                // Update system attributes if it already exists
-                if (idsToSystems.ContainsKey(md.missionID))
-                {
-                    idsToSystems[md.missionID].UpdateSystem(md, index);
-                }
-                // Set up the system if it doesn't
-                else
-                {
-                    // Create a new system on the map from prefabs
-                    GameObject systemObj = Instantiate(systemPrefab, systemParent);
-                    GameObject lineObj = Instantiate(linePrefab, lineParent);
-                    GameObject targetObj = Instantiate(targetPointPrefab, targetParent);
+                // Get the system script
+                NavReaderGalaxySystem system = systemObj.GetComponent<NavReaderGalaxySystem>();
 
-                    // Get the system script
-                    NavReaderGalaxySystem system = systemObj.GetComponent<NavReaderGalaxySystem>();
+                // Get the image components
+                Image lineImage = lineObj.transform.GetComponent<Image>();
+                Image targetImage = targetObj.transform.GetChild(0).GetComponent<Image>();
 
-                    // Add the system to the dictionary and set its mission information
-                    idsToSystems.Add(md.missionID, system);
-                    system.InitializeSystem(md, index, lineObj, targetObj);
-                }
+                // Add the system to the dictionary and set its mission information
+                idsToSystems.Add(md.missionID, system);
+                system.SetSystemMission(md, index, lineImage, targetImage);
+
+                // Set the position of the system
+                systemObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
+                targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
+
+                // Get TectTransform references
+                RectTransform lineRect = lineObj.GetComponent<RectTransform>();
+                RectTransform coreDisplayTransform = system.CoreDisplayRect;
+                RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
+
+                // Get the positions of the RectTransforms
+                Vector2 coreDisplayPosition = coreDisplayTransform.position;
+                Vector2 targetPosition = targetRectTransform.position;
+                Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
+                Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
+
+                // Calculate the distance between the system
+                Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
+                float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
+
+                // Draw the line between the system and its target
+                lineRect.position = midpoint;
+                lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
+                float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
+                lineRect.rotation = Quaternion.Euler(0, 0, z);
             }
         }
 	}
