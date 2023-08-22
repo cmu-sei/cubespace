@@ -77,7 +77,7 @@ namespace Entities.Workstations
         /// <summary>
         /// The action triggered when locking in the dial angles.
         /// </summary>
-        public static event Action OnLock;
+        public static Action OnLock;
 
         /// <summary>
         /// A dictionary associating a dial on the Flight Engineer to a representative DialID.
@@ -310,7 +310,7 @@ namespace Entities.Workstations
         public void LockTrajectories()
         {
             // Make UI and audio changes
-            OnLock();
+            OnLock?.Invoke();
 
             // Lock trajectories on the server
             CmdLockTrajectories();
