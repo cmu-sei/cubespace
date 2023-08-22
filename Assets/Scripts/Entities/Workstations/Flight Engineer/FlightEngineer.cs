@@ -138,7 +138,6 @@ namespace Entities.Workstations
         /// </summary>
         public override void OnStartServer()
         {
-            Debug.Log("Flight eng OnStartServer, adding OnDialPairsChange to dialIDInfoPairs.Callback");
             dialIDInfoPairs.Callback += OnDialPairsChange;
             base.OnStartServer();
         }
@@ -154,7 +153,6 @@ namespace Entities.Workstations
         /// <param name="info">The current angle of the dial and the target the dial should be set to by the player.</param>
         private void OnDialPairsChange(SyncDictionary<DialID, DialInfo>.Operation op, DialID id, DialInfo info)
         {
-            Debug.Log("OnDialPairsChange: client updating dial info");
             switch (op)
             {
                 case SyncIDictionary<DialID, DialInfo>.Operation.OP_ADD:
