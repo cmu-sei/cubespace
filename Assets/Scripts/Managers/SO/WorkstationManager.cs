@@ -116,19 +116,19 @@ namespace Managers
         /// <param name="workstation">The Workstation object to register.</param>
         public void RegisterWorkstation(WorkstationID stationID, Workstation workstation)
 		{
-			Debug.Log("Registering station with ID: " + stationID + "\nUsed in exploration mode: " + workstation.UsedInExplorationMode + "\nUsed in launch mode: " + workstation.UsedInLaunchMode);
+			//Debug.Log("Registering station with ID: " + stationID + "\nUsed in exploration mode: " + workstation.UsedInExplorationMode + "\nUsed in launch mode: " + workstation.UsedInLaunchMode);
 			// Add to the exploration and launch workstation lists if the workstation is in either mode
 			if (!CheckForWorkstation(stationID))
             {
 				if (workstation.UsedInExplorationMode)
 				{
-					Debug.Log("Adding " + workstation.name + " to exploration station list");
+					//Debug.Log("Adding " + workstation.name + " to exploration station list");
 					explorationModeWorkstations.Add(workstation);
 				}
 
 				if (workstation.UsedInLaunchMode)
 				{
-                    Debug.Log("Adding " + workstation.name + " to exploration station list");
+                    //Debug.Log("Adding " + workstation.name + " to exploration station list");
                     launchModeWorkstations.Add(workstation);
 				}
 			}
