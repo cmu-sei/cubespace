@@ -141,11 +141,6 @@ namespace Entities.Workstations.FlightEngineerParts
         /// </summary>
         public void OnLock()
         {
-            if (buttonRenderer == null || onLockMaterial == null)
-            {
-                Debug.LogError("Null lock button renderer or material!");
-                return;
-            }
             button.enabled = false;
             buttonRenderer.material = onLockMaterial;
             buttonText.color = onLockTextColor;
