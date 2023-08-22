@@ -58,7 +58,7 @@ namespace Systems
         // An action that fires when loading fails
         public static Action OnLoadFailed;
 
-        // The token to pass to ShipStateManager
+        // The token to pass to ShipStateManager, used by Player.cs when client connects (CmdSendClientToken)
         public string token = null;
         // The link to the server the client will connect to
         public string serverLink = null;
