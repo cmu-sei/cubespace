@@ -233,46 +233,12 @@ namespace Systems.GameBrain
 			// Make the web request and wait for the result
 			yield return StartCoroutine(NetUtility.WebRequest(uri, (x) => response = x, httpMethod, token, requestBody, contentType));
 
-			// If the URI is meant to check if the team is still active, we need to call a funciton that specially converts the response to make it more parsable
-			if (uri.Contains("team_active"))
-			{
-				response = ConvertTeamActiveResponse(response);
-			}
-
 			// Handle the response received
 			HandleNetworkResult(response, callback);
 		}
         #endregion
 
         #region Helper methods
-        /// <summary>
-        /// Converts the response of a team active call to be a string structured as a GenericResponse JSON so it can be interpreted and used.
-        /// This call is necessary because the team active call returns a string of a boolean, rather than a GenericResponse structure.
-        /// </summary>
-        /// <param name="response">The response received from a team active call.</param>
-        /// <returns>The response as JSON.</returns>
-        private string ConvertTeamActiveResponse(string response)
-		{
-			if (networkManager && networkManager.isInDebugMode)
-            {
-				Debug.Log($"Team active response: {response}");
-            }
-			switch (response)
-			{
-				case "true":
-					response = JsonUtility.ToJson(new GenericResponse { success = true, message = response });
-					break;
-				case "false":
-					response = JsonUtility.ToJson(new GenericResponse { success = false, message = response });
-					break;
-				default:
-					Debug.Log($"Received unexpected response from team_active. Received: {response}. Aborting generic response conversion.");
-					break;
-			}
-
-			return response;
-		}
-
 		/// <summary>
 		/// Handles the result of a network call.
 		/// </summary>
