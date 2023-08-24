@@ -81,6 +81,7 @@ public class HandleTokenInfo : MonoBehaviour
 
         // Set the game server link in the loading system to be the one retrieved
         LoadingSystem.Instance.serverLink = _serverLink;
+        NetworkManager.singleton.networkAddress = _serverLink;
     }
 }
 
