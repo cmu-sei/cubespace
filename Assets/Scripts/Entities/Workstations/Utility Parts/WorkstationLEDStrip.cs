@@ -131,16 +131,25 @@ namespace Entities.Workstations
         /// <returns>A yield statement while waiting for a duration between the lights turning on or off.</returns>
         IEnumerator LEDStripAnimation()
         {
+            Debug.Log("LED Strip Coroutine [WorkstationLEDStrip.cs:134]");
             while (true)
             {
                 for (int i = 0; i < LEDs.Count; i++)
                 {
+                    if (LEDs[i] == null)
+                    {
+                        Debug.LogError("Null LED [WorkstationLEDStrip.cs:134]");
+                    }
                     LEDs[i].Lit = true;
                     yield return new WaitForSeconds(animationSpeed);
                 }
                 yield return new WaitForSeconds(animationSpeed);
                 for (int i = 0; i < LEDs.Count; i++)
                 {
+                    if (LEDs[i] == null)
+                    {
+                        Debug.LogError("Null LED [WorkstationLEDStrip.cs:134]");
+                    }
                     LEDs[i].Lit = false;
                     yield return new WaitForSeconds(animationSpeed * 0.4f);
                 }

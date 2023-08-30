@@ -167,6 +167,10 @@ namespace UI.HUD
         /// <param name="enabled">Whether to show the cube sprite.</param>
         public void SetCubeSprite(bool enabled)
         {
+            if (cubeIcon == null)
+            {
+                Debug.LogError("Null cubeIcon [HUDController.cs:172]");
+            }
             cubeIcon.SetCube(enabled);
         }
 

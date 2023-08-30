@@ -141,6 +141,12 @@ namespace Entities.Workstations.FlightEngineerParts
         /// </summary>
         public void OnLock()
         {
+            Debug.Log("Disabling LockButton. Invoked from OnLock. [LockButton.cs:144]");
+            if (button == null || buttonRenderer == null || buttonText == null)
+            {
+                Debug.LogError("NULL button something or another [LockButton.cs:147]");
+            }
+
             button.enabled = false;
             buttonRenderer.material = onLockMaterial;
             buttonText.color = onLockTextColor;

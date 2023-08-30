@@ -79,6 +79,11 @@ namespace UI.NavScreen.NavScreenComponents
 		/// </summary>
 		public void RefreshDisplay()
 		{
+			Debug.Log("Refreshing display [FlightStatusDestinationSubScreen.cs:82]");
+			if (currentStatusScreen == null || paginationText == null || trajectoryPage == null || thrusterPage == null)
+			{
+				Debug.LogError("Null component in screen [FlightStatusDestinationSubScreen.cs:85]");
+			}
 			if (currentStatusScreen == StatusScreen.Trajectory)
 			{
 				paginationText.text = "NEXT";
@@ -141,6 +146,7 @@ namespace UI.NavScreen.NavScreenComponents
 		/// <param name="locked">Whether the trajectory lock has been updated.</param>
 		private void OnTrajectoryLockUpdated(bool locked)
 		{
+			Debug.Log("Refreshing flight status display, Invoked OnTrajectoryLockUpdate [FlightStatusDestinationSubScreen.cs:147]");
 			RefreshDisplay();
 		}
 

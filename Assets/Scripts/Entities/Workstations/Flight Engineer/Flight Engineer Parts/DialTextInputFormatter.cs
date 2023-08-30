@@ -52,6 +52,11 @@ namespace Entities.Workstations.FlightEngineerParts
 
         public void DisableTextInputField()
         {
+            Debug.Log("Disabling TextInputs. Invoked from OnLock. [DialTextInputFormatter.cs:55]");
+            if (textInputField == null)
+            {
+                Debug.LogError("NULL textInputField [DialTextInputFormatter.cs:58]");
+            }
             textInputField.enabled = false;
         }
     }

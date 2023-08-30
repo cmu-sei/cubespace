@@ -181,6 +181,7 @@ namespace Entities.Workstations.FlightEngineerParts
         /// </summary>
         public void OnLock()
         {
+            Debug.Log("Calling SetMouseoverCursorState(false), invoked from OnLock [TrajectoryDial.cs:184]");
             SetMouseoverCursorState(false);
         }
 
@@ -348,6 +349,11 @@ namespace Entities.Workstations.FlightEngineerParts
         /// </summary>
         private void SetMouseoverCursorState(bool isActive)
         {
+            Debug.Log("disabling special cursor for dial [TrajectoryDial.cs:352]");
+            if (mouseoverCursor == null)
+            {
+                Debug.LogError("NULL mouseoverCursor [TrajectoryDial.cs:355]");
+            }
             mouseoverCursor.active = isActive;
         }
         #endregion
