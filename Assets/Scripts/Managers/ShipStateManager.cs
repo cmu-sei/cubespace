@@ -732,7 +732,7 @@ namespace Managers
             // Cut the size of the current mission list down if it is greater than the size of the new mission list
             if (MissionData.Count > data.missions.Length)
             {
-                MissionData.RemoveRange(data.missions.Length, MissionData.Count);
+                MissionData.RemoveRange(data.missions.Length, MissionData.Count - data.missions.Length);
             }
 
             // Loop through all missions in the received data and update the existing list to match it
