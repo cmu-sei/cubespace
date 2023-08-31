@@ -44,10 +44,6 @@ namespace UI.HUD
         /// <param name="enabled">Whether the cube and text should display.</param>
         public void SetCube(bool enabled)
         {
-            if (image == null || textObject == null)
-            {
-                Debug.LogError("Null cube sprite component [UIHudCube.cs:49]");
-            }
             image.enabled = enabled;
             textObject.SetActive(enabled);
         }

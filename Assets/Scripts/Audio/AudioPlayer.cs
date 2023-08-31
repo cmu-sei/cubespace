@@ -556,10 +556,6 @@ namespace Audio
             if (engineRev == null || !engineRev.isPlaying)
             {
                 engineRev = AudioManager.Instance.CreateInstance(SoundType.FE_Engine_Loop);
-                if (engineRev == null)
-                {
-                    Debug.LogError("Null engineRev [AudioPlayer.cs:561]");
-                }
                 AudioManager.Instance.FadeIn(engineRev, 0.5f);
             }
         }
