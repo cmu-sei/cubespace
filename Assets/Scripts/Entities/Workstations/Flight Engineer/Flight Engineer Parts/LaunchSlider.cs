@@ -153,30 +153,17 @@ namespace Entities.Workstations.FlightEngineerParts
         /// <param name="isLaunchable">Whether the slider is launchable.</param>
         protected void OnLaunchableChange(bool isLaunchable)
         {
-            Debug.Log("OnLaunchableChange invoked, updating LEDs for slider [LaunchSlider.cs:156]");
             // If the slider can launch, activate the LEDs
             if (isLaunchable)
             {
-                if (LEDParent == null)
-                {
-                    Debug.LogError("LEDParent null [LaunchSlider.cs:162]");
-                }
                 LEDParent.ActivateAnimation();
             }
             // Otherwise, turn off the LEDs
             else
             {
-                if (LEDParent == null)
-                {
-                    Debug.LogError("LEDParent null [LaunchSlider.cs:171]");
-                }
                 LEDParent.DeactivateAll();
             }
 
-            if (flightEngineer == null)
-            {
-                Debug.LogError("Null flight engineer [LaunchSlider.cs:178]");
-            }
             // This slider can be moved if the ship is launchable and the Flight Engineer is powered
             interactable = flightEngineer.IsLaunchable() && flightEngineer.IsPowered;
         }

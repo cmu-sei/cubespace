@@ -208,28 +208,20 @@ namespace Entities.Workstations
         /// </summary>
         private void CallLaunchableChangeCallback()
         {
-            Debug.Log("CallLaunchableChangeCallback, check IsLaunchable [FlightEngineer.cs:211]");
             // If we can jump to another location, start the engine sound effect if the player is there
             if (IsLaunchable())
             {
-                Debug.Log("IsLaunchable returned true, starting engine sound [FlightEngineer.cs:215]");
                 if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer)
                 {
-                    if (Audio.AudioPlayer.Instance == null)
-                    {
-                        Debug.LogError("audio player null [FlightEngineer.cs:220]");
-                    }
                     Audio.AudioPlayer.Instance.FlightEngineerStartEngine();
                 }
             }
             // Otherwise, stop the engine sound effect
             else
             {
-                Debug.Log("IsLaunchable returned false, stopping engine sound [FlightEngineer.cs:228]");
                 Audio.AudioPlayer.Instance.FlightEngineerStopEngine();
             }
 
-            Debug.Log("Invoking OnLaunchable Change [FlightEngineer.cs:232]");
             // Invoke the launchable change event with whether the game is launchable
             OnLaunchableChange?.Invoke(IsLaunchable());
         }
@@ -242,7 +234,6 @@ namespace Entities.Workstations
         /// <returns>Whether the ship can jump to a new location.</returns>
         public bool IsLaunchable()
         {
-            Debug.Log("IsLaunchable, checking dials and cube state [FlightEngineer.cs:238]");
             // If not all dials are activated or the cube isn't in the cube drive, return false
             if (!AreDialsActivated() || ShipStateManager.Instance.CubeState != CubeState.InCubeDrive)
             {
@@ -266,10 +257,6 @@ namespace Entities.Workstations
         /// </summary>
         public bool AreDialsActivated()
         {
-            if (dialToIDPairs == null || dialToIDPairs.Values == null)
-            {
-                Debug.LogError("Null dials in AreDialsActivated Check [FlightEngineer.cs:264]");
-            }
             return dialToIDPairs.Values.All(d => d.targetAngle == d.GetAngle());
         }
         #endregion
@@ -322,19 +309,12 @@ namespace Entities.Workstations
         /// </summary>
         public void LockTrajectories()
         {
-            Debug.Log("Pressed lock button, invoking OnLock action. [FlightEngineer.cs:312]");
-            if (OnLock == null)
-            {
-                Debug.LogError("NULL OnLock action [FlightEngineer.cs:315]");
-            }
             // Make UI and audio changes
             OnLock?.Invoke();
 
-            Debug.Log("Calling CmdLockTrajectories() [FlightEngineer.cs:320]");
             // Lock trajectories on the server
             CmdLockTrajectories();
 
-            Debug.Log("Calling CallLaunchableChangeCallback() [FlightEngineer.cs:324]");
             CallLaunchableChangeCallback();
         }
         #endregion
@@ -358,25 +338,17 @@ namespace Entities.Workstations
         [Command(requiresAuthority = false)]
         public void CmdLockTrajectories()
         {
-            Debug.Log("Server: CmdLockTrajectories [FlightEngineer.cs:347]");
-            if (ShipStateManager.Instance == null || ShipStateManager.Instance.LocationSet == null || ShipStateManager.Instance.CubeState == null)
-            {
-                Debug.LogError("Server: Null on server [FlightEngineer.cs:350]");
-            }
-
             // Lock the trajectories
             _dialsLocked = true;
             // Call the lock change
             ShipStateManager.Instance.TrajectoryLockChangeCallback(true);
 
-            Debug.Log("Server: Setting cube state [FlightEngineer.cs:350]");
             //todo: refactor this and ShipStateManager.cs "OnSetLocation"
             // If the location is set and the cube is not in the NavReader, place it there
             if (ShipStateManager.Instance.LocationSet && ShipStateManager.Instance.CubeState != CubeState.InNavReader)
             {
                 ShipStateManager.Instance.SetCubeState(CubeState.InNavReader);
             }
-            Debug.Log("Server: Finished CmdLockTrajectories");
         }
 
         /// <summary>

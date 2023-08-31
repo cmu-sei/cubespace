@@ -568,7 +568,6 @@ namespace Managers
         /// <param name="trajectoriesAreCorrect">Whether the trajectories entered are correct.</param>
         public void TrajectoryLockChangeCallback(bool trajectoriesAreCorrect)
         {
-            Debug.Log("Server: Calling RPC, TrajectoryLockChangeCallback [ShipStateManager.cs:571]");
             // Set whether the trajectories are locked based on whether they were correct
             trajectoriesLocked = trajectoriesAreCorrect;
             // Call a function across clients
@@ -651,11 +650,6 @@ namespace Managers
         [ClientRpc]
         private void RpcTrajectoryLockChangeCallback(bool trajectoriesAreCorrect)
         {
-            Debug.Log("Client RPC from server, invoking OnTrajectoryUpdate [ShipStateManager.cs:654]");
-            if (OnTrajectoryLockUpdate == null)
-            {
-                Debug.LogError("Null OnTrajectoryLockUpdate [ShipStateManager.cs:657]");
-            }
             OnTrajectoryLockUpdate?.Invoke(trajectoriesAreCorrect);
         }
 
@@ -691,14 +685,8 @@ namespace Managers
         [ClientRpc]
         private void RpcDisableCubeSprite(Player player)
         {
-            Debug.Log("RpcDisableCubeSprite [ShipStateManager.cs:694");
             if (player != null && player.isLocalPlayer)
             {
-                Debug.Log("Setting cube sprite [ShipStateManager.cs:697]");
-                if (UI.HUD.HUDController.Instance == null)
-                {
-                    Debug.LogError("Null Hud controller [ShipStateManager.cs:700]");
-                }
                 UI.HUD.HUDController.Instance.SetCubeSprite(false);
             }
         }
@@ -790,17 +778,11 @@ namespace Managers
         [Server]
         public void SetCubeState(CubeState cubeState)
         {
-            Debug.Log("Server: Setting cube state [ShipStateManager.cs:787]");
             _cubeState = cubeState;
 
             // If the cube will not be held by a player, disable the cube sprite and remove the reference to the player holding a cube (if there is a player)
             if (cubeState != CubeState.InPlayerHands && _playerHoldingCube != null)
             {
-                Debug.Log("Server: Setting cube state to not InPlayerHands while a player is holding the cube, calling RPC [ShipStateManager.cs:793]");
-                if (_playerHoldingCube == null || _playerHoldingCube.GetComponent<Player>() == null)
-                {
-                    Debug.LogError("Server: Null player [[ShipStateManager.cs:796]");
-                }
                 // Disable the sprite of the cube on the screen of the player who had it before
                 RpcDisableCubeSprite(_playerHoldingCube.GetComponent<Player>());
                 // Remove the NetworkIdentity associated with the cube
