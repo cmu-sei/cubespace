@@ -257,23 +257,20 @@ namespace Systems.GameBrain
 			}
 			*/
 
-            // Return if the different attributes between the two missions are equal
-            return missionID == obj.missionID
-			       //first compare bools and ints
-			       && complete == obj.complete
-			       && totalTeams == obj.totalTeams
-			       && solveTeams == obj.solveTeams
+			// Return if the different attributes between the two missions are equal
+			return missionID == obj.missionID
+				//first compare bools and ints
+				&& complete == obj.complete
+				&& totalTeams == obj.totalTeams
+				&& solveTeams == obj.solveTeams
 				&& possibleMaximumScore == obj.possibleMaximumScore
 				&& baseSolveValue == obj.baseSolveValue
 				&& bonusRemaining == obj.bonusRemaining
 				&& currentScore == obj.currentScore
-				&& associatedChallenges.Length == obj.associatedChallenges.Length
-				&& associatedChallenges.All(obj.associatedChallenges.Contains)
-				&& associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length
-				&& associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains)
-			       && visible == obj.visible
+				&& visible == obj.visible
 				&& isSpecial == obj.isSpecial
-			       //then compare strings and arrays
+
+				// then compare strings and arrays
 				&& title == obj.title
 				&& missionIcon == obj.missionIcon
 				&& summaryShort == obj.summaryShort
@@ -281,16 +278,20 @@ namespace Systems.GameBrain
 				&& roleList.Length == obj.roleList.Length
 				&& roleList.All(obj.roleList.Contains)
 				&& l.Length == l2.Length
-			       
-			       //then compare things we know don't update often
+
+				// Technically these checks are not exhaustive because the ordering of the coords/challenges is relavent but we rely on GameBrain to keep challenge->coord mapping one-to-one
+				&& ((associatedChallenges == null && obj.associatedChallenges == null) || ((associatedChallenges.Length == obj.associatedChallenges.Length) && associatedChallenges.All(obj.associatedChallenges.Contains)))
+				&& ((associatedChallengesCoordinates == null && obj.associatedChallengesCoordinates == null) || ((associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length) && associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains)))
+
+				// then compare things we know don't update often
 				&& Math.Abs(galaxyMapXPos - obj.galaxyMapXPos) < Mathf.Epsilon
 				&& Math.Abs(galaxyMapYPos - obj.galaxyMapYPos) < Mathf.Epsilon
 				&& Math.Abs(galaxyMapTargetXPos - obj.galaxyMapTargetXPos) < Mathf.Epsilon
 				&& Mathf.Abs(galaxyMapTargetYPos - obj.galaxyMapTargetYPos) < Mathf.Epsilon
-				
+
 				// The last step is to compare the individual elements of the two task lists
-				&& HelperEquals(l, l2);
-		}
+				&& IsTaskDataEquivalent(l, l2);
+        }
 
 		/// <summary>
 		/// Helper method for comparison between two task lists.
@@ -298,7 +299,7 @@ namespace Systems.GameBrain
 		/// <param name="l">The first task list.</param>
 		/// <param name="l2">The second task list.</param>
 		/// <returns>Whether the two task lists are equal.</returns>
-		private bool HelperEquals(TaskData[] l, TaskData[] l2)
+		private bool IsTaskDataEquivalent(TaskData[] l, TaskData[] l2)
         {
 			// Loop through all tasks in the two lists and compare them; return false if any two differ
 			for (int i = 0; i < l.Length; i++)
@@ -310,7 +311,7 @@ namespace Systems.GameBrain
             }
 			return true;
         }
-	}
+    }
 
 	/// <summary>
 	/// Information on a specific task within a mission.

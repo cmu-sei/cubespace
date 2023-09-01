@@ -52,6 +52,11 @@ namespace Entities.Workstations.FlightEngineerParts
 
         public void DisableTextInputField()
         {
+            // TODO: without this null check, the lock button breaks when you try to use it but only after a disconnect,,, no one knows why
+            if (textInputField == null)
+            {
+                return;
+            }
             textInputField.enabled = false;
         }
     }
