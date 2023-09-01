@@ -280,8 +280,8 @@ namespace Systems.GameBrain
 				&& l.Length == l2.Length
 
 				// Technically these checks are not exhaustive because the ordering of the coords/challenges is relavent but we rely on GameBrain to keep challenge->coord mapping one-to-one
-				&& ((associatedChallenges == null && obj.associatedChallenges == null) || ((associatedChallenges.Length == obj.associatedChallenges.Length) && associatedChallenges.All(obj.associatedChallenges.Contains)))
-				&& ((associatedChallengesCoordinates == null && obj.associatedChallengesCoordinates == null) || ((associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length) && associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains)))
+				&& ((associatedChallenges == null && obj.associatedChallenges == null) || ((associatedChallenges.Length == obj.associatedChallenges.Length) && associatedChallenges.All(obj.associatedChallenges.Contains) && obj.associatedChallenges.All(associatedChallenges.Contains)))
+				&& ((associatedChallengesCoordinates == null && obj.associatedChallengesCoordinates == null) || ((associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length) && associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains) && obj.associatedChallengesCoordinates.All(associatedChallengesCoordinates.Contains)))
 
 				// then compare things we know don't update often
 				&& Math.Abs(galaxyMapXPos - obj.galaxyMapXPos) < Mathf.Epsilon
