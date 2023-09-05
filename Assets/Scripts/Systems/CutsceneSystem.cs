@@ -162,8 +162,6 @@ namespace Systems
         /// <returns>Whether the preparation was successful.</returns>
         public bool PrepareWebCutscene(string videoURL, bool playAfterPrepared = true, bool hasOverlay = false)
         {
-            //Debug.Log("Preparing cutscene at this url: " + videoURL);
-
             // No video player set
             if (!_videoPlayer || !_videoPlayer.targetTexture)
             {
@@ -228,13 +226,8 @@ namespace Systems
             autoplayAfterPrepare = playAfterPrepared;
 
             // Prepare the video
-            //Debug.Log("Video player clip: " + _videoPlayer.clip);
-            //Debug.Log("Video player url: " + _videoPlayer.url);
-            //Debug.Log("Right before calling prepare");
-            _videoPlayer.errorReceived += (m, _) => { Debug.LogError(m); };
-            //_videoPlayer.prepareCompleted += (_) => { Debug.Log("Cutscene system finished prepping~~~"); };
-            _videoPlayer.Prepare();
-            
+            _videoPlayer.errorReceived += (videoPlayer, message) => { Debug.Log("Cutscene system reported the following error:\n" + message); };
+            _videoPlayer.Prepare();       
 
             return true;
         }
@@ -282,8 +275,6 @@ namespace Systems
         /// </summary>
         public void PlayCutscene()
         {
-            //Debug.Log("PLAYING CUTSCENE");
-
             // Call an action before the cutscene begins playing
             OnCutsceneStart?.Invoke();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
@@ -310,7 +301,6 @@ namespace Systems
         /// <returns>A yield while waiting for a video to stop playing or unpause.</returns>
         private IEnumerator PlayCutsceneCoroutine()
         {
-            //Debug.Log("COROUTINE STARTED");
             // Lock the local player's input
             Player.LockLocalPlayerInput();
             // Reset the starting frame of the video
