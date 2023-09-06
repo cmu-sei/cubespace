@@ -200,14 +200,14 @@ namespace Systems.GameBrain
 		public string[] roleList;
 		// A list of the different tasks used in this mission
 		public TaskData[] taskList;
-		// The x position of the mission on the galaxy map
+		// The x position of the mission on the galaxy map. Allowable range: [-540, 540]. Give each a circle with diameter 125 t0 avoid overlap
 		public float galaxyMapXPos;
-		// The y position of the mission on the galaxy map
-		public float galaxyMapYPos;
-		// The x position of the target of the mission on the galaxy map
-		public float galaxyMapTargetXPos;
-		// The y position of the target of the mission on the galaxy map
-		public float galaxyMapTargetYPos;
+        // The y position of the mission on the galaxy map. Allowable range: [-320, 320]
+        public float galaxyMapYPos;
+        // The x position of the target of the mission on the galaxy map. Allowable range: [-540, 540]
+        public float galaxyMapTargetXPos;
+        // The y position of the target of the mission on the galaxy map. Allowable range: [-320, 320]
+        public float galaxyMapTargetYPos;
 
 		/// <summary>
 		/// Checks this mission against another mission object to see if they're the same.
