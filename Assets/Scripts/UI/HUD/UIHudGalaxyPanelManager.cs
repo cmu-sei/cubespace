@@ -77,6 +77,7 @@ namespace UI.HUD
                 system.SetSystemMission(md, index, lineImage, targetImage);
 
                 // Set the position of the system
+                //Allowable x range: [-540, 540]. Allowable y range: [-320, 320]. Give each a circle with diameter 125 t0 avoid overlap
                 systemObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
                 targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
 
