@@ -105,12 +105,19 @@ namespace Entities.Workstations.SensorStationParts
         /// <returns>A yield return while playing the video.</returns>
         private IEnumerator VideoPlayCoroutine(string url, VideoEvent callback)
         {
+            // This gets called after prepare has completed, so there should be an accurate count here
+            Debug.Log("Playing video with frame count == " + _videoPlayer.frameCount);
+
             UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
 
             _videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
-            while (_videoPlayer.isPlaying)
+            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount)
             {
+                if (_videoPlayer.frame % 30 == 0)
+                {
+                    Debug.Log("Current frame: " + _videoPlayer.frame + "\nTotal frames: " + _videoPlayer.frameCount);
+                }
                 if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
                 {
                     break;
