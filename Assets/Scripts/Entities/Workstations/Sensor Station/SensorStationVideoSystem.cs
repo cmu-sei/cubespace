@@ -42,6 +42,9 @@ namespace Entities.Workstations.SensorStationParts
         /// The CustomNetworkManager within the game.
         /// </summary>
         private CustomNetworkManager networkManager;
+
+        private float videoTimeout = 10.0f;
+
         #endregion
 
         #region Unity event functions
@@ -105,23 +108,49 @@ namespace Entities.Workstations.SensorStationParts
         /// <returns>A yield return while playing the video.</returns>
         private IEnumerator VideoPlayCoroutine(string url, VideoEvent callback)
         {
-            // This gets called after prepare has completed, so there should be an accurate count here
-            Debug.Log("Playing video with frame count == " + _videoPlayer.frameCount);
+            // This gets called after prepare has completed, so there should be an accurate count set by now
+            //Debug.Log("Playing video with frame count == " + _videoPlayer.frameCount);
 
             UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
 
             _videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
-            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount)
+
+            int prevFrame = 0;
+            float timeBuffering = 0.0f;
+
+            // Video player was cutting the video short instead of buffering when it didn't get frames quickly enough so this is the hack to get around it
+            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 1)
             {
-                if (_videoPlayer.frame % 30 == 0)
+                // Videos are 24fps, so this should print roughly once a second
+                /*
+                if (_videoPlayer.frame % 24 == 0)
                 {
                     Debug.Log("Current frame: " + _videoPlayer.frame + "\nTotal frames: " + _videoPlayer.frameCount);
                 }
+                */
+
                 if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
                 {
                     break;
                 }
+
+                // Manually check for buffering, if we get stuck for longer than the timeout interupt the video and print an error
+                // This will prevent the callback from firing, which means that the video will not register as completed and the player should be able to rewatch it
+                if ((int)_videoPlayer.frame == prevFrame)
+                {
+                    timeBuffering += Time.deltaTime;
+                    if (timeBuffering > videoTimeout)
+                    {
+                        Debug.LogError("Sensor station video system timed out on frame" + prevFrame + " of " + _videoPlayer.frameCount + " after " + videoTimeout + " seconds");
+                        InterruptVideo(); // this call will stop the coroutine
+                    }
+                }
+                else
+                {
+                    prevFrame = (int)_videoPlayer.frame;
+                }
+
                 yield return null;
             }
 
