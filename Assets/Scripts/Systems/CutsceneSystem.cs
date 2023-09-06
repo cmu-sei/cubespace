@@ -61,6 +61,9 @@ namespace Systems
         // The video screen shown while jumping from one location to another
         [SerializeField]
         private GameObject jumpVideoScreen;
+        // The number of seconds a video will buffer before it is cut off
+        [SerializeField][Range(2.0f, 10.0f)]
+        private float videoTimeout = 10.0f;
 
         // The URL of the jump cutscene
         private string _cutsceneURL = "";
@@ -313,13 +316,34 @@ namespace Systems
             // Reset the playback speed
             _videoPlayer.playbackSpeed = 1f;
 
-            // Wait while a video is playing
-            while (_videoPlayer.isPlaying)
+            int prevFrame = 0;
+            float timeBuffering = 0.0f;
+
+            // Wait while a video is playing or there are frames left to play (isPlaying should be redundant but VideoPlayer is fragile af)
+            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 1)
             {
                 // If in dev mode and a skip hotkey is pressed, skip the cutscene
                 if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
                 {
                     break;
+                }
+
+                // Manually check for buffering, if we get stuck for longer than the timeout cut the video and print an error
+                // This is a hack implemented because Unity's video player will  occaisionally just cut a video short instead of buffering like you'd expect 
+                // We didn't actually experience that error here but it happened consistently in SensorStationVideoSystem
+                if ((int)_videoPlayer.frame == prevFrame)
+                {
+                    timeBuffering += Time.deltaTime;
+                    if (timeBuffering > videoTimeout)
+                    {
+                        Debug.LogError("Cutscene system timed out on frame" + prevFrame + " of " + _videoPlayer.frameCount + " after " + videoTimeout + " seconds");
+                        _videoPlayer.Stop();
+                        break;
+                    }
+                }
+                else
+                {
+                    prevFrame = (int)_videoPlayer.frame;
                 }
 
                 yield return null;
