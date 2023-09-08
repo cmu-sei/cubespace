@@ -160,6 +160,7 @@ namespace Entities.Workstations.SensorStationParts
             if (isClient)
             {
                 TrySetTransmissionIcon();
+                TryPrePrepareVideoSystem();
             }
         }
 
@@ -214,6 +215,17 @@ namespace Entities.Workstations.SensorStationParts
             else
             {
                 _sensorStationTerminal.SetIncomingTransmissionIcon(incomingTransmission);
+            }
+        }
+
+        /// <summary>
+        /// Tries to preload the video at the sensor station if there is an incoming transmission
+        /// </summary>
+        private void TryPrePrepareVideoSystem()
+        {
+            if (incomingTransmission && _videoSystem != null)
+            {
+                _videoSystem.PrePrepareVideo(incomingTransmissionEvent.videoURL);
             }
         }
         #endregion
@@ -419,6 +431,7 @@ namespace Entities.Workstations.SensorStationParts
         private void RpcTrySetIncomingTransmissionIcon()
         {
             TrySetTransmissionIcon();
+            TryPrePrepareVideoSystem();
         }
 
         /// <summary>

@@ -43,7 +43,8 @@ namespace Entities.Workstations.SensorStationParts
         /// </summary>
         private CustomNetworkManager networkManager;
 
-        private float videoTimeout = 10.0f;
+        private float videoTimeout = 6.0f;
+        private int maximumAttemptsToRestartVideo = 2;
 
         #endregion
 
@@ -67,17 +68,30 @@ namespace Entities.Workstations.SensorStationParts
         #endregion
 
         #region Video playback methods
+
         /// <summary>
-        /// Prepares, then plays the video.
+        /// Prepares a video in advance of plaing it
         /// </summary>
-        /// <param name="url">The URL of the video that should play.</param>
-        /// <param name="callback">The callback method to invoke within a coroutine upon finishing the video.</param>
-        public void PlayVideo(string url, VideoEvent callback)
+        /// <param name="url">The URL of the video that should be prepared</param>
+        public void PrePrepareVideo(string url)
         {
             _videoPlayer.targetTexture.Release();
             _videoPlayer.url = url;
             _videoPlayer.EnableAudioTrack(0, true);
             _videoPlayer.Prepare();
+        }
+
+        /// <summary>
+        /// Plays a video which should have been prepared previously
+        /// </summary>
+        /// <param name="url">The URL of the video that should play.</param>
+        /// <param name="callback">The callback method to invoke within a coroutine upon finishing the video.</param>
+        public void PlayVideo(string url, VideoEvent callback)
+        {
+            if (!_videoPlayer.isPrepared)
+            {
+                PrePrepareVideo(url);
+            }
             currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback));
         }
 
@@ -112,8 +126,6 @@ namespace Entities.Workstations.SensorStationParts
             {
                 yield return null;
             }
-            // This gets called after prepare has completed, so there should be an accurate count set by now
-            //Debug.Log("Playing video with frame count == " + _videoPlayer.frameCount);
 
             UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
 
@@ -122,32 +134,49 @@ namespace Entities.Workstations.SensorStationParts
 
             int prevFrame = 0;
             float timeBuffering = 0.0f;
+            int attemptsToRestart = 0;
 
             // Video player was cutting the video short instead of buffering when it didn't get frames quickly enough so this is the hack to get around it
             while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 1)
             {
-                // Videos are 24fps, so this should print roughly once a second
-                /*
-                if (_videoPlayer.frame % 24 == 0)
-                {
-                    Debug.Log("Current frame: " + _videoPlayer.frame + "\nTotal frames: " + _videoPlayer.frameCount);
-                }
-                */
-
                 if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
                 {
                     break;
                 }
 
-                // Manually check for buffering, if we get stuck for longer than the timeout interupt the video and print an error
+                // Manually check for buffering, if we get stuck for longer than the timeout attempt to restart or interupt the video and print an error
                 // This will prevent the callback from firing, which means that the video will not register as completed and the player should be able to rewatch it
                 if ((int)_videoPlayer.frame == prevFrame)
                 {
                     timeBuffering += Time.deltaTime;
                     if (timeBuffering > videoTimeout)
                     {
+                        // TODO: display these log statement to player
                         Debug.LogError("Sensor station video system timed out on frame" + prevFrame + " of " + _videoPlayer.frameCount + " after " + videoTimeout + " seconds");
-                        InterruptVideo(); // this call will stop the coroutine
+
+                        // TODO: This should really be checking how long since the last timeout instead of just using an arbitrary fixed number of attempts
+                        //       if it immediatly fails to get new frames a few times in a row, quit trying, if it works for a while then hangs, keep restarting
+                        if (attemptsToRestart <= maximumAttemptsToRestartVideo)
+                        {
+                            Debug.LogError("Attempting to restart video...");
+                            attemptsToRestart++;
+
+                            // Attempt to restart the video from where it timed out
+                            _videoPlayer.Stop();
+                            _videoPlayer.Prepare();
+                            while (!_videoPlayer.isPrepared)
+                            {
+                                yield return null;
+                            }
+                            _videoPlayer.frame = prevFrame;
+                            _videoPlayer.Play();
+
+                            timeBuffering = 0.0f;
+                        }
+                        else
+                        {
+                            InterruptVideo(); // this call will stop the coroutine
+                        }
                     }
                 }
                 else
