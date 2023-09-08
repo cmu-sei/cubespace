@@ -229,7 +229,6 @@ namespace Systems
             autoplayAfterPrepare = playAfterPrepared;
 
             // Prepare the video
-            _videoPlayer.errorReceived += (videoPlayer, message) => { Debug.Log("Cutscene system reported the following error:\n" + message); };
             _videoPlayer.Prepare();       
 
             return true;
