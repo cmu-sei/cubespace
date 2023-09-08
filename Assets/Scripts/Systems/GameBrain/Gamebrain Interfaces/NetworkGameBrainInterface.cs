@@ -277,15 +277,8 @@ namespace Systems.GameBrain
 			// Create a dictionary to hold the arguments provided
             Dictionary<string, string> providedArguments = ParseCommandLineArgs();
 			// Create variables with defaults to store the URIs we may or may not find
-			string baseURI = "https://foundry.local";
 			string gamebrainURI = "https://foundry.local/gamebrain";
 			string identityURI = "https://foundry.local/identity";
-
-			// If the base URI was provided, set it
-			if (providedArguments.TryGetValue("uriBase", out string _uriBase) && !string.IsNullOrEmpty(_uriBase))
-			{
-				baseURI = _uriBase;
-			}
 
 			// If the Gamebrain URI was provided, set it
 			if (providedArguments.TryGetValue("gamebrainURI", out string _gamebrainURI) && !string.IsNullOrEmpty(_gamebrainURI))
@@ -312,12 +305,11 @@ namespace Systems.GameBrain
 			}
 
 			// Print the URIs supplied
-			Debug.Log($"Base URI: {baseURI}");
 			Debug.Log($"Gamebrain URI: {gamebrainURI}");
 			Debug.Log($"Identity URI: {identityURI}");
 
 			// Set the URIs elsewhere for later use and construct the server token and team endpoints
-			NetConfiguration.SetURIs(baseURI, gamebrainURI, identityURI);
+			NetConfiguration.SetURIs(gamebrainURI, identityURI);
 			ClientCredentialSender.SetServerEndpointURIs();
 
 			// Get the CustomNetworkManager to set global parameters if needed

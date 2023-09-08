@@ -15,8 +15,6 @@ namespace Systems.GameBrain
 	/// </summary>
 	internal static class NetConfiguration
 	{
-		// The domain where this game resides, used to retrieve a JSON Web Key for the headless client
-		public static string baseURI;
 		// The link to the Gamebrain server, used to connect to Gamebrain
 		public static string gamebrainURI;
 		// The link to the Identity server, used to retrieve a token
@@ -26,12 +24,10 @@ namespace Systems.GameBrain
         /// <summary>
         /// Sets the base domain URI, Gamebrain URI, and identity URI.
         /// </summary>
-        /// <param name="_baseURI">The link for the domain of the game, needed to retrieve a JSON Web Key for the headless client.</param>
         /// <param name="_gamebrainURI">The link for the Gamebrain server, needed to send and receive game data remotely</param>
         /// <param name="_idURI">The link to the identity server, needed to retrieve a token for the server.</param>
-        internal static void SetURIs(string _baseURI, string _gamebrainURI, string _idURI)
+        internal static void SetURIs(string _gamebrainURI, string _idURI)
 		{
-			baseURI = TrimURI(_baseURI);
 			gamebrainURI = TrimURI(_gamebrainURI);
 			idURI = TrimURI(_idURI);
 		}
