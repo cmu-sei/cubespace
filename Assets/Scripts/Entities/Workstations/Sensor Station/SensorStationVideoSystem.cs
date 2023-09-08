@@ -77,9 +77,8 @@ namespace Entities.Workstations.SensorStationParts
             _videoPlayer.targetTexture.Release();
             _videoPlayer.url = url;
             _videoPlayer.EnableAudioTrack(0, true);
-            _videoPlayer.prepareCompleted += (_) => { currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback)); };
-            _videoPlayer.errorReceived += (videoPlayer, message) => { Debug.Log("Sensor station video system reported the following error:\n" + message); };
             _videoPlayer.Prepare();
+            currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback));
         }
 
         /// <summary>
@@ -108,6 +107,11 @@ namespace Entities.Workstations.SensorStationParts
         /// <returns>A yield return while playing the video.</returns>
         private IEnumerator VideoPlayCoroutine(string url, VideoEvent callback)
         {
+            // can't easily use built-in prepareCompleted callback because we need to pass along the url/callback. This is simpler
+            while (!_videoPlayer.isPrepared)
+            {
+                yield return null;
+            }
             // This gets called after prepare has completed, so there should be an accurate count set by now
             //Debug.Log("Playing video with frame count == " + _videoPlayer.frameCount);
 
