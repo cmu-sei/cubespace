@@ -147,6 +147,11 @@ namespace Entities.Workstations.SensorStationParts
                     if (!incomingTransmissionEvent.IsEquivalentTo(data.currentStatus.incomingTransmissionObject))
                     {
                         incomingTransmissionEvent = data.currentStatus.incomingTransmissionObject;
+                        RpcTryPrePrepareVideoSystem();
+                        if (isClient) // For host + client
+                        {
+                            TryPrePrepareVideoSystem();
+                        }
                     }
                 }
                 else
@@ -160,7 +165,6 @@ namespace Entities.Workstations.SensorStationParts
             if (isClient)
             {
                 TrySetTransmissionIcon();
-                TryPrePrepareVideoSystem();
             }
         }
 
@@ -431,6 +435,14 @@ namespace Entities.Workstations.SensorStationParts
         private void RpcTrySetIncomingTransmissionIcon()
         {
             TrySetTransmissionIcon();
+        }
+
+        /// <summary>
+        /// Tries to prepare a new transmission video across all clients.
+        /// </summary>
+        [ClientRpc]
+        private void RpcTryPrePrepareVideoSystem()
+        {
             TryPrePrepareVideoSystem();
         }
 
