@@ -707,11 +707,13 @@ namespace Managers
                 // If there's more locations in the data than what's unlocked, add the new location
                 if (unlockedLocations.Count == i)
                 {
+                    Debug.Log("A location was added! Location: " + data.locations[i].name);
                     unlockedLocations.Add(data.locations[i]);
                 }
                 // Otherwise, if the unlocked locations currently in-game differs from what's in the data, just update the data
                 else if (!unlockedLocations[i].IsEquivalent(data.locations[i]))
                 {
+                    Debug.Log("A location changed! Mission title: " + data.missions[i].title);
                     unlockedLocations[i] = data.locations[i];
                 }
             }
@@ -743,12 +745,14 @@ namespace Managers
                 {
                     if (!MissionData[i].IsEquivalentTo(data.missions[i]))
                     {
+                        Debug.Log("A mission changed! Mission title: " + data.missions[i].title);
                         MissionData[i] = data.missions[i];
                     }
                 }
                 // Otherwise, add the new mission to the existing mission list
                 else
                 {
+                    Debug.Log("A mission was added! Mission title: " + data.missions[i].title);
                     MissionData.Add(data.missions[i]);
                 }
 
