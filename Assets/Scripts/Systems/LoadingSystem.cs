@@ -189,7 +189,7 @@ namespace Systems
             {
                 OnLoadFailed.Invoke();
             }
-            Debug.Log("Loading failed; either the given address is wrong, or the server is not running.");
+            Debug.LogError("Loading failed; either the given address is wrong, or the server is not running.");
         }
 
         /// <summary>

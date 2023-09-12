@@ -92,7 +92,6 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     private void OnDisable()
     {
         ShipStateManager.OnMissionDataChange -= OnMissionDataChange;
-
     }
 
     /// <summary>
@@ -114,6 +113,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         {
             if (i >= missionItems.Count)
             {
+                // TODO: this does seem to actually be initializing anything and it probably shouldn't be a one liner
                 missionItems.Add(Instantiate(missionListingItemPrefab, missionListParent).GetComponent<UIHudMissionItem>());
             }
 
@@ -156,7 +156,6 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
         //update after scrolltomission.
         missionSlider.SetPosition(item, jumpToPosition);
-
     }
 
     private void ScrollToMission(UIHudMissionItem item)
@@ -170,7 +169,6 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
        
         var missionParent = missionListParent.transform as RectTransform;
         missionParent.anchoredPosition = new Vector3(missionParent.anchoredPosition.x, -offset/2);
-        
     }
 
     public void SelectMission(int index,bool jumpToPosition =false )
@@ -178,6 +176,5 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         UIHudMissionItem item = missionItems[index];
         SelectMission(item, jumpToPosition);
     }
-    
 }
 
