@@ -79,10 +79,8 @@ namespace Systems
         /// </summary>
         private void OnDestroy()
         {
-            if (LoadingSystem.Instance == null) Debug.LogError("No loading system!");
-
             // If we've loaded past the initial scene, unsubscribe from the loading failed action
-            if (LoadingSystem.Instance.loadedPastInitialScene)
+            if (LoadingSystem.Instance && LoadingSystem.Instance.loadedPastInitialScene)
             {
                 LoadingSystem.OnLoadFailed -= DisplayReconnectFailureUI;
                 // If this is the server, unsubscribe from the loading action
