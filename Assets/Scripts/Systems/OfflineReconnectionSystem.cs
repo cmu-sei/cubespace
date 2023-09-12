@@ -79,6 +79,8 @@ namespace Systems
         /// </summary>
         private void OnDestroy()
         {
+            if (LoadingSystem.Instance == null) Debug.LogError("No loading system!");
+
             // If we've loaded past the initial scene, unsubscribe from the loading failed action
             if (LoadingSystem.Instance.loadedPastInitialScene)
             {
