@@ -44,7 +44,7 @@ namespace Entities.Workstations.SensorStationParts
         private CustomNetworkManager networkManager;
 
         private float videoTimeout = 6.0f;
-        private int maximumAttemptsToRestartVideo = 2;
+        private int maximumAttemptsToRestartVideo = 4;
 
         #endregion
 
@@ -132,7 +132,7 @@ namespace Entities.Workstations.SensorStationParts
             _videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
-            int prevFrame = 0;
+            int prevFrame = -1;
             float timeBuffering = 0.0f;
             int attemptsToRestart = 0;
 
@@ -181,6 +181,7 @@ namespace Entities.Workstations.SensorStationParts
                 }
                 else
                 {
+                    timeBuffering = 0.0f;
                     prevFrame = (int)_videoPlayer.frame;
                 }
 

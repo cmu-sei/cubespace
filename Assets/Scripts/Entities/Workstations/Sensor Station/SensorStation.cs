@@ -147,10 +147,10 @@ namespace Entities.Workstations.SensorStationParts
                     if (!incomingTransmissionEvent.IsEquivalentTo(data.currentStatus.incomingTransmissionObject))
                     {
                         incomingTransmissionEvent = data.currentStatus.incomingTransmissionObject;
-                        RpcTryPrePrepareVideoSystem();
+                        RpcTryPrePrepareVideoSystem(data.currentStatus.incomingTransmissionObject.videoURL);
                         if (isClient) // For host + client
                         {
-                            TryPrePrepareVideoSystem();
+                            TryPrePrepareVideoSystem(data.currentStatus.incomingTransmissionObject.videoURL);
                         }
                     }
                 }
@@ -225,11 +225,11 @@ namespace Entities.Workstations.SensorStationParts
         /// <summary>
         /// Tries to preload the video at the sensor station if there is an incoming transmission
         /// </summary>
-        private void TryPrePrepareVideoSystem()
+        private void TryPrePrepareVideoSystem(string url)
         {
             if (incomingTransmission && _videoSystem != null)
             {
-                _videoSystem.PrePrepareVideo(incomingTransmissionEvent.videoURL);
+                _videoSystem.PrePrepareVideo(url);
             }
         }
         #endregion
@@ -441,9 +441,9 @@ namespace Entities.Workstations.SensorStationParts
         /// Tries to prepare a new transmission video across all clients.
         /// </summary>
         [ClientRpc]
-        private void RpcTryPrePrepareVideoSystem()
+        private void RpcTryPrePrepareVideoSystem(string url)
         {
-            TryPrePrepareVideoSystem();
+            TryPrePrepareVideoSystem(url);
         }
 
         /// <summary>
