@@ -113,8 +113,8 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         {
             if (i >= missionItems.Count)
             {
-                // TODO: this does seem to actually be initializing anything and it probably shouldn't be a one liner
-                missionItems.Add(Instantiate(missionListingItemPrefab, missionListParent).GetComponent<UIHudMissionItem>());
+                GameObject missionListing = Instantiate(missionListingItemPrefab, missionListParent);
+                missionItems.Add(missionListing.GetComponent<UIHudMissionItem>());
             }
 
             if (missionData.Count > i && missionData[i].visible)
