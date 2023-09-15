@@ -84,8 +84,10 @@ namespace Managers
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             // Get the Player component of the object with the network connection representing the player
-            Debug.Log($"Player with connection id {conn.connectionId} disconnected");
-
+            if (isInDebugMode)
+            {
+                Debug.Log($"Player with connection id {conn.connectionId} disconnected");
+            }
             Player player = conn.identity.GetComponent<Player>();
             
             // Remove the cube from that player if they were holding it
@@ -190,7 +192,10 @@ namespace Managers
                 // As long as the object still exists, destroy it
                 if (obj)
                 {
-                    Debug.Log($"Destroying {obj.name} in CustomNetworkManager.");
+                    if (isInDebugMode)
+                    {
+                        Debug.Log($"Destroying {obj.name} in CustomNetworkManager.");
+                    }
                     Destroy(obj);
                 }
             }
