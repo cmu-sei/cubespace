@@ -32,6 +32,11 @@ public class HandleTokenInfo : MonoBehaviour
     {
         // Get the CustomNetworkManager component of the main network manager
         networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
+
+        if (networkManager == null)
+        {
+            Debug.LogError("No net manager found in HandleTokenInfo.cs");
+        }
         
         // If running as a WebGL instance, retrieve the token information and game server link
         #if UNITY_WEBGL
@@ -69,10 +74,7 @@ public class HandleTokenInfo : MonoBehaviour
     /// <param name="_serverLink">The link to the game server.</param>
     public void ReceiveServerLink(string _serverLink)
     {
-        if (networkManager && networkManager.isInDebugMode)
-        {
-            Debug.Log("Server IP Received: " + _serverLink);
-        }
+        Debug.Log("Server IP Received: " + _serverLink);
 
         if (_serverLink == null)
         {
