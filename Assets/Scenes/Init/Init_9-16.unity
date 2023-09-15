@@ -1564,7 +1564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -287.49985, y: -25}
+  m_AnchoredPosition: {x: -287.49988, y: -25}
   m_SizeDelta: {x: -575, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &255255291
@@ -6378,11 +6378,6 @@ PrefabInstance:
         type: 3}
       propertyPath: sendTimeout
       value: 7500
-      objectReference: {fileID: 0}
-    - target: {fileID: 9126535836933421941, guid: cec31c2c8194ef5469d150768ecb59a1,
-        type: 3}
-      propertyPath: networkAddress
-      value: <ERROR_DEFAULT_NETWORK_ADDRESS>
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cec31c2c8194ef5469d150768ecb59a1, type: 3}
