@@ -41,7 +41,6 @@ namespace UI.HUD
 
         private MenuState _menuState;
         
-        
 
         /// <summary>
         /// The list of tasks for the player.
@@ -92,12 +91,12 @@ namespace UI.HUD
         private CanvasGroup group;
 
         [SerializeField] private UIHudGalaxyPanelManager _galaxyPanelManager;
+        [SerializeField] private UIHudDisplayMenuButton _mapButton;
 
         /// <summary>
         /// The custom NetworkManager object used.
         /// </summary>
         private CustomNetworkManager networkManager;
-
 
 
         /// <summary>
@@ -111,6 +110,11 @@ namespace UI.HUD
             cubeIcon.SetCube(false);
             
             SetMenuState(MenuState.None);
+
+            if (ShipStateManager.Instance)
+            {
+                UpdateMapButtonVisibility(ShipStateManager.Instance.useGalaxyMap);
+            }
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
@@ -223,7 +227,6 @@ namespace UI.HUD
                 {
                     taskList.CloseAdditionalInfo();
                 }
-                
             }
 
             //audio config
@@ -271,6 +274,20 @@ namespace UI.HUD
             else if (NetworkServer.active)
             {
                 NetworkManager.singleton.StopServer();
+            }
+        }
+
+        public void UpdateMapButtonVisibility(bool mapButtonEnabled)
+        {
+            if (mapButtonEnabled && _mapButton.enabled == false)
+            {
+                _mapButton.enabled = true;
+                _mapButton.SetVisable(true);
+            }
+            else if (!mapButtonEnabled && _mapButton.enabled == true)
+            {
+                _mapButton.SetVisable(false);
+                _mapButton.enabled = false;
             }
         }
 
