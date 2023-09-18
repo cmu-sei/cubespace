@@ -20,6 +20,7 @@ using Systems;
 using Systems.GameBrain;
 using Systems.CredentialRequests.Models;
 using Entities;
+using UI.HUD;
 
 namespace Managers
 {
@@ -126,7 +127,13 @@ namespace Managers
         /// </summary>
         [SyncVar]
         private Session session = new Session();
-        
+
+        /// <summary>
+        /// Used to determine whether or not map button should be displayed. Also contained in `session`, duplicated here so that hook is only called when this actually changes, not just anything in session.
+        /// </summary>
+        [SyncVar(hook = nameof(UseGalaxyMapHook))]
+        public bool useGalaxyMap = false;
+
         /// <summary>
         /// The list of thrusters with their original flipped states.
         /// </summary>
@@ -322,6 +329,12 @@ namespace Managers
             // Update the team's session data to whatever was received
             session = data.session;
 
+            // Update useGalaxyMap if it's changed. Will enable/disable map button via callbacks
+            if (data.session.useGalaxyDisplayMap != useGalaxyMap)
+            {
+                useGalaxyMap = data.session.useGalaxyDisplayMap;
+            }
+
             // Mark whether first contact was completed
             firstContactEstablished = data.currentStatus.firstContactComplete;
             // Update the network name to what's included in the data
@@ -424,6 +437,14 @@ namespace Managers
         private void OnSetLocationHook(bool prevState, bool newState)
         {
             OnSetLocationChange?.Invoke(newState);
+        }
+
+        /// <summary>
+        /// A function that runs on clients as a SyncVar hook when useGalaxyMap has been changed by GameBrain.
+        /// </summary>
+        private void UseGalaxyMapHook(bool prevState, bool newState)
+        {
+            HUDController.Instance.UpdateMapButtonVisibility(newState);
         }
         #endregion
 

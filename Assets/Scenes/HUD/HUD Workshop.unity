@@ -285,6 +285,7 @@ MonoBehaviour:
   palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   group: {fileID: 57120343}
   _galaxyPanelManager: {fileID: 1304477547}
+  _mapButton: {fileID: 1993381451}
 --- !u!225 &57120343
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2147,7 +2148,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1154480697}
   m_HandleRect: {fileID: 1154480696}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8373,7 +8374,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -350, y: -24.999939}
-  m_SizeDelta: {x: 100, y: 80}
+  m_SizeDelta: {x: 134.8, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1993381450
 MonoBehaviour:
