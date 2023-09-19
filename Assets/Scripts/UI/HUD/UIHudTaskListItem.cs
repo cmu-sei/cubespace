@@ -95,6 +95,14 @@ public class UIHudTaskListItem : MonoBehaviour
         videoIcon.gameObject.SetActive(true);
 
         taskDescription.text = "";
+        completeIcon.enabled = false;
+        incompleteIcon.enabled = false;
+        additionalInfoIcon.enabled = false;
+        noAdditionalInfoIcon.enabled = false;
+        additionalInfoButton.enabled = false;
+        additionalInfoButtonAudio.enabled = false;
+        videoIcon.enabled = false;
+        videoButton.enabled = false;
     }
 
     /// <summary>
