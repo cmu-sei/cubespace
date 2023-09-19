@@ -52,12 +52,12 @@ namespace UI.HUD
 			{
 				if (roles.Length > i && !String.IsNullOrWhiteSpace(roles[i]))
 				{
-					RoleTags[i].Show();
+					RoleTags[i].gameObject.SetActive(true);
 					RoleTags[i].SetRole(roles[i]);
 				}
 				else
 				{
-					RoleTags[i].Hide();
+					RoleTags[i].gameObject.SetActive(false);
 				}
 			}
 			

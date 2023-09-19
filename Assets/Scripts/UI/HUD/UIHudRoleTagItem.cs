@@ -35,6 +35,11 @@ namespace UI.HUD
 		[SerializeField]
 		private float padding = 15;
 
+		private void Start()
+		{
+			_text.text = "";
+		}
+
 		/// <summary>
 		/// Sets this role tag to use the text provided.
 		/// </summary>
@@ -43,22 +48,6 @@ namespace UI.HUD
 		{
 			_text.text = text;
 			_layoutElement.preferredWidth = _text.renderedWidth+padding;
-		}
-
-		/// <summary>
-		/// Shows this role tag.
-		/// </summary>
-		public void Show()
-		{
-			gameObject.SetActive(true);
-		}
-
-		/// <summary>
-		/// Hides this role tag.
-		/// </summary>
-		public void Hide()
-		{
-			gameObject.SetActive(false);
 		}
 	}
 }

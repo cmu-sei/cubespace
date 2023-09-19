@@ -155,6 +155,8 @@ namespace UI.HUD
             manager = GetComponentInParent<UIHudMissionManager>();
             group.interactable = false;
             group.alpha = 0;
+            titleText.text = "";
+            missionDescription.text = "";
         }
 
         /// <summary>
