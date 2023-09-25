@@ -151,7 +151,7 @@ public class NavReaderGalaxySystem : TooltipControl
     {
         Color setColor = _palette.incompleteHighlightColor;
 
-        if (ShipStateManager.Instance)
+        if (ShipStateManager.Instance && index >= 0 && index < ShipStateManager.Instance.MissionData.Count)
         {
             MissionData mission = ShipStateManager.Instance.MissionData[index];
             int currentScore = mission.currentScore;
