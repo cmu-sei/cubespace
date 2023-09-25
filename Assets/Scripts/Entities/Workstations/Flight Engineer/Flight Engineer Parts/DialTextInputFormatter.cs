@@ -39,6 +39,10 @@ namespace Entities.Workstations.FlightEngineerParts
 
         public void DisableTextInputField()
         {
+            if (textInputField == null)
+            {
+                return;
+            }
             textInputField.enabled = false;
         }
     }
