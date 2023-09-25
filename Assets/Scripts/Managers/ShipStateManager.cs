@@ -320,6 +320,14 @@ namespace Managers
             // If the data is null or has no current location, do not continue
             if (data == null || data.currentStatus.currentLocation == "")
             {
+                if (data == null)
+                {
+                    Debug.LogError("Recieved null data!");
+                }
+                else
+                {
+                    Debug.LogError("Current location is an empty string");
+                }
                 return;
             }
 
@@ -750,6 +758,8 @@ namespace Managers
         [Server]
         private void MergeMissionDataList(GameData data)
         {
+            Debug.Log("Merging mission data!");
+            Debug.Log("# of missions: " + data.missions.Length);
             // Cut the size of the current mission list down if it is greater than the size of the new mission list
             if (MissionData.Count > data.missions.Length)
             {
@@ -759,6 +769,7 @@ namespace Managers
             // Loop through all missions in the received data and update the existing list to match it
             for (int i = 0; i < data.missions.Length; i++)
             {
+                Debug.Log("Mission with title " + data.missions[i].title + " has galaxy map coords (" + data.missions[i].galaxyMapXPos + ", " + data.missions[i].galaxyMapYPos + ")");
                 // Update an existing mission if still within the existing mission data list
                 if (i < MissionData.Count)
                 {
