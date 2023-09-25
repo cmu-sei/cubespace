@@ -99,7 +99,7 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     void Update()
     {
-        // TODO: This is bad and unnecessary. Subscribe to event that fires when mission data changes instead of doing this
+        // TODO: This is bad and unnecessary. Subscribe to event that fires when mission data changes instead of doing this. Low priority since it only runs when the maps open but still
         UpdateVisualState();
     }
 
