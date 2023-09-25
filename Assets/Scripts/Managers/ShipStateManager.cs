@@ -452,7 +452,10 @@ namespace Managers
         /// </summary>
         private void UseGalaxyMapHook(bool prevState, bool newState)
         {
-            HUDController.Instance.UpdateMapButtonVisibility(newState);
+            if (HUDController.Instance)
+            {
+                HUDController.Instance.UpdateMapButtonVisibility(newState);
+            }
         }
         #endregion
 
@@ -758,8 +761,6 @@ namespace Managers
         [Server]
         private void MergeMissionDataList(GameData data)
         {
-            Debug.Log("Merging mission data!");
-            Debug.Log("# of missions: " + data.missions.Length);
             // Cut the size of the current mission list down if it is greater than the size of the new mission list
             if (MissionData.Count > data.missions.Length)
             {
@@ -769,7 +770,6 @@ namespace Managers
             // Loop through all missions in the received data and update the existing list to match it
             for (int i = 0; i < data.missions.Length; i++)
             {
-                Debug.Log("Mission with title " + data.missions[i].title + " has galaxy map coords (" + data.missions[i].galaxyMapXPos + ", " + data.missions[i].galaxyMapYPos + ")");
                 // Update an existing mission if still within the existing mission data list
                 if (i < MissionData.Count)
                 {
@@ -783,18 +783,6 @@ namespace Managers
                 {
                     MissionData.Add(data.missions[i]);
                 }
-
-                if (UI.HUD.HUDController.Instance)
-                {
-                    UI.HUD.HUDController.Instance.AddSystemOrSetData(data.missions[i], i);
-                }
-
-                /*
-                if (UI.HUD.HUDController.Instance && UI.HUD.HUDController.Instance.systems.Count > i)
-                {
-                    UI.HUD.HUDController.Instance.systems[i].SetSystemMission(data.missions[i], i);
-                }
-                */
             }
 
             // Call the RPC function after the mission data is set

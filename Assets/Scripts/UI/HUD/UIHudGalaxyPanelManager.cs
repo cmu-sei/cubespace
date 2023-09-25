@@ -48,68 +48,84 @@ namespace UI.HUD
             if (PointsTooltip.Instance != null) PointsTooltip.Instance.gameObject.SetActive(false);
         }
 
+        private void OnEnable()
+        {
+            ShipStateManager.OnMissionDataChange += AddSystemOrSetData;
+        }
+
+        private void OnDisable()
+        {
+            ShipStateManager.OnMissionDataChange -= AddSystemOrSetData;
+        }
+
         /// <summary>
         /// Adds the system to the dictionary and galaxy map and sets it up, or changes its attributes if it already exists.
         /// </summary>
         /// <param name="md">The incoming mission data.</param>
         /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
-        public void AddSystemOrSetData(MissionData md, int index)
+        public void AddSystemOrSetData(List<MissionData> mds)
         {
 	        //lazy init because Start doesn't get called when object is inactive.
 	        if (idsToSystems == null)
 	        {
 		        idsToSystems = new Dictionary<string, NavReaderGalaxySystem>();
 	        }
-	        
-            // Update system attributes if it already exists
-            if (idsToSystems.ContainsKey(md.missionID))
+
+            MissionData md;
+            for (int index = 0; index < mds.Count; index++)
             {
-                idsToSystems[md.missionID].SetSystemMission(md, index);
-            }
-            // Set up the system if it doesn't
-            else
-            {
-                // Create a new system on the map from prefabs
-                GameObject systemObj = Instantiate(systemPrefab, systemParent);
-                GameObject lineObj = Instantiate(linePrefab, lineParent);
-                GameObject targetObj = Instantiate(targetPointPrefab, targetParent);
+                md = mds[index];
 
-                // Get the system script
-                NavReaderGalaxySystem system = systemObj.GetComponent<NavReaderGalaxySystem>();
+                // Update system attributes if it already exists
+                if (idsToSystems.ContainsKey(md.missionID))
+                {
+                    idsToSystems[md.missionID].SetSystemMission(md, index);
+                }
+                // Set up the system if it doesn't
+                else
+                {
+                    // Create a new system on the map from prefabs
+                    GameObject systemObj = Instantiate(systemPrefab, systemParent);
+                    GameObject lineObj = Instantiate(linePrefab, lineParent);
+                    GameObject targetObj = Instantiate(targetPointPrefab, targetParent);
 
-                // Get the image components
-                Image lineImage = lineObj.transform.GetComponent<Image>();
-                Image targetImage = targetObj.transform.GetChild(0).GetComponent<Image>();
+                    // Get the system script
+                    NavReaderGalaxySystem system = systemObj.GetComponent<NavReaderGalaxySystem>();
 
-                // Add the system to the dictionary and set its mission information
-                idsToSystems.Add(md.missionID, system);
-                system.SetSystemMission(md, index, lineImage, targetImage);
+                    // Get the image components
+                    Image lineImage = lineObj.transform.GetComponent<Image>();
+                    Image targetImage = targetObj.transform.GetChild(0).GetComponent<Image>();
 
-                // Set the position of the system
-                //Allowable x range: [-540, 540]. Allowable y range: [-320, 320]. Give each a circle with diameter 125 t0 avoid overlap
-                systemObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
-                targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
+                    // Add the system to the dictionary and set its mission information
+                    idsToSystems.Add(md.missionID, system);
+                    system.SetSystemMission(md, index, lineImage, targetImage);
 
-                // Get TectTransform references
-                RectTransform lineRect = lineObj.GetComponent<RectTransform>();
-                RectTransform coreDisplayTransform = system.CoreDisplayRect;
-                RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
+                    // Set the position of the system
+                    //Allowable x range: [-540, 540]. Allowable y range: [-320, 320]. Give each a circle with diameter 125 t0 avoid overlap
+                    systemObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
+                    targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
 
-                // Get the positions of the RectTransforms
-                Vector2 coreDisplayPosition = coreDisplayTransform.position;
-                Vector2 targetPosition = targetRectTransform.position;
-                Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
-                Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
+                    // Get TectTransform references
+                    RectTransform lineRect = lineObj.GetComponent<RectTransform>();
+                    RectTransform coreDisplayTransform = system.CoreDisplayRect;
+                    RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
 
-                // Calculate the distance between the system
-                Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
-                float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
+                    // Get the positions of the RectTransforms
+                    Vector2 coreDisplayPosition = coreDisplayTransform.position;
+                    Vector2 targetPosition = targetRectTransform.position;
+                    Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
+                    Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
 
-                // Draw the line between the system and its target
-                lineRect.position = midpoint;
-                lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
-                float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
-                lineRect.rotation = Quaternion.Euler(0, 0, z);
+                    // Calculate the distance between the system
+                    Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
+                    float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
+
+                    // Draw the line between the system and its target
+                    lineRect.position = midpoint;
+                    lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
+                    float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
+                    lineRect.rotation = Quaternion.Euler(0, 0, z);
+                }
             }
         }
 	}

@@ -90,7 +90,6 @@ namespace UI.HUD
         [SerializeField]
         private CanvasGroup group;
 
-        [SerializeField] private UIHudGalaxyPanelManager _galaxyPanelManager;
         [SerializeField] private UIHudDisplayMenuButton _mapButton;
 
         /// <summary>
@@ -289,16 +288,6 @@ namespace UI.HUD
                 _mapButton.SetVisable(false);
                 _mapButton.enabled = false;
             }
-        }
-
-        /// <summary>
-        /// Adds the system to the dictionary and galaxy map and sets it up, or changes its attributes if it already exists.
-        /// </summary>
-        /// <param name="md">The incoming mission data.</param>
-        /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
-        public void AddSystemOrSetData(MissionData md, int index)
-        {
-            _galaxyPanelManager.AddSystemOrSetData(md,index);
         }
     }
 }
