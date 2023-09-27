@@ -26,8 +26,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 1000,
-			"associatedChallenges": [ "gravconcache" ],
-			"associatedChallengesCoordinates": [ "123456" ],
+			"associatedChallenges": [
+				{
+					"missionID": "gravconcache",
+					"unlockCode": "123456"
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 1,
 			"galaxyMapXPos": 140,
@@ -63,8 +67,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 700,
-			"associatedChallenges": [ "reactorcache" ],
-			"associatedChallengesCoordinates": [ "123456" ],
+			"associatedChallenges": [
+				{
+					"missionID": "reactorcache",
+					"unlockCode": "ABC456"
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 5,
 			"galaxyMapXPos": 115,
@@ -100,8 +108,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 100,
 			"currentScore": 300,
-			"associatedChallenges": [ "ringrotcache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "ringrotcache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": 0,
@@ -137,8 +149,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 0,
-			"associatedChallenges": [ "ergoconcache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "ergoconcache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -300,
@@ -174,8 +190,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 0,
-			"associatedChallenges": [ "penmasscache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "penmasscache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -500,
@@ -211,8 +231,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 0,
-			"associatedChallenges": [ "electrocache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "electrocache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -75,
@@ -248,8 +272,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 0,
-			"associatedChallenges": [ "radiantcache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "radiantcache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -230,
@@ -285,8 +313,12 @@
 			"baseSolveValue": 700,
 			"bonusRemaining": 300,
 			"currentScore": 0,
-			"associatedChallenges": [ "conduitcache" ],
-			"associatedChallengesCoordinates": [ null ],
+			"associatedChallenges": [
+				{
+					"missionID": "conduitcache",
+					"unlockCode": null
+				}
+			],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -420,
@@ -322,8 +354,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": 100,
@@ -359,8 +390,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 100,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 1,
 			"galaxyMapXPos": 130,
@@ -396,8 +426,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": 0,
@@ -433,8 +462,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -150,
@@ -470,8 +498,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -400,
@@ -507,8 +534,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -130,
@@ -544,8 +570,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -410,
@@ -581,8 +606,7 @@
 			"baseSolveValue": 100,
 			"bonusRemaining": 0,
 			"currentScore": 0,
-			"associatedChallenges": null,
-			"associatedChallengesCoordinates": null,
+			"associatedChallenges": [],
 			"totalTeams": 5,
 			"solveTeams": 0,
 			"galaxyMapXPos": -480,
