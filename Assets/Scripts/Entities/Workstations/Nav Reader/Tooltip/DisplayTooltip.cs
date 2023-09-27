@@ -87,28 +87,28 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
             setColor = _palette.completedHighlightColor;
 
             // Display coordinates for cache missions once main mission is complete
-            if (mission.associatedChallengesCoordinates != null && mission.associatedChallengesCoordinates.Length > 0)
+            if (mission.associatedChallenges != null && mission.associatedChallenges.Length > 0)
             {
-                if (mission.associatedChallengesCoordinates.Length == 1 && mission.associatedChallengesCoordinates[0] != null && mission.associatedChallengesCoordinates[0] != "")
+                if (mission.associatedChallenges.Length == 1 && mission.associatedChallenges[0].unlockCode != null && mission.associatedChallenges[0].unlockCode != "")
                 {
-                    tooltipText.text = "Cache at: " + mission.associatedChallengesCoordinates[0];
+                    tooltipText.text = "Cache at: " + mission.associatedChallenges[0].unlockCode;
                 }
                 else
                 {
                     bool foundNonNullCoord = false;
                     
-                    for (int i = 0; i < mission.associatedChallengesCoordinates.Length; i++)
+                    for (int i = 0; i < mission.associatedChallenges.Length; i++)
                     {
-                        if (mission.associatedChallengesCoordinates[i] != null && mission.associatedChallengesCoordinates[i] != "")
+                        if (mission.associatedChallenges[i].unlockCode != null && mission.associatedChallenges[i].unlockCode != "")
                         {
                             if (!foundNonNullCoord)
                             {
-                                tooltipText.text = "Caches at: " + mission.associatedChallengesCoordinates[i];
+                                tooltipText.text = "Caches at: " + mission.associatedChallenges[i].unlockCode;
                                 foundNonNullCoord = true;
                             }
                             else
                             {
-                                tooltipText.text += ", " + mission.associatedChallengesCoordinates[i];
+                                tooltipText.text += ", " + mission.associatedChallenges[i].unlockCode;
                             }
                         }
                     }

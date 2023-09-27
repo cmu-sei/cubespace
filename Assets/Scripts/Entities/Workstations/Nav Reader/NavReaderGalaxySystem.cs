@@ -174,11 +174,11 @@ public class NavReaderGalaxySystem : TooltipControl
             {
                 // Check to see if all associated missions have been completed
                 bool cacheComplete = true;
-                foreach (string associatedMissionName in ShipStateManager.Instance.MissionData[index].associatedChallenges)
+                foreach (AssociatedChallengeData associatedChallenge in ShipStateManager.Instance.MissionData[index].associatedChallenges)
                 {
                     foreach (MissionData associatedMission in ShipStateManager.Instance.MissionData)
                     {
-                        if (associatedMission.missionID == associatedMissionName)
+                        if (associatedMission.missionID == associatedChallenge.missionID)
                         {
                             cacheComplete &= associatedMission.complete;
                         }

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using Entities.Workstations;
 using UnityEngine;
 using System.Linq;
+using System.Numerics;
 
 namespace Systems.GameBrain
 {
@@ -171,15 +172,10 @@ namespace Systems.GameBrain
 		public int bonusRemaining;
 		// The currentScore attained for this mission
 		public int currentScore;
-		// The challenge associated with this one; for ship challenges, this should be null if there are no associated challenges
-		public string[] associatedChallenges;
-		// The coordinates of the associated challenges, should have same length as associatedChallenges, should have null entries until this mission is complete
-		// example: missions has 1 associated challenge and is incomplete, coords should look like *[ null ]* 
-		// mission has 1 associated challenge and is complete, coords should look like *[ "123456" ]*
-		// mission has 0 associated challenges, coords will look like *null* or []
-		public string[] associatedChallengesCoordinates;
-		// The number of teams who have attempted the challenge
-		public int totalTeams;
+		// All challenges (aka cache challenges) associated with this one which will be unlocked when the player completes this mission
+		public AssociatedChallengeData[] associatedChallenges;
+        // The number of teams who have attempted the challenge
+        public int totalTeams;
 		// The number of teams who have solved the challenge
 		public int solveTeams;
 		// Boolean that must be true for the mission to appear in the Mission Log
@@ -216,47 +212,6 @@ namespace Systems.GameBrain
 		/// <returns>Whether the missions are equal.</returns>
 		public bool IsEquivalentTo(MissionData obj)
 		{
-			// First, order the two task lists, because they also need comparison
-			TaskData[] l = taskList.OrderBy(t => t.taskID).ToArray();
-			TaskData[] l2 = obj.taskList.OrderBy(t => t.taskID).ToArray();
-
-			/*
-            Debug.Log("missionID: " + missionID + " vs " + "obj.missionID: " + obj.missionID);
-            Debug.Log("complete: " + complete + " vs " + "obj.complete: " + obj.complete);
-            Debug.Log("totalTeams: " + totalTeams + " vs " + "obj.totalTeams: " + obj.totalTeams);
-            Debug.Log("solveTeams: " + solveTeams + " vs " + "obj.solveTeams: " + obj.solveTeams);
-            Debug.Log("possibleMaximumScore: " + possibleMaximumScore + " vs " + "obj.possibleMaximumScore: " + obj.possibleMaximumScore);
-            Debug.Log("baseSolveValue: " + baseSolveValue + " vs " + "obj.baseSolveValue: " + obj.baseSolveValue);
-            Debug.Log("bonusRemaining: " + bonusRemaining + " vs " + "obj.bonusRemaining: " + obj.bonusRemaining);
-            Debug.Log("currentScore: " + currentScore + " vs " + "obj.currentScore: " + obj.currentScore);
-            Debug.Log("associatedChallenges.Length: " + associatedChallenges.Length + " vs " + "obj.associatedChallenges.Length: " + obj.associatedChallenges.Length);
-            Debug.Log("associatedChallengesCoordinates.Length: " + associatedChallengesCoordinates.Length + " vs " + "obj.associatedChallengesCoordinates.Length: " + obj.associatedChallengesCoordinates.Length);
-            Debug.Log("galaxyMapXPos: " + galaxyMapXPos + " vs " + "obj.galaxyMapXPos: " + obj.galaxyMapXPos);
-            Debug.Log("galaxyMapYPos: " + galaxyMapYPos + " vs " + "obj.galaxyMapYPos: " + obj.galaxyMapYPos);
-            Debug.Log("galaxyMapTargetXPos: " + galaxyMapTargetXPos + " vs " + "obj.galaxyMapTargetXPos: " + obj.galaxyMapTargetXPos);
-            Debug.Log("galaxyMapTargetYPos: " + galaxyMapTargetYPos + " vs " + "obj.galaxyMapTargetYPos: " + obj.galaxyMapTargetYPos);
-            Debug.Log("visible: " + visible + " vs " + "obj.visible: " + obj.visible);
-            Debug.Log("isSpecial: " + isSpecial + " vs " + "obj.isSpecial: " + obj.isSpecial);
-            Debug.Log("title: " + title + " vs " + "obj.title: " + obj.title);
-            Debug.Log("summaryShort: " + summaryShort + " vs " + "obj.summaryShort: " + obj.summaryShort);
-            Debug.Log("summaryLong: " + summaryLong + " vs " + "obj.summaryLong: " + obj.summaryLong);
-            Debug.Log("roleList.Length: " + roleList.Length + " vs " + "obj.roleList.Length: " + obj.roleList.Length);
-            Debug.Log("l.Length: " + l.Length + " vs " + "l2.Length: " + l2.Length);
-            Debug.LogWarning("EASY STUFF DONE!");
-			*/
-
-			/*
-			Debug.Log("obj.associatedChallengesCoordinates == null: " + (obj.associatedChallengesCoordinates == null).ToString());
-            Debug.Log("obj.associatedChallengesCoordinates == new string[0]: " + (obj.associatedChallengesCoordinates == new string[0]).ToString());
-			Debug.Log("obj.associatedChallengesCoordinates: " + obj.associatedChallengesCoordinates.ToString());
-            Debug.Log("obj.associatedChallengesCoordinates.Length: " + obj.associatedChallengesCoordinates.Length);
-
-			for (int i = 0; i < obj.associatedChallengesCoordinates.Length; i++)
-			{
-				Debug.Log("coord " + i + ": " + obj.associatedChallengesCoordinates[i]);
-			}
-			*/
-
 			// Return if the different attributes between the two missions are equal
 			return missionID == obj.missionID
 				//first compare bools and ints
@@ -277,20 +232,15 @@ namespace Systems.GameBrain
 				&& summaryLong == obj.summaryLong
 				&& roleList.Length == obj.roleList.Length
 				&& roleList.All(obj.roleList.Contains)
-				&& l.Length == l2.Length
 
-				// Technically these checks are not exhaustive because the ordering of the coords/challenges is relavent but we rely on GameBrain to keep challenge->coord mapping one-to-one
-				&& ((associatedChallenges == null && obj.associatedChallenges == null) || ((associatedChallenges.Length == obj.associatedChallenges.Length) && associatedChallenges.All(obj.associatedChallenges.Contains) && obj.associatedChallenges.All(associatedChallenges.Contains)))
-				&& ((associatedChallengesCoordinates == null && obj.associatedChallengesCoordinates == null) || ((associatedChallengesCoordinates.Length == obj.associatedChallengesCoordinates.Length) && associatedChallengesCoordinates.All(obj.associatedChallengesCoordinates.Contains) && obj.associatedChallengesCoordinates.All(associatedChallengesCoordinates.Contains)))
+                && IsAssociatedChallengeEquivalent(associatedChallenges, obj.associatedChallenges)
+				&& IsTaskDataEquivalent(taskList, obj.taskList)
 
 				// then compare things we know don't update often
 				&& Math.Abs(galaxyMapXPos - obj.galaxyMapXPos) < Mathf.Epsilon
 				&& Math.Abs(galaxyMapYPos - obj.galaxyMapYPos) < Mathf.Epsilon
 				&& Math.Abs(galaxyMapTargetXPos - obj.galaxyMapTargetXPos) < Mathf.Epsilon
-				&& Mathf.Abs(galaxyMapTargetYPos - obj.galaxyMapTargetYPos) < Mathf.Epsilon
-
-				// The last step is to compare the individual elements of the two task lists
-				&& IsTaskDataEquivalent(l, l2);
+				&& Mathf.Abs(galaxyMapTargetYPos - obj.galaxyMapTargetYPos) < Mathf.Epsilon;
         }
 
 		/// <summary>
@@ -301,15 +251,56 @@ namespace Systems.GameBrain
 		/// <returns>Whether the two task lists are equal.</returns>
 		private bool IsTaskDataEquivalent(TaskData[] l, TaskData[] l2)
         {
-			// Loop through all tasks in the two lists and compare them; return false if any two differ
-			for (int i = 0; i < l.Length; i++)
+			// If both are null, return true
+			if (l == null && l2 == null)
+			{
+				return true;
+			}
+			// if only one is null or the lists are different lengths, return false
+			else if (l == null || l2 == null || l.Length != l2.Length)
+			{
+				return false;
+			}
+
+			TaskData[] ol = l.OrderBy(t => t.taskID).ToArray();
+            TaskData[] ol2 = l2.OrderBy(t => t.taskID).ToArray();
+
+            // Loop through all tasks in the two lists and compare them; return false if any two differ
+            for (int i = 0; i < ol.Length; i++)
             {
-				if (!l[i].IsEquivalentTo(l2[i]))
+				if (!ol[i].IsEquivalentTo(ol2[i]))
 				{
 					return false;
 				}
             }
 			return true;
+        }
+
+        private bool IsAssociatedChallengeEquivalent(AssociatedChallengeData[] l, AssociatedChallengeData[] l2)
+        {
+            // If both are null, return true
+            if (l == null && l2 == null)
+            {
+                return true;
+            }
+            // if only one is null or the lists are different lengths, return false
+            else if (l == null || l2 == null || l.Length != l2.Length)
+            {
+                return false;
+            }
+
+            AssociatedChallengeData[] ol = l.OrderBy(t => t.missionID).ToArray();
+            AssociatedChallengeData[] ol2 = l2.OrderBy(t => t.missionID).ToArray();
+
+            // Loop through all tasks in the two lists and compare them; return false if any two differ
+            for (int i = 0; i < ol.Length; i++)
+            {
+                if (!ol[i].IsEquivalentTo(ol2[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -359,9 +350,26 @@ namespace Systems.GameBrain
 	}
 
 	/// <summary>
-	/// A class holding information on a communication that takes place at the sensor station.
+	/// Information on a mission that is linked to another mission (cache missions)
 	/// </summary>
 	[Serializable]
+	public class AssociatedChallengeData
+	{
+		// The id of the associated mission
+		public string missionID;
+		// The coordinates of the location the mission is at, shown to player in the galaxy map when the mission this is associated with is complete
+		public string unlockCode;
+
+        public bool IsEquivalentTo(AssociatedChallengeData obj)
+        {
+            return missionID == obj.missionID && unlockCode == obj.unlockCode;
+        }
+    }
+
+    /// <summary>
+    /// A class holding information on a communication that takes place at the sensor station.
+    /// </summary>
+    [Serializable]
 	public class CommEvent
 	{
 		// The ID of the comm event
