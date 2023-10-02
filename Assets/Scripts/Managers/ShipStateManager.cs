@@ -131,7 +131,7 @@ namespace Managers
         /// <summary>
         /// Used to determine whether or not map button should be displayed. Also contained in `session`, duplicated here so that hook is only called when this actually changes, not just anything in session.
         /// </summary>
-        [SyncVar(hook = nameof(UseGalaxyMapHook))]
+        [SyncVar(hook = nameof(UseGalaxyMapHook))][HideInInspector]
         public bool useGalaxyMap = false;
 
         /// <summary>
@@ -194,15 +194,18 @@ namespace Managers
         /// <summary>
         /// The token of the team, used by the server to make requests to Gamebrain.
         /// </summary>
+        [HideInInspector]
         public string token = null;
         /// <summary>
         /// A hexadecimal string representing the team ID (i.e. "053820f008e741a29010f658e80592fe")
         /// </summary>
+        [HideInInspector]
         public string teamID = "";
 
         /// <summary>
         /// The list of workstations with accessible VMs.
         /// </summary>
+        [HideInInspector]
         public List<VMWorkstation> vmWorkstations = new List<VMWorkstation>();
 
         /// <summary>
