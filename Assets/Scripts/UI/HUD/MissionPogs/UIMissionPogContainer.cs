@@ -177,7 +177,7 @@ namespace UI.HUD
 		{
             if (pogCount > maxPogCount)
             {
-                Debug.LogError("More missions sent by GameBrain then can be displayed by pogs but useCodices is true!!! Displaying max of: " + maxPogCount);
+                Debug.LogWarning("More missions sent by GameBrain then can be displayed by pogs but useCodices is true!!! Displaying max of: " + maxPogCount);
 				pogCount = maxPogCount;
             }
 

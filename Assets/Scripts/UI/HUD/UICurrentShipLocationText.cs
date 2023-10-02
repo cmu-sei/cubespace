@@ -87,7 +87,7 @@ public class UICurrentShipLocationText : MonoBehaviour
         //Remove any break statements that might be used anywhere else.
         if (locationName == null)
         {
-            Debug.LogWarning("Cannot set the location text because the current location is null.");
+            Debug.LogError("Cannot set the location text because the current location is null.");
             return;
         }
         locationName = locationName.Replace("<br>", " ");

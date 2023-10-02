@@ -8,7 +8,7 @@
 		"gameEndTime": "2023-05-23T15:00:00",
 		"timerTitle": "Time until Reactor Explosion",
 		"useGalaxyDisplayMap": true,
-		"useCodices": true,
+		"useCodices": false,
 		"displayIncompleteMissionPogs": false
 	},
 	"ship": {
@@ -18,6 +18,27 @@
 		"workstation3URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation3.html",
 		"workstation4URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation4.html",
 		"workstation5URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation5.html"
+	},
+	"currentStatus": {
+		"currentLocation": "probe",
+		"antennaExtended": false,
+		"networkConnected": false,
+		"networkName": "",
+		"firstContactComplete": false,
+		"powerStatus": "launchMode",
+		"incomingTransmission": false,
+		"currentLocationScanned": false,
+		"currentLocationSurroundings": "",
+		"incomingTransmissionObject": {
+			"commID": "",
+			"videoURL": "",
+			"commTemplate": "",
+			"template": 0,
+			"translationMessage": "",
+			"scanInfoMessage": "",
+			"firstContact": false
+		},
+		"powerState": 1
 	},
 	"missions": [
 		{
@@ -637,125 +658,114 @@
 			]
 		}
 	],
-	"locations": [{
-		"locationID": "probe",
-		"name": "Probe",
-		"imageID": "image8",
-		"backdropID": "bkd_plto",
-		"visited": true,
-		"scanned": false,
-		"unlockCode": "",
-		"trajectoryLaunch": 1,
-		"trajectoryCorrection": 2,
-		"trajectoryCube": 3
-	}, {
-		"locationID": "alpha",
-		"name": "Alpha",
-		"imageID": "image8",
-		"backdropID": "bkd_plto",
-		"visited": true,
-		"scanned": false,
-		"unlockCode": "AAAAAA",
-		"trajectoryLaunch": 16,
-		"trajectoryCorrection": 17,
-		"trajectoryCube": 18
-	}, {
-		"locationID": "beta",
-		"name": "Beta",
-		"imageID": "image6",
-		"backdropID": "bkd_cllctn",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "BBBBBB",
-		"trajectoryLaunch": 80,
-		"trajectoryCorrection": 111,
-		"trajectoryCube": 122
-	}, {
-		"locationID": "gamma",
-		"name": "Gamma",
-		"imageID": "image6",
-		"backdropID": "bkd_redradr",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "CCCCCC",
-		"trajectoryLaunch": 80,
-		"trajectoryCorrection": 111,
-		"trajectoryCube": 122
-	}, {
-		"locationID": "delta",
-		"name": "Delta",
-		"imageID": "image4",
-		"backdropID": "bkd_antruins",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "DDDDDD",
-		"trajectoryLaunch": 11,
-		"trajectoryCorrection": 22,
-		"trajectoryCube": 33
-	}, {
-		"locationID": "epsilon",
-		"name": "Epsilon",
-		"imageID": "image2",
-		"backdropID": "bkd_exoarch",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "EEEEEE",
-		"trajectoryLaunch": 275,
-		"trajectoryCorrection": 90,
-		"trajectoryCube": 145
-	}, {
-		"locationID": "mu",
-		"name": "Mu",
-		"imageID": "image3",
-		"backdropID": "bkd_redradr",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "FFFFFF",
-		"trajectoryLaunch": 75,
-		"trajectoryCorrection": 70,
-		"trajectoryCube": 60
-	}, {
-		"locationID": "pi",
-		"name": "Pi",
-		"imageID": "image5",
-		"backdropID": "bkd_astfld_initial",
-		"visited": false,
-		"scanned": false,
-		"unlockCode": "000000",
-		"trajectoryLaunch": 15,
-		"trajectoryCorrection": 42,
-		"trajectoryCube": 3
-	}, {
-		"locationID": "omega",
-		"name": "Omega",
-		"imageID": "image8",
-		"backdropID": "bkd_plto",
-		"visited": true,
-		"scanned": false,
-		"unlockCode": "",
-		"trajectoryLaunch": 200,
-		"trajectoryCorrection": 225,
-		"trajectoryCube": 250
-	}],
-	"currentStatus": {
-		"currentLocation": "probe",
-		"antennaExtended": false,
-		"networkConnected": false,
-		"networkName": "",
-		"firstContactComplete": false,
-		"powerStatus": "launchMode",
-		"incomingTransmission": false,
-		"currentLocationScanned": false,
-		"currentLocationSurroundings": "",
-		"incomingTransmissionObject": {
-			"commID": "",
-			"videoURL": "",
-			"commTemplate": "",
-			"template": 0,
-			"translationMessage": "",
-			"scanInfoMessage": "",
-			"firstContact": false
+	"locations": [
+		{
+			"locationID": "probe",
+			"name": "Probe",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "",
+			"trajectoryLaunch": 1,
+			"trajectoryCorrection": 2,
+			"trajectoryCube": 3
 		},
-		"powerState": 1
-	}
+		{
+			"locationID": "alpha",
+			"name": "Alpha",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "AAAAAA",
+			"trajectoryLaunch": 16,
+			"trajectoryCorrection": 17,
+			"trajectoryCube": 18
+		},
+		{
+			"locationID": "beta",
+			"name": "Beta",
+			"imageID": "image6",
+			"backdropID": "bkd_cllctn",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "BBBBBB",
+			"trajectoryLaunch": 80,
+			"trajectoryCorrection": 111,
+			"trajectoryCube": 122
+		},
+		{
+			"locationID": "gamma",
+			"name": "Gamma",
+			"imageID": "image6",
+			"backdropID": "bkd_redradr",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "CCCCCC",
+			"trajectoryLaunch": 80,
+			"trajectoryCorrection": 111,
+			"trajectoryCube": 122
+		},
+		{
+			"locationID": "delta",
+			"name": "Delta",
+			"imageID": "image4",
+			"backdropID": "bkd_antruins",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "DDDDDD",
+			"trajectoryLaunch": 11,
+			"trajectoryCorrection": 22,
+			"trajectoryCube": 33
+		},
+		{
+			"locationID": "epsilon",
+			"name": "Epsilon",
+			"imageID": "image2",
+			"backdropID": "bkd_exoarch",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "EEEEEE",
+			"trajectoryLaunch": 275,
+			"trajectoryCorrection": 90,
+			"trajectoryCube": 145
+		},
+		{
+			"locationID": "mu",
+			"name": "Mu",
+			"imageID": "image3",
+			"backdropID": "bkd_redradr",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "FFFFFF",
+			"trajectoryLaunch": 75,
+			"trajectoryCorrection": 70,
+			"trajectoryCube": 60
+		},
+		{
+			"locationID": "pi",
+			"name": "Pi",
+			"imageID": "image5",
+			"backdropID": "bkd_astfld_initial",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "000000",
+			"trajectoryLaunch": 15,
+			"trajectoryCorrection": 42,
+			"trajectoryCube": 3
+		},
+		{
+			"locationID": "omega",
+			"name": "Omega",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "",
+			"trajectoryLaunch": 200,
+			"trajectoryCorrection": 225,
+			"trajectoryCube": 250
+		}
+	]
 }
