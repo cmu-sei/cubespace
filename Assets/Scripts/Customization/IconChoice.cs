@@ -28,6 +28,7 @@ namespace Customization
 		/// <returns>A whitespace-trimmed name of the icon.</returns>
 		public string GetID()
 		{
+			if (Icon == null) return null; // In editor you can start the game without choosing an icon
 			return Icon.name.Trim();
 		}
 	}
