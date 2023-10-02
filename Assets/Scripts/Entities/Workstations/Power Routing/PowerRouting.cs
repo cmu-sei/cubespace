@@ -444,7 +444,11 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
+                // In editor, running as Client+Server, workstations register themselves in this dictionary in Awake and OnStartServer get's called in Awake, meaning that
+                // when they go to check their power state in OnStartServer, they may not have been registered yet, resulting in this case, which is not a problem since it should return false anyways.
+                // (See Workstation.cs line 193)
+                // Shouldn't be a problem in real build since OnStartServer will be called after Awake and if they're called at the same time every station that calls this starts powered off anyways
+                // Debug.LogError($"Can't get power state for {workstationID}. Ensure that it exists in the dictionary.");
                 return false;
             }
         }
