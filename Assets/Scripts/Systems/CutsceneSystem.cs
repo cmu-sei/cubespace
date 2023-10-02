@@ -343,6 +343,7 @@ namespace Systems
                 else
                 {
                     prevFrame = (int)_videoPlayer.frame;
+                    timeBuffering = 0.0f;
                 }
 
                 yield return null;
