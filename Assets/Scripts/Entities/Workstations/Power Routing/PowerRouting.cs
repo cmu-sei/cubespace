@@ -76,10 +76,6 @@ namespace Entities.Workstations.PowerRouting
         /// A dictionary mapping WorkstationIDs to buttons on the PowerRouting workstation.
         /// </summary>
         public Dictionary<WorkstationID, PowerRoutingButton> workstationButtonDict;
-        /// <summary>
-        /// The text showing the name of the location.
-        /// </summary>
-        private UICurrentShipLocationText locationText;
 
         /// <summary>
         /// The CustomNetworkManager component of the main NetworkManager singleton.
@@ -124,23 +120,6 @@ namespace Entities.Workstations.PowerRouting
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
             networkIdentity = GetComponent<NetworkIdentity>();
-            StartCoroutine(FindLocationLabel());
-        }
-
-        private IEnumerator FindLocationLabel()
-        {
-            while (locationText == null)
-            {
-                try
-                {
-                    locationText = GameObject.Find("Text_LocationName").GetComponent<UICurrentShipLocationText>();
-                }
-                catch
-                {
-                    // Location text not found, keep looping
-                }
-                yield return null;
-            }
         }
         #endregion
 
@@ -245,9 +224,9 @@ namespace Entities.Workstations.PowerRouting
             }
 
             // Make the text transparent so that the "Available Power" sign is visible
-            if (locationText)
+            if (UICurrentShipLocationText.Instance)
             {
-                locationText.AdjustOpacity(fadeOpacity);
+                UICurrentShipLocationText.Instance.AdjustOpacity(fadeOpacity);
             }
         }
 
@@ -263,9 +242,9 @@ namespace Entities.Workstations.PowerRouting
             }
 
             // Make the text opaque again
-            if (locationText)
+            if (UICurrentShipLocationText.Instance)
             {
-                locationText.AdjustOpacity(1);
+                UICurrentShipLocationText.Instance.AdjustOpacity(1);
             }
         }
 

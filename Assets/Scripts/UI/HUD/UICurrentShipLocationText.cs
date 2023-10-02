@@ -17,7 +17,7 @@ using UnityEngine;
 /// A text component used to display the ship's current location.
 /// </summary>
 [RequireComponent(typeof(TMP_Text))]
-public class UICurrentShipLocationText : MonoBehaviour
+public class UICurrentShipLocationText : Singleton<UICurrentShipLocationText>
 {
     /// <summary>
     /// The text object which shows the current location.
@@ -27,8 +27,9 @@ public class UICurrentShipLocationText : MonoBehaviour
     /// <summary>
     /// Unity event function that gets the text component when this object first starts.
     /// </summary>
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         text = GetComponent<TMP_Text>();
     }
 
@@ -51,8 +52,9 @@ public class UICurrentShipLocationText : MonoBehaviour
     /// <summary>
     /// Unity event function that calls the OnLocationChange event with the current location on startup.
     /// </summary>
-    void Start()
+    public override void Start()
     {
+        base.Start();
         OnLocationChange(ShipStateManager.Instance.GetCurrentLocation());
     }
 
@@ -87,8 +89,7 @@ public class UICurrentShipLocationText : MonoBehaviour
         //Remove any break statements that might be used anywhere else.
         if (locationName == null)
         {
-            Debug.LogError("Cannot set the location text because the current location is null.");
-            return;
+            locationName = "";
         }
         locationName = locationName.Replace("<br>", " ");
         text.text = "<font-weight=700>"+ locationName +"</font-weight>";
