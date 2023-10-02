@@ -305,8 +305,8 @@ namespace Systems.GameBrain
 			}
 
 			// Print the URIs supplied
-			Debug.Log($"Gamebrain URI: {gamebrainURI}");
-			Debug.Log($"Identity URI: {identityURI}");
+			//Debug.Log($"Gamebrain URI: {gamebrainURI}");
+			//Debug.Log($"Identity URI: {identityURI}");
 
 			// Set the URIs elsewhere for later use and construct the server token and team endpoints
 			NetConfiguration.SetURIs(gamebrainURI, identityURI);
