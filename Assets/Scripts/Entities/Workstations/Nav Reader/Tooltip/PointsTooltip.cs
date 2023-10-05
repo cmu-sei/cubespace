@@ -89,7 +89,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
     public void SetPropertiesFromIndex(int index, bool placeLeft = false)
     {
         this.index = index;
-        MissionData mission = ShipStateManager.Instance.MissionData[index];
+        MissionData mission = ShipStateManager.Instance.missionDatas[index];
         Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
         {

@@ -50,12 +50,12 @@ namespace UI.HUD
 
         private void OnEnable()
         {
-            ShipStateManager.OnMissionDataChange += AddSystemOrSetData;
+            ShipStateManager.OnMissionDatasChange += AddSystemOrSetData;
         }
 
         private void OnDisable()
         {
-            ShipStateManager.OnMissionDataChange -= AddSystemOrSetData;
+            ShipStateManager.OnMissionDatasChange -= AddSystemOrSetData;
         }
 
         /// <summary>

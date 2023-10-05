@@ -88,7 +88,7 @@ namespace Managers
         /// <summary>
         /// An action called when the list of mission data changes from Gamebrain.
         /// </summary>
-        public static Action<List<MissionData>> OnMissionDataChange;
+        public static Action<List<MissionData>> OnMissionDatasChange;
 
         // Server side only actions
         /// <summary>
@@ -160,8 +160,6 @@ namespace Managers
         [SyncVar(hook = nameof(OnSetLocationHook))]
         private bool locationSet = false;
 
-        // Whether the trajectories have been locked
-
         /// <summary>
         /// Whether the trajectories have been locked. Derives from a private variable.
         /// </summary>
@@ -189,7 +187,7 @@ namespace Managers
         /// <summary>
         /// The list of missions the team can attempt.
         /// </summary>
-        public readonly List<MissionData> MissionData = new List<MissionData>();
+        public readonly SyncList<MissionData> missionDatas = new SyncList<MissionData>();
 
         /// <summary>
         /// The token of the team, used by the server to make requests to Gamebrain.
@@ -522,7 +520,7 @@ namespace Managers
             OnCubeStateChangeHook(CubeState.InPlayerHands, _cubeState);
 
             // The HUD scene loads before the scene where this object lives, so force an update
-            OnMissionDataChange?.Invoke(MissionData);
+            OnMissionDatasChange?.Invoke(missionDatas.ToList());
             OnCurrentLocationChange?.Invoke(currentLocation);
         }
         #endregion
@@ -675,7 +673,7 @@ namespace Managers
         [ClientRpc]
         private void RpcOnMissionDataChange(List<MissionData> md)
         {
-            OnMissionDataChange?.Invoke(md);
+            OnMissionDatasChange?.Invoke(md);
         }
 
         /// <summary>
@@ -764,32 +762,46 @@ namespace Managers
         [Server]
         private void MergeMissionDataList(GameData data)
         {
+            bool listChanged = false;
+
             // Cut the size of the current mission list down if it is greater than the size of the new mission list
-            if (MissionData.Count > data.missions.Length)
+            if (missionDatas.Count > data.missions.Length)
             {
-                MissionData.RemoveRange(data.missions.Length, MissionData.Count - data.missions.Length);
+                // missionDatas.RemoveRange(data.missions.Length, missionDatas.Count - data.missions.Length);
+
+                // SyncLists don't have RemoveRange, so remove items one at a time starting from the end
+                for (int z = missionDatas.Count - 1; z >= data.missions.Length; z--)
+                {
+                    missionDatas.RemoveAt(z);
+                }
+                listChanged = true;
             }
 
             // Loop through all missions in the received data and update the existing list to match it
             for (int i = 0; i < data.missions.Length; i++)
             {
                 // Update an existing mission if still within the existing mission data list
-                if (i < MissionData.Count)
+                if (i < missionDatas.Count)
                 {
-                    if (!MissionData[i].IsEquivalentTo(data.missions[i]))
+                    if (!missionDatas[i].IsEquivalentTo(data.missions[i]))
                     {
-                        MissionData[i] = data.missions[i];
+                        missionDatas[i] = data.missions[i];
+                        listChanged = true;
                     }
                 }
                 // Otherwise, add the new mission to the existing mission list
                 else
                 {
-                    MissionData.Add(data.missions[i]);
+                    missionDatas.Add(data.missions[i]);
+                    listChanged = true;
                 }
             }
 
-            // Call the RPC function after the mission data is set
-            RpcOnMissionDataChange(MissionData);
+            if (listChanged)
+            {
+                // Call the RPC function after the mission data is set
+                RpcOnMissionDataChange(missionDatas.ToList());
+            }
         }
         #endregion
 
