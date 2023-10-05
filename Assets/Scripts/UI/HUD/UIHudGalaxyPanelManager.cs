@@ -51,6 +51,12 @@ namespace UI.HUD
         private void OnEnable()
         {
             ShipStateManager.OnMissionDatasChange += AddSystemOrSetData;
+
+            // Initialize galaxy map systems
+            if (ShipStateManager.Instance && ShipStateManager.Instance.MissionDatas != null)
+            {
+                AddSystemOrSetData(ShipStateManager.Instance.MissionDatas);
+            }
         }
 
         private void OnDisable()
@@ -59,7 +65,7 @@ namespace UI.HUD
         }
 
         /// <summary>
-        /// Adds the system to the dictionary and galaxy map and sets it up, or changes its attributes if it already exists.
+        /// Add systems for each mission to the dictionary and galaxy map and sets them up, or changes their attributes if they already exists.
         /// </summary>
         /// <param name="md">The incoming mission data.</param>
         /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
@@ -71,6 +77,7 @@ namespace UI.HUD
 		        idsToSystems = new Dictionary<string, NavReaderGalaxySystem>();
 	        }
 
+            // TODO: Need to handle systems associated with missions not in mds (missions that were removed from the json)
             MissionData md;
             for (int index = 0; index < mds.Count; index++)
             {

@@ -100,7 +100,7 @@ namespace UI.HUD
 			// TODO: This line doesn't work here but does work elsewhere in the project? The while loop works just as well but it's weird anyways
 			//yield return new WaitUntil(() => ShipStateManager.Instance != null && ShipStateManager.Instance.Session != null);
 
-			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.missionDatas == null)
+			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.MissionDatas == null)
 			{
 				yield return null;
 			}
@@ -120,10 +120,10 @@ namespace UI.HUD
             {
                 displayEmptyIcons = ShipStateManager.Instance.Session.displayIncompleteMissionPogs;
 				ClearChildren();
-				previousMissionCount = ShipStateManager.Instance.missionDatas.Count;
-                CreatePogs(ShipStateManager.Instance.missionDatas.Count);
+				previousMissionCount = ShipStateManager.Instance.MissionDatas.Count;
+                CreatePogs(ShipStateManager.Instance.MissionDatas.Count);
                 initialized = true;
-                UpdatePogs(ShipStateManager.Instance.missionDatas);
+                UpdatePogs(ShipStateManager.Instance.MissionDatas);
             }
 		}
 		
