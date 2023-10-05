@@ -40,10 +40,10 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     private TextMeshProUGUI tooltipText;
 
     /// <summary>
-    /// The index of the mission.
+    /// The id of the mission this tooltip is being used for
     /// </summary>
     [HideInInspector]
-    public int index = -1;
+    public string id;
     /// <summary>
     /// The rect transform on this tooltip.
     /// </summary>
@@ -67,10 +67,9 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     /// </summary>
     /// <param name="index">The index of the mission the system references.</param>
     /// <param name="placeLeft">Whether to place this tooltip to the left of the system.</param>
-    public void SetPropertiesFromIndex(int index, bool placeLeft = false)
+    public void SetProperties(MissionData mission, bool placeLeft = false)
     {
-        this.index = index;
-        MissionData mission = ShipStateManager.Instance.missionDatas[index];
+        this.id = mission.missionID;
         Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
         {

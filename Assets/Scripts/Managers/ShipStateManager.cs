@@ -187,7 +187,8 @@ namespace Managers
         /// <summary>
         /// The list of missions the team can attempt.
         /// </summary>
-        public readonly SyncList<MissionData> missionDatas = new SyncList<MissionData>();
+        public List<MissionData> MissionDatas => missionDatas.ToList();
+        private readonly SyncList<MissionData> missionDatas = new SyncList<MissionData>();
 
         /// <summary>
         /// The token of the team, used by the server to make requests to Gamebrain.
@@ -195,7 +196,7 @@ namespace Managers
         [HideInInspector]
         public string token = null;
         /// <summary>
-        /// A hexadecimal string representing the team ID (i.e. "053820f008e741a29010f658e80592fe")
+        /// A hexadecimal string representing the team ID (ex. "053820f008e741a29010f658e80592fe")
         /// </summary>
         [HideInInspector]
         public string teamID = "";
@@ -520,7 +521,7 @@ namespace Managers
             OnCubeStateChangeHook(CubeState.InPlayerHands, _cubeState);
 
             // The HUD scene loads before the scene where this object lives, so force an update
-            OnMissionDatasChange?.Invoke(missionDatas.ToList());
+            OnMissionDatasChange?.Invoke(MissionDatas);
             OnCurrentLocationChange?.Invoke(currentLocation);
         }
         #endregion
@@ -800,7 +801,7 @@ namespace Managers
             if (listChanged)
             {
                 // Call the RPC function after the mission data is set
-                RpcOnMissionDataChange(missionDatas.ToList());
+                RpcOnMissionDataChange(MissionDatas);
             }
         }
         #endregion

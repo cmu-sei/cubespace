@@ -1,5 +1,7 @@
 using Managers;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using Systems.GameBrain;
 using TMPro;
 using UI.ColorPalettes;
@@ -89,19 +91,14 @@ public class NavReaderGalaxySystem : TooltipControl
     /// The index of the mission associated with this system.
     /// </summary>
     [HideInInspector]
-    public int index = -1;
+    public int index = -1; // TODO: This is only used for selection missions. Should rework all that to use IDs instead and get rid of all referencing to missions by index which is fragile AF
+    /// <summary>
+    /// The mission associated with this system, cached when updated mission data is sent from the ShipStateManager
+    /// </summary>
+    [HideInInspector]
+    public MissionData missionData = null;
 
     [SerializeField] private ColorPalette _palette;
-
-
-    /// <summary>
-    /// Unity event function that simply updates the visual state every frame.
-    /// </summary>
-    void Update()
-    {
-        // TODO: This is bad and unnecessary. Subscribe to event that fires when mission data changes instead of doing this. Low priority since it only runs when the maps open but still
-        UpdateVisualState();
-    }
 
     /// <summary>
     /// Unity event function that starts a coroutine when the mouse enters this object.
@@ -136,7 +133,7 @@ public class NavReaderGalaxySystem : TooltipControl
             if (Input.GetMouseButtonDown(0))
             {
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(index,true);
+                UIHudMissionManager.Instance.SelectMission(index, true); // TODO: Just pass along missionID and get rid of the index altogether
                 // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
             }
 
@@ -147,75 +144,72 @@ public class NavReaderGalaxySystem : TooltipControl
     /// <summary>
     /// Updates the visual state of this system based on its completion state.
     /// </summary>
-    public void UpdateVisualState()
+    private void UpdateVisualState(MissionData m)
     {
         Color setColor = _palette.incompleteHighlightColor;
 
-        if (ShipStateManager.Instance && index >= 0 && index < ShipStateManager.Instance.missionDatas.Count)
-        {
-            MissionData mission = ShipStateManager.Instance.missionDatas[index];
-            int currentScore = mission.currentScore;
+        int currentScore = m.currentScore;
 
-            // If incomplete and not started
-            if (!mission.complete && currentScore == 0)
+        // If incomplete and not started
+        if (!m.complete && currentScore == 0)
+        {
+            pointsInnerBacking.color = Color.white;
+            pointsText.color = Color.black;
+        }
+        // If partially solved
+        else if (!m.complete && currentScore > 0)
+        {
+            pointsInnerBacking.color = Color.white;
+            pointsText.color = Color.black;
+            setColor = _palette.partiallyCompletedHighlightColor;
+        }
+        // If fully solved
+        else if (m.complete)
+        {
+            // Check to see if all associated missions have been completed
+            bool cacheComplete = true;
+            foreach (AssociatedChallengeData associatedChallenge in m.associatedChallenges)
             {
-                pointsInnerBacking.color = Color.white;
-                pointsText.color = Color.black;
-            }
-            // If partially solved
-            else if (!mission.complete && currentScore > 0)
-            {
-                pointsInnerBacking.color = Color.white;
-                pointsText.color = Color.black;
-                setColor = _palette.partiallyCompletedHighlightColor;
-            }
-            // If fully solved
-            else if (mission.complete)
-            {
-                // Check to see if all associated missions have been completed
-                bool cacheComplete = true;
-                foreach (AssociatedChallengeData associatedChallenge in ShipStateManager.Instance.missionDatas[index].associatedChallenges)
+                foreach (MissionData associatedMission in ShipStateManager.Instance.MissionDatas)
                 {
-                    foreach (MissionData associatedMission in ShipStateManager.Instance.missionDatas)
+                    if (associatedMission.missionID == associatedChallenge.missionID)
                     {
-                        if (associatedMission.missionID == associatedChallenge.missionID)
-                        {
-                            cacheComplete &= associatedMission.complete;
-                        }
+                        cacheComplete &= associatedMission.complete;
                     }
                 }
-
-                if (cacheComplete)
-                {
-                    pointsInnerBacking.color = Color.magenta;
-                    pointsText.color = Color.white;
-                    setColor = Color.blue;
-                }
-                else
-                {
-                    pointsInnerBacking.color = Color.black;
-                    pointsText.color = Color.white;
-                    setColor = _palette.completedHighlightColor;
-                }
             }
 
-            // Flip the display, points, and solve count tooltips if specified
-            bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
-
-            if (DisplayTooltip.Instance.index == index)
+            if (cacheComplete)
             {
-                DisplayTooltip.Instance.SetPropertiesFromIndex(index, flip);
+                pointsInnerBacking.color = Color.magenta;
+                pointsText.color = Color.white;
+                setColor = Color.blue;
             }
-
-            if (PointsTooltip.Instance.index == index)
+            else
             {
-                PointsTooltip.Instance.SetPropertiesFromIndex(index, flip);
+                pointsInnerBacking.color = Color.black;
+                pointsText.color = Color.white;
+                setColor = _palette.completedHighlightColor;
             }
+        }
 
-            if (SolveCountTooltip.Instance.index == index)
-            {
-                SolveCountTooltip.Instance.SetPropertiesFromIndex(index, flip);
-            }
+        // Flip the display, points, and solve count tooltips if specified
+        bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
+
+        // Check if the tooltips are being displayed for this mission, if so update those tooltips with this new data
+        if (DisplayTooltip.Instance.id == m.missionID)
+        {
+            DisplayTooltip.Instance.SetProperties(m, flip);
+        }
+
+        if (PointsTooltip.Instance.id == m.missionID)
+        {
+            PointsTooltip.Instance.SetProperties(m, flip);
+        }
+
+        if (SolveCountTooltip.Instance.id == m.missionID)
+        {
+            SolveCountTooltip.Instance.SetProperties(m, flip);
         }
 
         // Update colors
@@ -227,7 +221,7 @@ public class NavReaderGalaxySystem : TooltipControl
     }
 
     /// <summary>
-    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log.
+    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
     /// </summary>
     /// <param name="md">The mission data to populate this system with.</param>
     /// <param name="index">The index of the mission in the mission log.</param>
@@ -260,8 +254,11 @@ public class NavReaderGalaxySystem : TooltipControl
         spriteImage.sprite = imageMap.GetImage(md.missionIcon);
 
         this.index = index;
+        this.missionData = md;
 
         ToggleState(md.visible);
+
+        UpdateVisualState(missionData);
     }
 
     /// <summary>

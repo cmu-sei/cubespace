@@ -27,7 +27,7 @@ namespace UI.HUD
 		/// <summary>
 		/// The tags used for each role.
 		/// </summary>
-		public UIHudRoleTagItem[] RoleTags;
+		public UIHudRoleTagItem[] RoleTags; // Should have 4 of these set in the editor
 
 		//      "Cyber Defense Forensics Analyst"
 		//      "Cyber Defense Incident Responder"

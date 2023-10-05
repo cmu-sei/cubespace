@@ -59,14 +59,14 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (tooltipType == TooltipType.Display)
         {
             DisplayTooltip.Instance.gameObject.SetActive(true);
-            DisplayTooltip.Instance.SetPropertiesFromIndex(system.index, flip);
+            DisplayTooltip.Instance.SetProperties(system.missionData, flip);
 
         }
         // Sets the position of the tooltip displaying the solve count
         else if (tooltipType == TooltipType.SolveCount)
         {
             SolveCountTooltip.Instance.gameObject.SetActive(true);
-            SolveCountTooltip.Instance.SetPropertiesFromIndex(system.index, flip);
+            SolveCountTooltip.Instance.SetProperties(system.missionData, flip);
             rect = SolveCountTooltip.Instance.rect;
             finalPosition.y -= 30;
         }
@@ -74,7 +74,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
         {
             PointsTooltip.Instance.gameObject.SetActive(true);
-            PointsTooltip.Instance.SetPropertiesFromIndex(system.index, flip);
+            PointsTooltip.Instance.SetProperties(system.missionData, flip);
             rect = PointsTooltip.Instance.rect;
             finalPosition.y += 30;
         }

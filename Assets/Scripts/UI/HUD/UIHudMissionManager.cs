@@ -77,10 +77,10 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
         if (ShipStateManager.Instance)
         {
-            SetFromMissionData(ShipStateManager.Instance.missionDatas);
+            SetMissionItemsFromMissionData(ShipStateManager.Instance.MissionDatas);
         }
 
-        if (missionItems != null && missionItems.Count > 0)
+        if (missionItems != null && missionItems.Count > 0 && lastSelectedIndex > 0 && lastSelectedIndex < missionItems.Count)
         {
             SelectMission(missionItems[lastSelectedIndex]);
         }
@@ -100,14 +100,14 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// <param name="data">The mission data received.</param>
     private void OnMissionDataChange(List<MissionData> data)
     {
-        SetFromMissionData(data);
+        SetMissionItemsFromMissionData(data);
     }
 
     /// <summary>
     /// Sets the missions displayed from the mission data.
     /// </summary>
     /// <param name="missionData">The mission data received.</param>
-    public void SetFromMissionData(List<MissionData> missionData)
+    public void SetMissionItemsFromMissionData(List<MissionData> missionData)
     {
         for (int i = 0; i < missionData.Count; i++)
         {
@@ -117,7 +117,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
                 missionItems.Add(missionListing.GetComponent<UIHudMissionItem>());
             }
 
-            if (missionData.Count > i && missionData[i].visible)
+            if (missionData[i].visible)
             {
                 missionItems[i].gameObject.SetActive(true);
                 missionItems[i].SetMissionData(missionData[i]);
@@ -129,7 +129,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
             if (i == lastSelectedIndex)
             {
-                missionDetails.SetMissionData(missionItems[i].VisibleMissionData);
+                missionDetails.SetMissionDetailsData(missionData[i]);
             }
         }
     }
@@ -148,7 +148,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         {
             missionItems[i].SetSelected(i == index);
         }
-        missionDetails.SetMissionData(item.VisibleMissionData);
+        missionDetails.SetMissionDetailsData(item.CachedMissionData);
         if (jumpToPosition)
         {
             ScrollToMission(item);
@@ -173,7 +173,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
     public void SelectMission(int index,bool jumpToPosition =false )
     {
-        UIHudMissionItem item = missionItems[index];
+        UIHudMissionItem item = missionItems[index]; // TODO: make this search based on id, not index
         SelectMission(item, jumpToPosition);
     }
 }
