@@ -151,9 +151,9 @@ public class NavReaderGalaxySystem : TooltipControl
     {
         Color setColor = _palette.incompleteHighlightColor;
 
-        if (ShipStateManager.Instance && index >= 0 && index < ShipStateManager.Instance.MissionData.Count)
+        if (ShipStateManager.Instance && index >= 0 && index < ShipStateManager.Instance.missionDatas.Count)
         {
-            MissionData mission = ShipStateManager.Instance.MissionData[index];
+            MissionData mission = ShipStateManager.Instance.missionDatas[index];
             int currentScore = mission.currentScore;
 
             // If incomplete and not started
@@ -174,9 +174,9 @@ public class NavReaderGalaxySystem : TooltipControl
             {
                 // Check to see if all associated missions have been completed
                 bool cacheComplete = true;
-                foreach (AssociatedChallengeData associatedChallenge in ShipStateManager.Instance.MissionData[index].associatedChallenges)
+                foreach (AssociatedChallengeData associatedChallenge in ShipStateManager.Instance.missionDatas[index].associatedChallenges)
                 {
-                    foreach (MissionData associatedMission in ShipStateManager.Instance.MissionData)
+                    foreach (MissionData associatedMission in ShipStateManager.Instance.missionDatas)
                     {
                         if (associatedMission.missionID == associatedChallenge.missionID)
                         {

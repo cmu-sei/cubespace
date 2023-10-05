@@ -73,11 +73,11 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     public void OnEnable()
     {
-        ShipStateManager.OnMissionDataChange += OnMissionDataChange;
+        ShipStateManager.OnMissionDatasChange += OnMissionDataChange;
 
         if (ShipStateManager.Instance)
         {
-            SetFromMissionData(ShipStateManager.Instance.MissionData);
+            SetFromMissionData(ShipStateManager.Instance.missionDatas);
         }
 
         if (missionItems != null && missionItems.Count > 0)
@@ -91,7 +91,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// </summary>
     private void OnDisable()
     {
-        ShipStateManager.OnMissionDataChange -= OnMissionDataChange;
+        ShipStateManager.OnMissionDatasChange -= OnMissionDataChange;
     }
 
     /// <summary>

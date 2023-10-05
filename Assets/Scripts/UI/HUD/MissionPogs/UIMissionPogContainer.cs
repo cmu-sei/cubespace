@@ -81,7 +81,7 @@ namespace UI.HUD
 		/// </summary>
 		private void OnEnable()
 		{
-			ShipStateManager.OnMissionDataChange += UpdatePogs;
+			ShipStateManager.OnMissionDatasChange += UpdatePogs;
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace UI.HUD
 		/// </summary>
 		private void OnDisable()
 		{
-			ShipStateManager.OnMissionDataChange -= UpdatePogs;
+			ShipStateManager.OnMissionDatasChange -= UpdatePogs;
 		}
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace UI.HUD
 			// TODO: This line doesn't work here but does work elsewhere in the project? The while loop works just as well but it's weird anyways
 			//yield return new WaitUntil(() => ShipStateManager.Instance != null && ShipStateManager.Instance.Session != null);
 
-			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.MissionData == null)
+			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.missionDatas == null)
 			{
 				yield return null;
 			}
@@ -120,10 +120,10 @@ namespace UI.HUD
             {
                 displayEmptyIcons = ShipStateManager.Instance.Session.displayIncompleteMissionPogs;
 				ClearChildren();
-				previousMissionCount = ShipStateManager.Instance.MissionData.Count;
-                CreatePogs(ShipStateManager.Instance.MissionData.Count);
+				previousMissionCount = ShipStateManager.Instance.missionDatas.Count;
+                CreatePogs(ShipStateManager.Instance.missionDatas.Count);
                 initialized = true;
-                UpdatePogs(ShipStateManager.Instance.MissionData);
+                UpdatePogs(ShipStateManager.Instance.missionDatas);
             }
 		}
 		
