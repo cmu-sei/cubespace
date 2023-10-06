@@ -35,11 +35,6 @@ namespace UI.HUD
 		[SerializeField]
 		private float padding = 15;
 
-		private void Start()
-		{
-			_text.text = "";
-		}
-
 		/// <summary>
 		/// Sets this role tag to use the text provided.
 		/// </summary>
