@@ -123,7 +123,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         }
         else
         {
-            Debug.LogError("Mission log failed to open previously selected mission");
+            Debug.LogWarning("Mission log failed to open previously selected mission");
         }
     }
 
