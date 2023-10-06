@@ -284,7 +284,6 @@ MonoBehaviour:
   quitButton: {fileID: 2079642152}
   palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   group: {fileID: 57120343}
-  _galaxyPanelManager: {fileID: 1304477547}
   _mapButton: {fileID: 1993381451}
 --- !u!225 &57120343
 CanvasGroup:
@@ -2106,7 +2105,7 @@ PrefabInstance:
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
       propertyPath: m_text
-      value: Cyber Defense Incident Responder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
@@ -4161,18 +4160,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1304477544}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1304477547 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9213704227787816891, guid: 2719617e361108a4fbf81b9f330f2527,
-    type: 3}
-  m_PrefabInstance: {fileID: 1304477544}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304477546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5dab6a89f54e4b8e5225d8f3a7d095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1308483871
 GameObject:
   m_ObjectHideFlags: 0
@@ -4697,7 +4684,7 @@ PrefabInstance:
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
       propertyPath: m_text
-      value: Cyber Defense Incident Responder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
@@ -6617,7 +6604,7 @@ PrefabInstance:
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
       propertyPath: m_text
-      value: Cyber Defense Incident Responder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
@@ -8147,7 +8134,7 @@ PrefabInstance:
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}
       propertyPath: m_text
-      value: Cyber Defense Incident Responder
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 871851201718395711, guid: 18adb4f4f8aaf0544a6a0989d8fbf05c,
         type: 3}

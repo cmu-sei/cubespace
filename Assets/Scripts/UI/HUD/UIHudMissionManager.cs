@@ -8,12 +8,13 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using Managers;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Systems.GameBrain;
 using UI.HUD;
+using UnityEngine;
 
 /// <summary>
 /// The component which populates mission UI from the Unity server and is responsible for selecting missions.
@@ -74,16 +75,6 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     public void OnEnable()
     {
         ShipStateManager.OnMissionDatasChange += OnMissionDataChange;
-
-        if (ShipStateManager.Instance)
-        {
-            SetMissionItemsFromMissionData(ShipStateManager.Instance.MissionDatas);
-        }
-
-        if (missionItems != null && missionItems.Count > 0 && lastSelectedIndex > 0 && lastSelectedIndex < missionItems.Count)
-        {
-            SelectMission(missionItems[lastSelectedIndex]);
-        }
     }
 
     /// <summary>
@@ -101,10 +92,43 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     private void OnMissionDataChange(List<MissionData> data)
     {
         SetMissionItemsFromMissionData(data);
+        UpdateDetailsForSelectedMission(data);
     }
 
     /// <summary>
-    /// Sets the missions displayed from the mission data.
+    /// Called when the mission log is opened to initialize the mission log. Starts a coroutine to wait a frame before initialization
+    /// </summary>
+    public void OnOpen()
+    {
+        StartCoroutine(Co_Open());
+    }
+
+    // Hack to get around text not getting set properly
+    private IEnumerator Co_Open()
+    {
+        // If you set the text in the details panel without waiting a frame, they don't actually update. Waiting a frame adds a little skip but seems to work reliably
+        yield return null;
+
+        SetMissionItemsFromMissionData(ShipStateManager.Instance.MissionDatas);
+
+        // If the last selected mission is still valid, open the log to it
+        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionItems.Count && missionItems[lastSelectedIndex].CachedMissionData.visible)
+        {
+            SelectMission(missionItems[lastSelectedIndex]);
+        }
+        // Else default to first in the list
+        else if (missionItems.Count > 0 && missionItems[0].CachedMissionData.visible)
+        {
+            SelectMission(missionItems[0]);
+        }
+        else
+        {
+            Debug.LogError("Mission log failed to open previously selected mission");
+        }
+    }
+
+    /// <summary>
+    /// Sets the missions displayed from the mission data. Called when you open the mission log and when OnMissionsChanged is fired while the log is open
     /// </summary>
     /// <param name="missionData">The mission data received.</param>
     public void SetMissionItemsFromMissionData(List<MissionData> missionData)
@@ -126,11 +150,17 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
             {
                 missionItems[i].gameObject.SetActive(false);
             }
+        }
+    }
 
-            if (i == lastSelectedIndex)
-            {
-                missionDetails.SetMissionDetailsData(missionData[i]);
-            }
+    /// <summary>
+    /// Updates the details panel for the currently selected mission when new mission data is recieved
+    /// </summary>
+    private void UpdateDetailsForSelectedMission(List<MissionData> missionData)
+    {
+        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionData.Count && missionData[lastSelectedIndex].visible)
+        {
+            missionDetails.SetMissionDetailsData(missionData[lastSelectedIndex]);
         }
     }
 

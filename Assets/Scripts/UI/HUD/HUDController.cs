@@ -68,6 +68,7 @@ namespace UI.HUD
         /// </summary>
         [SerializeField]
         private GameObject missionLogPanel;
+        private UIHudMissionManager missionManager;
         /// <summary>
         /// The panel used to display the galaxy map.
         /// </summary>
@@ -104,6 +105,8 @@ namespace UI.HUD
         public override void Start()
         {
             base.Start();
+            missionManager = missionLogPanel.GetComponent<UIHudMissionManager>();
+
             LoadingSystem.Instance.UpdateLoadingMessage("Reticulating Splines...");
 
             cubeIcon.SetCube(false);
@@ -205,7 +208,11 @@ namespace UI.HUD
             //change state
             //this can be done with 'UIMenuPanelActiveWithState', but that only works when gameobjects begin active; which would be a change in how we have treated them, and unexpected.
             //to fix, we could switch the above script to work on an empty parent object that's always active to enable and disable children.
-            missionLogPanel.SetActive(newState == MenuState.MissionLog);
+            if (newState == MenuState.MissionLog)
+            {
+                missionLogPanel.SetActive(newState == MenuState.MissionLog);
+                missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable
+            }
             settingsPanel.SetActive(newState == MenuState.Settings);
             galaxyMapPanel.SetActive(newState == MenuState.GalaxyMap);
 
