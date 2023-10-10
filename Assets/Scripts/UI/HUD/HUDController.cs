@@ -117,6 +117,10 @@ namespace UI.HUD
             {
                 UpdateMapButtonVisibility(ShipStateManager.Instance.useGalaxyMap);
             }
+            else
+            {
+                UpdateMapButtonVisibility(false);
+            }
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
