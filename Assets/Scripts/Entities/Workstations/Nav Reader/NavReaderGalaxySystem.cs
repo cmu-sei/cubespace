@@ -8,6 +8,7 @@ using UI.ColorPalettes;
 using UI.HUD;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UI;
 
 /// <summary>
@@ -79,12 +80,14 @@ public class NavReaderGalaxySystem : TooltipControl
     public float tooltipHorizontalBuffer = 40.0f;
 
     /// <summary>
-    /// The Image component of the line connecting this system to the target point.
+    /// The line connecting this system to the target point.
     /// </summary>
+    private GameObject lineObj;
     private Image lineImage;
     /// <summary>
     /// The Image component of the target point.
     /// </summary>
+    private GameObject targetObj;
     private Image targetImage;
 
     /// <summary>
@@ -138,6 +141,72 @@ public class NavReaderGalaxySystem : TooltipControl
             }
 
             yield return null;
+        }
+    }
+
+    public void InitializeSystem(MissionData md, int missionIndex, GameObject line, GameObject target)
+    {
+        lineObj = line;
+        targetObj = target;
+        lineImage = line.transform.GetComponent<Image>();
+        targetImage = target.transform.GetChild(0).GetComponent<Image>();
+
+        UpdateSystem(md, missionIndex);
+    }
+
+    /// <summary>
+    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
+    /// </summary>
+    /// <param name="md">The mission data to populate this system with.</param>
+    /// <param name="index">The index of the mission in the mission log.</param>
+    /// <param name="line">The line drawn between the system and its target point.</param>
+    /// <param name="target">The target point.</param>
+    public void UpdateSystem(MissionData md, int missionIndex)
+    {
+        if (lineObj == null || targetObj == null)
+        {
+            Debug.LogError("Tried to update a galaxy map system without initializing it first!");
+            return;
+        }
+
+        index = missionIndex;
+        missionData = md;
+
+        ToggleState(missionData.visible);
+        if (missionData.visible)
+        {
+            // Display the correct score according to what was received
+            if (!missionData.complete)
+            {
+                //For missions that have been started, but not finished, display this score.
+                pointsText.text = (missionData.baseSolveValue + missionData.bonusRemaining).ToString();
+            }
+            else
+            {
+                //for completed missions, show the score we got.
+                pointsText.text = missionData.currentScore.ToString();
+            }
+
+            // Update the solve count and image
+            solveCountText.text = $"{missionData.solveTeams}/{missionData.totalTeams}";
+            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon);
+
+            UpdateVisualState(missionData);
+            UpdatePosition(missionData);
+        }
+    }
+
+    /// <summary>
+    /// Sets whether this mission is visible.
+    /// </summary>
+    /// <param name="isVisible">Whether this mission is visible.</param>
+    private void ToggleState(bool isVisible)
+    {
+        gameObject.SetActive(isVisible);
+        if (lineImage && targetImage)
+        {
+            lineObj.SetActive(isVisible);
+            targetObj.SetActive(isVisible);
         }
     }
 
@@ -220,58 +289,39 @@ public class NavReaderGalaxySystem : TooltipControl
         pointsBorderImage.color = setColor;
     }
 
-    /// <summary>
-    /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
-    /// </summary>
-    /// <param name="md">The mission data to populate this system with.</param>
-    /// <param name="index">The index of the mission in the mission log.</param>
-    /// <param name="line">The line drawn between the system and its target point.</param>
-    /// <param name="target">The target point.</param>
-    public void SetSystemMission(MissionData md, int index, Image line = null, Image target = null)
+    // Sets the position of the system, line, and target on the galaxy map
+    private void UpdatePosition(MissionData md)
     {
-        if (line && target)
-        {
-            lineImage = line;
-            targetImage = target;
-        }
+        //Allowable x range: [-540, 540]. Allowable y range: [-320, 320]. Give each a circle with diameter 125 to avoid overlap
+        GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
+        targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
 
-        int currentScore = md.currentScore;
+        // Get TectTransform references
+        RectTransform lineRect = lineObj.GetComponent<RectTransform>();
+        RectTransform coreDisplayTransform = CoreDisplayRect;
+        RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();
 
-        // Display the correct score according to what was received
-        if (!md.complete)
-        {
-            //For missions that have been started, but not finished, display this score.
-            pointsText.text = (md.baseSolveValue + md.bonusRemaining).ToString();
-        }
-        else
-        {
-            //for completed missions, show the score we got.
-            pointsText.text = currentScore.ToString();
-        }
+        // Get the positions of the RectTransforms
+        Vector2 coreDisplayPosition = coreDisplayTransform.position;
+        Vector2 targetPosition = targetRectTransform.position;
+        Vector2 coreDisplayLocalPosition = coreDisplayTransform.parent.localPosition - coreDisplayTransform.localPosition;
+        Vector2 targetLocalPosition = targetRectTransform.localPosition - targetRectTransform.parent.localPosition;
 
-        // Update the solve count and image
-        solveCountText.text = $"{md.solveTeams}/{md.totalTeams}";
-        spriteImage.sprite = imageMap.GetImage(md.missionIcon);
+        // Calculate the distance between the system
+        Vector2 midpoint = (coreDisplayPosition + targetPosition) / 2;
+        float distance = Vector2.Distance(coreDisplayLocalPosition, targetLocalPosition);
 
-        this.index = index;
-        this.missionData = md;
-
-        ToggleState(md.visible);
-
-        UpdateVisualState(missionData);
+        // Draw the line between the system and its target
+        lineRect.position = midpoint;
+        lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x, distance);
+        float z = 90 + Mathf.Atan2(targetPosition.y - coreDisplayPosition.y, targetPosition.x - coreDisplayPosition.x) * 180 / Mathf.PI;
+        lineRect.rotation = Quaternion.Euler(0, 0, z);
     }
 
-    /// <summary>
-    /// Sets whether this mission is visible.
-    /// </summary>
-    /// <param name="isVisible">Whether this mission is visible.</param>
-    public void ToggleState(bool isVisible)
+    public void Delete()
     {
-        gameObject.SetActive(isVisible);
-        if (lineImage && targetImage)
-        {
-            lineImage.gameObject.SetActive(isVisible);
-            targetImage.gameObject.SetActive(isVisible);
-        }
+        Destroy(lineObj);
+        Destroy(targetObj);
+        Destroy(gameObject);
     }
 }
