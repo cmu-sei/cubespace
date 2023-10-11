@@ -137,7 +137,7 @@ namespace Entities.Workstations.SensorStationParts
             int attemptsToRestart = 0;
 
             // Video player was cutting the video short instead of buffering when it didn't get frames quickly enough so this is the hack to get around it
-            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 1)
+            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 2) // to prevent hanging on last frame??
             {
                 if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
                 {
@@ -163,14 +163,17 @@ namespace Entities.Workstations.SensorStationParts
 
                             // Attempt to restart the video from where it timed out
                             _videoPlayer.Stop();
+                            yield return null; // give it a frame to Stop
+
+                            _videoPlayer.frame = prevFrame;
                             _videoPlayer.Prepare();
                             while (!_videoPlayer.isPrepared)
                             {
+    
                                 yield return null;
                             }
-                            _videoPlayer.frame = prevFrame;
+                            
                             _videoPlayer.Play();
-
                             timeBuffering = 0.0f;
                         }
                         else
