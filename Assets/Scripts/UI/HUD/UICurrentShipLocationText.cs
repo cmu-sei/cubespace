@@ -87,9 +87,11 @@ public class UICurrentShipLocationText : Singleton<UICurrentShipLocationText>
     void SetText(string locationName)
     {
         //Remove any break statements that might be used anywhere else.
-        if (locationName == null)
+        if (locationName == null || locationName == "")
         {
-            locationName = "";
+            text.text = "";
+            text.enabled = false;
+            return;
         }
         locationName = locationName.Replace("<br>", " ");
         text.text = "<font-weight=700>"+ locationName +"</font-weight>";
