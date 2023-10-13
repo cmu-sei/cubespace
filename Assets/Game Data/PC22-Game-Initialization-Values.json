@@ -17,7 +17,23 @@
 		"workstation2URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation2.html",
 		"workstation3URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation3.html",
 		"workstation4URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation4.html",
-		"workstation5URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation5.html"
+		"workstation5URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation5.html",
+		"challengeURLs": {
+			"gravcon": {
+				"missionName": "Gravitic Containment",
+				"vmURLs": {
+					"pc4-kali-stock-v4": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html",
+					"pc5-kali-stock-v2": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+				}
+			},
+			"reactor": {
+				"missionName": "Reactor Cooling",
+				"vmURLs": {
+					"test-kali": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html",
+					"a-very-good-vm-name": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+				}
+			}
+		}
 	},
 	"currentStatus": {
 		"currentLocation": "probe",
