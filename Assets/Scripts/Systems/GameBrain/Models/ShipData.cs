@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using Entities.Workstations;
 using UnityEngine;
 using System.Linq;
-using System.Numerics;
 
 namespace Systems.GameBrain
 {
@@ -120,21 +119,24 @@ namespace Systems.GameBrain
 	[Serializable]
 	public class ShipData
 	{
-		// Codex workstation URL
+		// Codex workstation URL; This is from a previous years competition but remains for backwards compatibility
+		// If this is present the codex station will use it, otherwise if it null the codex station will be *TBD*
 		public string codexURL;
-		// VM workstation URLs
+		// Old structure for VM workstation URLs; each one of these maps to one Cyber Operations station
 		public string workstation1URL;
 		public string workstation2URL;
 		public string workstation3URL;
 		public string workstation4URL;
 		public string workstation5URL;
-		
-		/// <summary>
-		/// Gets the URL for a virtual machine workstation given the workstation's ID.
-		/// </summary>
-		/// <param name="stationID">The identifier of the VM/Codex workstation.</param>
-		/// <returns>A URL for the provided workstation.</returns>
-		public string GetURLForStation(WorkstationID stationID)
+        // New data structure for VM URLs available for each mission at CyberOps stations
+        public MissionVMs[] challengeURLs;
+
+        /// <summary>
+        /// Gets the URL for a virtual machine workstation given the workstation's ID.
+        /// </summary>
+        /// <param name="stationID">The identifier of the VM/Codex workstation.</param>
+        /// <returns>A URL for the provided workstation.</returns>
+        public string GetURLForStation(WorkstationID stationID)
 		{
 			switch (stationID)
 			{
@@ -156,9 +158,35 @@ namespace Systems.GameBrain
 		}
 	}
 
-	/// <summary>
-	/// A class storing information for a mission, with that data being rendered in the Mission Log.
-	/// </summary>
+    /// <summary>
+    /// New data structure for VM URLs available at CyberOps stations for a given mission
+    /// </summary>
+    [Serializable]
+	public class MissionVMs
+	{
+		// ID of the mission; maps to an icon, mission in MissionData, etc
+		public string missionID;
+		// Display name of this mission
+		public string missionName;
+		// All the vms/challenges available for this mission
+		public ChallengeVM[] vmURLs;
+	}
+
+    /// <summary>
+    /// An individual VM that a user can open from a CyberOps station to complete a challenge
+    /// </summary>
+    [Serializable]
+	public class ChallengeVM
+	{
+		// The display name of this vm
+		public string vmName;
+		// The url to open to connect to this vm
+		public string vmURL;
+	}
+
+    /// <summary>
+    /// A class storing information for a mission, with that data being rendered in the Mission Log.
+    /// </summary>
     [Serializable]
 	public class MissionData
 	{
