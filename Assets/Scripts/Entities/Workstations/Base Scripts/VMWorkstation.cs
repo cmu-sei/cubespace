@@ -159,7 +159,7 @@ namespace Entities.Workstations
         /// </summary>
         public void OpenConfirmationWindow()
         {
-            if (!_confirmationWindowOpen)
+            if (!_confirmationWindowOpen && _vmURL != null && _vmURL != "")
             {
                 _confirmationWindowOpen = true;
                 SetAccessUIState(false);
