@@ -128,11 +128,11 @@ namespace Systems.GameBrain
 		public string workstation3URL;
 		public string workstation4URL;
 		public string workstation5URL;
-        // New data structure for VM URLs available for each mission at CyberOps stations
+        // New data structure for VM URLs available for each mission at CyberOps stations. If this field is present, they will be used over the old structure above
         public MissionVMs[] challengeURLs;
 
         /// <summary>
-        /// Gets the URL for a virtual machine workstation given the workstation's ID.
+        /// Gets the URL for a virtual machine workstation given the workstation's ID. This is the old structure, which remains for backwards compatibility
         /// </summary>
         /// <param name="stationID">The identifier of the VM/Codex workstation.</param>
         /// <returns>A URL for the provided workstation.</returns>
@@ -155,6 +155,12 @@ namespace Systems.GameBrain
 				default:
 					return "";
 			}
+		}
+
+		// If the new data structure is present, use it
+		public bool IsMissionVMsStructureInUse()
+		{
+			return challengeURLs != null && challengeURLs.Length > 0;
 		}
 	}
 
