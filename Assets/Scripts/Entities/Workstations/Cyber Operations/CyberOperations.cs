@@ -61,9 +61,19 @@ namespace Entities.Workstations.CyberOperationsParts
         /// <param name="data">The ship data received.</param>
         protected override void OnShipDataReceived(bool hasChanged, GameData data)
         {
+            // TODO: hasChanged may not be accurate here, vm urls may have changed without hasChanged being true
             if (hasChanged || string.IsNullOrEmpty(_vmURL))
             {
-                _vmURL = data.ship.GetURLForStation(StationID);
+                // Default to using new VM url structure if it is present
+                if (data.ship.IsMissionVMsStructureInUse())
+                {
+                    // TODO: Populate dropdown with vm options
+                    // TODO: In VMWorkstation (probably) set a var with selected url and use that for the vm to open
+                }
+                else
+                {
+                    _vmURL = data.ship.GetURLForStation(StationID);
+                }
             }
         }
         #endregion
