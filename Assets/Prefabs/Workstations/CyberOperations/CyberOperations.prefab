@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7342606570110187464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,12 +47,12 @@ GameObject:
   - component: {fileID: 7485017541913134812}
   - component: {fileID: 2203269810590932559}
   - component: {fileID: 8310844602529544757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Name_Plate2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7485017541913134812
 Transform:
@@ -130,12 +130,12 @@ GameObject:
   - component: {fileID: 1239698225003454134}
   - component: {fileID: 4152324445868885326}
   - component: {fileID: 5960748813373364877}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key76
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1239698225003454134
 Transform:
@@ -213,12 +213,12 @@ GameObject:
   - component: {fileID: 4442051734005050875}
   - component: {fileID: 1959409016334503582}
   - component: {fileID: 489508168079598319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Tab_Key4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4442051734005050875
 Transform:
@@ -296,12 +296,12 @@ GameObject:
   - component: {fileID: 6608217123844714691}
   - component: {fileID: 7796717602721307201}
   - component: {fileID: 7053557748219687641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key61
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6608217123844714691
 Transform:
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 310639973072544262}
   - component: {fileID: 6788544369185428532}
   - component: {fileID: 800220069603407390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,12 +480,12 @@ GameObject:
   - component: {fileID: 2541877328598878699}
   - component: {fileID: 6747843605252645901}
   - component: {fileID: 7950826181787315590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Workstation_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2541877328598878699
 Transform:
@@ -563,12 +563,12 @@ GameObject:
   - component: {fileID: 3198352974691045444}
   - component: {fileID: 3415983782466713109}
   - component: {fileID: 5944306904741262534}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Name_Plate1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3198352974691045444
 Transform:
@@ -646,12 +646,12 @@ GameObject:
   - component: {fileID: 7090481445426450335}
   - component: {fileID: 1993497032071424655}
   - component: {fileID: 3061726746660502573}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key57
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7090481445426450335
 Transform:
@@ -731,7 +731,8 @@ GameObject:
   - component: {fileID: 7243466467842978791}
   - component: {fileID: 4787369917126984364}
   - component: {fileID: 8981367054722620574}
-  m_Layer: 0
+  - component: {fileID: 2840457722182300648}
+  m_Layer: 8
   m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,14 +752,15 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6102740199456295151}
-  - {fileID: 101724974780664274}
+  - {fileID: 9071294712527782646}
+  - {fileID: 4232598333547805543}
   m_Father: {fileID: 7172599715680205431}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.0226, y: 1.4246}
-  m_SizeDelta: {x: 0.848, y: 0.6341}
+  m_SizeDelta: {x: 0.88, y: 0.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &168819083234998198
 Canvas:
@@ -835,6 +837,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   component: {fileID: 168819083234998198}
   workstation: {fileID: 74654512207029426}
+--- !u!114 &2840457722182300648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742616433030813389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9490e03f9d1bc314ea5ea084347383c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curState: 0
+  usingOldStructure: 0
+  missionVmScreenController: {fileID: 1468965808021569669}
+  challengeVmScreenController: {fileID: 0}
+  openMissionScreenButton: {fileID: 4696520130809870324}
+  openConfirmationWindowButton: {fileID: 0}
 --- !u!1 &749359362541560923
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +864,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9144077515001352674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VirtualCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +901,7 @@ GameObject:
   - component: {fileID: 6982413947912657148}
   - component: {fileID: 978892847937409707}
   - component: {fileID: 8242387596232821217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,9 +988,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.920817, b: 0, a: 1}
 --- !u!1 &922952533735786551
 GameObject:
@@ -984,7 +1004,7 @@ GameObject:
   - component: {fileID: 873620834797715824}
   - component: {fileID: 2458878444780742552}
   - component: {fileID: 8182563489756167256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLight5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,9 +1091,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.90713394, b: 0, a: 1}
 --- !u!1 &955565291468634049
 GameObject:
@@ -1087,7 +1107,7 @@ GameObject:
   - component: {fileID: 2095715220345192931}
   - component: {fileID: 728748160573069425}
   - component: {fileID: 1441313552099595370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLight3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,9 +1194,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.5176471, b: 0, a: 1}
 --- !u!1 &997735668421426121
 GameObject:
@@ -1189,12 +1209,12 @@ GameObject:
   - component: {fileID: 2929432444319301620}
   - component: {fileID: 2308252673227092599}
   - component: {fileID: 62495243492309847}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key80
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2929432444319301620
 Transform:
@@ -1272,12 +1292,12 @@ GameObject:
   - component: {fileID: 8754907967183249472}
   - component: {fileID: 1092904236572200998}
   - component: {fileID: 4512350143442144764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key67
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8754907967183249472
 Transform:
@@ -1355,12 +1375,12 @@ GameObject:
   - component: {fileID: 7432086716508850129}
   - component: {fileID: 7214636156877582405}
   - component: {fileID: 6670417512958214677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLightHousing3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7432086716508850129
 Transform:
@@ -1438,12 +1458,12 @@ GameObject:
   - component: {fileID: 811408042951295625}
   - component: {fileID: 9194210764893090094}
   - component: {fileID: 1540333536899374010}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key63
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &811408042951295625
 Transform:
@@ -1521,12 +1541,12 @@ GameObject:
   - component: {fileID: 5406932651269591093}
   - component: {fileID: 1160080202435837833}
   - component: {fileID: 2203895949907047159}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key65
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5406932651269591093
 Transform:
@@ -1593,128 +1613,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1264725824001299697
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 101724974780664274}
-  - component: {fileID: 2506298970103646934}
-  - component: {fileID: 3451204021817517874}
-  - component: {fileID: 2608573003382918969}
-  m_Layer: 0
-  m_Name: OpenWindowButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &101724974780664274
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264725824001299697}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.003}
-  m_LocalScale: {x: 1.7033, y: 1.979, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3836670237205495577}
-  m_Father: {fileID: 2891435381579580677}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.11950114, y: 0.164}
-  m_AnchorMax: {x: 0.9025117, y: 0.8655329}
-  m_AnchoredPosition: {x: 0, y: 0.01}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2506298970103646934
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264725824001299697}
-  m_CullTransparentMesh: 1
---- !u!114 &3451204021817517874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264725824001299697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 100
---- !u!114 &2608573003382918969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264725824001299697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 3451204021817517874}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1320583345743099414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +1624,7 @@ GameObject:
   - component: {fileID: 7248093769465153298}
   - component: {fileID: 1500239899588155511}
   - component: {fileID: 2569050024126141395}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Panel (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1802,12 +1700,12 @@ GameObject:
   - component: {fileID: 4970271963076503632}
   - component: {fileID: 2099574455464743532}
   - component: {fileID: 6268912086907351140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key91
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4970271963076503632
 Transform:
@@ -1885,12 +1783,12 @@ GameObject:
   - component: {fileID: 1862919419202693135}
   - component: {fileID: 8313367620483477141}
   - component: {fileID: 7622595592238263548}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key94
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1862919419202693135
 Transform:
@@ -1968,12 +1866,12 @@ GameObject:
   - component: {fileID: 772641300242246088}
   - component: {fileID: 8779667038125095101}
   - component: {fileID: 5234398079638979626}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key54
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &772641300242246088
 Transform:
@@ -2051,12 +1949,12 @@ GameObject:
   - component: {fileID: 7013511087817385329}
   - component: {fileID: 7972886470565023546}
   - component: {fileID: 8900284651685052223}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7013511087817385329
 Transform:
@@ -2134,12 +2032,12 @@ GameObject:
   - component: {fileID: 2232231875755799459}
   - component: {fileID: 2125824219826967206}
   - component: {fileID: 7833998107539500122}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLightHousing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2232231875755799459
 Transform:
@@ -2218,7 +2116,7 @@ GameObject:
   - component: {fileID: 373824791750188635}
   - component: {fileID: 4767057742483693766}
   - component: {fileID: 2861284072400094162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2305,10 +2203,71 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.90713394, b: 0, a: 1}
+--- !u!1 &1671758018787984728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 220064439547012781}
+  - component: {fileID: 1721239006385502304}
+  m_Layer: 8
+  m_Name: MissionGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &220064439547012781
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671758018787984728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4232598333547805543}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.10374867, y: 0.16822907}
+  m_AnchorMax: {x: 0.89231026, y: 0.84074455}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1721239006385502304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671758018787984728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 0.107, y: 0.14}
+  m_Spacing: {x: 0.01, y: 0.01}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1672578416940840727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,12 +2279,12 @@ GameObject:
   - component: {fileID: 4667994181540795562}
   - component: {fileID: 3377488657427536195}
   - component: {fileID: 6846513552029636924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key89
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4667994181540795562
 Transform:
@@ -2404,7 +2363,7 @@ GameObject:
   - component: {fileID: 6261230685910280296}
   - component: {fileID: 1086004632372845493}
   - component: {fileID: 3347947495550099469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLight4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2491,10 +2450,100 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 0.8666667, g: 0.23137255, b: 0, a: 1}
+--- !u!1 &1877776109638859653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9022976969935036180}
+  - component: {fileID: 8571980235543918291}
+  - component: {fileID: 4696520130809870324}
+  m_Layer: 8
+  m_Name: OpenMissionSelectButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9022976969935036180
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877776109638859653}
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6102740199456295151}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8571980235543918291
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877776109638859653}
+  m_CullTransparentMesh: 1
+--- !u!114 &4696520130809870324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877776109638859653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+    m_PressedColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2096922668515145458}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1897054810067164368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,12 +2555,12 @@ GameObject:
   - component: {fileID: 5790277502262609894}
   - component: {fileID: 790925138358701021}
   - component: {fileID: 6111924802470773905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Computer_Edge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5790277502262609894
 Transform:
@@ -2589,12 +2638,12 @@ GameObject:
   - component: {fileID: 7222991463610714448}
   - component: {fileID: 9135067550031635827}
   - component: {fileID: 5901584204271274328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key84
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7222991463610714448
 Transform:
@@ -2672,12 +2721,12 @@ GameObject:
   - component: {fileID: 6268356961611821622}
   - component: {fileID: 5310098324958585005}
   - component: {fileID: 8964742247814300832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Spacebar_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6268356961611821622
 Transform:
@@ -2755,12 +2804,12 @@ GameObject:
   - component: {fileID: 363822046459455499}
   - component: {fileID: 1931162777944196837}
   - component: {fileID: 374128449632433931}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLightHousing4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &363822046459455499
 Transform:
@@ -2838,12 +2887,12 @@ GameObject:
   - component: {fileID: 3957701265125967807}
   - component: {fileID: 8542487064564520556}
   - component: {fileID: 4171100121553845458}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Keyboard_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3957701265125967807
 Transform:
@@ -2921,12 +2970,12 @@ GameObject:
   - component: {fileID: 5213335771205339765}
   - component: {fileID: 202037969447206352}
   - component: {fileID: 3648971001315091291}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key97
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5213335771205339765
 Transform:
@@ -3004,12 +3053,12 @@ GameObject:
   - component: {fileID: 4599354268128565193}
   - component: {fileID: 971112236988070913}
   - component: {fileID: 2395575334114792469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key96
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4599354268128565193
 Transform:
@@ -3090,7 +3139,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1615866698865323941
 Transform:
@@ -3131,6 +3180,67 @@ Transform:
   m_Father: {fileID: 7172599715680205431}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2182994029463443873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7785917397612604045}
+  - component: {fileID: 3602536071732576026}
+  m_Layer: 8
+  m_Name: MissionGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7785917397612604045
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2182994029463443873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9071294712527782646}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.10374867, y: 0.16822907}
+  m_AnchorMax: {x: 0.89231026, y: 0.84074455}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3602536071732576026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2182994029463443873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 0.107, y: 0.14}
+  m_Spacing: {x: 0.01, y: 0.01}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &2201001052630787829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3143,7 +3253,7 @@ GameObject:
   - component: {fileID: 4338306159171756776}
   - component: {fileID: 8565374310923102482}
   - component: {fileID: 8524708700431887042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLight5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3230,9 +3340,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.050980393, b: 0.6392157, a: 1}
 --- !u!1 &2278366947670135446
 GameObject:
@@ -3245,12 +3355,12 @@ GameObject:
   - component: {fileID: 6025175621783632727}
   - component: {fileID: 7655928230792010698}
   - component: {fileID: 8049559207592725300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLightHousing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6025175621783632727
 Transform:
@@ -3329,7 +3439,7 @@ GameObject:
   - component: {fileID: 2528929770396520914}
   - component: {fileID: 7380913458483551633}
   - component: {fileID: 2114559579495354059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3416,9 +3526,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.920817, b: 0, a: 1}
 --- !u!1 &2435849543962145496
 GameObject:
@@ -3431,12 +3541,12 @@ GameObject:
   - component: {fileID: 356570682491836668}
   - component: {fileID: 4505952112921307271}
   - component: {fileID: 7216840610083067188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Flat_Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &356570682491836668
 Transform:
@@ -3514,12 +3624,12 @@ GameObject:
   - component: {fileID: 2017372008531511117}
   - component: {fileID: 1364163672879013941}
   - component: {fileID: 2422391874583027973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Name_Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2017372008531511117
 Transform:
@@ -3597,12 +3707,12 @@ GameObject:
   - component: {fileID: 9218028873259530321}
   - component: {fileID: 7166221334516600869}
   - component: {fileID: 1454585843251231462}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Power_Use_Light_Base3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9218028873259530321
 Transform:
@@ -3679,7 +3789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7024137462695217408}
   - component: {fileID: 889727318503067285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BoundingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3725,12 +3835,12 @@ GameObject:
   - component: {fileID: 7147974602176635933}
   - component: {fileID: 6108968301450984172}
   - component: {fileID: 4641920206334051139}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Power_Use_Light_Base9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7147974602176635933
 Transform:
@@ -3808,12 +3918,12 @@ GameObject:
   - component: {fileID: 3784280964026303408}
   - component: {fileID: 3796277293699907165}
   - component: {fileID: 8641640028925812788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key87
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3784280964026303408
 Transform:
@@ -3891,12 +4001,12 @@ GameObject:
   - component: {fileID: 7627529187848245303}
   - component: {fileID: 5094649350669252612}
   - component: {fileID: 8620536024502350767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Pen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7627529187848245303
 Transform:
@@ -3974,12 +4084,12 @@ GameObject:
   - component: {fileID: 5343072485170263246}
   - component: {fileID: 5549866069708498104}
   - component: {fileID: 2689721349634552164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key92
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5343072485170263246
 Transform:
@@ -4046,6 +4156,101 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3134583748724768489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9071294712527782646}
+  - component: {fileID: 1732357145755574459}
+  - component: {fileID: 2949540805890107109}
+  - component: {fileID: 1468965808021569669}
+  m_Layer: 8
+  m_Name: MissionSelectScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9071294712527782646
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134583748724768489}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7785917397612604045}
+  m_Father: {fileID: 2891435381579580677}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1732357145755574459
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134583748724768489}
+  m_CullTransparentMesh: 1
+--- !u!114 &2949540805890107109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134583748724768489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 53d3248d01a88b84f887ae6a73db32b1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1468965808021569669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134583748724768489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26276c45c22af9f46912345ff8ade838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 2840457722182300648}
+  missionVmButtonPrefab: {fileID: 174564384498991212, guid: 772a6ef89e8b54c48b5018eb2c936623,
+    type: 3}
+  missionButtonGridParent: {fileID: 7785917397612604045}
+  imageMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
 --- !u!1 &3206013015840651903
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +4263,7 @@ GameObject:
   - component: {fileID: 415351127079361071}
   - component: {fileID: 720513916453995845}
   - component: {fileID: 4724216971084405423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLight3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4145,9 +4350,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.050980393, b: 0.6392157, a: 1}
 --- !u!1 &3356730068464649956
 GameObject:
@@ -4159,7 +4364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3885609773823986853}
   - component: {fileID: 2451713779688787059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DollyTrack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4215,12 +4420,12 @@ GameObject:
   - component: {fileID: 5674398601838581785}
   - component: {fileID: 5614201686849359876}
   - component: {fileID: 8983577380748309788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key86
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5674398601838581785
 Transform:
@@ -4298,12 +4503,12 @@ GameObject:
   - component: {fileID: 7879900514309150553}
   - component: {fileID: 3240737060363186589}
   - component: {fileID: 5164924722766232721}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key73
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7879900514309150553
 Transform:
@@ -4381,12 +4586,12 @@ GameObject:
   - component: {fileID: 4782898237918217174}
   - component: {fileID: 5610414671363707018}
   - component: {fileID: 5763245686728872506}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key71
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4782898237918217174
 Transform:
@@ -4464,12 +4669,12 @@ GameObject:
   - component: {fileID: 885821062240643771}
   - component: {fileID: 3620662680828032866}
   - component: {fileID: 7311179530763749663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key59
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &885821062240643771
 Transform:
@@ -4545,7 +4750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31796984516675353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CamFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4578,12 +4783,12 @@ GameObject:
   - component: {fileID: 1455856951019164461}
   - component: {fileID: 2229608222621459751}
   - component: {fileID: 5521195739615991781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key66
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1455856951019164461
 Transform:
@@ -4661,12 +4866,12 @@ GameObject:
   - component: {fileID: 6570995732566202297}
   - component: {fileID: 2629146059339183715}
   - component: {fileID: 6168070286692267566}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key88
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6570995732566202297
 Transform:
@@ -4746,7 +4951,7 @@ GameObject:
   - component: {fileID: 8836990460741351702}
   - component: {fileID: 8595019237430090315}
   - component: {fileID: 6838617029385422906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CyberOperations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4788,16 +4993,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  alwaysHasPower: 1
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
+  soundSource: {fileID: 1615866698865323941}
   stationID: 9
   usedInLaunchMode: 0
   usedInExplorationMode: 0
-  soundSource: {fileID: 1615866698865323941}
+  timeToZoom: 1.5
+  alwaysHasPower: 1
   playerAtWorkstation: {fileID: 0}
-  _vmName: Cyber Operations 1
-  _openWindowButton: {fileID: 2608573003382918969}
+  windowController: {fileID: 8595019237430090315}
+  screenController: {fileID: 2840457722182300648}
+  autoUpgradeUrlToHttps: 1
 --- !u!114 &8836990460741351702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4872,7 +5079,7 @@ GameObject:
   - component: {fileID: 5838162484367744509}
   - component: {fileID: 2476455134800103514}
   - component: {fileID: 8684015872216618805}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4948,12 +5155,12 @@ GameObject:
   - component: {fileID: 3652409655646306957}
   - component: {fileID: 3500839989958060168}
   - component: {fileID: 8858394311527807084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key99
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3652409655646306957
 Transform:
@@ -5031,12 +5238,12 @@ GameObject:
   - component: {fileID: 8022068072579261429}
   - component: {fileID: 8633211471136712405}
   - component: {fileID: 895799416075783901}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key85
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8022068072579261429
 Transform:
@@ -5114,12 +5321,12 @@ GameObject:
   - component: {fileID: 3787060132035729293}
   - component: {fileID: 635781118707172010}
   - component: {fileID: 8290872251965820000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key56
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3787060132035729293
 Transform:
@@ -5197,12 +5404,12 @@ GameObject:
   - component: {fileID: 1531663868720579661}
   - component: {fileID: 1473335155874987619}
   - component: {fileID: 1066040250112112304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLightHousing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1531663868720579661
 Transform:
@@ -5280,12 +5487,12 @@ GameObject:
   - component: {fileID: 2016854201116741553}
   - component: {fileID: 1900802012633151924}
   - component: {fileID: 6751309913786785348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key101
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2016854201116741553
 Transform:
@@ -5366,7 +5573,7 @@ GameObject:
   - component: {fileID: 3936802101380989813}
   - component: {fileID: 1660901424131302305}
   - component: {fileID: 2541885470980676145}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MouseLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5467,9 +5674,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 2
   pulsing: 1
   pulseDuration: 3
+  totalLightMultiplier: 2
   lightColor: {r: 0, g: 0.67873144, b: 1, a: 1}
 --- !u!114 &2541885470980676145
 MonoBehaviour:
@@ -5495,12 +5702,12 @@ GameObject:
   - component: {fileID: 3909502967545589203}
   - component: {fileID: 5771663797654751245}
   - component: {fileID: 8554105660039376329}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key70
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3909502967545589203
 Transform:
@@ -5578,12 +5785,12 @@ GameObject:
   - component: {fileID: 6962448561133665437}
   - component: {fileID: 3771334869964152659}
   - component: {fileID: 6739883270701909701}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key82
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6962448561133665437
 Transform:
@@ -5661,12 +5868,12 @@ GameObject:
   - component: {fileID: 2478177388404897167}
   - component: {fileID: 8315907341204955475}
   - component: {fileID: 5810117767102342461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key93
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2478177388404897167
 Transform:
@@ -5744,12 +5951,12 @@ GameObject:
   - component: {fileID: 900321537894723913}
   - component: {fileID: 3632150197079887553}
   - component: {fileID: 6621055142726975191}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key72
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &900321537894723913
 Transform:
@@ -5827,7 +6034,7 @@ GameObject:
   - component: {fileID: 6760888842260746281}
   - component: {fileID: 7360352547254381027}
   - component: {fileID: 6425472561889695124}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Panel (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5903,12 +6110,12 @@ GameObject:
   - component: {fileID: 5482589072699044561}
   - component: {fileID: 8470797597527358287}
   - component: {fileID: 4528408744394399396}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key81
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5482589072699044561
 Transform:
@@ -5986,12 +6193,12 @@ GameObject:
   - component: {fileID: 3451174189976484362}
   - component: {fileID: 8853062228454364731}
   - component: {fileID: 9203790444487722857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key69
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3451174189976484362
 Transform:
@@ -6069,12 +6276,12 @@ GameObject:
   - component: {fileID: 1177885313850499702}
   - component: {fileID: 3330501102594233451}
   - component: {fileID: 8257653079495183042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key77
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1177885313850499702
 Transform:
@@ -6152,7 +6359,7 @@ GameObject:
   - component: {fileID: 591419705421869107}
   - component: {fileID: 6224056939821398922}
   - component: {fileID: 5685652633796184245}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cubeStation_vcam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -6249,12 +6456,12 @@ GameObject:
   - component: {fileID: 6544759838763927462}
   - component: {fileID: 6807470862211024128}
   - component: {fileID: 770107968377861574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key68
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6544759838763927462
 Transform:
@@ -6332,12 +6539,12 @@ GameObject:
   - component: {fileID: 6798487764631964693}
   - component: {fileID: 1758714494672883158}
   - component: {fileID: 5808524295099187102}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key60
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6798487764631964693
 Transform:
@@ -6415,12 +6622,12 @@ GameObject:
   - component: {fileID: 4708229027816895964}
   - component: {fileID: 2911065802722824562}
   - component: {fileID: 847807393358490021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Power_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4708229027816895964
 Transform:
@@ -6498,12 +6705,12 @@ GameObject:
   - component: {fileID: 9199033676511070321}
   - component: {fileID: 8556429834864438113}
   - component: {fileID: 2834049410523962177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key52
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9199033676511070321
 Transform:
@@ -6581,12 +6788,12 @@ GameObject:
   - component: {fileID: 4349953885967631275}
   - component: {fileID: 5482798935668214105}
   - component: {fileID: 5425009580030077627}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key62
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4349953885967631275
 Transform:
@@ -6664,12 +6871,12 @@ GameObject:
   - component: {fileID: 3661082907717096051}
   - component: {fileID: 4803052358815638616}
   - component: {fileID: 2863907566783069983}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key90
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3661082907717096051
 Transform:
@@ -6747,12 +6954,12 @@ GameObject:
   - component: {fileID: 6206187832929057018}
   - component: {fileID: 996081056063095342}
   - component: {fileID: 2625213804586250491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Mouse_Insert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6206187832929057018
 Transform:
@@ -6830,7 +7037,7 @@ GameObject:
   - component: {fileID: 3391973057339176366}
   - component: {fileID: 2526874815775604272}
   - component: {fileID: 8118684419159248648}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Panel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6906,12 +7113,12 @@ GameObject:
   - component: {fileID: 5643674512470663286}
   - component: {fileID: 8591320612390402337}
   - component: {fileID: 6358086650093211808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5643674512470663286
 Transform:
@@ -6990,7 +7197,7 @@ GameObject:
   - component: {fileID: 5999345923238160326}
   - component: {fileID: 4337121021702913165}
   - component: {fileID: 2261703862075356055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7077,9 +7284,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 1.5
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1.5
   lightColor: {r: 1, g: 0.920817, b: 0, a: 1}
 --- !u!1 &6202555848969549910
 GameObject:
@@ -7090,7 +7297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1360770675818322943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7128,12 +7335,12 @@ GameObject:
   - component: {fileID: 9032355190137818135}
   - component: {fileID: 103361375632291439}
   - component: {fileID: 8129622372498935129}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLightHousing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9032355190137818135
 Transform:
@@ -7211,12 +7418,12 @@ GameObject:
   - component: {fileID: 931462098450185035}
   - component: {fileID: 4580905838500809210}
   - component: {fileID: 930364952990802353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Left_and_Right_Click
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &931462098450185035
 Transform:
@@ -7294,12 +7501,12 @@ GameObject:
   - component: {fileID: 4809354034319101389}
   - component: {fileID: 7930843637186039503}
   - component: {fileID: 5254423429490190688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLightHousing5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4809354034319101389
 Transform:
@@ -7377,12 +7584,12 @@ GameObject:
   - component: {fileID: 6713945971553313563}
   - component: {fileID: 1989363602792725935}
   - component: {fileID: 8775670712298984427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6713945971553313563
 Transform:
@@ -7461,7 +7668,7 @@ GameObject:
   - component: {fileID: 217718239423593826}
   - component: {fileID: 1690804354590776366}
   - component: {fileID: 6105152930447724148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StatusSquareLight4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7548,9 +7755,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.920817, b: 0, a: 1}
 --- !u!1 &6705929574808619189
 GameObject:
@@ -7563,12 +7770,12 @@ GameObject:
   - component: {fileID: 909404479209852256}
   - component: {fileID: 7931374432144626699}
   - component: {fileID: 1508511860417374053}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key64
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &909404479209852256
 Transform:
@@ -7646,12 +7853,12 @@ GameObject:
   - component: {fileID: 4282666201846976177}
   - component: {fileID: 2338633929159127889}
   - component: {fileID: 7797268868801356076}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLightHousing3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4282666201846976177
 Transform:
@@ -7729,12 +7936,12 @@ GameObject:
   - component: {fileID: 8043369912633739308}
   - component: {fileID: 7439999047302169745}
   - component: {fileID: 5186919106955368285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Tab_Key6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8043369912633739308
 Transform:
@@ -7813,7 +8020,7 @@ GameObject:
   - component: {fileID: 65741256081319617}
   - component: {fileID: 3513815260151217214}
   - component: {fileID: 5617494768151174570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7900,9 +8107,9 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.25
   materialIndex: 0
-  totalLightMultiplier: 1.5
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1.5
   lightColor: {r: 1, g: 0.920817, b: 0, a: 1}
 --- !u!1 &6995112692147619503
 GameObject:
@@ -7915,12 +8122,12 @@ GameObject:
   - component: {fileID: 2198412779099033116}
   - component: {fileID: 8096781708178011691}
   - component: {fileID: 7129954558424613267}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key102
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2198412779099033116
 Transform:
@@ -7999,7 +8206,7 @@ GameObject:
   - component: {fileID: 5702064420661720070}
   - component: {fileID: 1679630839516999809}
   - component: {fileID: 4212963158903688878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8086,146 +8293,10 @@ MonoBehaviour:
   lit: 1
   lightTime: 0.75
   materialIndex: 0
-  totalLightMultiplier: 1
   pulsing: 0
   pulseDuration: 3
+  totalLightMultiplier: 1
   lightColor: {r: 1, g: 0.5176471, b: 0, a: 1}
---- !u!1 &7182664561704543405
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3836670237205495577}
-  - component: {fileID: 6685955668227364025}
-  - component: {fileID: 7923682189038789352}
-  m_Layer: 0
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3836670237205495577
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182664561704543405}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 101724974780664274}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6685955668227364025
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182664561704543405}
-  m_CullTransparentMesh: 1
---- !u!114 &7923682189038789352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182664561704543405}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Open Window
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5395c2f8fa7de3e479a103d84a5636e9, type: 2}
-  m_sharedMaterial: {fileID: -6171328580237170278, guid: 5395c2f8fa7de3e479a103d84a5636e9,
-    type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 0.2
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 0
-  m_fontSizeMax: 12
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7209816847602130158
 GameObject:
   m_ObjectHideFlags: 0
@@ -8237,12 +8308,12 @@ GameObject:
   - component: {fileID: 5799135233437923244}
   - component: {fileID: 1600452396605581669}
   - component: {fileID: 6685032384575662805}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key53
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5799135233437923244
 Transform:
@@ -8321,7 +8392,7 @@ GameObject:
   - component: {fileID: 7622378746752185600}
   - component: {fileID: 1979236818004138190}
   - component: {fileID: 8028398209448947706}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: RaycastingBlockers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8424,12 +8495,12 @@ GameObject:
   - component: {fileID: 6221847726938974753}
   - component: {fileID: 9185652097896364977}
   - component: {fileID: 3446652712308036493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Tab_Key5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6221847726938974753
 Transform:
@@ -8507,12 +8578,12 @@ GameObject:
   - component: {fileID: 3957295933928428532}
   - component: {fileID: 1950111852391237431}
   - component: {fileID: 2780996855618558345}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key58
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3957295933928428532
 Transform:
@@ -8590,12 +8661,12 @@ GameObject:
   - component: {fileID: 2578769551085954570}
   - component: {fileID: 8768374106628421971}
   - component: {fileID: 6760876504844339155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Notebook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2578769551085954570
 Transform:
@@ -8673,12 +8744,12 @@ GameObject:
   - component: {fileID: 1183627827889406935}
   - component: {fileID: 7563233256336804133}
   - component: {fileID: 2948797260644617887}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key79
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1183627827889406935
 Transform:
@@ -8754,12 +8825,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8338698776192071430}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Keyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8338698776192071430
 Transform:
@@ -8845,12 +8916,12 @@ GameObject:
   - component: {fileID: 1847159323132411958}
   - component: {fileID: 4507018473519265271}
   - component: {fileID: 5454655022980676938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key98
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1847159323132411958
 Transform:
@@ -8928,12 +8999,12 @@ GameObject:
   - component: {fileID: 1369532452173922544}
   - component: {fileID: 6406381589313759030}
   - component: {fileID: 7813610620859630899}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key78
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1369532452173922544
 Transform:
@@ -9011,12 +9082,12 @@ GameObject:
   - component: {fileID: 2605300711591903299}
   - component: {fileID: 3552347907682594836}
   - component: {fileID: 4924562431135332395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key95
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2605300711591903299
 Transform:
@@ -9083,6 +9154,98 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8414196718830534791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4232598333547805543}
+  - component: {fileID: 667796229197964918}
+  - component: {fileID: 896369602220430413}
+  - component: {fileID: 3649877030051253023}
+  m_Layer: 8
+  m_Name: ChallengeVmSelectScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4232598333547805543
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414196718830534791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 220064439547012781}
+  m_Father: {fileID: 2891435381579580677}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &667796229197964918
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414196718830534791}
+  m_CullTransparentMesh: 1
+--- !u!114 &896369602220430413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414196718830534791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 53d3248d01a88b84f887ae6a73db32b1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3649877030051253023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414196718830534791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2c2e35a248bc94b87d67569b1ffdad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  workstation: {fileID: 74654512207029426}
+  controller: {fileID: 2840457722182300648}
 --- !u!1 &8427553057005840727
 GameObject:
   m_ObjectHideFlags: 0
@@ -9094,12 +9257,12 @@ GameObject:
   - component: {fileID: 1592605669766945649}
   - component: {fileID: 2824933536860698251}
   - component: {fileID: 6756969743842815855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key75
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1592605669766945649
 Transform:
@@ -9177,12 +9340,12 @@ GameObject:
   - component: {fileID: 3466108984192612600}
   - component: {fileID: 4034269050742000045}
   - component: {fileID: 5319597383934829796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key55
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3466108984192612600
 Transform:
@@ -9260,8 +9423,8 @@ GameObject:
   - component: {fileID: 6102740199456295151}
   - component: {fileID: 1998325901019409360}
   - component: {fileID: 2096922668515145458}
-  m_Layer: 0
-  m_Name: Screensaver
+  m_Layer: 8
+  m_Name: HomeScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9275,17 +9438,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8708373705926850750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.002}
-  m_LocalScale: {x: 0.008578324, y: 0.0064831926, z: 0.0087094}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9022976969935036180}
   m_Father: {fileID: 2891435381579580677}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.003}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.000000059604645, y: 0}
+  m_SizeDelta: {x: -0.010000114, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1998325901019409360
 CanvasRenderer:
@@ -9336,12 +9500,12 @@ GameObject:
   - component: {fileID: 1191231368801399413}
   - component: {fileID: 7772978148068650440}
   - component: {fileID: 5731776415694950377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key50
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1191231368801399413
 Transform:
@@ -9419,12 +9583,12 @@ GameObject:
   - component: {fileID: 5688701783911117420}
   - component: {fileID: 2469830991510413560}
   - component: {fileID: 1867792658933699150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Normal_Key83
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5688701783911117420
 Transform:
@@ -9502,12 +9666,12 @@ GameObject:
   - component: {fileID: 1031195791407582036}
   - component: {fileID: 3789191563826280086}
   - component: {fileID: 9042596990072299638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Wrist_Rest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1031195791407582036
 Transform:
@@ -9583,7 +9747,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 660333874447267334}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PowerSquareLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9621,12 +9785,12 @@ GameObject:
   - component: {fileID: 5846626082107180239}
   - component: {fileID: 8954661499543446975}
   - component: {fileID: 4260979127396176389}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pasted__Tab_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5846626082107180239
 Transform:

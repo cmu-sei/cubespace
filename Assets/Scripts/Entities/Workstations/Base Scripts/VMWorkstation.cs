@@ -18,7 +18,7 @@ using UI;
 namespace Entities.Workstations 
 {
     /// <summary>
-    /// A workstation used to access a virtual machine.
+    /// A workstation used to access a virtual machine. Cyber ops previously inhireted from this, codex still does. This should just be assimilated into codex and gotten rid of
     /// </summary>
     [RequireComponent(typeof(VMWindowController))]
     public abstract class VMWorkstation : Workstation
@@ -117,7 +117,8 @@ namespace Entities.Workstations
         public override void ChangePower(bool isPowered)
         {
             base.ChangePower(isPowered);
-            if(!isPowered) {
+            if (!isPowered) 
+            {
                 _windowController.CloseVM(StationID);
             }
         }

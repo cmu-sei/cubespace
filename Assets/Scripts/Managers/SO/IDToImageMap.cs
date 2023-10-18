@@ -24,6 +24,7 @@ using System.Collections.Generic;using UnityEngine;namespace Managers{	/// 
             {
 				return image;
 			}			// If neither case is true, get a random image for this ID and put it in the dictionary
+			// TODO: This should probably require calling this with a flag or something. I don't want this behavior by default
 			var s = GetRandomImage();
 			images.Add(imageID, s);
 			return s;		}		/// <summary>
