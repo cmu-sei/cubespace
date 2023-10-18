@@ -34,7 +34,7 @@ namespace Entities.Workstations.CyberOperationsParts
         {
             if (Player.LocalCanInput)
             {
-                _cyberOps.OpenConfirmationWindow();
+                _cyberOps.OnMouseModelClick();
             }
         }
         #endregion

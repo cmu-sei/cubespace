@@ -51,3 +51,5 @@ MonoBehaviour:
     locationImage: {fileID: 21300000, guid: 4a2af55c69b33cf4c86157dc05680d51, type: 3}
   - locationID: cache
     locationImage: {fileID: 21300000, guid: dea3390c4c88cd041905fc30d9bf78bb, type: 3}
+  - locationID: default_vm_image
+    locationImage: {fileID: -1474257596, guid: 31f71adcac5b034418c2f244c639cb5a, type: 3}

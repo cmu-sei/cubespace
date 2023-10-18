@@ -3,54 +3,35 @@ using System.Collections.Generic;
 using Systems.GameBrain;
 using UnityEngine;
 using Entities.Workstations.CyberOperationsParts;
-using UnityEngine.UI;
 
 public class UIChallengeVmScreenController : MonoBehaviour
 {
     [SerializeField] private CyberOperations workstation;
     [SerializeField] private CyberOperationsScreenController controller;
 
-    [SerializeField] private GameObject panel;
-    private Image background;
-    [SerializeField] private Transform listParent;
-
-    [SerializeField] private GameObject buttonPrefab;
-
     private void Awake()
     {
-        background = GetComponent<Image>();
+        Deactivate();
     }
 
     public void Activate()
     {
-        panel.SetActive(true);
-        background.enabled = true;
+
     }
 
     public void Deactivate()
     {
-        panel.SetActive(false);
-        background.enabled = false;
+
     }
 
-    public void Initialize(MissionVMs missionVMs)
+    public void Initialize(MissionVMs vms)
     {
-        DestroyButtons();
 
-        if (missionVMs == null || missionVMs.vmURLs == null || missionVMs.vmURLs.Length == 0) return;
-
-        for (int i = 0; i < missionVMs.vmURLs.Length; i++)
-        {
-            UIChallengeVmButton button = Instantiate(buttonPrefab, listParent).GetComponent<UIChallengeVmButton>();
-            button.SetChallengeVmButton(controller, missionVMs.vmURLs[i]);
-        }
     }
 
-    private void DestroyButtons()
+    public void OnSelectVM(ChallengeVM vm)
     {
-        foreach (Transform c in listParent.transform)
-        {
-            Destroy(c.gameObject);
-        }
+        //workstation.SetSelectedVM(vm);
+        controller.OpenConfirmationWindow(vm.vmName, vm.vmURL);
     }
 }

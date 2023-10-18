@@ -34,15 +34,49 @@
 				]
 			},
 			{
-				"missionID": "reactor",
-				"missionName": "Reactor Cooling",
+				"missionID": "ringrot",
+				"missionName": "Ring Singularity Rotation Monitor",
 				"vmURLs": [
 					{
-						"vmName": "test-kali",
+						"vmName": "pc4-kali-stock-v4",
 						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
 					},
 					{
 						"vmName": "a-very-good-name",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "gravcon",
+				"missionName": "Gravitic Containment",
+				"vmURLs": [
+					{
+						"vmName": "pc4-kali-stock-v4",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					},
+					{
+						"vmName": "a-very-good-name",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "gravcon",
+				"missionName": "Gravitic Containment",
+				"vmURLs": [
+					{
+						"vmName": "test-test",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "reactor",
+				"missionName": "Reactor Cooling",
+				"vmURLs": [
+					{
+						"vmName": "test-kali-592-test",
 						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
 					}
 				]

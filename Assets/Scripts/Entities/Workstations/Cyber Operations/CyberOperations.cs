@@ -11,6 +11,9 @@ DM23-0100
 using UnityEngine;
 using UnityEngine.UI;
 using Systems.GameBrain;
+using Mirror;
+using UI;
+using Audio;
 
 namespace Entities.Workstations.CyberOperationsParts
 {
@@ -18,14 +21,34 @@ namespace Entities.Workstations.CyberOperationsParts
     /// The workstation used for opening a VM via a URL, through a confirmation window.
     /// </summary>
     [RequireComponent(typeof(VMWindowController))]
-    public class CyberOperations : VMWorkstation
+    public class CyberOperations : Workstation
     {
         #region Variables
+        [SerializeField]
+        [Header("VM Variables")]
         /// <summary>
-        /// The button used to open the confirmation window.
+        /// The controller of the window.
+        /// </summary>
+        protected VMWindowController windowController;
+        /// <summary>
+        /// The controller of the screen
+        /// </summary>
+        [SerializeField] 
+        private CyberOperationsScreenController screenController;
+
+        /// <summary>
+        /// Whether to automatically upgrade the url set to this workstation.
         /// </summary>
         [SerializeField]
-        private Button _openWindowButton;
+        private bool autoUpgradeUrlToHttps = true;
+        /// <summary>
+        /// The URL and name of the selected vm
+        /// </summary>
+        private string selectedVmURL;
+        private string selectedVmName;
+
+        // True if someone is at the station
+        private bool inUse;
         #endregion
 
         #region Unity event functions
@@ -35,23 +58,74 @@ namespace Entities.Workstations.CyberOperationsParts
         protected override void Awake()
         {
             base.Awake();
-
+            
             if (!AlwaysHasPower)
             {
                 Debug.LogWarning("CyberOperations must always have power! Please check 'always has power' box for this component.", this);
             }
-            _openWindowButton.onClick.AddListener(OpenConfirmationWindow);
+        }
+
+        /// <summary>
+        /// Unity event function that subscribes to the action called when ship data is received.
+        /// </summary>
+        private void OnEnable()
+        {
+            ShipGameBrainUpdater.OnShipDataReceived += OnShipDataReceived;
+        }
+
+        /// <summary>
+        /// Unity event function that unsubscribes from the action called when ship data is received.
+        /// </summary>
+        private void OnDisable()
+        {
+            ShipGameBrainUpdater.OnShipDataReceived -= OnShipDataReceived;
         }
         #endregion
 
-        #region VMWorkstation methods
+        #region Workstation methods
         /// <summary>
-        /// Makes the button to open a window interactable or non-interactable.
+        /// Enables the UI objects needed to access the workstation and gives the player authority over the workstation.
         /// </summary>
-        /// <param name="state">Whether the button is interactable.</param>
-        protected override void SetAccessUIState(bool state) 
+        /// <param name="player">The player activating the workstation.</param>
+        /// <param name="currentCam">The camera to zoom into the workstation.</param>
+        public override void Activate(Player player, Cinemachine.CinemachineVirtualCamera currentCam)
         {
-            _openWindowButton.interactable = state;
+            base.Activate(player, currentCam);
+            inUse = true;
+            screenController.ResetState();
+        }
+
+        /// <summary>
+        /// Disables the UI objects needed to access the workstation and gives the player authority over the workstation.
+        /// </summary>
+        public override void Deactivate()
+        {
+            // Unmute the game in case a separate tab was open
+            AudioPlayer.Instance.SetMuteSnapshot(false);
+            base.Deactivate();
+            inUse = false;
+        }
+
+        /// <summary>
+        /// Changes the power state on the workstation and closes any open VM at this station.
+        /// </summary>
+        /// <param name="isPowered">Whether this workstation is powered.</param>
+        public override void ChangePower(bool isPowered)
+        {
+            base.ChangePower(isPowered);
+            if (!isPowered)
+            {
+                windowController.CloseVM(StationID);
+            }
+        }
+
+        /// <summary>
+        /// Closes the VM window (if open) and resets the workstation.
+        /// </summary>
+        public override void ResetWorkstation()
+        {
+            windowController.CloseVM(StationID);
+            base.ResetWorkstation();
         }
 
         /// <summary>
@@ -59,22 +133,53 @@ namespace Entities.Workstations.CyberOperationsParts
         /// </summary>
         /// <param name="hasChanged">Whether the ship data received has changed.</param>
         /// <param name="data">The ship data received.</param>
-        protected override void OnShipDataReceived(bool hasChanged, GameData data)
-        {
-            // TODO: hasChanged may not be accurate here, vm urls may have changed without hasChanged being true
-            if (hasChanged || string.IsNullOrEmpty(_vmURL))
+        private void OnShipDataReceived(bool hasChanged, GameData data)
+        {   
+            bool usingNewStructure = data.ship.IsMissionVMsStructureInUse();
+
+            if (!usingNewStructure)
             {
-                // Default to using new VM url structure if it is present
-                if (data.ship.IsMissionVMsStructureInUse())
+                if (hasChanged || string.IsNullOrEmpty(selectedVmURL))
                 {
-                    // TODO: Populate dropdown with vm options
-                    // TODO: In VMWorkstation (probably) set a var with selected url and use that for the vm to open
-                }
-                else
-                {
-                    _vmURL = data.ship.GetURLForStation(StationID);
+                    selectedVmURL = data.ship.GetURLForStation(StationID);
                 }
             }
+            else if (hasChanged) // TODO: hasChanged is not accurate here and this will destroy and recreate the buttons every 2 seconds; BAD
+            {
+                //missionVmScreenController.InitializeButtons(data.ship.challengeURLs);
+            }
+        }
+
+        public void OnMouseModelClick()
+        {
+            screenController.OnMouseModelClick();
+        }
+        #endregion
+
+        #region VM Window Functions
+
+        /// <summary>
+        /// Opens an embedded VM window in the game at the workstation. The JavaScript code will close any previously opened window beforehand.
+        /// </summary>
+        protected virtual void OpenVMWindowEmbedded()
+        {
+            if (autoUpgradeUrlToHttps) selectedVmURL = selectedVmURL.Replace("http://", "https://");
+            windowController.OpenWindowInFrame(selectedVmURL, StationID);
+            AudioPlayer.Instance.SetMuteSnapshot(true);
+        }
+
+        /// <summary>
+        /// Opens a VM window in a new tab. The JavaScript code will close any previously opened window beforehand.
+        /// </summary>
+        protected virtual void OpenVMWindowNewTab()
+        {
+            windowController.OpenWindowInTab(selectedVmURL, StationID, selectedVmName);
+            AudioPlayer.Instance.SetMuteSnapshot(true);
+        }
+
+        public virtual void OnCloseVMWindow()
+        {
+            AudioPlayer.Instance.SetMuteSnapshot(false);
         }
         #endregion
     }

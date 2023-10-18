@@ -1,5 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Entities.Workstations.CyberOperationsParts;
 using Systems.GameBrain;
 using Managers;
@@ -10,28 +11,19 @@ namespace Entities.Workstations.CyberOperationsParts
     {
         [SerializeField] private CyberOperationsScreenController controller;
 
-        [SerializeField] private GameObject panel;
         [SerializeField] private GameObject missionVmButtonPrefab;
         [SerializeField] private Transform missionButtonGridParent;
         [SerializeField] private IDToImageMap imageMap;
 
-        private Image background;
-
-        private void Awake()
-        {
-            background = GetComponent<Image>();
-        }
-
         public void Activate()
         {
-            panel.SetActive(true);
-            background.enabled = true;
+            missionButtonGridParent.gameObject.SetActive(true);
         }
 
         public void Deactivate()
         {
-            panel.SetActive(false);
-            background.enabled = false;
+            DestroyButtons();
+            missionButtonGridParent.gameObject.SetActive(false);
         }
 
         public void InitializeButtons(MissionVMs[] missionVMs)
@@ -43,7 +35,19 @@ namespace Entities.Workstations.CyberOperationsParts
             for (int i = 0; i < missionVMs.Length; i++)
             {
                 UIMissionVmButton button = Instantiate(missionVmButtonPrefab, missionButtonGridParent).GetComponent<UIMissionVmButton>();
-                button.SetMissionVmButton(controller, missionVMs[i], imageMap.GetImage(missionVMs[i].missionIcon, "default_vm_image"));
+
+                // TODO: This isn't very pretty or efficient, we aught to have a missionID->missionIcon map
+                MissionData missionData = ShipStateManager.Instance.MissionDatas.Find((m) => { return m.missionID == missionVMs[i].missionID; });
+
+                if (missionData == null)
+                {
+                    Debug.LogWarning("Creating vm button for a mission that can't be found in local array! Icon will be a default");
+                    button.SetMissionVmButton(controller, missionVMs[i], null);
+                }
+                else
+                {
+                    button.SetMissionVmButton(controller, missionVMs[i], imageMap.GetImage(missionData.missionIcon, "default_vm_image"));
+                }    
             }
         }
 
