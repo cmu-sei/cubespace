@@ -28,7 +28,7 @@ namespace Entities.Workstations.CyberOperationsParts
 
         #region Unity event functions
         /// <summary>
-        /// Opens the VM confirmation window when this objecct is clicked.
+        /// Opens the VM confirmation window when this object is clicked.
         /// </summary>
         private void OnMouseDown()
         {

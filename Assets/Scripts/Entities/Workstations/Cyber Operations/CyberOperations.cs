@@ -42,10 +42,13 @@ namespace Entities.Workstations.CyberOperationsParts
         [SerializeField]
         private bool autoUpgradeUrlToHttps = true;
         /// <summary>
-        /// The URL and name of the selected vm
+        /// The URL set vm to be opened
         /// </summary>
-        private string selectedVmURL;
-        private string selectedVmName;
+        public string vmURL;
+        /// <summary>
+        /// The name used for the confirmation window if using the old structure
+        /// </summary>
+        public string staticVmName = "Cyber Operations";
 
         // True if someone is at the station
         private bool inUse;
@@ -104,6 +107,7 @@ namespace Entities.Workstations.CyberOperationsParts
             AudioPlayer.Instance.SetMuteSnapshot(false);
             base.Deactivate();
             inUse = false;
+            screenController.ResetState();
         }
 
         /// <summary>
@@ -137,16 +141,21 @@ namespace Entities.Workstations.CyberOperationsParts
         {   
             bool usingNewStructure = data.ship.IsMissionVMsStructureInUse();
 
+            if (!screenController.usingOldStructure != usingNewStructure)
+            {
+                screenController.usingOldStructure = !usingNewStructure;
+            }
+
             if (!usingNewStructure)
             {
-                if (hasChanged || string.IsNullOrEmpty(selectedVmURL))
+                if (hasChanged || string.IsNullOrEmpty(vmURL))
                 {
-                    selectedVmURL = data.ship.GetURLForStation(StationID);
+                    vmURL = data.ship.GetURLForStation(StationID);
                 }
             }
             else if (hasChanged) // TODO: hasChanged is not accurate here and this will destroy and recreate the buttons every 2 seconds; BAD
             {
-                //missionVmScreenController.InitializeButtons(data.ship.challengeURLs);
+                screenController.OnShipDataReceived(data);
             }
         }
 
@@ -161,23 +170,29 @@ namespace Entities.Workstations.CyberOperationsParts
         /// <summary>
         /// Opens an embedded VM window in the game at the workstation. The JavaScript code will close any previously opened window beforehand.
         /// </summary>
-        protected virtual void OpenVMWindowEmbedded()
+        public void OpenVMWindowEmbedded()
         {
-            if (autoUpgradeUrlToHttps) selectedVmURL = selectedVmURL.Replace("http://", "https://");
-            windowController.OpenWindowInFrame(selectedVmURL, StationID);
-            AudioPlayer.Instance.SetMuteSnapshot(true);
+            if (!string.IsNullOrEmpty(vmURL))
+            {
+                if (autoUpgradeUrlToHttps) vmURL = vmURL.Replace("http://", "https://");
+                windowController.OpenWindowInFrame(vmURL, StationID);
+                AudioPlayer.Instance.SetMuteSnapshot(true);
+            }
         }
 
         /// <summary>
         /// Opens a VM window in a new tab. The JavaScript code will close any previously opened window beforehand.
         /// </summary>
-        protected virtual void OpenVMWindowNewTab()
+        public void OpenVMWindowNewTab()
         {
-            windowController.OpenWindowInTab(selectedVmURL, StationID, selectedVmName);
-            AudioPlayer.Instance.SetMuteSnapshot(true);
+            if (!string.IsNullOrEmpty(vmURL))
+            {
+                windowController.OpenWindowInTab(vmURL, StationID, staticVmName);
+                AudioPlayer.Instance.SetMuteSnapshot(true);
+            }
         }
 
-        public virtual void OnCloseVMWindow()
+        public void OnCloseVMWindow()
         {
             AudioPlayer.Instance.SetMuteSnapshot(false);
         }

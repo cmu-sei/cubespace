@@ -22,6 +22,7 @@
 			{
 				"missionID": "gravcon",
 				"missionName": "Gravitic Containment",
+				"missionIcon":  "gravcon",
 				"vmURLs": [
 					{
 						"vmName": "pc4-kali-stock-v4",
@@ -36,6 +37,7 @@
 			{
 				"missionID": "ringrot",
 				"missionName": "Ring Singularity Rotation Monitor",
+				"missionIcon":  "ringrot",
 				"vmURLs": [
 					{
 						"vmName": "pc4-kali-stock-v4",

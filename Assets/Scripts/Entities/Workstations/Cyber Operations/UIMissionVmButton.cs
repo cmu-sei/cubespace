@@ -5,10 +5,12 @@ using Entities.Workstations.CyberOperationsParts;
 using UnityEngine.UI;
 using TMPro;
 using Systems.GameBrain;
+using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 namespace Entities.Workstations.CyberOperationsParts
 {
-    public class UIMissionVmButton : MonoBehaviour
+    public class UIMissionVmButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         private MissionVMs vms;
         CyberOperationsScreenController screenController;
@@ -26,6 +28,10 @@ namespace Entities.Workstations.CyberOperationsParts
                 Destroy(gameObject);
                 return;
             }
+            if (button == null)
+            {
+                button = gameObject.GetComponent<Button>();
+            }
 
             vms = missionVMs;
             screenController = controller;
@@ -40,7 +46,6 @@ namespace Entities.Workstations.CyberOperationsParts
             }
             missionTitleText.text = missionVMs.missionName;
 
-            button = GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OpenChallengeSelectScreen);
         }
@@ -52,6 +57,22 @@ namespace Entities.Workstations.CyberOperationsParts
                 return;
             }
             screenController.OpenChallengeSelectScreen(vms);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (vms != null && screenController != null)
+            {
+                screenController.SetBottomScreenText(vms.missionName);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (screenController != null)
+            {
+                screenController.SetBottomScreenText("");
+            }
         }
     }
 }
