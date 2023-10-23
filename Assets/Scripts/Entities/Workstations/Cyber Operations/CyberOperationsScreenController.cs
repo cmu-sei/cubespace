@@ -3,40 +3,52 @@ using UnityEngine;
 using UnityEngine.UI;
 using UI;
 using Systems.GameBrain;
+using Managers;
+using Entities.Workstations;
+using TMPro;
 
 public enum CyberOpsWindowState
 {
     HomeScreen,
     MissionSelect,
-    ChallengeSelect,
-    ConfirmationWindow
+    ChallengeSelect
 }
 
 public class CyberOperationsScreenController : MonoBehaviour
 {
-    public CyberOpsWindowState curState = CyberOpsWindowState.HomeScreen;
+    private CyberOpsWindowState curState = CyberOpsWindowState.HomeScreen;
 
     public bool usingOldStructure = false;
 
+    [SerializeField] private CyberOperations workstation;
     [SerializeField] private UIMissionVmScreenController missionVmScreenController;
     [SerializeField] private UIChallengeVmScreenController challengeVmScreenController;
+    [SerializeField] private Button homeScreenButton;
+    [SerializeField] private Button backButton;
 
-    [SerializeField] private Button openMissionScreenButton;
+    [SerializeField] private GameObject bottomScreenPanel;
+    [SerializeField] private TextMeshProUGUI bottomScreenText;
 
-    [SerializeField] private Button openConfirmationWindowButton;
     private ModalWindowContent confirmationScreenContent;
     private readonly string confirmationText = "Do you want to launch this VM in a new tab<br>or embedded into this page?";
 
     private void Awake()
     {
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(OnBackButton);
+        homeScreenButton.onClick.RemoveAllListeners();
+        homeScreenButton.onClick.AddListener(OnClickHomeScreen);
         ResetState();
     }
 
     public void ResetState()
     {
-        missionVmScreenController.Deactivate();
-        challengeVmScreenController.Deactivate();
-        openMissionScreenButton.enabled = true;
+        SetState(CyberOpsWindowState.HomeScreen);
+    }
+
+    public void OnShipDataReceived(GameData data)
+    {
+        missionVmScreenController.InitializeButtons(data.ship.challengeURLs);
     }
 
     private void SetState(CyberOpsWindowState newState)
@@ -44,31 +56,41 @@ public class CyberOperationsScreenController : MonoBehaviour
         switch (newState)
         {
             case CyberOpsWindowState.HomeScreen:
-                ResetState();
+                missionVmScreenController.Deactivate();
+                challengeVmScreenController.Deactivate();
+                homeScreenButton.interactable = true;
+                backButton.gameObject.SetActive(false);
+                bottomScreenPanel.SetActive(false);
                 break;
             case CyberOpsWindowState.MissionSelect:
-                openMissionScreenButton.enabled = false;
+                homeScreenButton.interactable = false;
                 missionVmScreenController.Activate();
                 challengeVmScreenController.Deactivate();
+                backButton.gameObject.SetActive(true);
+                bottomScreenPanel.SetActive(true);
+                SetBottomScreenText("");
                 break;
             case CyberOpsWindowState.ChallengeSelect:
-                openMissionScreenButton.enabled = false;
+                homeScreenButton.interactable = false;
                 missionVmScreenController.Deactivate();
                 challengeVmScreenController.Activate();
-                break;
-            case CyberOpsWindowState.ConfirmationWindow:
+                backButton.gameObject.SetActive(true);
+                bottomScreenPanel.SetActive(false);
                 break;
         }
-    }
-
-    public void InitializeMissionScreen(MissionVMs[] missionVMs)
-    {
-        missionVmScreenController.InitializeButtons(missionVMs);
+        curState = newState;
     }
 
     public void OpenConfirmationWindow(string vmName, string vmURL)
     {
-        //confirmationScreenContent = new ModalWindowContent(vmName, confirmationText, "New Tab", "Embedded Window", OpenVMWindowNewTab, OpenVMWindowEmbedded, CloseConfirmationWindow);
+        workstation.vmURL = vmURL;
+        confirmationScreenContent = new ModalWindowContent(vmName, confirmationText, "New Tab", "Embedded Window", workstation.OpenVMWindowNewTab, workstation.OpenVMWindowEmbedded, CloseConfirmationWindow);
+        ModalPanel.Instance.OpenWindow(confirmationScreenContent);
+    }
+
+    private void CloseConfirmationWindow()
+    {
+
     }
 
     public void OpenChallengeSelectScreen(MissionVMs vms)
@@ -84,18 +106,45 @@ public class CyberOperationsScreenController : MonoBehaviour
 
     public void OnClickHomeScreen()
     {
+        if (curState != CyberOpsWindowState.HomeScreen) return;
+
         if (usingOldStructure)
         {
-
+            if (string.IsNullOrEmpty(workstation.vmURL))
+            {
+                return;
+            }
+            OpenConfirmationWindow(workstation.staticVmName, workstation.vmURL);
         }
         else
         {
-
+            OpenMissionSelectScreen();
         }
     }
 
+    // Clicking the physical mouse is just the same as clicking on the home screen
     public void OnMouseModelClick()
     {
+        OnClickHomeScreen();
+    }
 
+    public void OnBackButton()
+    {
+        switch (curState)
+        {
+            case CyberOpsWindowState.HomeScreen:
+                break;
+            case CyberOpsWindowState.MissionSelect:
+                SetState(CyberOpsWindowState.HomeScreen);
+                break;
+            case CyberOpsWindowState.ChallengeSelect:
+                SetState(CyberOpsWindowState.MissionSelect);
+                break;
+        }
+    }
+
+    public void SetBottomScreenText(string text)
+    {
+        bottomScreenText.text = text;
     }
 }

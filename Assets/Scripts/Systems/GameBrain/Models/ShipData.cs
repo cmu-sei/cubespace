@@ -174,6 +174,8 @@ namespace Systems.GameBrain
 		public string missionID;
 		// Display name of this mission
 		public string missionName;
+		// The id of the icon for this vm
+		public string missionIcon;
 		// All the vms/challenges available for this mission
 		public ChallengeVM[] vmURLs;
 	}
