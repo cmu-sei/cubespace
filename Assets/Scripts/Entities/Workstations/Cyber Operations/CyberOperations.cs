@@ -140,6 +140,7 @@ namespace Entities.Workstations.CyberOperationsParts
         private void OnShipDataReceived(bool hasChanged, GameData data)
         {   
             bool usingNewStructure = data.ship.IsMissionVMsStructureInUse();
+            Debug.Log("Detected usingNewStrcuture == " + usingNewStructure);
 
             if (!screenController.usingOldStructure != usingNewStructure)
             {
