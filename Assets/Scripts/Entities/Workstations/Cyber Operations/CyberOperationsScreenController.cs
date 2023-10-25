@@ -46,10 +46,9 @@ public class CyberOperationsScreenController : MonoBehaviour
         SetState(CyberOpsWindowState.HomeScreen);
     }
 
-    public void OnShipDataReceived(GameData data)
+    public void OnShipDataChanged(ShipData data)
     {
-        Debug.Log("Creating buttons fdr vms");
-        missionVmScreenController.InitializeButtons(data.ship.challengeURLs);
+        missionVmScreenController.InitializeButtons(data.challengeURLs);
     }
 
     private void SetState(CyberOpsWindowState newState)

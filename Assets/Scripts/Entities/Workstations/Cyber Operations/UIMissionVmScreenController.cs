@@ -41,7 +41,6 @@ namespace Entities.Workstations.CyberOperationsParts
 
             if (missionVMs == null) return;
 
-            Debug.Log("Creating " + missionVMs.Length + " buttons");
             for (int i = 0; i < missionVMs.Length; i++)
             {
                 UIMissionVmButton button = Instantiate(missionVmButtonPrefab, missionButtonGridParent).GetComponent<UIMissionVmButton>();

@@ -89,6 +89,10 @@ namespace Managers
         /// An action called when the list of mission data changes from Gamebrain.
         /// </summary>
         public static Action<List<MissionData>> OnMissionDatasChange;
+        /// <summary>
+        /// An action called when the list of vm urls changes from Gamebrain
+        /// </summary>
+        public static Action<ShipData> OnShipDataChange;
 
         // Server side only actions
         /// <summary>
@@ -127,6 +131,13 @@ namespace Managers
         /// </summary>
         [SyncVar]
         private Session session = new Session();
+
+        /// <summary>
+        /// Data concerning the vms available at the cyber ops stations
+        /// </summary>
+        public ShipData ShipData => shipData;
+        [SyncVar(hook = nameof(ShipDataChangeHook))]
+        private ShipData shipData = new ShipData();
 
         /// <summary>
         /// Used to determine whether or not map button should be displayed. Also contained in `session`, duplicated here so that hook is only called when this actually changes, not just anything in session.
@@ -339,6 +350,10 @@ namespace Managers
             // Update the team's session data to whatever was received
             session = data.session;
 
+            // Update the cached vm URLs
+            // TODO: These should probably just be pushed out via RPC and not cached, refactor eventually
+            shipData = data.ship;
+
             // Update useGalaxyMap if it's changed. Will enable/disable map button via callbacks
             if (data.session.useGalaxyDisplayMap != useGalaxyMap)
             {
@@ -427,6 +442,16 @@ namespace Managers
         private void CurrentLocationChangeHook(Location oldLocation, Location location)
         {
             OnCurrentLocationChange?.Invoke(location);
+        }
+
+        /// <summary>
+        /// A function that runs on clients as a SyncVar hook when the ship's vm url data changes
+        /// </summary>
+        /// <param name="oldLocation">The previous location of the ship. This is unused but necessary to include.</param>
+        /// <param name="location">The ship's new current location.</param>
+        private void ShipDataChangeHook(ShipData oldShipdata, ShipData newShipData)
+        {
+            OnShipDataChange?.Invoke(newShipData);
         }
 
         /// <summary>
