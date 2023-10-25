@@ -16,7 +16,7 @@ namespace Entities.Workstations.CyberOperationsParts
         [SerializeField] private Transform missionButtonGridParent;
         [SerializeField] private IDToImageMap imageMap;
 
-        private Image background;
+        [SerializeField] private Image background;
 
         private void Awake()
         {
