@@ -736,7 +736,8 @@ namespace Managers
         {
             // Loop through all received locations
             int i = 0;
-            for (; i < data.locations.Length; i++)
+            int locationsLength = data.locations == null ? 0 : data.locations.Length;
+            for (; i < locationsLength; i++)
             {
                 // If there's more locations in the data than what's unlocked, add the new location
                 if (unlockedLocations.Count == i)
