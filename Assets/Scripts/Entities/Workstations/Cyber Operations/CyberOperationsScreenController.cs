@@ -48,6 +48,7 @@ public class CyberOperationsScreenController : MonoBehaviour
 
     public void OnShipDataReceived(GameData data)
     {
+        Debug.Log("Creating buttons fdr vms");
         missionVmScreenController.InitializeButtons(data.ship.challengeURLs);
     }
 
