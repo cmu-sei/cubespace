@@ -14,6 +14,7 @@ using Systems.GameBrain;
 using Mirror;
 using UI;
 using Audio;
+using Managers;
 
 namespace Entities.Workstations.CyberOperationsParts
 {
@@ -73,7 +74,7 @@ namespace Entities.Workstations.CyberOperationsParts
         /// </summary>
         private void OnEnable()
         {
-            ShipGameBrainUpdater.OnShipDataReceived += OnShipDataReceived;
+           ShipStateManager.OnShipDataChange += OnShipDataChanged;
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Entities.Workstations.CyberOperationsParts
         /// </summary>
         private void OnDisable()
         {
-            ShipGameBrainUpdater.OnShipDataReceived -= OnShipDataReceived;
+            ShipStateManager.OnShipDataChange -= OnShipDataChanged;
         }
         #endregion
 
@@ -137,10 +138,9 @@ namespace Entities.Workstations.CyberOperationsParts
         /// </summary>
         /// <param name="hasChanged">Whether the ship data received has changed.</param>
         /// <param name="data">The ship data received.</param>
-        private void OnShipDataReceived(bool hasChanged, GameData data)
+        private void OnShipDataChanged(ShipData data)
         {   
-            bool usingNewStructure = data.ship.IsMissionVMsStructureInUse();
-            Debug.Log("Detected usingNewStrcuture == " + usingNewStructure);
+            bool usingNewStructure = data.IsMissionVMsStructureInUse();
 
             if (!screenController.usingOldStructure != usingNewStructure)
             {
@@ -149,14 +149,14 @@ namespace Entities.Workstations.CyberOperationsParts
 
             if (!usingNewStructure)
             {
-                if (hasChanged || string.IsNullOrEmpty(vmURL))
+                if (string.IsNullOrEmpty(vmURL))
                 {
-                    vmURL = data.ship.GetURLForStation(StationID);
+                    vmURL = data.GetURLForStation(StationID);
                 }
             }
-            else if (hasChanged) // TODO: hasChanged is not accurate here and this will destroy and recreate the buttons every 2 seconds; BAD
+            else
             {
-                screenController.OnShipDataReceived(data);
+                screenController.OnShipDataChanged(data);
             }
         }
 
