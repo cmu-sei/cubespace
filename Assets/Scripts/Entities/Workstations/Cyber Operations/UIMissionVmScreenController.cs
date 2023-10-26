@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Entities.Workstations.CyberOperationsParts;
@@ -12,6 +10,7 @@ namespace Entities.Workstations.CyberOperationsParts
     {
         [SerializeField] private CyberOperationsScreenController controller;
 
+        [SerializeField] private GameObject panel;
         [SerializeField] private GameObject missionVmButtonPrefab;
         [SerializeField] private Transform missionButtonGridParent;
         [SerializeField] private IDToImageMap imageMap;
@@ -25,13 +24,13 @@ namespace Entities.Workstations.CyberOperationsParts
 
         public void Activate()
         {
-            missionButtonGridParent.gameObject.SetActive(true);
+            panel.SetActive(true);
             background.enabled = true;
         }
 
         public void Deactivate()
         {
-            missionButtonGridParent.gameObject.SetActive(false);
+            panel.SetActive(false);
             background.enabled = false;
         }
 
