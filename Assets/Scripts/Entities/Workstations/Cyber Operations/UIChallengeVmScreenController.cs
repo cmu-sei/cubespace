@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Systems.GameBrain;
 using UnityEngine;
 using Entities.Workstations.CyberOperationsParts;
+using UnityEngine.UI;
 
 public class UIChallengeVmScreenController : MonoBehaviour
 {
@@ -10,23 +11,26 @@ public class UIChallengeVmScreenController : MonoBehaviour
     [SerializeField] private CyberOperationsScreenController controller;
 
     [SerializeField] private GameObject panel;
+    private Image background;
     [SerializeField] private Transform listParent;
 
     [SerializeField] private GameObject buttonPrefab;
 
     private void Awake()
     {
-        Deactivate();
+        background = GetComponent<Image>();
     }
 
     public void Activate()
     {
         panel.SetActive(true);
+        background.enabled = true;
     }
 
     public void Deactivate()
     {
         panel.SetActive(false);
+        background.enabled = false;
     }
 
     public void Initialize(MissionVMs missionVMs)
