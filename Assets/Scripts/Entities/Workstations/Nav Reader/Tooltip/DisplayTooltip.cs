@@ -88,9 +88,13 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
             // Display coordinates for cache missions once main mission is complete
             if (mission.associatedChallenges != null && mission.associatedChallenges.Length > 0)
             {
-                if (mission.associatedChallenges.Length == 1 && mission.associatedChallenges[0].unlockCode != null && mission.associatedChallenges[0].unlockCode != "")
+                if (mission.associatedChallenges.Length == 1)
                 {
-                    tooltipText.text = "Cache at: " + mission.associatedChallenges[0].unlockCode;
+                    // Unlock codes are empty strings until Gamebrain decides they should be visable
+                    if (!string.IsNullOrEmpty(mission.associatedChallenges[0].unlockCode))
+                    {
+                        tooltipText.text = "Cache at: " + mission.associatedChallenges[0].unlockCode;
+                    }
                 }
                 else
                 {
@@ -98,7 +102,7 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
                     
                     for (int i = 0; i < mission.associatedChallenges.Length; i++)
                     {
-                        if (mission.associatedChallenges[i].unlockCode != null && mission.associatedChallenges[i].unlockCode != "")
+                        if (!string.IsNullOrEmpty(mission.associatedChallenges[0].unlockCode))
                         {
                             if (!foundNonNullCoord)
                             {
