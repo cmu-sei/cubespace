@@ -53,7 +53,7 @@ jobs:
 
       # Generate Library when cache does not exist
       - name: Generate Library folder
-        uses: game-ci/unity-builder@v3
+        uses: game-ci/unity-builder@v3.1.0
         if: ${{ !steps.cache-exists.outputs.cache-hit && (matrix.targetPlatform == 'StandaloneLinux64') }}
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -76,7 +76,7 @@ jobs:
 
       # Build
       - name: Build ${{ matrix.targetPlatform }}
-        uses: game-ci/unity-builder@v3
+        uses: game-ci/unity-builder@v3.1.0
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
@@ -85,7 +85,7 @@ jobs:
           buildMethod: UnityBuilderAction.BuildScript.BuildGame
           # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
           # allowDirtyBuild ignores error caused by building with any local changes created by regenerating the local library (TMPro SDF files like to do this)
-          # allowDirtyBuild: true
+          #allowDirtyBuild: true
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
