@@ -85,7 +85,7 @@ jobs:
           buildMethod: UnityBuilderAction.BuildScript.BuildGame
           # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
           # allowDirtyBuild ignores error caused by building with any local changes created by regenerating the local library (TMPro SDF files like to do this)
-          allowDirtyBuild: true
+          # allowDirtyBuild: true
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
