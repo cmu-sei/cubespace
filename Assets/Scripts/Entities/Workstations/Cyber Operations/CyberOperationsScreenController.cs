@@ -32,7 +32,7 @@ public class CyberOperationsScreenController : MonoBehaviour
     private ModalWindowContent confirmationScreenContent;
     private readonly string confirmationText = "Do you want to launch this VM in a new tab<br>or embedded into this page?";
 
-    private void Awake()
+    private void Start()
     {
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(OnBackButton);
