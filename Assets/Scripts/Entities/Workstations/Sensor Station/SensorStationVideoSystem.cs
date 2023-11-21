@@ -55,8 +55,6 @@ namespace Entities.Workstations.SensorStationParts
         private void Start()
         {
             _videoPlayer = GetComponent<VideoPlayer>();
-            _videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-            _videoPlayer.isLooping = false;
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
             if (!_videoPlayer || !_videoPlayer.targetTexture || !networkManager)
