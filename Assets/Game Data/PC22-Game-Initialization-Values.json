@@ -87,18 +87,18 @@
 	},
 	"currentStatus": {
 		"currentLocation": "probe",
-		"antennaExtended": false,
-		"networkConnected": false,
-		"networkName": "",
-		"firstContactComplete": false,
+		"antennaExtended": true,
+		"networkConnected": true,
+		"networkName": "network",
+		"firstContactComplete": true,
 		"powerStatus": "launchMode",
-		"incomingTransmission": false,
-		"currentLocationScanned": false,
-		"currentLocationSurroundings": "",
+		"incomingTransmission": true,
+		"currentLocationScanned": true,
+		"currentLocationSurroundings": "Surroundings",
 		"incomingTransmissionObject": {
-			"commID": "",
-			"videoURL": "",
-			"commTemplate": "",
+			"commID": "testID",
+			"videoURL": "https://presidentscup.cisa.gov/files/hqv8a5dv6GR9bh9278VPuP36xA7d9htD-VIDEO-04-P01.mp4",
+			"commTemplate": "incoming",
 			"template": 0,
 			"translationMessage": "",
 			"scanInfoMessage": "",
@@ -144,7 +144,7 @@
 					"infoPresent": true,
 					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Gravitic Containment</line-height>",
 					"videoPresent": true,
-					"videoURL": "https://presidentscup.cisa.gov/files/11cc8d7f896eed846202d09e572bf0c6-VIDEO-01-1.mp4"
+					"videoURL": "https://presidentscup.cisa.gov/files/hqv8a5dv6GR9bh9278VPuP36xA7d9htD-VIDEO-04-P01.mp4"
 				}
 			]
 		},

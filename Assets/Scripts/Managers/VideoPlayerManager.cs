@@ -10,27 +10,23 @@ using UnityEngine.Video;
 namespace Managers
 {
     // Wrapper for Unity's video player that handles buffering, audio desync, and other problems
-    // Used by the cutscene system for jump videos and mission log videos and sensor station for transmissions
     public class VideoPlayerManager : ConnectedSingleton<VideoPlayerManager>
     {
         [SerializeField] private VideoPlayer videoPlayer;
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private VideoControls videoControls;
+
+        private RenderTexture renderTex = null;
 
         private Coroutine currentVideoCoroutine = null;
         private bool autoPlayVideoOnPrepare = false;
         private bool videoPlayerInitialized = false;
-        [HideInInspector] public string preparedVideoURL = "";
 
-        public static Action<string, bool> OnVideoCompleted; // (url, didVideoFinish?)
-
-        private bool paused = false;
+        public static Action<string> OnVideoCompleted;
 
         private void OnEnable()
         {
             videoPlayer.errorReceived += OnErrorReceived;
             videoPlayer.prepareCompleted += OnPlayerPrepared;
-            videoControls.gameObject.SetActive(false);
         }
 
         private void OnDisable()
@@ -39,28 +35,20 @@ namespace Managers
             videoPlayer.prepareCompleted -= OnPlayerPrepared;
         }
  
-        public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared, bool showControls = false)
+        public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared)
         {
-            if (videoPlayer == null)
+            if (!videoPlayer || !tex || string.IsNullOrEmpty(url))
             {
-                Debug.LogError("No video player set for VideoPlayerManager!");
-                return false;
-            }
-            else if (tex == null)
-            {
-                Debug.LogError("No render texture provided for InitializeVideo call");
-                return false;
-            }
-            else if (string.IsNullOrEmpty(url))
-            {
-                Debug.LogError("No URL provided for InitializeVideo call");
+                Debug.LogError("No video player or render texture or url set for VideoPlayerManager!");
                 return false;
             }
             else if (currentVideoCoroutine != null)
             {
                 // Stop an existing cutscene and the video player
-                Debug.LogWarning("Trying to prepare video while another video is playing! Stopping the previous video.");
-                StopVideo();
+                Debug.LogWarning("Trying to prepare video while another video is playing! Cancelling the previous video.");
+                StopCoroutine(currentVideoCoroutine);
+                videoPlayer.Stop();
+                videoPlayer.targetTexture.Release();
             }
 
             // URL is invalid
@@ -83,32 +71,21 @@ namespace Managers
                 return false;
             }
 
-            videoControls.gameObject.SetActive(showControls);
-            paused = false;
-            videoPlayer.playbackSpeed = 1.0f;
-
-            // Resets texture to black, maybe not the right way to do this
-            tex.Release();
-
             videoPlayer.targetTexture = tex;
             videoPlayer.url = url;
             videoPlayer.EnableAudioTrack(0, true);
             videoPlayerInitialized = true;
-            preparedVideoURL = url;
 
             autoPlayVideoOnPrepare = playAfterPrepared;
             videoPlayer.Prepare();
-
             return true;
         }
 
-        // Will play the most recently prepared video to the most recently provided render texture
-        // Use preparedVideoURL to check and make sure you're about to play the right thing
         public void PlayVideo()
         {
             if (!videoPlayerInitialized)
             {
-                Debug.LogError("Tried to play a video that has not been prepared");
+                Debug.LogWarning("Tried to play a video that has not been prepared");
                 return;
             }
             currentVideoCoroutine = StartCoroutine(PlayVideoCoroutine());
@@ -116,7 +93,6 @@ namespace Managers
 
         private IEnumerator PlayVideoCoroutine()
         {
-            // Wait until video has finished preparing if needed
             while (!videoPlayer.isPrepared)
             {
                 yield return null;
@@ -125,7 +101,7 @@ namespace Managers
             videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
-            while (videoPlayer.isPlaying || paused)
+            while (videoPlayer.isPlaying)
             {
                 yield return null;
             }
@@ -192,12 +168,11 @@ namespace Managers
             */
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
-            OnVideoCompleted.Invoke(videoPlayer.url, true);
+            OnVideoCompleted.Invoke(videoPlayer.url);
+            videoPlayer.targetTexture = null;
+            videoPlayer.url = null;
+            videoPlayerInitialized = false;
             currentVideoCoroutine = null;
-
-            videoPlayer.playbackSpeed = 1.0f;
-            paused = false;
-            videoControls.gameObject.SetActive(false);
         }
 
         public void StopVideo()
@@ -206,21 +181,18 @@ namespace Managers
             {
                 StopCoroutine(currentVideoCoroutine);
                 currentVideoCoroutine = null;
-
                 Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
-
                 videoPlayer.Stop();
-
-                videoPlayer.playbackSpeed = 1.0f;
-                paused = false;
-                videoControls.gameObject.SetActive(false);
-
-                OnVideoCompleted.Invoke(videoPlayer.url, false);
+                videoPlayer.targetTexture = null;
+                videoPlayer.url = null;
+                videoPlayerInitialized = false;
             }
         }
 
         private void OnErrorReceived(VideoPlayer source, string message)
         {
+            Debug.LogError("Video player error: " + message);
+
             if (currentVideoCoroutine != null)
             {
                 StopVideo();
@@ -232,52 +204,6 @@ namespace Managers
             if (autoPlayVideoOnPrepare)
             {
                 PlayVideo();
-            }
-        }
-
-        public void SetPause(bool shouldPause)
-        {
-            if (currentVideoCoroutine == null)
-            {
-                return;
-            }
-
-            if (shouldPause && !paused)
-            {
-                paused = true;
-                SetPlaybackSpeed(0.0f);
-            }
-            else if (!shouldPause && paused)
-            {
-                paused = false;
-                SetPlaybackSpeed(1.0f);
-            }
-        }
-
-        public void SetPlaybackSpeed(float speed)
-        {
-            if (currentVideoCoroutine == null)
-            {
-                return;
-            }
-
-            videoPlayer.playbackSpeed = speed;
-        }
-
-        public void Rewind(float seconds)
-        {
-            if (currentVideoCoroutine == null)
-            {
-                return;
-            }
-
-            if (seconds > videoPlayer.time)
-            {
-                videoPlayer.time = 0;
-            }
-            else
-            {
-                videoPlayer.time -= seconds;
             }
         }
     }
