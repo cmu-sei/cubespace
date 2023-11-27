@@ -15,13 +15,11 @@ namespace Managers
         [SerializeField] private VideoPlayer videoPlayer;
         [SerializeField] private AudioSource audioSource;
 
-        private RenderTexture renderTex = null;
-
         private Coroutine currentVideoCoroutine = null;
         private bool autoPlayVideoOnPrepare = false;
         private bool videoPlayerInitialized = false;
 
-        public static Action<string> OnVideoCompleted;
+        public static Action<string, bool> OnVideoCompleted; // (url, videoFinished)
 
         private void OnEnable()
         {
@@ -45,10 +43,8 @@ namespace Managers
             else if (currentVideoCoroutine != null)
             {
                 // Stop an existing cutscene and the video player
-                Debug.LogWarning("Trying to prepare video while another video is playing! Cancelling the previous video.");
-                StopCoroutine(currentVideoCoroutine);
-                videoPlayer.Stop();
-                videoPlayer.targetTexture.Release();
+                Debug.LogWarning("Trying to prepare video while another video is playing! Stopping the previous video.");
+                StopVideo();
             }
 
             // URL is invalid
@@ -85,7 +81,7 @@ namespace Managers
         {
             if (!videoPlayerInitialized)
             {
-                Debug.LogWarning("Tried to play a video that has not been prepared");
+                Debug.LogError("Tried to play a video that has not been prepared");
                 return;
             }
             currentVideoCoroutine = StartCoroutine(PlayVideoCoroutine());
@@ -93,6 +89,7 @@ namespace Managers
 
         private IEnumerator PlayVideoCoroutine()
         {
+            // Wait until video has finished preparing if needed
             while (!videoPlayer.isPrepared)
             {
                 yield return null;
@@ -168,9 +165,8 @@ namespace Managers
             */
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
-            OnVideoCompleted.Invoke(videoPlayer.url);
+            OnVideoCompleted.Invoke(videoPlayer.url, true);
             videoPlayer.targetTexture = null;
-            videoPlayer.url = null;
             videoPlayerInitialized = false;
             currentVideoCoroutine = null;
         }
@@ -186,13 +182,12 @@ namespace Managers
                 videoPlayer.targetTexture = null;
                 videoPlayer.url = null;
                 videoPlayerInitialized = false;
+                OnVideoCompleted.Invoke(videoPlayer.url, false);
             }
         }
 
         private void OnErrorReceived(VideoPlayer source, string message)
         {
-            Debug.LogError("Video player error: " + message);
-
             if (currentVideoCoroutine != null)
             {
                 StopVideo();
@@ -205,6 +200,11 @@ namespace Managers
             {
                 PlayVideo();
             }
+        }
+
+        public void SetVideoSystemVolume(float value)
+        {
+            videoPlayer.SetDirectAudioVolume(0, value);
         }
     }
 }
