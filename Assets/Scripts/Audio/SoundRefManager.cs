@@ -31,7 +31,6 @@ namespace Audio {
         public AudioMixerSnapshot DefaultSnapshot;
         public AudioMixerSnapshot MuteSnapshot;
         public AudioMixerSnapshot MuteSFXSnapshot;
-        public AudioMixerSnapshot MissionLogSnapshot;
 
         // The complete list of possible Sounds we can play
         [SerializeField] private List<Sound> soundList;

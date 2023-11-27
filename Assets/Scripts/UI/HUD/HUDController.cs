@@ -238,9 +238,6 @@ namespace UI.HUD
                     taskList.CloseAdditionalInfo();
                 }
             }
-
-            //audio config
-            Audio.AudioPlayer.Instance.SetMissionLogSnapshot(newState == MenuState.MissionLog);
             
             //should check for going from state to same, but then would have to deal with init flow.
             _menuState = newState;

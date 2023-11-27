@@ -136,30 +136,25 @@ namespace Entities.Workstations.SensorStationParts
             incomingTransmission = data.currentStatus.incomingTransmission;
             currentLocationScanned = data.currentStatus.currentLocationScanned;
             currentLocationSurroundings = data.currentStatus.currentLocationSurroundings;
+
             if (data.currentStatus.incomingTransmissionObject == null)
             {
                 incomingTransmissionEvent = null;
             }
             else
             {
-                if (incomingTransmissionEvent != null)
-                {
-                    if (!incomingTransmissionEvent.IsEquivalentTo(data.currentStatus.incomingTransmissionObject))
-                    {
-                        incomingTransmissionEvent = data.currentStatus.incomingTransmissionObject;
-                        RpcTryPrePrepareVideoSystem(data.currentStatus.incomingTransmissionObject.videoURL);
-                        if (isClient) // For host + client
-                        {
-                            TryPrePrepareVideoSystem(data.currentStatus.incomingTransmissionObject.videoURL);
-                        }
-                    }
-                }
-                else
+                if (incomingTransmissionEvent == null || !incomingTransmissionEvent.IsEquivalentTo(data.currentStatus.incomingTransmissionObject))
                 {
                     incomingTransmissionEvent = data.currentStatus.incomingTransmissionObject;
-                }   
+                    RpcTryReadyVideo(data.currentStatus.incomingTransmissionObject.videoURL);
+                    if (isClient) // For host + client
+                    {
+                        TryReadyVideo(data.currentStatus.incomingTransmissionObject.videoURL);
+                    }
+                }
             }
 
+            // TODO: this is happening every 2 seconds for no reason??? (BAD)
             RpcTrySetIncomingTransmissionIcon();
             // For host + client
             if (isClient)
@@ -225,11 +220,11 @@ namespace Entities.Workstations.SensorStationParts
         /// <summary>
         /// Tries to preload the video at the sensor station if there is an incoming transmission
         /// </summary>
-        private void TryPrePrepareVideoSystem(string url)
+        private void TryReadyVideo(string url)
         {
             if (incomingTransmission && _videoSystem != null)
             {
-                _videoSystem.PrePrepareVideo(url);
+                _videoSystem.ReadyVideo(url);
             }
         }
         #endregion
@@ -441,9 +436,9 @@ namespace Entities.Workstations.SensorStationParts
         /// Tries to prepare a new transmission video across all clients.
         /// </summary>
         [ClientRpc]
-        private void RpcTryPrePrepareVideoSystem(string url)
+        private void RpcTryReadyVideo(string url)
         {
-            TryPrePrepareVideoSystem(url);
+            TryReadyVideo(url);
         }
 
         /// <summary>
