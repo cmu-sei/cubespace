@@ -10,21 +10,27 @@ using UnityEngine.Video;
 namespace Managers
 {
     // Wrapper for Unity's video player that handles buffering, audio desync, and other problems
+    // Used by the cutscene system for jump videos and mission log videos and sensor station for transmissions
     public class VideoPlayerManager : ConnectedSingleton<VideoPlayerManager>
     {
         [SerializeField] private VideoPlayer videoPlayer;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private VideoControls videoControls;
 
         private Coroutine currentVideoCoroutine = null;
         private bool autoPlayVideoOnPrepare = false;
         private bool videoPlayerInitialized = false;
+        [HideInInspector] public string preparedVideoURL = "";
 
-        public static Action<string, bool> OnVideoCompleted; // (url, videoFinished)
+        public static Action<string, bool> OnVideoCompleted; // (url, didVideoFinish?)
+
+        private bool paused = false;
 
         private void OnEnable()
         {
             videoPlayer.errorReceived += OnErrorReceived;
             videoPlayer.prepareCompleted += OnPlayerPrepared;
+            videoControls.gameObject.SetActive(false);
         }
 
         private void OnDisable()
@@ -33,7 +39,7 @@ namespace Managers
             videoPlayer.prepareCompleted -= OnPlayerPrepared;
         }
  
-        public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared)
+        public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared, bool showControls = false)
         {
             if (!videoPlayer || !tex || string.IsNullOrEmpty(url))
             {
@@ -67,16 +73,24 @@ namespace Managers
                 return false;
             }
 
+            videoControls.gameObject.SetActive(showControls);
+            paused = false;
+            videoPlayer.playbackSpeed = 1.0f;
+
             videoPlayer.targetTexture = tex;
             videoPlayer.url = url;
             videoPlayer.EnableAudioTrack(0, true);
             videoPlayerInitialized = true;
+            preparedVideoURL = url;
 
             autoPlayVideoOnPrepare = playAfterPrepared;
             videoPlayer.Prepare();
+
             return true;
         }
 
+        // Will play the most recently prepared video to the most recently provided render texture
+        // Use preparedVideoURL to check and make sure you're about to play the right thing
         public void PlayVideo()
         {
             if (!videoPlayerInitialized)
@@ -98,7 +112,7 @@ namespace Managers
             videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
-            while (videoPlayer.isPlaying)
+            while (videoPlayer.isPlaying || paused)
             {
                 yield return null;
             }
@@ -166,9 +180,11 @@ namespace Managers
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
             OnVideoCompleted.Invoke(videoPlayer.url, true);
-            videoPlayer.targetTexture = null;
-            videoPlayerInitialized = false;
             currentVideoCoroutine = null;
+
+            videoPlayer.playbackSpeed = 1.0f;
+            paused = false;
+            videoControls.gameObject.SetActive(false);
         }
 
         public void StopVideo()
@@ -177,11 +193,15 @@ namespace Managers
             {
                 StopCoroutine(currentVideoCoroutine);
                 currentVideoCoroutine = null;
+
                 Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
+
                 videoPlayer.Stop();
-                videoPlayer.targetTexture = null;
-                videoPlayer.url = null;
-                videoPlayerInitialized = false;
+
+                videoPlayer.playbackSpeed = 1.0f;
+                paused = false;
+                videoControls.gameObject.SetActive(false);
+
                 OnVideoCompleted.Invoke(videoPlayer.url, false);
             }
         }
@@ -202,9 +222,50 @@ namespace Managers
             }
         }
 
-        public void SetVideoSystemVolume(float value)
+        public void SetPause(bool shouldPause)
         {
-            videoPlayer.SetDirectAudioVolume(0, value);
+            if (currentVideoCoroutine == null)
+            {
+                return;
+            }
+
+            if (shouldPause && !paused)
+            {
+                paused = true;
+                SetPlaybackSpeed(0.0f);
+            }
+            else if (!shouldPause && paused)
+            {
+                paused = false;
+                SetPlaybackSpeed(1.0f);
+            }
+        }
+
+        public void SetPlaybackSpeed(float speed)
+        {
+            if (currentVideoCoroutine == null)
+            {
+                return;
+            }
+
+            videoPlayer.playbackSpeed = speed;
+        }
+
+        public void Rewind(float seconds)
+        {
+            if (currentVideoCoroutine == null)
+            {
+                return;
+            }
+
+            if (seconds > videoPlayer.time)
+            {
+                videoPlayer.time = 0;
+            }
+            else
+            {
+                videoPlayer.time -= seconds;
+            }
         }
     }
 }

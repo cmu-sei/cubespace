@@ -10,10 +10,8 @@ DM23-0100
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Video;
 using UI.HUD;
 using Managers;
-using Mirror;
 
 namespace Entities.Workstations.SensorStationParts
 {
@@ -43,18 +41,20 @@ namespace Entities.Workstations.SensorStationParts
         /// Initializes the video player and begins preparing the video at the given url
         /// </summary>
         /// <param name="url">The URL of the video that should be prepared</param>
-        public void ReadyVideo(string url)
+        public bool ReadyVideo(string url)
         {
             if (!VideoPlayerManager.Instance)
             {
                 Debug.LogError("Couldn't Find video player manager!");
-                return;
+                return false;
             }
 
             if (!VideoPlayerManager.Instance.InitializeVideo(url, tex, false))
             {
                 Debug.LogWarning("Video initialization failed!");
+                return false;
             }
+            return true;
         }
 
         /// <summary>
@@ -68,6 +68,16 @@ namespace Entities.Workstations.SensorStationParts
             {
                 Debug.LogError("Couldn't find video player manager!");
                 return;
+            }
+
+            // Check to make sure that the VideoPlayerManager still has the proper video prepared
+            if (VideoPlayerManager.Instance.preparedVideoURL != url)
+            {
+                if (!ReadyVideo(url))
+                {
+                    Debug.LogError("Sensor station transmission video failed!");
+                    return;
+                }
             }
 
             VideoPlayerManager.Instance.PlayVideo();
