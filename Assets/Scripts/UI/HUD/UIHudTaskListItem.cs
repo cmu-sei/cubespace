@@ -14,6 +14,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Systems;
+using UnityEngine.Video;
+using Managers;
 
 /// <summary>
 /// A task list item displayed within the mission log.
@@ -164,7 +166,7 @@ public class UIHudTaskListItem : MonoBehaviour
     /// </summary>
     public void OnVideoButtonClick()
     {
-        CutsceneSystem.Instance.PrepareWebCutscene(data.videoURL, true, true);
+        CutsceneSystem.Instance.PlayArchivesVideo(data.videoURL);
     }
 }
 
