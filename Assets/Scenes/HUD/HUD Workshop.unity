@@ -5875,9 +5875,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A team of researchers have been studying the Seelax for years and are returning
-    from their latest dig.  They're scheduled to resupply at an old Aurellian starbase,
-    if you can get there in time...
+  m_text: "A team of researchers have been studying the Seelax for years and are
+    returning from their latest dig.  They're scheduled to resupply at an old Aurellian
+    starbase, <b>if</b> you can get there in time...\n resupply at an old Aurellian
+    starbase, <b>if</b> you can get there in time...\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 98f809dfceaac9b43ab384a32cc67309, type: 2}
   m_sharedMaterial: {fileID: 7745072789350825337, guid: 98f809dfceaac9b43ab384a32cc67309,
@@ -5899,7 +5900,7 @@ MonoBehaviour:
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
+  m_StyleSheet: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e, type: 2}
   m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
