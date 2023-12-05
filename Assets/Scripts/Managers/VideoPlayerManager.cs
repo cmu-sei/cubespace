@@ -41,9 +41,19 @@ namespace Managers
  
         public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared, bool showControls = false)
         {
-            if (!videoPlayer || !tex || string.IsNullOrEmpty(url))
+            if (videoPlayer == null)
             {
-                Debug.LogError("No video player or render texture or url set for VideoPlayerManager!");
+                Debug.LogError("No video player set for VideoPlayerManager!");
+                return false;
+            }
+            else if (tex == null)
+            {
+                Debug.LogError("No render texture provided for InitializeVideo call");
+                return false;
+            }
+            else if (string.IsNullOrEmpty(url))
+            {
+                Debug.LogError("No URL provided for InitializeVideo call");
                 return false;
             }
             else if (currentVideoCoroutine != null)
@@ -76,6 +86,9 @@ namespace Managers
             videoControls.gameObject.SetActive(showControls);
             paused = false;
             videoPlayer.playbackSpeed = 1.0f;
+
+            // Resets texture to black, maybe not the right way to do this
+            tex.Release();
 
             videoPlayer.targetTexture = tex;
             videoPlayer.url = url;
