@@ -1,0 +1,837 @@
+{
+	"session": {
+		"teamInfoName": "Default Team Name",
+		"teamCodexCount": 0,
+		"jumpCutsceneURL": "https://presidentscup.cisa.gov/files/Kq3tPWBUjmjywQY4GQ6S5FmfxzDwxxUf_Warp_Entire_Sequence_v1.mp4",
+		"gameStartTime": "2023-05-23T09:00:00",
+		"gameCurrentTime": "2023-05-23T14:59:30",
+		"gameEndTime": "2023-05-23T15:00:00",
+		"timerTitle": "Time until Reactor Explosion",
+		"useGalaxyDisplayMap": true,
+		"useCodices": false,
+		"displayIncompleteMissionPogs": false
+	},
+	"ship": {
+		"codexURL": "http://k2.etc.cmu.edu/envsim/vmsims/codexworkstation.html",
+		"workstation1URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html",
+		"workstation2URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation2.html",
+		"workstation3URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation3.html",
+		"workstation4URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation4.html",
+		"workstation5URL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation5.html",
+		"challengeURLs": [
+			{
+				"missionID": "gravcon",
+				"missionName": "Gravitic Containment",
+				"missionIcon":  "gravcon",
+				"vmURLs": [
+					{
+						"vmName": "pc4-kali-stock-v4",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					},
+					{
+						"vmName": "a-very-good-name",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "ringrot",
+				"missionName": "Ring Singularity Rotation Monitor",
+				"missionIcon":  "ringrot",
+				"vmURLs": [
+					{
+						"vmName": "pc4-kali-stock-v4",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					},
+					{
+						"vmName": "a-very-good-name",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "gravcon",
+				"missionName": "Gravitic Containment",
+				"vmURLs": [
+					{
+						"vmName": "pc4-kali-stock-v4",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					},
+					{
+						"vmName": "a-very-good-name",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "gravcon",
+				"missionName": "Gravitic Containment",
+				"vmURLs": [
+					{
+						"vmName": "test-test",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			},
+			{
+				"missionID": "reactor",
+				"missionName": "Reactor Cooling",
+				"vmURLs": [
+					{
+						"vmName": "test-kali-592-test",
+						"vmURL": "http://k2.etc.cmu.edu/envsim/vmsims/workstation1.html"
+					}
+				]
+			}
+		]
+	},
+	"currentStatus": {
+		"currentLocation": "probe",
+		"antennaExtended": true,
+		"networkConnected": true,
+		"networkName": "network",
+		"firstContactComplete": true,
+		"powerStatus": "launchMode",
+		"incomingTransmission": true,
+		"currentLocationScanned": true,
+		"currentLocationSurroundings": "Surroundings",
+		"incomingTransmissionObject": {
+			"commID": "testID",
+			"videoURL": "https://presidentscup.cisa.gov/files/hqv8a5dv6GR9bh9278VPuP36xA7d9htD-VIDEO-04-P01.mp4",
+			"commTemplate": "incoming",
+			"template": 0,
+			"translationMessage": "",
+			"scanInfoMessage": "",
+			"firstContact": false
+		},
+		"powerState": 1
+	},
+	"missions": [
+		{
+			"missionID": "gravcon",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 1000,
+			"associatedChallenges": [
+				{
+					"missionID": "gravconcache",
+					"unlockCode": "123456"
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 1,
+			"galaxyMapXPos": 140,
+			"galaxyMapYPos": 40,
+			"galaxyMapTargetXPos": 140,
+			"galaxyMapTargetYPos": 40,
+			"visible": true,
+			"complete": true,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Gravitic Containment",
+			"missionIcon": "gravcon",
+			"summaryShort": "Fix Gravitic Containment",
+			"summaryLong": "Fix Gravitic Containment",
+			"roleList": [],
+			"taskList": [
+				{
+					"taskID": "gracon1",
+					"missionID": "gravcon",
+					"descriptionText": "Fix Gravitic Containment",
+					"visible": true,
+					"complete": true,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Gravitic Containment</line-height>",
+					"videoPresent": true,
+					"videoURL": "https://presidentscup.cisa.gov/files/hqv8a5dv6GR9bh9278VPuP36xA7d9htD-VIDEO-04-P01.mp4"
+				}
+			]
+		},
+		{
+			"missionID": "reactor",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 700,
+			"associatedChallenges": [
+				{
+					"missionID": "reactorcache",
+					"unlockCode": "ABC456"
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 5,
+			"galaxyMapXPos": 115,
+			"galaxyMapYPos": -150,
+			"galaxyMapTargetXPos": 115,
+			"galaxyMapTargetYPos": -150,
+			"visible": true,
+			"complete": true,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Reactor Cooling",
+			"missionIcon": "reactor",
+			"summaryShort": "Fix Reactor Cooling",
+			"summaryLong": "Fix Reactor Cooling",
+			"roleList": [ "Cyber Defense Incident Reporter", "Network Operations Specialist", "Exploitation Analyst" ],
+			"taskList": [
+				{
+					"taskID": "reactor1",
+					"missionID": "reactor",
+					"descriptionText": "Fix Reactor Cooling",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Reactor Cooling</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "ringrot",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 100,
+			"currentScore": 300,
+			"associatedChallenges": [
+				{
+					"missionID": "ringrotcache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": 0,
+			"galaxyMapYPos": 141,
+			"galaxyMapTargetXPos": 0,
+			"galaxyMapTargetYPos": 141,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Ring Singularity Rotation Monitor",
+			"missionIcon": "ringrot",
+			"summaryShort": "Fix Ring Singularity Rotation Monitor",
+			"summaryLong": "Fix Ring Singularity Rotation Monitor",
+			"roleList": [ "Cyber Defense Incident Reporter", "Network Operations Specialist", "Threat/Warning Analyst", "Exploitation Analyist" ],
+			"taskList": [
+				{
+					"taskID": "ringrot1",
+					"missionID": "ringrot",
+					"descriptionText": "Fix Ring Singularity Rotation Monitor",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Ring Singularity Rotation Monitor</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "ergocon",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 0,
+			"associatedChallenges": [
+				{
+					"missionID": "ergoconcache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -300,
+			"galaxyMapYPos": 210,
+			"galaxyMapTargetXPos": -300,
+			"galaxyMapTargetYPos": 210,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Ergospheric Containment",
+			"missionIcon": "ergocon",
+			"summaryShort": "Fix Ergonomic Containment",
+			"summaryLong": "Fix Ergonomic Containment",
+			"roleList": [ "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "ergocon1",
+					"missionID": "ergocon",
+					"descriptionText": "Fix Ergonomic Containment",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Ergonomic Containment</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "penmass",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 0,
+			"associatedChallenges": [
+				{
+					"missionID": "penmasscache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -500,
+			"galaxyMapYPos": 250,
+			"galaxyMapTargetXPos": -500,
+			"galaxyMapTargetYPos": 250,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Penrose Mass Accelerator",
+			"missionIcon": "penmass",
+			"summaryShort": "Fix Penrose Mass Accelerator",
+			"summaryLong": "Fix Penrose Mass Accelerator",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "penmass1",
+					"missionID": "penmass",
+					"descriptionText": "Fix Penrose Mass Accelerator",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Penrose Mass Accelerator</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "electro",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 0,
+			"associatedChallenges": [
+				{
+					"missionID": "electrocache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -75,
+			"galaxyMapYPos": -20,
+			"galaxyMapTargetXPos": -75,
+			"galaxyMapTargetYPos": -20,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Electromagnetic Reflector",
+			"missionIcon": "electro",
+			"summaryShort": "Fix Electromagnetic Reflector",
+			"summaryLong": "Fix Electromagnetic Reflector",
+			"roleList": [ "Vulnerability Assessment Analyst", "Network Operations Specialist" ],
+			"taskList": [
+				{
+					"taskID": "cllctn1",
+					"missionID": "cllctn",
+					"descriptionText": "Fix Electromagnetic Reflector",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Electromagnetic Reflector</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "radiant",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 0,
+			"associatedChallenges": [
+				{
+					"missionID": "radiantcache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -230,
+			"galaxyMapYPos": -50,
+			"galaxyMapTargetXPos": -230,
+			"galaxyMapTargetYPos": -50,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Super-radiant Scattering Monitor",
+			"missionIcon": "radiant",
+			"summaryShort": "Fix Super-radiant Scattering Monitor",
+			"summaryLong": "Fix Super-radiant Scattering Monitor",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "radiant1",
+					"missionID": "radiant",
+					"descriptionText": "Fix Super-radiant Scattering Monitor",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Super-radiant Scattering Monitor</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "conduit",
+			"possibleMaximumScore": 1000,
+			"baseSolveValue": 700,
+			"bonusRemaining": 300,
+			"currentScore": 0,
+			"associatedChallenges": [
+				{
+					"missionID": "conduitcache",
+					"unlockCode": null
+				}
+			],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -420,
+			"galaxyMapYPos": 50,
+			"galaxyMapTargetXPos": -420,
+			"galaxyMapTargetYPos": 50,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "probe",
+			"title": "Power Conversion Conduits",
+			"missionIcon": "conduit",
+			"summaryShort": "Fix Power Conversion Conduits",
+			"summaryLong": "Fix Power Conversion Conduits",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "conduit1",
+					"missionID": "conduit",
+					"descriptionText": "Fix Power Conversion Conduits",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Power Conversion Conduits</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "gravconcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": 100,
+			"galaxyMapYPos": 220,
+			"galaxyMapTargetXPos": 140,
+			"galaxyMapTargetYPos": 40,
+			"visible": true,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "alpha",
+			"title": "Gravity Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Gravity Cache",
+			"summaryLong": "Obtain Gravity Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "gravconcache_1",
+					"missionID": "gravconcache",
+					"descriptionText": "Obtain Gravity Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Gravity Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "reactorcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 100,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 1,
+			"galaxyMapXPos": 130,
+			"galaxyMapYPos": -300,
+			"galaxyMapTargetXPos": 115,
+			"galaxyMapTargetYPos": -150,
+			"visible": true,
+			"complete": true,
+			"isSpecial": false,
+			"locationID": "beta",
+			"title": "Reactor Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Reactor Cache",
+			"summaryLong": "Obtain Reactor Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "reactorcache_1",
+					"missionID": "reactorcache",
+					"descriptionText": "Obtain Reactor Cache",
+					"visible": true,
+					"complete": true,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Reactor Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "ringrotcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": 0,
+			"galaxyMapYPos": 300,
+			"galaxyMapTargetXPos": 0,
+			"galaxyMapTargetYPos": 141,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "gamma",
+			"title": "Ring Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Ring Cache",
+			"summaryLong": "Obtain Ring Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "ringrotcache_1",
+					"missionID": "ringrotcache",
+					"descriptionText": "Obtain Ring Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Ring Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "ergoconcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -150,
+			"galaxyMapYPos": 340,
+			"galaxyMapTargetXPos": -300,
+			"galaxyMapTargetYPos": 210,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "delta",
+			"title": "Ergosphere Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Ergosphere Cache",
+			"summaryLong": "Obtain Ergosphere Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "ergoconcache_1",
+					"missionID": "ergoconcache",
+					"descriptionText": "Obtain Ergosphere Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Ergosphere Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "penmasscache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -400,
+			"galaxyMapYPos": 320,
+			"galaxyMapTargetXPos": -500,
+			"galaxyMapTargetYPos": 250,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "epsilon",
+			"title": "Penrose Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Penrose Cache",
+			"summaryLong": "Obtain Penrose Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "penmasscache_1",
+					"missionID": "penmasscache",
+					"descriptionText": "Obtain Penrose Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Penrose Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "electrocache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -130,
+			"galaxyMapYPos": -240,
+			"galaxyMapTargetXPos": -75,
+			"galaxyMapTargetYPos": -20,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "mu",
+			"title": "Electromagnetic Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Electromagnetic Cache",
+			"summaryLong": "Obtain Electromagnetic Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "electrocache_1",
+					"missionID": "electrocache",
+					"descriptionText": "Obtain Electromagnetic Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Electromagnetic Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "radiantcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -410,
+			"galaxyMapYPos": -320,
+			"galaxyMapTargetXPos": -230,
+			"galaxyMapTargetYPos": -50,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "pi",
+			"title": "Radiant Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Radiant Cache",
+			"summaryLong": "Obtain Radiant Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "radiantcache_1",
+					"missionID": "radiantcache",
+					"descriptionText": "Obtain Radiant Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Radiant Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		},
+		{
+			"missionID": "conduitcache",
+			"possibleMaximumScore": 100,
+			"baseSolveValue": 100,
+			"bonusRemaining": 0,
+			"currentScore": 0,
+			"associatedChallenges": [],
+			"totalTeams": 5,
+			"solveTeams": 0,
+			"galaxyMapXPos": -480,
+			"galaxyMapYPos": -120,
+			"galaxyMapTargetXPos": -420,
+			"galaxyMapTargetYPos": 50,
+			"visible": false,
+			"complete": false,
+			"isSpecial": false,
+			"locationID": "omega",
+			"title": "Conduit Cache",
+			"missionIcon": "cache",
+			"summaryShort": "Obtain Conduit Cache",
+			"summaryLong": "Obtain Conduit Cache",
+			"roleList": [ "Threat/Warning Analyst", "Cyber Defense Forensics Analyst" ],
+			"taskList": [
+				{
+					"taskID": "conduitcache_1",
+					"missionID": "conduitcache",
+					"descriptionText": "Obtain Conduit Cache",
+					"visible": true,
+					"complete": false,
+					"infoPresent": true,
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Obtain Conduit Cache</line-height>",
+					"videoPresent": false,
+					"videoURL": ""
+				}
+			]
+		}
+	],
+	"locations": [
+		{
+			"locationID": "probe",
+			"name": "Probe",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "",
+			"trajectoryLaunch": 1,
+			"trajectoryCorrection": 2,
+			"trajectoryCube": 3
+		},
+		{
+			"locationID": "alpha",
+			"name": "Alpha",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "AAAAAA",
+			"trajectoryLaunch": 16,
+			"trajectoryCorrection": 17,
+			"trajectoryCube": 18
+		},
+		{
+			"locationID": "beta",
+			"name": "Beta",
+			"imageID": "image6",
+			"backdropID": "bkd_cllctn",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "BBBBBB",
+			"trajectoryLaunch": 80,
+			"trajectoryCorrection": 111,
+			"trajectoryCube": 122
+		},
+		{
+			"locationID": "gamma",
+			"name": "Gamma",
+			"imageID": "image6",
+			"backdropID": "bkd_redradr",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "CCCCCC",
+			"trajectoryLaunch": 80,
+			"trajectoryCorrection": 111,
+			"trajectoryCube": 122
+		},
+		{
+			"locationID": "delta",
+			"name": "Delta",
+			"imageID": "image4",
+			"backdropID": "bkd_antruins",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "DDDDDD",
+			"trajectoryLaunch": 11,
+			"trajectoryCorrection": 22,
+			"trajectoryCube": 33
+		},
+		{
+			"locationID": "epsilon",
+			"name": "Epsilon",
+			"imageID": "image2",
+			"backdropID": "bkd_exoarch",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "EEEEEE",
+			"trajectoryLaunch": 275,
+			"trajectoryCorrection": 90,
+			"trajectoryCube": 145
+		},
+		{
+			"locationID": "mu",
+			"name": "Mu",
+			"imageID": "image3",
+			"backdropID": "bkd_redradr",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "FFFFFF",
+			"trajectoryLaunch": 75,
+			"trajectoryCorrection": 70,
+			"trajectoryCube": 60
+		},
+		{
+			"locationID": "pi",
+			"name": "Pi",
+			"imageID": "image5",
+			"backdropID": "bkd_astfld_initial",
+			"visited": false,
+			"scanned": false,
+			"unlockCode": "000000",
+			"trajectoryLaunch": 15,
+			"trajectoryCorrection": 42,
+			"trajectoryCube": 3
+		},
+		{
+			"locationID": "omega",
+			"name": "Omega",
+			"imageID": "image8",
+			"backdropID": "bkd_plto",
+			"visited": true,
+			"scanned": false,
+			"unlockCode": "",
+			"trajectoryLaunch": 200,
+			"trajectoryCorrection": 225,
+			"trajectoryCube": 250
+		}
+	]
+}

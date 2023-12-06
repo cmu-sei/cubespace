@@ -10,38 +10,19 @@ DM23-0100
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Video;
 using UI.HUD;
 using Managers;
-using Mirror;
 
 namespace Entities.Workstations.SensorStationParts
 {
     /// <summary>
-    /// The system which dictates what video to play.
+    /// The interface between the sensor station and the video player manager
     /// </summary>
-    [RequireComponent(typeof(VideoPlayer))]
     public class SensorStationVideoSystem : MonoBehaviour
     {
         #region Variables
-        /// <summary>
-        /// The event invoked when the video finishes playing.
-        /// </summary>
-        /// <param name="urlOfVideoFinished">The URL of the video that just finished.</param>
-        public delegate void VideoEvent(string urlOfVideoFinished);
-
-        /// <summary>
-        /// The video player used to play the video.
-        /// </summary>
-        private VideoPlayer _videoPlayer;
-        /// <summary>
-        /// The current video playing.
-        /// </summary>
-        private Coroutine currentVideoCoroutine;
-        /// <summary>
-        /// The CustomNetworkManager within the game.
-        /// </summary>
-        private CustomNetworkManager networkManager;
+        [SerializeField] private RenderTexture tex;
+        private SensorStation station;
         #endregion
 
         #region Unity event functions
@@ -50,32 +31,59 @@ namespace Entities.Workstations.SensorStationParts
         /// </summary>
         private void Start()
         {
-            _videoPlayer = GetComponent<VideoPlayer>();
-            _videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-            _videoPlayer.isLooping = false;
-            networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
-
-            if (!_videoPlayer.targetTexture)
-            {
-                Debug.LogError("No render texture set for sensor station!");
-                return;
-            }
+            station = GetComponent<SensorStation>();
         }
         #endregion
 
         #region Video playback methods
+
         /// <summary>
-        /// Prepares, then plays the video.
+        /// Initializes the video player and begins preparing the video at the given url
+        /// </summary>
+        /// <param name="url">The URL of the video that should be prepared</param>
+        public bool ReadyVideo(string url)
+        {
+            if (!VideoPlayerManager.Instance)
+            {
+                Debug.LogError("Couldn't Find video player manager!");
+                return false;
+            }
+
+            if (!VideoPlayerManager.Instance.InitializeVideo(url, tex, false))
+            {
+                Debug.LogWarning("Video initialization failed!");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Plays a video which should have been initialized previously
         /// </summary>
         /// <param name="url">The URL of the video that should play.</param>
         /// <param name="callback">The callback method to invoke within a coroutine upon finishing the video.</param>
-        public void PlayVideo(string url, VideoEvent callback)
+        public void PlayVideo(string url)
         {
-            _videoPlayer.targetTexture.Release();
-            _videoPlayer.url = url;
-            _videoPlayer.EnableAudioTrack(0, true);
-            _videoPlayer.Prepare();
-            currentVideoCoroutine = StartCoroutine(VideoPlayCoroutine(url, callback));
+            if (!VideoPlayerManager.Instance)
+            {
+                Debug.LogError("Couldn't find video player manager!");
+                return;
+            }
+
+            // Check to make sure that the VideoPlayerManager still has the proper video prepared
+            if (VideoPlayerManager.Instance.preparedVideoURL != url)
+            {
+                if (!ReadyVideo(url))
+                {
+                    Debug.LogError("Sensor station transmission video failed!");
+                    return;
+                }
+            }
+
+            VideoPlayerManager.Instance.PlayVideo();
+            UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
+
+            VideoPlayerManager.OnVideoCompleted += OnVideoEnd;
         }
 
         /// <summary>
@@ -83,56 +91,24 @@ namespace Entities.Workstations.SensorStationParts
         /// </summary>
         public void InterruptVideo()
         {
-            if (currentVideoCoroutine != null)
+            if (!VideoPlayerManager.Instance)
             {
-                UIExitWorkstationButton.Instance.SetHiddenByVideo(false);
-                StopCoroutine(currentVideoCoroutine);
-            }
-            if (_videoPlayer.isPlaying)
-            {
-                UIExitWorkstationButton.Instance.SetHiddenByVideo(false);
-                _videoPlayer.Stop();
-            }
-            Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
-        }
-
-        /// <summary>
-        /// Plays a video and then waits for it to finish.
-        /// </summary>
-        /// <param name="url">The URL of the video that should play.</param>
-        /// <param name="callback">The callback method to invoke upon finishing the video.</param>
-        /// <returns>A yield return while playing the video.</returns>
-        private IEnumerator VideoPlayCoroutine(string url, VideoEvent callback)
-        {
-            UIExitWorkstationButton.Instance.SetHiddenByVideo(true);
-            while (!_videoPlayer.isPrepared)
-            {
-                yield return null;
+                Debug.LogError("Couldn't find video player manager!");
+                return;
             }
 
-            _videoPlayer.Play();
-            Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
-            while (_videoPlayer.isPlaying)
-            {
-                if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
-                {
-                    break;
-                }
-                yield return null;
-            }
-
+            VideoPlayerManager.Instance.StopVideo();
             UIExitWorkstationButton.Instance.SetHiddenByVideo(false);
-            Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
-            callback.Invoke(url);
         }
 
-        /// <summary>
-        /// Sets the volume of the video.
-        /// </summary>
-        /// <param name="value">The new volume the video should have.</param>
-        public void SetVideoVolume(float value)
+        private void OnVideoEnd(string url, bool videoCompleted)
         {
-            _videoPlayer.SetDirectAudioVolume(0, value);
+            if (videoCompleted)
+            {
+                station.OnVideoFinished(url);
+            }
+            UIExitWorkstationButton.Instance.SetHiddenByVideo(false);
+            VideoPlayerManager.OnVideoCompleted -= OnVideoEnd;
         }
         #endregion
     }

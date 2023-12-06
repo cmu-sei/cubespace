@@ -61,7 +61,6 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs: []
-  onlineLoaderScene: Assets/Scenes/OnlineLoader.unity
   _sceneController: {fileID: 11400000, guid: 459f6c5f31a89e249b00768ca2d85c83, type: 2}
   workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a, type: 2}
   isInDevMode: 0
@@ -73,7 +72,8 @@ MonoBehaviour:
   launchModeKeyCode: 108
   explorationModeKeyCode: 101
   standbyModeKeyCode: 115
-  audioPrefab: {fileID: 0}
+  audioPrefab: {fileID: 3491689149527373565, guid: 66ccefbc5be904990a16cf48c4c89692,
+    type: 3}
 --- !u!114 &8692965394630387623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,8 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0110f245bfcfc7d459681f7bd9ebc590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 7778
-  maxMessageSize: 32768
+  port: 80
+  maxMessageSize: 100000000
   handshakeMaxSize: 3000
   noDelay: 1
   sendTimeout: 5000
@@ -96,7 +96,7 @@ MonoBehaviour:
   clientMaxMessagesPerTick: 1000
   batchSend: 1
   waitBeforeSend: 0
-  clientUseWss: 0
+  clientUseWss: 1
   sslEnabled: 0
   sslCertJson: ./cert.json
   sslProtocols: 3072

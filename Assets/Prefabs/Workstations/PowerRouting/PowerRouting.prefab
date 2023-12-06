@@ -3098,6 +3098,7 @@ GameObject:
   - component: {fileID: 7516497494536708579}
   - component: {fileID: 6129945401997460766}
   - component: {fileID: 4071981707479785083}
+  - component: {fileID: 266615518498892024}
   m_Layer: 8
   m_Name: LaunchLight
   m_TagString: Untagged
@@ -3202,14 +3203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d36be800207b8a4db63d38962106a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsToTriggerOnClick:
-  - {fileID: 5766462533013103687}
-  - {fileID: 4701326433403176731}
-  - {fileID: 4072084734283670064}
-  - {fileID: 3300538694056525604}
-  - {fileID: 5812839332844884601}
   powerRouting: {fileID: 322232841441439651}
-  powerForExploration: 0
+  isExplorationButton: 0
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
 --- !u!135 &4071981707479785083
@@ -3225,6 +3220,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.02856763
   m_Center: {x: 0.009915718, y: 0.00000013038517, z: -0.00000014621764}
+--- !u!65 &266615518498892024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437037772582967246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: -0.52, z: 0.12}
+  m_Center: {x: 0.009917628, y: -0.34, z: 0.00000032839264}
 --- !u!1 &4568743521582951050
 GameObject:
   m_ObjectHideFlags: 0
@@ -3954,6 +3962,7 @@ GameObject:
   - component: {fileID: 1010636095773212920}
   - component: {fileID: 3577489884223284945}
   - component: {fileID: 4963454745730882281}
+  - component: {fileID: 7778921962203211842}
   m_Layer: 8
   m_Name: ExplorationLight
   m_TagString: Untagged
@@ -4058,12 +4067,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d36be800207b8a4db63d38962106a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonsToTriggerOnClick:
-  - {fileID: 4233732150351692430}
-  - {fileID: 6976524617400927611}
-  - {fileID: 4178677628487482390}
   powerRouting: {fileID: 322232841441439651}
-  powerForExploration: 1
+  isExplorationButton: 1
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
 --- !u!135 &4963454745730882281
@@ -4079,6 +4084,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.028567612
   m_Center: {x: 0.0100059975, y: 0.00000018626454, z: -0.00000011175871}
+--- !u!65 &7778921962203211842
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827727729446074376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08, y: -0.52, z: 0.12}
+  m_Center: {x: 0.009917628, y: -0.34, z: 0.00000032839264}
 --- !u!1 &5841650333826292477
 GameObject:
   m_ObjectHideFlags: 0

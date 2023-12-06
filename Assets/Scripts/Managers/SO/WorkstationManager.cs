@@ -69,6 +69,20 @@ namespace Managers
         #endregion
 
         #region Workstation methods
+
+        
+        /// <summary>
+        /// Clears the lists to prevent editor only bugs with scriptableObjects not being reset. Called once during game launch.
+        /// </summary>
+        public void Init()
+        {
+	        workstations.Clear();
+	        terminals.Clear();
+	        
+	        explorationModeWorkstations.Clear();
+	        launchModeWorkstations.Clear();
+        }
+        
         /// <summary>
         /// Places a workstation under a player's authority and moves their camera into that workstation.
         /// This workstation corresponds to whatever Terminal object the client clicks on.
@@ -102,23 +116,49 @@ namespace Managers
         /// <param name="workstation">The Workstation object to register.</param>
         public void RegisterWorkstation(WorkstationID stationID, Workstation workstation)
 		{
+			//Debug.Log("Registering station with ID: " + stationID + "\nUsed in exploration mode: " + workstation.UsedInExplorationMode + "\nUsed in launch mode: " + workstation.UsedInLaunchMode);
 			// Add to the exploration and launch workstation lists if the workstation is in either mode
 			if (!CheckForWorkstation(stationID))
             {
 				if (workstation.UsedInExplorationMode)
 				{
+					//Debug.Log("Adding " + workstation.name + " to exploration station list");
 					explorationModeWorkstations.Add(workstation);
 				}
 
 				if (workstation.UsedInLaunchMode)
 				{
-					launchModeWorkstations.Add(workstation);
+                    //Debug.Log("Adding " + workstation.name + " to exploration station list");
+                    launchModeWorkstations.Add(workstation);
 				}
 			}
 
 			// Add the workstation to the dictionary
 			workstations[stationID] = workstation;
 		}
+
+        /// <summary>
+        /// Removes the workstation from reference. Because WorkstationManager is a scriptableObject, it will hold onto objects when entering/exiting play mode, so we reset cleanly here. See registerWorkstation for parameter info.
+        /// </summary>
+        public void DeregisterWorkstation(WorkstationID stationID, Workstation workstation)
+        {
+	        if (workstations.ContainsKey(stationID))
+	        {
+		        workstations.Remove(stationID);
+	        }
+
+	        if (explorationModeWorkstations.Contains(workstation))
+	        {
+		        explorationModeWorkstations.Remove(workstation);
+	        }
+
+	        if (launchModeWorkstations.Contains(workstation))
+	        {
+		        launchModeWorkstations.Remove(workstation);
+	        }
+        }
+        
+
         #endregion
 
         #region Terminal methods
@@ -226,5 +266,7 @@ namespace Managers
 			terminals.Clear();
 		}
 		#endregion
+
+		
 	}
 }

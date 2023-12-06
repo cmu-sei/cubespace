@@ -1,12 +1,27 @@
-![screenshot](screenshot.png)
-
 # Cubespace
+Cubespace Application (In-browser client + Linux headless server)
 
-Cubespace is a game-based environment for delivering cybersecurity exercises and competitions. The Cubespace client operates entirely in the browser and allows for delivery of both narrative and technical content. Native integration with the [TopoMojo](https://github.com/cmu-sei/topomojo) challenge platform provides access to hosted virtual machines that make up ship, starbase, and planetary computer systems.
+---
 
-## Build Instructions
+## Running the Game from Unity and Important Notes
 
-### Building the Game from Unity using the Codebase
+To run the game, open the scene Init_1-16.unity and run it from there.
+
+Important Notes:
+- The Gamebrain interface used affects the requests made. This interface is set in the Workstations scene on the ShipStateManager's ShipGameBrainUpdater script's Game Brain Interface field. One of two objects from this scene can be placed here:
+    - Local Game Brain Interface
+        - Reads from a specified text file that provides a JSON structure to run the game. Note that the data sent here is sent with every poll.
+        - Most Gamebrain methods will be spoofed; their callback methods will be called, but the data will not be changed.
+        - Set this when testing locally, but set to the below interface before pushing.
+    - Net Game Brain Interface
+        - Sends requests to a Gamebrain resource to get JSON for the game.
+        - Gamebrain methods here will return legitimate data from Gamebrain, but only if this game is running where a Gamebrain resource exists. For all intents and purposes, you won't need to touch this object except to set it as the used Game Brain Interface before pushing to a build pipeline.
+        - Set this before pushing to GitLab.
+- Running this locally may require modifying the Websocket Transport used (via the NetworkManager). The port is commented out so the game can run on the Kubernetes cluster; running a server instance and a client instance locally will likely require this, so if testing in this manner, uncomment the port.
+
+---
+
+## Building the Game from Unity using the Codebase
 
 Before proceeding, please make sure you have a Unity account and license, whether a personal account or professional one, and that you download the project in "CODEBASE LINK".
 
@@ -18,10 +33,10 @@ Before proceeding, please make sure you have a Unity account and license, whethe
 3. Go to File > Build Settings.
 4. Select WebGL from the left hand list, then select Build and choose a file location.
 5. Once WebGL finishes building, select Dedicated Server from the left hand list, then select Linux from the Target Platform dropdown if not already selected.
-6. Select Build and choose a file location. 
+6. Select Build and choose a file location.
 
 
-### Turning the WebGL Build into a Docker Image
+## Turning the WebGL Build into a Docker Image
 
 Ensure the build is placed on a Linux environment before starting.
 1. Get Dockerfile.WebGL from the root project folder.
@@ -30,7 +45,7 @@ Ensure the build is placed on a Linux environment before starting.
 `sudo docker build -f Dockerfile.WebGL -t unityclient:{version_number} .`
 
 
-### Turning the Dedicated Server Build into a Docker Image
+## Turning the Dedicated Server Build into a Docker Image
 
 Ensure the build is placed on a Linux environment before starting.
 1. Download Dockerfile.StandaloneLinux64 from the root project folder.
@@ -39,15 +54,17 @@ Ensure the build is placed on a Linux environment before starting.
 `sudo docker build -f Dockerfile.StandaloneLinux64 -t unityserver:{version_number} .`
 
 
-### Running the Builds in Docker
+## Running the Builds in Docker
 
-#### Client
+### Client
 `sudo docker container run --name UnityClient -p 5000:80 -it unityclient`
 
-#### Server
+### Server
 `sudo docker container run --name UnityServer -p 7778:7778 -it unityserver`
 
-Note that the port number can be specified following the -p flag. These port numbers were originally specified for the [Foundry Appliance](https://github.com/cmu-sei/foundry-appliance).
+Note that the port number can be specified following the -p flag. These port numbers were originally specified for the Foundry appliance.
+
+---
 
 ## Configuring the Server
 
@@ -64,7 +81,7 @@ and end the argument with a `/`.
 - `-dev`: Enables developer shortcuts and hotkeys. This takes no additional values and is only really useful in-editor.
 - `-debug`: Enables verbose logging. This takes no additional values.
 
-### Hotkeys (dev mode only)
+#### Hotkeys (dev mode only)
 - A: Abort launch sequence
 - H: Hide HUD
 - J: Jump to location (if already chosen)

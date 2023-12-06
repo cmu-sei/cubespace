@@ -8,11 +8,15 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using System;
 using UnityEngine;
 using UI.ColorPalettes;
 using Systems;
 using Managers;
 using Mirror;
+using System.Collections.Generic;
+using Systems.GameBrain;
+using UnityEngine.UI;
 
 namespace UI.HUD
 {
@@ -21,31 +25,22 @@ namespace UI.HUD
     /// </summary>
     public class HUDController : ConnectedSingleton<HUDController>
     {
+        public Action<MenuState> OnMenuStateChange;
+        public enum MenuState
+        {
+            None,
+            MissionLog, 
+            Settings,
+            GalaxyMap
+        }
+        
         /// <summary>
         /// Whether a panel is open or not.
         /// </summary>
-        public static bool IsPanelOpen = false;
+        public static bool IsPanelOpen => Instance._menuState != MenuState.None;
+
+        private MenuState _menuState;
         
-        /// <summary>
-        /// The button used to exit the workstation.
-        /// </summary>
-        [SerializeField]
-        private UIExitWorkstationButton exitWorkstationButton;
-        /// <summary>
-        /// The button used to open the mission log.
-        /// </summary>
-        [SerializeField]
-        private UIHudDisplayToggleButton missionLogButton;
-        /// <summary>
-        /// The button used to open the settigns panel.
-        /// </summary>
-        [SerializeField]
-        private UIHudDisplayToggleButton settingsButton;
-        /// <summary>
-        /// The UI component of the mission log button that flashes if the player has not clicked it yet.
-        /// </summary>
-        [SerializeField]
-        private FlashBox missionLogButtonFlashBox;
 
         /// <summary>
         /// The list of tasks for the player.
@@ -73,11 +68,13 @@ namespace UI.HUD
         /// </summary>
         [SerializeField]
         private GameObject missionLogPanel;
+        private UIHudMissionManager missionManager;
         /// <summary>
-        /// The object preventing the player from clicking on anything while the mission log or settings panel is open.
+        /// The panel used to display the galaxy map.
         /// </summary>
         [SerializeField]
-        private GameObject raycastingBlocker;
+        private GameObject galaxyMapPanel;
+
         /// <summary>
         /// The quit button, used to exit the game.
         /// </summary>
@@ -94,10 +91,13 @@ namespace UI.HUD
         [SerializeField]
         private CanvasGroup group;
 
+        [SerializeField] private UIHudDisplayMenuButton _mapButton;
+
         /// <summary>
         /// The custom NetworkManager object used.
         /// </summary>
         private CustomNetworkManager networkManager;
+
 
         /// <summary>
         /// Unity event function that adds listeners to the open/close functions and disables some UI objects.
@@ -105,17 +105,22 @@ namespace UI.HUD
         public override void Start()
         {
             base.Start();
+            missionManager = missionLogPanel.GetComponent<UIHudMissionManager>();
+
             LoadingSystem.Instance.UpdateLoadingMessage("Reticulating Splines...");
 
-            missionLogButton.controllerOpenFunction.AddListener(OpenMissionLog);
-            missionLogButton.controllerCloseFunction.AddListener(CloseMissionLog);
-            settingsButton.controllerCloseFunction.AddListener(CloseSettings);
-            settingsButton.controllerOpenFunction.AddListener(OpenSettings);
-
             cubeIcon.SetCube(false);
-            missionLogPanel.SetActive(false);
-            settingsPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
+            
+            SetMenuState(MenuState.None);
+
+            if (ShipStateManager.Instance)
+            {
+                UpdateMapButtonVisibility(ShipStateManager.Instance.useGalaxyMap);
+            }
+            else
+            {
+                UpdateMapButtonVisibility(false);
+            }
 
             networkManager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
 
@@ -133,7 +138,7 @@ namespace UI.HUD
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                missionLogButton.OnClick();
+                ToggleMenuState(MenuState.MissionLog);
             }
 
             if (networkManager.isInDevMode && Input.GetKeyDown(networkManager.hideHUDKeyCode))
@@ -175,70 +180,88 @@ namespace UI.HUD
             cubeIcon.SetCube(enabled);
         }
 
+        public void ToggleMenuState(MenuState toggleState)
+        {
+            if (toggleState == MenuState.None)
+            {
+                //can't toggle between off and off.
+                return;
+            }
+
+            if (_menuState == MenuState.None)
+            {
+                //turn on when off
+                SetMenuState(toggleState);
+            }
+            else
+            {
+                //close the open state.
+                if (_menuState == toggleState)
+                {
+                    SetMenuState(MenuState.None);
+                }
+                else
+                {
+                    //switch directly to a different state. ie: from missionLog even when settings is open.
+                    SetMenuState(toggleState);
+                }
+            }
+        }
+        public void SetMenuState(MenuState newState)
+        {
+            //change state
+            //this can be done with 'UIMenuPanelActiveWithState', but that only works when gameobjects begin active; which would be a change in how we have treated them, and unexpected.
+            //to fix, we could switch the above script to work on an empty parent object that's always active to enable and disable children.
+            if (newState == MenuState.MissionLog)
+            {
+                missionLogPanel.SetActive(newState == MenuState.MissionLog);
+                missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable
+            }
+            settingsPanel.SetActive(newState == MenuState.Settings);
+            galaxyMapPanel.SetActive(newState == MenuState.GalaxyMap);
+
+            if (newState != MenuState.None)
+            {
+                //any state open
+                Entities.Player.LockLocalPlayerInput();
+                UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
+            }
+            else
+            {
+                //any menu close
+                Entities.Player.UnlockLocalPlayerInput();
+                UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
+
+                //close the mission log specific case
+                if (_menuState == MenuState.MissionLog)
+                {
+                    taskList.CloseAdditionalInfo();
+                }
+            }
+            
+            //should check for going from state to same, but then would have to deal with init flow.
+            _menuState = newState;
+            OnMenuStateChange?.Invoke(_menuState);
+        }
+
         /// <summary>
-        /// Opens the mission log.
+        /// Convenience wrapper for opening the mission log.
+        /// It just calls SetMenuState(MenuState.MissionLog)
         /// </summary>
         public void OpenMissionLog()
         {
-            if (missionLogButtonFlashBox) missionLogButtonFlashBox.stopFlashing = true;
-
-            if (settingsPanel.activeInHierarchy)
-            {
-                settingsButton.OnClick();
-            }
-            
-            Audio.AudioPlayer.Instance.SetMissionLogSnapshot(true);
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
-            Entities.Player.LockLocalPlayerInput();
-            missionLogPanel.SetActive(true);
-            raycastingBlocker.SetActive(true);
-            IsPanelOpen = true;
+            SetMenuState(MenuState.MissionLog);
         }
 
         /// <summary>
-        /// Closes the mission log.
+        /// Closes the Mission Log, Galaxy Map, or Settings panel.
+        /// Convenience wrapper to SetMenuState(MenuState.None) for easy use with UnityEvents (ie: buttons)
         /// </summary>
-        public void CloseMissionLog()
+        public void CloseAnyPanel()
         {
-			Audio.AudioPlayer.Instance.SetMissionLogSnapshot(false);
-            taskList.CloseAdditionalInfo();
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-            Entities.Player.UnlockLocalPlayerInput();
-            missionLogPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
-            IsPanelOpen = false;
+            SetMenuState(MenuState.None);
         }
-
-        /// <summary>
-        /// Opens the settings window.
-        /// </summary>
-        public void OpenSettings()
-        {
-            if (missionLogPanel.activeInHierarchy)
-            {
-                missionLogButton.OnClick();
-            }
-
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
-            Entities.Player.LockLocalPlayerInput();
-
-            settingsPanel.SetActive(true);
-            raycastingBlocker.SetActive(true);
-            IsPanelOpen = true;
-        }
-
-        /// <summary>
-        /// Closes the settings window.
-        /// </summary>
-        public void CloseSettings()
-        {
-            UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-            Entities.Player.UnlockLocalPlayerInput();
-            settingsPanel.SetActive(false);
-            raycastingBlocker.SetActive(false);
-            IsPanelOpen = false;
-        }
-
+   
         /// <summary>
         /// Quits the game. This is unused.
         /// </summary>
@@ -258,6 +281,20 @@ namespace UI.HUD
             else if (NetworkServer.active)
             {
                 NetworkManager.singleton.StopServer();
+            }
+        }
+
+        public void UpdateMapButtonVisibility(bool mapButtonEnabled)
+        {
+            if (mapButtonEnabled && _mapButton.enabled == false)
+            {
+                _mapButton.enabled = true;
+                _mapButton.SetVisable(true);
+            }
+            else if (!mapButtonEnabled && _mapButton.enabled == true)
+            {
+                _mapButton.SetVisable(false);
+                _mapButton.enabled = false;
             }
         }
     }

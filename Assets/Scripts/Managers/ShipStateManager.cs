@@ -20,6 +20,7 @@ using Systems;
 using Systems.GameBrain;
 using Systems.CredentialRequests.Models;
 using Entities;
+using UI.HUD;
 
 namespace Managers
 {
@@ -87,7 +88,11 @@ namespace Managers
         /// <summary>
         /// An action called when the list of mission data changes from Gamebrain.
         /// </summary>
-        public static Action<List<MissionData>> OnMissionDataChange;
+        public static Action<List<MissionData>> OnMissionDatasChange;
+        /// <summary>
+        /// An action called when the list of vm urls changes from Gamebrain
+        /// </summary>
+        public static Action<ShipData> OnShipDataChange;
 
         // Server side only actions
         /// <summary>
@@ -126,7 +131,20 @@ namespace Managers
         /// </summary>
         [SyncVar]
         private Session session = new Session();
-        
+
+        /// <summary>
+        /// Data concerning the vms available at the cyber ops stations
+        /// </summary>
+        public ShipData ShipData => shipData;
+        [SyncVar(hook = nameof(ShipDataChangeHook))]
+        private ShipData shipData = new ShipData();
+
+        /// <summary>
+        /// Used to determine whether or not map button should be displayed. Also contained in `session`, duplicated here so that hook is only called when this actually changes, not just anything in session.
+        /// </summary>
+        [SyncVar(hook = nameof(UseGalaxyMapHook))][HideInInspector]
+        public bool useGalaxyMap = false;
+
         /// <summary>
         /// The list of thrusters with their original flipped states.
         /// </summary>
@@ -152,8 +170,6 @@ namespace Managers
         /// </summary>
         [SyncVar(hook = nameof(OnSetLocationHook))]
         private bool locationSet = false;
-
-        // Whether the trajectories have been locked
 
         /// <summary>
         /// Whether the trajectories have been locked. Derives from a private variable.
@@ -182,20 +198,24 @@ namespace Managers
         /// <summary>
         /// The list of missions the team can attempt.
         /// </summary>
-        public readonly List<MissionData> MissionData = new List<MissionData>();
+        public List<MissionData> MissionDatas => missionDatas.ToList();
+        private readonly SyncList<MissionData> missionDatas = new SyncList<MissionData>();
 
         /// <summary>
         /// The token of the team, used by the server to make requests to Gamebrain.
         /// </summary>
+        [HideInInspector]
         public string token = null;
         /// <summary>
-        /// A hexadecimal string representing the team ID (i.e. "053820f008e741a29010f658e80592fe")
+        /// A hexadecimal string representing the team ID (ex. "053820f008e741a29010f658e80592fe")
         /// </summary>
+        [HideInInspector]
         public string teamID = "";
 
         /// <summary>
         /// The list of workstations with accessible VMs.
         /// </summary>
+        [HideInInspector]
         public List<VMWorkstation> vmWorkstations = new List<VMWorkstation>();
 
         /// <summary>
@@ -313,6 +333,14 @@ namespace Managers
             // If the data is null or has no current location, do not continue
             if (data == null || data.currentStatus.currentLocation == "")
             {
+                if (data == null)
+                {
+                    Debug.LogError("Recieved null data!");
+                }
+                else
+                {
+                    Debug.LogError("Current location is an empty string");
+                }
                 return;
             }
 
@@ -321,6 +349,17 @@ namespace Managers
 
             // Update the team's session data to whatever was received
             session = data.session;
+
+            // Update the cached vm URLs
+            // TODO: These should probably just be pushed out via RPC and not cached, refactor eventually
+            shipData = data.ship;
+
+            // Update useGalaxyMap if it's changed. Will enable/disable map button via callbacks
+            if (data.session.useGalaxyDisplayMap != useGalaxyMap)
+            {
+                useGalaxyMap = data.session.useGalaxyDisplayMap;
+            }
+
             // Mark whether first contact was completed
             firstContactEstablished = data.currentStatus.firstContactComplete;
             // Update the network name to what's included in the data
@@ -406,6 +445,16 @@ namespace Managers
         }
 
         /// <summary>
+        /// A function that runs on clients as a SyncVar hook when the ship's vm url data changes
+        /// </summary>
+        /// <param name="oldLocation">The previous location of the ship. This is unused but necessary to include.</param>
+        /// <param name="location">The ship's new current location.</param>
+        private void ShipDataChangeHook(ShipData oldShipdata, ShipData newShipData)
+        {
+            OnShipDataChange?.Invoke(newShipData);
+        }
+
+        /// <summary>
         /// A function that runs on clients as a SyncVar hook when the cube's state changes.
         /// </summary>
         /// <param name="oldCubeState">The previous state of the cube. This is unused but necessary to include.</param>
@@ -423,6 +472,17 @@ namespace Managers
         private void OnSetLocationHook(bool prevState, bool newState)
         {
             OnSetLocationChange?.Invoke(newState);
+        }
+
+        /// <summary>
+        /// A function that runs on clients as a SyncVar hook when useGalaxyMap has been changed by GameBrain.
+        /// </summary>
+        private void UseGalaxyMapHook(bool prevState, bool newState)
+        {
+            if (HUDController.Instance)
+            {
+                HUDController.Instance.UpdateMapButtonVisibility(newState);
+            }
         }
         #endregion
 
@@ -486,7 +546,7 @@ namespace Managers
             OnCubeStateChangeHook(CubeState.InPlayerHands, _cubeState);
 
             // The HUD scene loads before the scene where this object lives, so force an update
-            OnMissionDataChange?.Invoke(MissionData);
+            OnMissionDatasChange?.Invoke(MissionDatas);
             OnCurrentLocationChange?.Invoke(currentLocation);
         }
         #endregion
@@ -639,7 +699,7 @@ namespace Managers
         [ClientRpc]
         private void RpcOnMissionDataChange(List<MissionData> md)
         {
-            OnMissionDataChange?.Invoke(md);
+            OnMissionDatasChange?.Invoke(md);
         }
 
         /// <summary>
@@ -701,7 +761,8 @@ namespace Managers
         {
             // Loop through all received locations
             int i = 0;
-            for (; i < data.locations.Length; i++)
+            int locationsLength = data.locations == null ? 0 : data.locations.Length;
+            for (; i < locationsLength; i++)
             {
                 // If there's more locations in the data than what's unlocked, add the new location
                 if (unlockedLocations.Count == i)
@@ -728,32 +789,46 @@ namespace Managers
         [Server]
         private void MergeMissionDataList(GameData data)
         {
+            bool listChanged = false;
+
             // Cut the size of the current mission list down if it is greater than the size of the new mission list
-            if (MissionData.Count > data.missions.Length)
+            if (missionDatas.Count > data.missions.Length)
             {
-                MissionData.RemoveRange(data.missions.Length, MissionData.Count);
+                // missionDatas.RemoveRange(data.missions.Length, missionDatas.Count - data.missions.Length);
+
+                // SyncLists don't have RemoveRange, so remove items one at a time starting from the end
+                for (int z = missionDatas.Count - 1; z >= data.missions.Length; z--)
+                {
+                    missionDatas.RemoveAt(z);
+                }
+                listChanged = true;
             }
 
             // Loop through all missions in the received data and update the existing list to match it
             for (int i = 0; i < data.missions.Length; i++)
             {
                 // Update an existing mission if still within the existing mission data list
-                if (i < MissionData.Count)
+                if (i < missionDatas.Count)
                 {
-                    if (!MissionData[i].IsEquivalentTo(data.missions[i]))
+                    if (!missionDatas[i].IsEquivalentTo(data.missions[i]))
                     {
-                        MissionData[i] = data.missions[i];
+                        missionDatas[i] = data.missions[i];
+                        listChanged = true;
                     }
                 }
                 // Otherwise, add the new mission to the existing mission list
                 else
                 {
-                    MissionData.Add(data.missions[i]);
+                    missionDatas.Add(data.missions[i]);
+                    listChanged = true;
                 }
             }
 
-            // Call the RPC function after the mission data is set
-            RpcOnMissionDataChange(MissionData);
+            if (listChanged)
+            {
+                // Call the RPC function after the mission data is set
+                RpcOnMissionDataChange(MissionDatas);
+            }
         }
         #endregion
 

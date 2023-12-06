@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Managers;
+using System.Text.RegularExpressions;
 
 namespace Entities.Workstations.FlightEngineerParts
 {
@@ -27,6 +28,18 @@ namespace Entities.Workstations.FlightEngineerParts
 
         public void FormatDialInputText(string newInput)
         {
+            // Check to see if the new string is empty. If it is, treat it like a 0
+            if (newInput == null || newInput == "")
+            {
+                newInput = "0";
+            }
+            // Check to see if non numerics were entered. If any were, treat the input as a 0 (this check should be unnecessary, you can't enter non-numbers to begin with)
+            Match m = Regex.Match(newInput, "[^0-9]");
+            if (m.Success)
+            {
+                newInput = "0";
+            }
+
             int angleInt = int.Parse(newInput);
             textInputField.text = WorkstationDial.FormatAngle(angleInt).ToString("000");
             trajectoryDial.ManuallyRotateDial(angleInt);
@@ -39,6 +52,7 @@ namespace Entities.Workstations.FlightEngineerParts
 
         public void DisableTextInputField()
         {
+            // TODO: without this null check, the lock button breaks when you try to use it but only after a disconnect,,, no one knows why
             if (textInputField == null)
             {
                 return;

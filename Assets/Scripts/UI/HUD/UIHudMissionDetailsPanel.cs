@@ -46,12 +46,18 @@ namespace UI.HUD
 		/// </summary>
 		[SerializeField]
 		private UIHudTaskList taskList;
-		
+
+		private void Start()
+		{
+            missionTitle.text = "";
+            missionDescription.text = "";
+        }
+
 		/// <summary>
 		/// Sets data for a mission.
 		/// </summary>
 		/// <param name="data">The data used to contruct a mission and how it appears.</param>
-		public void SetMissionData(MissionData data)
+		public void SetMissionDetailsData(MissionData data)
 		{
 			if (data == null)
 			{

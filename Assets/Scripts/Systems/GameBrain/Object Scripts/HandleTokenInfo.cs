@@ -58,6 +58,7 @@ public class HandleTokenInfo : MonoBehaviour
         }
 
         // Set the token in the loading system to be the one retrieved
+        // This will get grabbed on a new client in Player.cs to send to the server (CmdSendClientToken)
         LoadingSystem.Instance.token = _tokenInfo;
     }
 
@@ -79,8 +80,9 @@ public class HandleTokenInfo : MonoBehaviour
             return;
         }
 
-        // Set the game server link in the loading system to be the one retrieved
+        // Set the game server link in the loading system to be the one retrieved (NOTE: this var isn't actually used for anything)
         LoadingSystem.Instance.serverLink = _serverLink;
+        // Set the link to the server directly in the NetworkManager, TODO: this should be retrieved from loading system for consistency's sake
         NetworkManager.singleton.networkAddress = _serverLink;
     }
 }

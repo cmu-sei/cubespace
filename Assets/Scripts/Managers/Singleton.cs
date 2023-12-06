@@ -68,7 +68,8 @@ namespace Managers
 		/// </summary>
 		public virtual void Start()
 		{
-			if (_instance == this as T)
+			// Some UI objects are singletons for convenience but they can't be put into DontDestroyOnLoad because they are not root game objects
+			if (_instance == this as T && transform.parent == null)
 			{
 				DontDestroyOnLoad(gameObject);
 			}

@@ -127,9 +127,14 @@ namespace Mirror.SimpleWeb
 
             UriBuilder builder = new UriBuilder
             {
+                #if UNITY_EDITOR
+                Scheme = GetClientScheme(),
+                Host = hostname,
+                Port = port
+                #else
                 Scheme = GetClientScheme(),
                 Host = hostname
-                // Port = port
+                #endif
             };
 
             /*
@@ -197,9 +202,9 @@ namespace Mirror.SimpleWeb
         {
             client?.ProcessMessageQueue(this);
         }
-        #endregion
+#endregion
 
-        #region Server
+#region Server
         public override bool ServerActive()
         {
             return server != null && server.Active;
@@ -294,6 +299,6 @@ namespace Mirror.SimpleWeb
         {
             server?.ProcessMessageQueue(this);
         }
-        #endregion
+#endregion
     }
 }

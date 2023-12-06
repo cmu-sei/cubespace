@@ -66,6 +66,14 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
 
+      # Discard any changes to the working tree caused by generating library
+      # TMPro SDF files get auto changed which causes an error when you try to build on the now dirty branch
+      #- name: Clear local changes caused by regenerating library and cache
+      #  run: |
+      #    cd ${GITHUB_WORKSPACE}
+      #    git status
+      #    git restore *
+
       # Build
       - name: Build ${{ matrix.targetPlatform }}
         uses: game-ci/unity-builder@v2.1.1
@@ -76,6 +84,8 @@ jobs:
         with:
           buildMethod: UnityBuilderAction.BuildScript.BuildGame
           # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+          # allowDirtyBuild ignores error caused by building with any local changes created by regenerating the local library (TMPro SDF files like to do this)
+          #allowDirtyBuild: true
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}

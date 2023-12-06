@@ -39,11 +39,21 @@ namespace Entities.Workstations.NavReaderParts
 
         #region Unity event functions
         /// <summary>
-        /// Unity event function that enables the renderer if the NavReader is powered on and starts rotating the galaxy.
+        /// Unity event function that turns the renderer on if powered and subscribes to power on and power off events. 
         /// </summary>
-        private void Start() 
+        private void Awake()
         {
             renderer.enabled = navReader.IsPowered;
+
+            navReader.OnPowerOn += OnPowerOn;
+            navReader.OnPowerOff += OnPowerOff;
+        }
+
+        /// <summary>
+        /// Unity event function that enables the renderer if the NavReader is powered on and starts rotating the galaxy.
+        /// </summary>
+        private void Start()
+        {
             if (navReader.IsPowered)
             {
                 StartCoroutine(GalaxyAnimation());
@@ -51,18 +61,9 @@ namespace Entities.Workstations.NavReaderParts
         }
 
         /// <summary>
-        /// Unity event function that subscribes to power on and power off events.
-        /// </summary>
-        private void OnEnable()
-        {
-            navReader.OnPowerOn += OnPowerOn;
-            navReader.OnPowerOff += OnPowerOff;
-        }
-
-        /// <summary>
         /// Unity event function that unsubscribes from power on and power off events.
         /// </summary>
-        private void OnDisable()
+        private void OnDestroy()
         {
             navReader.OnPowerOn -= OnPowerOn;
             navReader.OnPowerOff -= OnPowerOff;

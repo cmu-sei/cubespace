@@ -14,6 +14,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Systems;
+using UnityEngine.Video;
+using Managers;
 
 /// <summary>
 /// A task list item displayed within the mission log.
@@ -93,6 +95,16 @@ public class UIHudTaskListItem : MonoBehaviour
         additionalInfoIcon.gameObject.SetActive(true);
         noAdditionalInfoIcon.gameObject.SetActive(true);
         videoIcon.gameObject.SetActive(true);
+
+        taskDescription.text = "";
+        completeIcon.enabled = false;
+        incompleteIcon.enabled = false;
+        additionalInfoIcon.enabled = false;
+        noAdditionalInfoIcon.enabled = false;
+        additionalInfoButton.enabled = false;
+        additionalInfoButtonAudio.enabled = false;
+        videoIcon.enabled = false;
+        videoButton.enabled = false;
     }
 
     /// <summary>
@@ -154,7 +166,7 @@ public class UIHudTaskListItem : MonoBehaviour
     /// </summary>
     public void OnVideoButtonClick()
     {
-        CutsceneSystem.Instance.PrepareWebCutscene(data.videoURL, true, true);
+        CutsceneSystem.Instance.PlayArchivesVideo(data.videoURL);
     }
 }
 
