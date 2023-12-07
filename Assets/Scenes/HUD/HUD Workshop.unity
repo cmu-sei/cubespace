@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1154480697}
   m_HandleRect: {fileID: 1154480696}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3910,6 +3910,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 983219917656713342, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_text
+      value: 'Available Bonus:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 983219917656713342, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -10.807743
       objectReference: {fileID: 0}
     - target: {fileID: 1363160663533565296, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
@@ -8151,7 +8161,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 564809717}
   m_HandleRect: {fileID: 564809716}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
