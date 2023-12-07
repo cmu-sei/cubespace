@@ -5837,6 +5837,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1763218765}
   - component: {fileID: 1763218767}
+  - component: {fileID: 1763218768}
   - component: {fileID: 1763218766}
   m_Layer: 5
   m_Name: Test_MissionDescriptionText
@@ -5966,6 +5967,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763218764}
   m_CullTransparentMesh: 1
+--- !u!114 &1763218768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763218764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c25ac92f1b24d041b9cceb2c91ee67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 57120340}
 --- !u!1 &1763782170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7016,6 +7030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1936380294}
   - component: {fileID: 1936380296}
+  - component: {fileID: 1936380298}
   - component: {fileID: 1936380295}
   - component: {fileID: 1936380297}
   m_Layer: 5
@@ -7087,7 +7102,7 @@ MonoBehaviour:
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
+  m_StyleSheet: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e, type: 2}
   m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
@@ -7157,6 +7172,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &1936380298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936380293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c25ac92f1b24d041b9cceb2c91ee67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 57120340}
 --- !u!1 &1944506961
 GameObject:
   m_ObjectHideFlags: 0
@@ -8793,5 +8821,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_TaskObject
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1264813140947269175, guid: 4ff55b65c0bb9dd4782203f012fc9539, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ff55b65c0bb9dd4782203f012fc9539, type: 3}

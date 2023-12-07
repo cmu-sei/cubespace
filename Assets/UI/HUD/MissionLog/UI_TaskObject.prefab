@@ -605,6 +605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8522822151626980232}
   - component: {fileID: 8522822151626980229}
+  - component: {fileID: 1264813140947269175}
   - component: {fileID: 8522822151626980230}
   m_Layer: 5
   m_Name: Text_TaskDescription
@@ -641,6 +642,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8522822151626980233}
   m_CullTransparentMesh: 1
+--- !u!114 &1264813140947269175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522822151626980233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c25ac92f1b24d041b9cceb2c91ee67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
 --- !u!114 &8522822151626980230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +697,7 @@ MonoBehaviour:
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
+  m_StyleSheet: {fileID: 11400000, guid: f952c082cb03451daed3ee968ac6c63e, type: 2}
   m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
