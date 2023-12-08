@@ -35,7 +35,6 @@ public class LinkHandler : MonoBehaviour, IPointerClickHandler
         {
             TMP_LinkInfo linkInfo = textBox.textInfo.linkInfo[linkIndex];
             string URL = linkInfo.GetLinkID();
-
             if (ValidateURL(URL))
             {
                 Application.OpenURL(URL);
