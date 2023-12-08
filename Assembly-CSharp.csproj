@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Utilities\DisableURPDebugUpdater.cs" />
     <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UIHudCube.cs" />
+    <Compile Include="Assets\Scripts\UI\LinkHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Nav Reader\Tooltip\DisplayTooltip.cs" />
     <Compile Include="Assets\Scripts\Systems\Credential Requests\Models\ClientToken.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreenController.cs" />
@@ -244,7 +245,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\UI\LinkHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -173,7 +173,7 @@
 			"title": "Reactor Cooling",
 			"missionIcon": "reactor",
 			"summaryShort": "Fix Reactor Cooling",
-			"summaryLong": "Fix Reactor Cooling. <style=\"Clickable\"><link=\"https://www.google.com/\">Click here to go to a new tab!</link></style>",
+			"summaryLong": "Fix Reactor Cooling. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut mattis lobortis erat ut dictum. Nunc at ipsum rutrum. Ut mattis lobortis erat ut dictum. Nunc at ipsum rutrum. <style=\"Clickable\"><link=\"https://www.google.com/\">Click here to go to a new tab!</link></style>",
 			"roleList": [ "Cyber Defense Incident Reporter", "Network Operations Specialist", "Exploitation Analyst" ],
 			"taskList": [
 				{
