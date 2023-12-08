@@ -247,9 +247,9 @@ public class NavReaderGalaxySystem : TooltipControl
 
             if (cacheComplete)
             {
-                pointsInnerBacking.color = Color.magenta;
+                pointsInnerBacking.color = Color.black;
                 pointsText.color = Color.white;
-                setColor = Color.blue;
+                setColor = _palette.cacheCompleteHighlightColor;
             }
             else
             {

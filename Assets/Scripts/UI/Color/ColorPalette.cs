@@ -47,9 +47,9 @@ namespace UI.ColorPalettes
         public Color UISpecialMissionUnseleceted;
         [Header("Galaxy Map System State Highlights")]
         public Color incompleteHighlightColor;
-
         public Color partiallyCompletedHighlightColor;
         public Color completedHighlightColor;
+        public Color cacheCompleteHighlightColor;
         [Header("Other")]
         public Color LaunchModePoweredColor = Color.green;
         public Color ExplorationModePoweredColor = Color.blue;
