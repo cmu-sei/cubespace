@@ -63,14 +63,14 @@ namespace Managers
                 StopVideo();
             }
 
-            // URL is invalid
+            // Check if URL is invalid
             Uri uriResult;
             if (!Uri.TryCreate(url, UriKind.Absolute, out uriResult))
             {
                 Debug.LogError($"URL provided is not a valid URL. URL provided: {url}");
                 return false;
             }
-            // URL does not use HTTPS
+            // URL does not use HTTPS or HTTP
             else if (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps)
             {
                 Debug.LogError($"URL provided does not use HTTP or HTTPS. URL provided: {url}");

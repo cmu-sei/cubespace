@@ -132,7 +132,7 @@
 			"title": "Gravitic Containment",
 			"missionIcon": "gravcon",
 			"summaryShort": "Fix Gravitic Containment",
-			"summaryLong": "Fix Gravitic Containment",
+			"summaryLong": "Fix Gravitic Containment. <style=\"Clickable\"><link=\"https://www.google.com/\">Click here to go to a new tab!</link></style>",
 			"roleList": [],
 			"taskList": [
 				{
@@ -142,7 +142,7 @@
 					"visible": true,
 					"complete": true,
 					"infoPresent": true,
-					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Gravitic Containment</line-height>",
+					"infoText": "<line-height=60%><br></line-height><line-height=140%>• Fix Gravitic Containment.</line-height> <style=\"Clickable\"><link=\"https://www.google.com/\">Click here to go to a new tab!</link></style>",
 					"videoPresent": true,
 					"videoURL": "https://presidentscup.cisa.gov/files/hqv8a5dv6GR9bh9278VPuP36xA7d9htD-VIDEO-04-P01.mp4"
 				}
@@ -173,7 +173,7 @@
 			"title": "Reactor Cooling",
 			"missionIcon": "reactor",
 			"summaryShort": "Fix Reactor Cooling",
-			"summaryLong": "Fix Reactor Cooling",
+			"summaryLong": "Fix Reactor Cooling. <style=\"Clickable\"><link=\"https://www.google.com/\">Click here to go to a new tab!</link></style>",
 			"roleList": [ "Cyber Defense Incident Reporter", "Network Operations Specialist", "Exploitation Analyst" ],
 			"taskList": [
 				{
