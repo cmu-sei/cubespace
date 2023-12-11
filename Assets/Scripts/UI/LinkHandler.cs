@@ -29,13 +29,12 @@ public class LinkHandler : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Vector3 mousePosition = new Vector3(eventData.position.x, eventData.position.y, 0);
-        var linkTaggedText = TMP_TextUtilities.FindIntersectingLink(textBox, mousePosition, null);
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(textBox, mousePosition, null);
 
-        if (linkTaggedText != -1)
+        if (linkIndex != -1)
         {
-            TMP_LinkInfo linkInfo = textBox.textInfo.linkInfo[linkTaggedText];
+            TMP_LinkInfo linkInfo = textBox.textInfo.linkInfo[linkIndex];
             string URL = linkInfo.GetLinkID();
-            
             if (ValidateURL(URL))
             {
                 Application.OpenURL(URL);
