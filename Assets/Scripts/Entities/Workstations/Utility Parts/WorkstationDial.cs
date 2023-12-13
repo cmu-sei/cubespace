@@ -100,7 +100,9 @@ namespace Entities.Workstations
                 // If the total angle moved so far and this new rotation sum to be greater than 359 degrees, the real increase in rotation is negative
                 if (totalAngle + rotation > 359.0f) 
                 {
-                    rotation = 359f - totalAngle;
+                    // This line was causing a bug that prevented the dial from spinning clockwise beyond 359, commenting it out fixed it
+                    // Not sure what should or shouldn't be here
+                    //rotation = 359f - totalAngle;
                 }
                 // Otherwise, if both sum to be less than -360 degrees, the real increase in rotation is positive
                 else if (totalAngle + rotation < -360.0f) 
