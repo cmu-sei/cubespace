@@ -8,36 +8,40 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using Entities;
 using UnityEngine;
+using UnityEngine.UI;
+using Audio;
 
-/// <summary>
-/// Deactivates player input on this object when enabled.
-/// </summary>
-public class DeactivatePlayerInputWhenEnabled : MonoBehaviour
+namespace UI
 {
     /// <summary>
-    /// Unlocks player input at the start of this object's lifecycle.
+    /// A class used for a slider which sets the volume.
     /// </summary>
-    private void Awake()
+    public class UIVolumeSlider : MonoBehaviour
     {
-        Player.UnlockLocalPlayerInput();
-    }
+        /// <summary>
+        /// THe master volume mixer object.
+        /// </summary>
+        [SerializeField]
+        private UnityEngine.Audio.AudioMixerGroup masterMixer;
+        /// <summary>
+        /// The group used within the mixer.
+        /// </summary>
+        [SerializeField]
+        private string groupName = "SFXVol";
+        /// <summary>
+        /// The slider UI object used by the player to change the volume.
+        /// </summary>
+        [SerializeField]
+        private Slider slider;
 
-    /// <summary>
-    /// Locks player input when this is enabled.
-    /// </summary>
-    private void OnEnable()
-    {
-        Player.LockLocalPlayerInput();
-    }
-
-    /// <summary>
-    /// Unlocks player input when this is disabled.
-    /// </summary>
-    private void OnDisable()
-    {
-        Player.UnlockLocalPlayerInput();
+        /// <summary>
+        /// Sets the volume of the group when the slider's value changes.
+        /// </summary>
+        public void SetVolume() 
+        {
+            AudioPlayer.Instance.SetGroupVolume(Mathf.Log10(slider.value) * 20, groupName);
+        }
     }
 }
 

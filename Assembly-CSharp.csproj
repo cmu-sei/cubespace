@@ -162,9 +162,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Base Scripts\VMWorkstation.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\HUDController.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\DestinationDisplayNavScreenComponents\ComponentUpdaters\ThrusterEngagedText.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\PauseMenu\UIPauseMenu.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\CubeStatusText.cs" />
-    <Compile Include="Assets\Scripts\UI\DeactivatePlayerInputWhenEnabled.cs" />
     <Compile Include="Assets\Scripts\UI\VideoControls.cs" />
     <Compile Include="Assets\Scripts\Managers\NetworkedSingleton.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\AntennaUI\AntennaScreen.cs" />
@@ -221,7 +219,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Cube Station\CubeState.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\MissionPogs\UIMissionPogContainer.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Cyber Operations\CyberOperationsMouse.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\PauseMenu\UIVolumeSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIVolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Managers\CameraUtility.cs" />
     <Compile Include="Assets\Scripts\UI\Customization\PlayerColorSelectionOption.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UICurrentWorkstationPowerStatusDisplay.cs" />
@@ -245,7 +243,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\UI\LinkHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />
