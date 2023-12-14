@@ -50,6 +50,9 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     [SerializeField]
     private Image pointsInnerBacking;
+    // Affects width of highlight circle on systems
+    [SerializeField] 
+    private Image backingImageMask;
 
     /// <summary>
     /// The text object showing the point value.
@@ -217,31 +220,27 @@ public class NavReaderGalaxySystem : TooltipControl
         // If incomplete and not started
         if (!m.complete && m.currentScore == 0)
         {
-            SetHighlightColors(_palette.incompleteHighlightColor, Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.incompleteHighlightColor, Color.white, Color.black);
         }
         // If partially solved
         else if (!m.complete && m.currentScore > 0)
         {
-            SetHighlightColors(_palette.partiallyCompletedHighlightColor, Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.partiallyCompletedHighlightColor, Color.white, Color.black);
         }
         // If fully solved
         else if (m.complete)
         {
             if (IsMissionCacheComplete(m))
             {
-                SetHighlightColors(_palette.cacheCompleteHighlightColor, Color.black, Color.white);
+                SetHighlightColors(goldBorderSprite, 0.95f, _palette.cacheCompleteHighlightColor, Color.black, Color.white, goldBorderSprite);
 
-                //scale backing of core display down to 0.96x0.96
-                //set image of border to goldMetal
-                //set color of border to white
-                // repeat for two other circles
                 //repeat for 3 tooltips
                 // Set line image to gold, color to white
                 // Set target point to gold image
             }
             else
             {
-                SetHighlightColors(_palette.completedHighlightColor, Color.black, Color.white);
+                SetHighlightColors(defaultBorderSprite, 1.0f, _palette.completedHighlightColor, Color.black, Color.white);
             }
         }
 
@@ -262,7 +261,7 @@ public class NavReaderGalaxySystem : TooltipControl
         }
     }
 
-    private void SetHighlightColors(Color highlightCol, Color pointsBackingCol, Color pointsTextCol)
+    private void SetHighlightColors(Sprite borderSprite, float backingScale, Color highlightCol, Color pointsBackingCol, Color pointsTextCol, Sprite lineSprite = null)
     {
         pointsInnerBacking.color = pointsBackingCol;
         pointsText.color = pointsTextCol;
@@ -270,9 +269,19 @@ public class NavReaderGalaxySystem : TooltipControl
         lineImage.color = highlightCol;
         targetImage.color = highlightCol;
 
+        displayBorderImage.sprite = borderSprite;
         displayBorderImage.color = highlightCol;
+        solveCountBorderImage.sprite = borderSprite;
         solveCountBorderImage.color = highlightCol;
+        pointsBorderImage.sprite = borderSprite;
         pointsBorderImage.color = highlightCol;
+
+        backingImageMask.transform.localScale = new Vector2(backingScale, backingScale);
+
+        lineImage.sprite = lineSprite;
+        lineImage.color = highlightCol;
+        targetImage.sprite = borderSprite;
+        targetImage.color = highlightCol;
     }
 
     private bool IsMissionCacheComplete(MissionData mission)

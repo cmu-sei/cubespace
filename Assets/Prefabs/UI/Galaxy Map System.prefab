@@ -486,6 +486,7 @@ MonoBehaviour:
   solveCountBorderImage: {fileID: 1133308225170941825}
   pointsBorderImage: {fileID: 1131604237419110171}
   pointsInnerBacking: {fileID: 4738582822386404439}
+  backingImageMask: {fileID: 2945095013435914534}
   pointsText: {fileID: 3993332594575991321}
   solveCountText: {fileID: 8244730923961684026}
   imageMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
