@@ -250,6 +250,11 @@ public class NavReaderGalaxySystem : TooltipControl
                 pointsInnerBacking.color = Color.black;
                 pointsText.color = Color.white;
                 setColor = _palette.cacheCompleteHighlightColor;
+                //scale backing of core display down to 0.96x0.96
+                //set image of border to goldMetal
+                //set color of border to white
+                // repeat for two other circles
+                //repeat for 3 tooltips
             }
             else
             {
