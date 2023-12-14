@@ -408,7 +408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c866eb15b65d174ea4f672d525f75c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 310f3ba8719dbc544924494f80d774c6, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -492,7 +492,32 @@ MonoBehaviour:
   flipTooltipXThreshold: 100
   tooltipHorizontalBuffer: 60
   index: -1
+  missionData:
+    missionID: 
+    possibleMaximumScore: 0
+    baseSolveValue: 0
+    bonusRemaining: 0
+    currentScore: 0
+    associatedChallenges: []
+    totalTeams: 0
+    solveTeams: 0
+    visible: 0
+    complete: 0
+    isSpecial: 0
+    title: 
+    missionIcon: 
+    summaryShort: 
+    summaryLong: 
+    roleList: []
+    taskList: []
+    galaxyMapXPos: 0
+    galaxyMapYPos: 0
+    galaxyMapTargetXPos: 0
+    galaxyMapTargetYPos: 0
   _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
+  goldBorderSprite: {fileID: 21300000, guid: fb280482d8d447a44b801a0805ed8b8e, type: 3}
+  defaultBorderSprite: {fileID: 21300000, guid: 310f3ba8719dbc544924494f80d774c6,
+    type: 3}
 --- !u!1 &2183866066419606952
 GameObject:
   m_ObjectHideFlags: 0
