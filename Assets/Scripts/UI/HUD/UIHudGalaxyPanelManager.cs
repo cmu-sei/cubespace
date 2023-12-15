@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Managers;
-using Mirror;
 using Systems.GameBrain;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.HUD
 {
