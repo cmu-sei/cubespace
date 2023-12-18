@@ -236,6 +236,7 @@
     <Compile Include="Assets\Scripts\Customization\IconChoice.cs" />
     <Compile Include="Assets\Scripts\UI\Customization\PlayerColorSelectionPanel.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Codex\CodexStation.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudTotalScore.cs" />
     <Compile Include="Assets\Scripts\Systems\Credential Requests\Models\PostData.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\WorkstationSlider.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UITeamNameText.cs" />
@@ -243,7 +244,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\UIHudTotalScore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />
