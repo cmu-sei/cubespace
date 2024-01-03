@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UI.HUD;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Video;
 
 namespace Managers
@@ -125,71 +126,51 @@ namespace Managers
             videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
+            /*
             while (videoPlayer.isPlaying || paused)
             {
                 yield return null;
             }
+            */
 
-            /*
-            int prevFrame = -1;
-            float timeBuffering = 0.0f;
-            int attemptsToRestart = 0;
-
-            // Video player was cutting the video short instead of buffering when it didn't get frames quickly enough so this is the hack to get around it
-            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 2) // to prevent hanging on last frame??
+            UnityWebRequest webRequest = UnityWebRequest.Head(videoPlayer.url);
+            webRequest.Send();
+            while (!webRequest.isDone)
             {
-                if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
-                {
-                    break;
-                }
+                yield return null;
+            }
+            Debug.Log("Diagnostic info for video at: " + videoPlayer.url);
+            Debug.Log("File size: " + webRequest.GetResponseHeader("Content-Length"));
+            Debug.Log("Frame count: " + videoPlayer.frameCount);
+            Debug.Log("Frame rate: " + videoPlayer.frameRate);
+            Debug.Log("Length: " + videoPlayer.length);
 
-                // Manually check for buffering, if we get stuck for longer than the timeout attempt to restart or interupt the video and print an error
-                // This will prevent the callback from firing, which means that the video will not register as completed and the player should be able to rewatch it
-                if ((int)_videoPlayer.frame == prevFrame)
+            int prevFrame = -1;
+            float timeSinceLastNewFrame = 0.0f;
+
+            // Should be serialized var
+            float videoTimeout = 6.0f;
+
+            while (videoPlayer.isPlaying || paused)
+            {
+                if (videoPlayer.frame == prevFrame)
                 {
-                    timeBuffering += Time.deltaTime;
-                    if (timeBuffering > videoTimeout)
+                    timeSinceLastNewFrame += Time.deltaTime;
+                    if (timeSinceLastNewFrame > videoTimeout)
                     {
-                        // TODO: display these log statement to player
-                        Debug.LogError("Sensor station video system timed out on frame" + prevFrame + " of " + _videoPlayer.frameCount + " after " + videoTimeout + " seconds");
-
-                        // TODO: This should really be checking how long since the last timeout instead of just using an arbitrary fixed number of attempts
-                        //       if it immediatly fails to get new frames a few times in a row, quit trying, if it works for a while then hangs, keep restarting
-                        if (attemptsToRestart <= maximumAttemptsToRestartVideo)
-                        {
-                            Debug.LogError("Attempting to restart video...");
-                            attemptsToRestart++;
-
-                            // Attempt to restart the video from where it timed out
-                            _videoPlayer.Stop();
-                            yield return null; // give it a frame to Stop
-
-                            _videoPlayer.frame = prevFrame;
-                            _videoPlayer.Prepare();
-                            while (!_videoPlayer.isPrepared)
-                            {
-
-                                yield return null;
-                            }
-
-                            _videoPlayer.Play();
-                            timeBuffering = 0.0f;
-                        }
-                        else
-                        {
-                            InterruptVideo(); // this call will stop the coroutine
-                        }
+                        // TODO: display this log statement to player in game and provide an exit/restart button as a failsafe
+                        Debug.LogError("Video player timed out on frame" + prevFrame + " of " + videoPlayer.frameCount + " after " + timeSinceLastNewFrame + " seconds");
+                        StopVideo();
                     }
                 }
                 else
                 {
-                    timeBuffering = 0.0f;
-                    prevFrame = (int)_videoPlayer.frame;
+                    timeSinceLastNewFrame = 0.0f;
+                    prevFrame = (int)videoPlayer.frame;
                 }
 
                 yield return null;
             }
-            */
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
             OnVideoCompleted.Invoke(videoPlayer.url, true);
