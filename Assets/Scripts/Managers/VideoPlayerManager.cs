@@ -18,6 +18,8 @@ namespace Managers
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private VideoControls videoControls;
 
+        [SerializeField] private float videoTimeout = 6.0f;
+
         private Coroutine currentVideoCoroutine = null;
         private bool autoPlayVideoOnPrepare = false;
         private bool videoPlayerInitialized = false;
@@ -140,16 +142,14 @@ namespace Managers
                 yield return null;
             }
             Debug.Log("Diagnostic info for video at: " + videoPlayer.url);
-            Debug.Log("File size: " + webRequest.GetResponseHeader("Content-Length"));
+            Debug.Log("File size: " + webRequest.GetResponseHeader("Content-Length") + " bytes");
             Debug.Log("Frame count: " + videoPlayer.frameCount);
             Debug.Log("Frame rate: " + videoPlayer.frameRate);
-            Debug.Log("Length: " + videoPlayer.length);
+            Debug.Log("Length: " + videoPlayer.length + " seconds");
 
             int prevFrame = -1;
             float timeSinceLastNewFrame = 0.0f;
-
-            // Should be serialized var
-            float videoTimeout = 6.0f;
+            float warningSecond = 1.0f;
 
             while (videoPlayer.isPlaying || paused)
             {
@@ -162,10 +162,16 @@ namespace Managers
                         Debug.LogError("Video player timed out on frame" + prevFrame + " of " + videoPlayer.frameCount + " after " + timeSinceLastNewFrame + " seconds");
                         StopVideo();
                     }
+                    else if (timeSinceLastNewFrame > warningSecond)
+                    {
+                        Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds");
+                        warningSecond += 1.0f;
+                    }
                 }
                 else
                 {
                     timeSinceLastNewFrame = 0.0f;
+                    warningSecond = 1.0f;
                     prevFrame = (int)videoPlayer.frame;
                 }
 
