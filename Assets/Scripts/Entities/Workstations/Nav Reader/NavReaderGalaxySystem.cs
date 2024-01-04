@@ -92,11 +92,6 @@ public class NavReaderGalaxySystem : TooltipControl
     private Image targetImage;
 
     /// <summary>
-    /// The index of the mission associated with this system.
-    /// </summary>
-    [HideInInspector]
-    public int index = -1; // TODO: This is only used for selection missions. Should rework all that to use IDs instead and get rid of all referencing to missions by index which is fragile AF
-    /// <summary>
     /// The mission associated with this system, cached when updated mission data is sent from the ShipStateManager
     /// </summary>
     [HideInInspector]
@@ -139,39 +134,36 @@ public class NavReaderGalaxySystem : TooltipControl
             if (Input.GetMouseButtonDown(0))
             {
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(index, true); // TODO: Just pass along missionID and get rid of the index altogether
+                UIHudMissionManager.Instance.SelectMission(missionData.missionID, true);
                 // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
             }
             yield return null;
         }
     }
 
-    public void InitializeSystem(MissionData md, int missionIndex, GameObject line, GameObject target)
+    public void InitializeSystem(MissionData md, GameObject line, GameObject target)
     {
         lineObj = line;
         targetObj = target;
         lineImage = line.transform.GetComponent<Image>();
         targetImage = target.transform.GetChild(0).GetComponent<Image>();
 
-        UpdateSystem(md, missionIndex);
+        UpdateSystem(md);
     }
 
     /// <summary>
     /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
     /// </summary>
     /// <param name="md">The mission data to populate this system with.</param>
-    /// <param name="index">The index of the mission in the mission log.</param>
     /// <param name="line">The line drawn between the system and its target point.</param>
     /// <param name="target">The target point.</param>
-    public void UpdateSystem(MissionData md, int missionIndex)
+    public void UpdateSystem(MissionData md)
     {
         if (lineObj == null || targetObj == null)
         {
             Debug.LogError("Tried to update a galaxy map system without initializing it first!");
             return;
         }
-
-        index = missionIndex;
         missionData = md;
 
         ToggleState(missionData.visible);

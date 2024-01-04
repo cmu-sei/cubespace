@@ -148,7 +148,7 @@ namespace UI.HUD
 				if (missions[i].complete && missions[i].visible && !missions[i].isSpecial)
 				{
 					pogs[nextPogIndexToFill].gameObject.SetActive(true);
-					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon), missions[i].title, i);
+					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon), missions[i].title, missions[i].missionID);
                     nextPogIndexToFill++;
 				}
 			}

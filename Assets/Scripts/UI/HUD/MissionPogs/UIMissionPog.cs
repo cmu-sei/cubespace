@@ -39,7 +39,7 @@ namespace UI.HUD
 		[SerializeField]
 		private Image _bgImage;
 
-		private int _missionIndex = -1;
+		private string _missionID = "";
 
 		[Header("Tooltip")]
         /// <summary>
@@ -58,7 +58,7 @@ namespace UI.HUD
         [SerializeField]
         private TextMeshProUGUI _tooltipStatusText;
 
-        public void UpdatePog(bool missionComplete, int missionScore, Sprite missionIcon, string missionName, int missionIndex)
+        public void UpdatePog(bool missionComplete, int missionScore, Sprite missionIcon, string missionName, string missionID)
         {
 			_tooltipTitleText.text = missionName; 
             if (!missionComplete && missionScore == 0)
@@ -74,7 +74,7 @@ namespace UI.HUD
                 _tooltipStatusText.text = "Completed";
             }
 
-			_missionIndex = missionIndex;
+			_missionID = missionID;
 
             SetSprite(missionIcon);
 			_shouldShowTooltip = true;
@@ -123,10 +123,10 @@ namespace UI.HUD
 
 		public void OnPointerClick(PointerEventData pointerEventData)
 		{
-			if (_shouldShowTooltip && _missionIndex >= 0 && HUDController.Instance && UIHudMissionManager.Instance)
+			if (_shouldShowTooltip && !string.IsNullOrEmpty(_missionID) && HUDController.Instance && UIHudMissionManager.Instance)
 			{
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(_missionIndex, true);
+                UIHudMissionManager.Instance.SelectMission(_missionID, true);
 				DisableTooltip();
             }
         }

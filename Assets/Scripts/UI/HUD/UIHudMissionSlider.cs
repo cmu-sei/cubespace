@@ -19,9 +19,9 @@ namespace UI.HUD
     public class UIHudMissionSlider : MonoBehaviour
     {
         /// <summary>
-        /// The current position of the HUD mission slider.
+        /// The transform of the selected mission to keep the slider stuck to
         /// </summary>
-        private Transform currentPosition;
+        private Transform currentTargetTransform;
         /// <summary>
         /// THe current velocity of this slider.
         /// </summary>
@@ -50,7 +50,7 @@ namespace UI.HUD
         /// <param name="mission">The mission item in the UI whose position should be set.</param>
         public void SetPosition(UIHudMissionItem mission, bool instant = false)
         {
-            currentPosition = mission.ItemCenterPosition;
+            currentTargetTransform = mission.ItemCenterPosition;
             if (instant)
             {
                 transform.position = GetTargetPosition();
@@ -62,7 +62,7 @@ namespace UI.HUD
         /// </summary>
         void Update()
         {
-            if (currentPosition)
+            if (currentTargetTransform)
             {
                 // Set the target to the current position OR the current position but our own x, depending on if lockXMovement is true or not
                 var target = GetTargetPosition();
@@ -72,7 +72,7 @@ namespace UI.HUD
 
         private Vector3 GetTargetPosition()
         {
-            return lockXMovement ? new Vector3(transform.position.x, currentPosition.position.y, currentPosition.position.z) : currentPosition.position;
+            return lockXMovement ? new Vector3(transform.position.x, currentTargetTransform.position.y, currentTargetTransform.position.z) : currentTargetTransform.position;
         }
     }
 }

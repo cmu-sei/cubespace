@@ -66,7 +66,6 @@ namespace UI.HUD
         /// Add systems for each mission to the dictionary and galaxy map and sets them up, or changes their attributes if they already exists.
         /// </summary>
         /// <param name="md">The incoming mission data.</param>
-        /// <param name="index">The index of the mission in the mission log corresponding to this system.</param>
         public void AddSystemOrSetData(List<MissionData> mds)
         {
 	        //lazy init because Start doesn't get called when object is inactive.
@@ -90,16 +89,13 @@ namespace UI.HUD
                 }
             }
             
-            MissionData md = null;
             // Update and create new systems as necessary
-            for (int index = 0; index < mds.Count; index++)
+            foreach (MissionData md in mds)
             {
-                md = mds[index];
-
                 // Update system attributes if it already exists
                 if (idsToSystems.ContainsKey(md.missionID))
                 {
-                    idsToSystems[md.missionID].UpdateSystem(md, index);
+                    idsToSystems[md.missionID].UpdateSystem(md);
                 }
                 // Set up the system if it doesn't
                 else
@@ -114,7 +110,7 @@ namespace UI.HUD
 
                     // Add the system to the dictionary and set its mission information
                     idsToSystems.Add(md.missionID, system);
-                    system.InitializeSystem(md, index, lineObj, targetObj);
+                    system.InitializeSystem(md, lineObj, targetObj);
                 }
             }
         }

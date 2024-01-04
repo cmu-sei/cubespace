@@ -1085,12 +1085,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missionIconMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
-  missionItems: []
   missionSlider: {fileID: 1096651939}
+  missionListParent: {fileID: 1777680922}
   missionListingItemPrefab: {fileID: 3350503601528500809, guid: 7feb21347c841d442a67353711f08786,
     type: 3}
-  missionDetails: {fileID: 881057813}
-  missionListParent: {fileID: 1777680922}
+  missionDetailsPanel: {fileID: 881057813}
 --- !u!114 &612479997
 MonoBehaviour:
   m_ObjectHideFlags: 0
