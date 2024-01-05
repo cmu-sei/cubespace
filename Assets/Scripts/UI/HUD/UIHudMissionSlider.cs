@@ -44,6 +44,13 @@ namespace UI.HUD
         [SerializeField]
         private bool lockXMovement = true;
 
+        private Transform t;
+
+        private void Awake()
+        {
+            t = transform;
+        }
+
         /// <summary>
         /// Sets the position of this slider to be the given mission's centered position.
         /// </summary>
@@ -62,17 +69,17 @@ namespace UI.HUD
         /// </summary>
         void Update()
         {
-            if (currentTargetTransform)
+            if (currentTargetTransform && Mathf.Abs(t.position.y - currentTargetTransform.position.y) > 0.005f)
             {
                 // Set the target to the current position OR the current position but our own x, depending on if lockXMovement is true or not
                 var target = GetTargetPosition();
-                transform.position = Vector3.SmoothDamp(transform.position, target, ref currentVelocity, smoothTime, maxSpeed);
+                t.position = Vector3.SmoothDamp(t.position, target, ref currentVelocity, smoothTime, maxSpeed);
             }
         }
 
         private Vector3 GetTargetPosition()
         {
-            return lockXMovement ? new Vector3(transform.position.x, currentTargetTransform.position.y, currentTargetTransform.position.z) : currentTargetTransform.position;
+            return lockXMovement ? new Vector3(t.position.x, currentTargetTransform.position.y, currentTargetTransform.position.z) : currentTargetTransform.position;
         }
     }
 }
