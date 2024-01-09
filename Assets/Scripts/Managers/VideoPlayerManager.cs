@@ -135,6 +135,7 @@ namespace Managers
             }
             */
 
+            /*
             UnityWebRequest webRequest = UnityWebRequest.Head(videoPlayer.url);
             webRequest.Send();
             while (!webRequest.isDone)
@@ -146,10 +147,11 @@ namespace Managers
             Debug.Log("Frame count: " + videoPlayer.frameCount);
             Debug.Log("Frame rate: " + videoPlayer.frameRate);
             Debug.Log("Length: " + videoPlayer.length + " seconds");
+            */
 
             int prevFrame = -1;
             float timeSinceLastNewFrame = 0.0f;
-            float warningSecond = 1.0f;
+            float warningSecond = videoTimeout / 2.0f;
 
             while (videoPlayer.isPlaying || paused)
             {
@@ -164,14 +166,12 @@ namespace Managers
                     }
                     else if (timeSinceLastNewFrame > warningSecond)
                     {
-                        Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds");
-                        warningSecond += 1.0f;
+                        Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds. Video will timeout and exit after " + (videoTimeout - warningSecond) + " more seconds.");
                     }
                 }
                 else
                 {
                     timeSinceLastNewFrame = 0.0f;
-                    warningSecond = 1.0f;
                     prevFrame = (int)videoPlayer.frame;
                 }
 
