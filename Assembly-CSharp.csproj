@@ -173,6 +173,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\PoweredComponent.cs" />
     <Compile Include="Assets\Scripts\Systems\GameBrain\Gamebrain Interfaces\GameBrainInterface.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Cube Station\CubeStation.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIButtonCutout.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Flight Engineer\FlightEngineer.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\WorkstationLEDStrip.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Assets\Scripts\Managers\SO\SceneController.cs" />
     <Compile Include="Assets\Scripts\Systems\GameBrain\Models\ShipData.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\SensorStationUI\Sensor Screens\SensorScreenProbe.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpButton.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\DestinationDisplayNavScreenComponents\ComponentUpdaters\NavReaderDialText.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UIHudDisplayToggleButton.cs" />
     <Compile Include="Assets\Scripts\Managers\ExternalMessageManager.cs" />
@@ -244,8 +246,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpPanel.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />
