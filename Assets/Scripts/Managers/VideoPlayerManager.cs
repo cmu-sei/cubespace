@@ -182,10 +182,18 @@ namespace Managers
                     prevFrame = (int)videoPlayer.frame;
                 }
 
-                if (MathF.Abs((float)videoPlayer.time - videoAudioSource.time) > 0.25f)
+                /*
+                if (MathF.Abs((float)videoPlayer.timeReference - videoAudioSource.time) > 0.25f)
                 {
                     Debug.LogError("Audio out of sync!");
-                    videoAudioSource.time = (float) videoPlayer.time;
+                    videoAudioSource.time = (float) videoPlayer.timeReference;
+                }
+                */
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("Time: " + videoPlayer.time + "\nTime Reference: " + videoPlayer.timeReference + "\nClock Time: " + videoPlayer.clockTime + "\nExternal Ref: " + videoPlayer.externalReferenceTime + "\nFrame: " + videoPlayer.frame);
+                    Debug.Log("Audio Time: + " + videoAudioSource.time);
                 }
 
                 yield return null;
