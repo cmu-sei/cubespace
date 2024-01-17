@@ -1,11 +1,8 @@
-using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UI.HUD;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.Video;
 
 namespace Managers
@@ -131,30 +128,9 @@ namespace Managers
             videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
-            /*
-            while (videoPlayer.isPlaying || paused)
-            {
-                yield return null;
-            }
-            */
-
-            /*
-            UnityWebRequest webRequest = UnityWebRequest.Head(videoPlayer.url);
-            webRequest.Send();
-            while (!webRequest.isDone)
-            {
-                yield return null;
-            }
-            Debug.Log("Diagnostic info for video at: " + videoPlayer.url);
-            Debug.Log("File size: " + webRequest.GetResponseHeader("Content-Length") + " bytes");
-            Debug.Log("Frame count: " + videoPlayer.frameCount);
-            Debug.Log("Frame rate: " + videoPlayer.frameRate);
-            Debug.Log("Length: " + videoPlayer.length + " seconds");
-            */
-
             int prevFrame = -1;
             float timeSinceLastNewFrame = 0.0f;
-            float warningSecond = videoTimeout / 2.0f;
+            float warningSecond = 1.0f;
             
             int droppedFrames = 0;
             videoPlayer.frameDropped += (_) => { droppedFrames += 1; };
@@ -164,35 +140,23 @@ namespace Managers
                 if (videoPlayer.frame == prevFrame)
                 {
                     timeSinceLastNewFrame += Time.deltaTime;
-                    if (timeSinceLastNewFrame > videoTimeout)
+                    if (timeSinceLastNewFrame >= videoTimeout)
                     {
                         // TODO: display this log statement to player in game and provide an exit/restart button as a failsafe
                         Debug.LogError("Video player timed out on frame" + prevFrame + " of " + videoPlayer.frameCount + " after " + timeSinceLastNewFrame + " seconds");
                         StopVideo();
                     }
-                    else if (timeSinceLastNewFrame > warningSecond)
+                    else if (timeSinceLastNewFrame >= warningSecond)
                     {
                         Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds. Video will timeout and exit after " + (videoTimeout - warningSecond) + " more seconds.");
+                        warningSecond += 1;
                     }
                 }
                 else
                 {
                     timeSinceLastNewFrame = 0.0f;
                     prevFrame = (int)videoPlayer.frame;
-                }
-
-                /*
-                if (MathF.Abs((float)videoPlayer.timeReference - audioSource.time) > 0.25f)
-                {
-                    Debug.LogError("Audio out of sync!");
-                    audioSource.time = (float) videoPlayer.timeReference;
-                }
-                */
-
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Debug.Log("Time: " + videoPlayer.time + "\nTime Reference: " + videoPlayer.timeReference + "\nClock Time: " + videoPlayer.clockTime + "\nExternal Ref: " + videoPlayer.externalReferenceTime + "\nFrame: " + videoPlayer.frame);
-                    Debug.Log("Audio Time: + " + audioSource.time);
+                    warningSecond = 1.0f;
                 }
 
                 yield return null;
