@@ -29,7 +29,7 @@ namespace UI.HUD
             {
                 curScore += m.currentScore;
             }
-            scoreText.text = curScore.ToString("#,#");
+            scoreText.text = curScore.ToString("#,0");
         }
 
         private void InitializeTotalScore()
