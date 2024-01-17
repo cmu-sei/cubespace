@@ -157,7 +157,8 @@ namespace Managers
             float warningSecond = videoTimeout / 2.0f;
             
             AudioSource videoAudioSource = videoPlayer.GetTargetAudioSource(0);
-            videoPlayer.frameDropped += (_) => { Debug.LogError("Video player dropped a frame!"); };
+            int droppedFrames = 0;
+            videoPlayer.frameDropped += (_) => { droppedFrames += 1; };
 
             while (videoPlayer.isPlaying || paused)
             {
@@ -184,10 +185,17 @@ namespace Managers
                 if (MathF.Abs((float)videoPlayer.time - videoAudioSource.time) > 0.25f)
                 {
                     Debug.LogError("Audio out of sync!");
+                    videoAudioSource.time = (float) videoPlayer.time;
                 }
 
                 yield return null;
             }
+            
+            if (droppedFrames > 10)
+            {
+                Debug.LogWarning("Video dropped " + droppedFrames + " frames!");
+            }
+
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
             OnVideoCompleted.Invoke(videoPlayer.url, true);

@@ -20323,16 +20323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1288435104721843136, guid: 057ed80e0c56552408b21d3eb9d6e517,
-        type: 3}
-      propertyPath: m_SkipOnDrop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1288435104721843136, guid: 057ed80e0c56552408b21d3eb9d6e517,
-        type: 3}
-      propertyPath: m_TargetAudioSources.Array.data[0]
-      value: 
-      objectReference: {fileID: 1288435104280375479}
     - target: {fileID: 1288435104721843138, guid: 057ed80e0c56552408b21d3eb9d6e517,
         type: 3}
       propertyPath: m_Name
@@ -20395,12 +20385,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057ed80e0c56552408b21d3eb9d6e517, type: 3}
---- !u!82 &1288435104280375479 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1288435104721843139, guid: 057ed80e0c56552408b21d3eb9d6e517,
-    type: 3}
-  m_PrefabInstance: {fileID: 1288435104280375478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1300172496872596336
 GameObject:
   m_ObjectHideFlags: 0
