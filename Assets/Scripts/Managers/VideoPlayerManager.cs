@@ -156,7 +156,6 @@ namespace Managers
             float timeSinceLastNewFrame = 0.0f;
             float warningSecond = videoTimeout / 2.0f;
             
-            AudioSource videoAudioSource = videoPlayer.GetTargetAudioSource(0);
             int droppedFrames = 0;
             videoPlayer.frameDropped += (_) => { droppedFrames += 1; };
 
@@ -183,17 +182,17 @@ namespace Managers
                 }
 
                 /*
-                if (MathF.Abs((float)videoPlayer.timeReference - videoAudioSource.time) > 0.25f)
+                if (MathF.Abs((float)videoPlayer.timeReference - audioSource.time) > 0.25f)
                 {
                     Debug.LogError("Audio out of sync!");
-                    videoAudioSource.time = (float) videoPlayer.timeReference;
+                    audioSource.time = (float) videoPlayer.timeReference;
                 }
                 */
 
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     Debug.Log("Time: " + videoPlayer.time + "\nTime Reference: " + videoPlayer.timeReference + "\nClock Time: " + videoPlayer.clockTime + "\nExternal Ref: " + videoPlayer.externalReferenceTime + "\nFrame: " + videoPlayer.frame);
-                    Debug.Log("Audio Time: + " + videoAudioSource.time);
+                    Debug.Log("Audio Time: + " + audioSource.time);
                 }
 
                 yield return null;
