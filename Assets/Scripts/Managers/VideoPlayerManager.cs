@@ -155,6 +155,9 @@ namespace Managers
             int prevFrame = -1;
             float timeSinceLastNewFrame = 0.0f;
             float warningSecond = videoTimeout / 2.0f;
+            
+            AudioSource videoAudioSource = videoPlayer.GetTargetAudioSource(0);
+            videoPlayer.frameDropped += (_) => { Debug.LogError("Video player dropped a frame!"); };
 
             while (videoPlayer.isPlaying || paused)
             {
@@ -176,6 +179,11 @@ namespace Managers
                 {
                     timeSinceLastNewFrame = 0.0f;
                     prevFrame = (int)videoPlayer.frame;
+                }
+
+                if (MathF.Abs((float)videoPlayer.time - videoAudioSource.time) > 0.25f)
+                {
+                    Debug.LogError("Audio out of sync!");
                 }
 
                 yield return null;
