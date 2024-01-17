@@ -44,7 +44,8 @@ namespace Managers
  
         public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared, bool showControls = false)
         {
-            url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+            // For testing:
+            // url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
             if (videoPlayer == null)
             {
