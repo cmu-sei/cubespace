@@ -129,6 +129,9 @@ namespace UI.HUD
             #else
             quitButton.SetActive(networkManager && networkManager.isInDevMode);
             #endif
+
+            // TODO: The placement of this is somewhat arbitrary. Loading sequence should be better scripted
+            LoadingSystem.Instance.EndLoad();
         }
 
         /// <summary>
