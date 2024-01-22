@@ -3989,6 +3989,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 57120342}
+    - target: {fileID: 8652573791755346952, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 107e8f2f9a54d4c4cabeec711717c5fe,
+        type: 3}
+    - target: {fileID: 8652573791755346952, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2719617e361108a4fbf81b9f330f2527, type: 3}
 --- !u!224 &1304477545 stripped
