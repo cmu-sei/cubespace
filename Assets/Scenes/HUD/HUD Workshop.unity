@@ -3984,21 +3984,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: GalaxyPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1416522414708907477, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3529332396887198556, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038499748841824830, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6886987236837093236, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 57120342}
-    - target: {fileID: 8652573791755346952, guid: 2719617e361108a4fbf81b9f330f2527,
+    - target: {fileID: 7977056764427427302, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 107e8f2f9a54d4c4cabeec711717c5fe,
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652573792380008069, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
-    - target: {fileID: 8652573791755346952, guid: 2719617e361108a4fbf81b9f330f2527,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2719617e361108a4fbf81b9f330f2527, type: 3}
