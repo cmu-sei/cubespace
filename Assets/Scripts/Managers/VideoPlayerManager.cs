@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Video;
 
 namespace Managers
@@ -12,8 +13,10 @@ namespace Managers
     public class VideoPlayerManager : ConnectedSingleton<VideoPlayerManager>
     {
         [SerializeField] private VideoPlayer videoPlayer;
-        [SerializeField] private AudioSource audioSource;
         [SerializeField] private VideoControls videoControls;
+
+        [SerializeField] AudioMixerGroup transmissionsMixerGroup;
+        private AudioSource audioSource;
 
         [SerializeField] private float videoTimeout = 6.0f;
 
@@ -25,6 +28,25 @@ namespace Managers
         public static Action<string, bool> OnVideoCompleted; // (url, didVideoFinish?)
 
         private bool paused = false;
+
+        public override void Start()
+        {
+            base.Start();
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.outputAudioMixerGroup = transmissionsMixerGroup;
+
+            audioSource.loop = false;
+            audioSource.clip = null;
+            audioSource.playOnAwake = false;
+            audioSource.mute = false;
+            audioSource.spatialBlend = 0;
+            audioSource.volume = 1;
+            audioSource.pitch = 1;
+            audioSource.bypassReverbZones = false;
+
+            videoPlayer.SetTargetAudioSource(0, audioSource);
+        }
 
         private void OnEnable()
         {

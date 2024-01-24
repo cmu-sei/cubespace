@@ -571,7 +571,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0405405, y: 1}
+    m_SensorSize: {x: 2.0385356, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -20323,6 +20323,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1288435104721843136, guid: 057ed80e0c56552408b21d3eb9d6e517,
+        type: 3}
+      propertyPath: m_TargetAudioSources.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288435104721843137, guid: 057ed80e0c56552408b21d3eb9d6e517,
+        type: 3}
+      propertyPath: transmissionsMixerGroup
+      value: 
+      objectReference: {fileID: 1439580044319456257, guid: 2c4af0275188e4e799c263ab050302f5,
+        type: 2}
     - target: {fileID: 1288435104721843138, guid: 057ed80e0c56552408b21d3eb9d6e517,
         type: 3}
       propertyPath: m_Name

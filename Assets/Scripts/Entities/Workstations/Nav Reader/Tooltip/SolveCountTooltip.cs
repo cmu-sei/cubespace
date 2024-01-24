@@ -64,6 +64,11 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     /// <param name="placeLeft">Whether to place this tooltip to the left of the system.</param>
     public void SetProperties(MissionData mission, bool placeLeft=false)
     {
+        if (mission == null)
+        {
+            Debug.LogError("Tried to set properties for solve count tooltip with a null mission!");
+        }
+
         this.id = mission.missionID;
         Color setColor = _palette.incompleteHighlightColor;
         if (!mission.complete && mission.currentScore == 0)
