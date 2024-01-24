@@ -29,7 +29,7 @@ namespace UI
         /// <summary>
         /// The ID to image map to look up backdrops.
         /// </summary>
-        [SyncVar(hook = nameof(UpdateBackdrop))] private string currentBackdropID = "";
+        [SyncVar(hook = nameof(UpdateBackdrop))] private string currentBackdropID = "N/A";
         [SerializeField]
         private IDToImageMap _backdropLookup;
         /// <summary>

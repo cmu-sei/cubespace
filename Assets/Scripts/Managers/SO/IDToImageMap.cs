@@ -8,7 +8,8 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using System.Collections.Generic;using UnityEngine;namespace Managers{	/// <summary>
+using System.Collections.Generic;
+using UnityEngine;namespace Managers{	/// <summary>
 	/// ScriptableObject defining a mapping between a location identifier and a background image.
 	/// </summary>	[CreateAssetMenu(fileName = "ID To Image Map", menuName = "Game Data/ID To Image Map", order = 1)]	public class IDToImageMap : ScriptableObject	{		// A list of location IDs and the background images that are associated with a location		[SerializeField]		private List<LocationIDImagePair> pairs = new List<LocationIDImagePair>();		// A dictionary of location IDs and the location image		private readonly Dictionary<string, Sprite> images = new Dictionary<string, Sprite>();		/// <summary>
 		/// Creates the dictionary when the script loads in game or the pairs List is modified in the Inspector.
@@ -19,9 +20,21 @@ using System.Collections.Generic;using UnityEngine;namespace Managers{	/// 
 		/// </summary>
 		/// <param name="imageID">The ID for the location image.</param>
 		/// <param name="defaultID">A default to use in case the function cannot find the image with the given ID.</param>
-		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			// Return null if there is no image ID given or the images dictionary is empty			if (string.IsNullOrEmpty(imageID) || images == null)			{				return null;			}
-			// If the image ID exists in the dictionary, return the corresponding image			if (images.TryGetValue(imageID, out Sprite image))			{				return image;			}			// Otheriwse, if the default ID was given and is in the dictionary, return it			else if (defaultID != "" && images.TryGetValue(defaultID, out image))
-            {
+		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			if (images == null || images.Count == 0)
+			{
+				return null;
+			}
+
+            Sprite image;
+            if (string.IsNullOrEmpty(imageID))
+			{
+				if (defaultID != "" && images.TryGetValue(defaultID, out image))
+				{
+                    return image;
+                }
+			}
+			else if (images.TryGetValue(imageID, out image))
+			{
 				return image;
 			}			// If neither case is true, get a random image for this ID and put it in the dictionary
 			// TODO: This should probably require calling this with a flag or something. I don't want this behavior by default
