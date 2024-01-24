@@ -183,7 +183,7 @@ public class NavReaderGalaxySystem : TooltipControl
 
             // Update the solve count and image
             solveCountText.text = $"{missionData.solveTeams}/{missionData.totalTeams}";
-            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon);
+            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon, false);
 
             UpdateVisualState(missionData);
             UpdatePosition(missionData);

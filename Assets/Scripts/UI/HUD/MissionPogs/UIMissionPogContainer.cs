@@ -148,7 +148,7 @@ namespace UI.HUD
 				if (missions[i].complete && missions[i].visible && !missions[i].isSpecial)
 				{
 					pogs[nextPogIndexToFill].gameObject.SetActive(true);
-					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon), missions[i].title, missions[i].missionID);
+					pogs[nextPogIndexToFill].UpdatePog(missions[i].complete, missions[i].currentScore, missionIconLookup.GetImage(missions[i].missionIcon, false), missions[i].title, missions[i].missionID);
                     nextPogIndexToFill++;
 				}
 			}
@@ -186,8 +186,8 @@ namespace UI.HUD
 			{
 				var pig = Instantiate(MissionPogPrefab, layoutGroupParent);
 				pogs[i] = pig.GetComponent<UIMissionPog>();
-				pogs[i].emptyBgSprite= missionIconLookup.GetImage(emptyIconLookupID);
-				pogs[i].completedBgSprite = missionIconLookup.GetImage(completedIconBgLookupID);
+				pogs[i].emptyBgSprite= missionIconLookup.GetImage(emptyIconLookupID, false);
+				pogs[i].completedBgSprite = missionIconLookup.GetImage(completedIconBgLookupID, false);
 				pogs[i].gameObject.SetActive(false);
 			}
 

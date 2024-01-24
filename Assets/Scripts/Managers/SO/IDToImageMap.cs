@@ -16,11 +16,12 @@ using UnityEngine;namespace Managers{	/// <summary>
 		/// </summary>		void OnValidate()		{			InitiateDictionary();		}		/// <summary>
 		/// Populates a dictionary with a location ID and an image.
 		/// </summary>		public void InitiateDictionary()		{			// Clear the existing dictionary if it exists			images.Clear();			// Loop through the list of pairs and make sure the pair exists and has both attributes			foreach (LocationIDImagePair pair in pairs)			{				if (!images.ContainsKey(pair.GetLocationID()) && pair.GetLocationID() != "" && pair.GetImage() != null)				{					images.Add(pair.GetLocationID(), pair.GetImage());				}			}		}		/// <summary>
-		/// Gets the Sprite object representing the background image of a location.
+		/// Gets a sprite from this image map
 		/// </summary>
-		/// <param name="imageID">The ID for the location image.</param>
+		/// <param name="imageID">The ID for the image.</param>
+		/// /// <param name="getRandomIfNotFound">Should it set a random image to this ID if the right image can't be found.</param>
 		/// <param name="defaultID">A default to use in case the function cannot find the image with the given ID.</param>
-		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			if (images == null || images.Count == 0)
+		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, bool getRandomIfNotFound, string defaultID = "")		{			if (images == null || images.Count == 0)
 			{
 				return null;
 			}
@@ -36,11 +37,16 @@ using UnityEngine;namespace Managers{	/// <summary>
 			else if (images.TryGetValue(imageID, out image))
 			{
 				return image;
-			}			// If neither case is true, get a random image for this ID and put it in the dictionary
-			// TODO: This should probably require calling this with a flag or something. I don't want this behavior by default
-			var s = GetRandomImage();
-			images.Add(imageID, s);
-			return s;		}		/// <summary>
+			}
+
+			if (getRandomIfNotFound)
+			{
+                var s = GetRandomImage();
+				if (s != null) images.Add(imageID, s);
+                return s;
+            }
+			
+			return null;		}		/// <summary>
 		/// Gets a random image from the list of location ID and image pairs.
 		/// </summary>
 		/// <returns>A random image from the list.</returns>		private Sprite GetRandomImage()		{			// Return a random image from the list of pairs			if (pairs.Count > 0)			{				return pairs[Random.Range(0, pairs.Count)].GetImage();			}			// Otherwise return null			else			{				return null;			}		}	}	/// <summary>

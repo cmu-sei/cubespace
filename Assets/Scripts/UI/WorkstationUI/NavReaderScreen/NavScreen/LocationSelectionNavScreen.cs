@@ -121,7 +121,7 @@ namespace UI.NavScreen
 			}
 			
 			locationName.text = $"{location.name}";
-			locationImage.sprite = imageMapMap.GetImage(location.locationID);
+			locationImage.sprite = imageMapMap.GetImage(location.locationID, true);
 			selectLocationButton.SetAtCurrentLocation(showingCurrent);
 		}
 

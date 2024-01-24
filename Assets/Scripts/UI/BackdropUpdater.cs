@@ -119,7 +119,7 @@ namespace UI
                 return;
             }
 
-            _image.sprite = _backdropLookup.GetImage(id, backdropIdFallback);
+            _image.sprite = _backdropLookup.GetImage(id, false, backdropIdFallback);
 
             if (_image.sprite == null)
             {
