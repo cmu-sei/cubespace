@@ -201,9 +201,9 @@ namespace Entities.Workstations.FlightEngineerParts
             if (flightEngineer.IsPowered)
             {
                 animator.SetBool("isActivated", activated);
+                // Play SFX
+                flightEngineer.SetThrusterSFX(id, activated, transform, true);
             }
-            // Play SFX
-            flightEngineer.SetThrusterSFX(id, activated, transform, true);
         }
     }
     #endregion

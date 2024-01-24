@@ -211,7 +211,7 @@ namespace Entities.Workstations
             // If we can jump to another location, start the engine sound effect if the player is there
             if (IsLaunchable())
             {
-                if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer)
+                if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer && IsPowered)
                 {
                     Audio.AudioPlayer.Instance.FlightEngineerStartEngine();
                 }
@@ -458,7 +458,7 @@ namespace Entities.Workstations
         protected override void Enter()
         {
             base.Enter();
-            if (IsLaunchable()) 
+            if (IsLaunchable() && IsPowered) 
             {
                 Audio.AudioPlayer.Instance.FlightEngineerStartEngine();
             }
