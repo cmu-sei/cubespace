@@ -132,8 +132,6 @@ MonoBehaviour:
     type: 2}
   MuteSFXSnapshot: {fileID: 5438217364246936589, guid: 2c4af0275188e4e799c263ab050302f5,
     type: 2}
-  MissionLogSnapshot: {fileID: 7686682069970450531, guid: 2c4af0275188e4e799c263ab050302f5,
-    type: 2}
   soundList:
   - type: 0
     audioClips:
@@ -341,7 +339,7 @@ MonoBehaviour:
     cooldown: 0
   - type: 26
     audioClips:
-    - {fileID: 8300000, guid: 0c57a528aed9148158d248e87e542847, type: 3}
+    - {fileID: 8300000, guid: 24734c681f3fbed4dbf1450b0e651698, type: 3}
     volume: 0.593
     pitchRand: 0
     loop: 1

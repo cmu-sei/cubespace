@@ -109,6 +109,7 @@ namespace Entities.Workstations.CubeStationParts
         /// </summary>
         public void OnAnimationFinish()
         {
+            Audio.AudioPlayer.Instance.CubeHologramPowerOn(transform);
             Audio.AudioPlayer.Instance.CubeHologramLoopOn();
             ShipStateManager.Instance.InsertCube();
         }
