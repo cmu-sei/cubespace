@@ -256,14 +256,14 @@ MonoBehaviour:
     cooldown: 0.03
   - type: 16
     audioClips:
-    - {fileID: 8300000, guid: 7114fee6d223d4a79aa1f5974512514d, type: 3}
+    - {fileID: 8300000, guid: 48ecba112065cf6498e86f6575c184b6, type: 3}
     volume: 0.6
     pitchRand: 0
     loop: 0
     cooldown: 0
   - type: 17
     audioClips:
-    - {fileID: 8300000, guid: 01506667dc92e422d88a1ed21adc850a, type: 3}
+    - {fileID: 8300000, guid: ed4355726fd79d34fbb8299af9b424c3, type: 3}
     volume: 0.5
     pitchRand: 0
     loop: 1
@@ -287,14 +287,14 @@ MonoBehaviour:
     cooldown: 0
   - type: 20
     audioClips:
-    - {fileID: 8300000, guid: e1e18675e3f8b4c20b3b5c2cd6a5b9af, type: 3}
+    - {fileID: 8300000, guid: 2dcdc3dcf9e665d44b5c258f124b4134, type: 3}
     volume: 0.352
     pitchRand: 0
     loop: 1
     cooldown: 0
   - type: 21
     audioClips:
-    - {fileID: 8300000, guid: 616162d36732f4bfc8343359430656be, type: 3}
+    - {fileID: 8300000, guid: 5ecbaffe499fa404695431fb3f214630, type: 3}
     volume: 0.34
     pitchRand: 0.13
     loop: 0
