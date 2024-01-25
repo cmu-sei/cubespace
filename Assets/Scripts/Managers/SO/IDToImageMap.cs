@@ -23,7 +23,14 @@ using UnityEngine;namespace Managers{	/// <summary>
 		/// <param name="defaultID">A default to use in case the function cannot find the image with the given ID.</param>
 		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, bool getRandomIfNotFound, string defaultID = "")		{			if (images == null || images.Count == 0)
 			{
-				Debug.LogWarning("Tried to get image with id: " + imageID + " and defaultID: " + defaultID + "from empty image map");
+				if (pairs.Count == 0)
+				{
+                    Debug.LogWarning("Tried to get image with id: " + imageID + " and defaultID: " + defaultID + "from empty image map");
+                }
+				else
+				{
+					InitiateDictionary();
+				}
 				return null;
 			}
 

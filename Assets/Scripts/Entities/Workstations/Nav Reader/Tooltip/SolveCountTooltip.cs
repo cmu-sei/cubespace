@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using Managers;
 using Systems.GameBrain;
-using UI.HUD;
-using System.Reflection;
 using UI.ColorPalettes;
 
 /// <summary>
@@ -70,18 +68,18 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
         }
 
         this.id = mission.missionID;
-        Color setColor = _palette.incompleteHighlightColor;
+        Color setColor = _palette.GetPaletteColor(PaletteColor.incompleteHighlight);
         if (!mission.complete && mission.currentScore == 0)
         {
             // Nothing here
         }
         else if (!mission.complete && mission.currentScore > 0)
         {
-            setColor = _palette.partiallyCompletedHighlightColor;
+            setColor = _palette.GetPaletteColor(PaletteColor.partiallyCompletedHighlight);
         }
         else if (mission.complete)
         {
-            setColor = _palette.completedHighlightColor;
+            setColor = _palette.GetPaletteColor(PaletteColor.completedHighlight);
         }
 
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);

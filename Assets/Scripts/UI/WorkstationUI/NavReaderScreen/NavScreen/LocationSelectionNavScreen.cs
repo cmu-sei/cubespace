@@ -95,6 +95,8 @@ namespace UI.NavScreen
 			rightButton.onClick.AddListener(OnRightClick);
 			enterCoordinatesButton.onClick.AddListener(OnEnterCoordinatesClick);
 			selectLocationButton.onClick.AddListener(OnSelectLocationClick);
+
+			imageMapMap.InitiateDictionary();
 		}
 
 		/// <summary>
