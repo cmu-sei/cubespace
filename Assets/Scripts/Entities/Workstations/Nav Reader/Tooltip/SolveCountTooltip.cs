@@ -85,7 +85,6 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);
         rightSolveTooltipArrowBorderImage.gameObject.SetActive(placeLeft);
 
-        Debug.Log($"{mission.solveTeams} team{(mission.solveTeams == 1 ? " has" : "s have")} solved this challenge");
         teamsCompletedText.text = $"{mission.solveTeams} team{(mission.solveTeams == 1 ? " has" : "s have")} solved this challenge";
         solveTooltipBorderImage.color = setColor;
         solveTooltipArrowBorderImage.color = setColor;
