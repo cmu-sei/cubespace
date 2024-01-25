@@ -1,5 +1,4 @@
 using Managers;
-using NaughtyAttributes;
 using System.Collections;
 using Systems.GameBrain;
 using TMPro;
@@ -182,6 +181,11 @@ public class NavReaderGalaxySystem : TooltipControl
             }
 
             // Update the solve count and image
+            /* DEBUGGING */
+            if (missionData == null)
+            {
+                Debug.LogError("L187 nrgs");
+            }
             solveCountText.text = $"{missionData.solveTeams}/{missionData.totalTeams}";
             spriteImage.sprite = imageMap.GetImage(missionData.missionIcon, false);
 
@@ -249,6 +253,10 @@ public class NavReaderGalaxySystem : TooltipControl
         }
         if (SolveCountTooltip.Instance.id == m.missionID)
         {
+            if (SolveCountTooltip.Instance == null)
+            {
+                Debug.LogError("L258 nrgs");
+            }
             SolveCountTooltip.Instance.SetProperties(m, flip);
         }
     }

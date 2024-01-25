@@ -121,7 +121,14 @@ namespace UI.NavScreen
 			}
 			
 			locationName.text = $"{location.name}";
-			locationImage.sprite = imageMapMap.GetImage(location.imageID, true); // Currently not really using this feature, imageIDs aren't actually coming from GameBrain so this will just set one of the random placeholders
+
+			Sprite s = imageMapMap.GetImage(location.imageID, true);
+			if (s == null)
+			{
+				Debug.LogError("Null image for location???");
+			}
+			locationImage.sprite = s;
+            //locationImage.sprite = imageMapMap.GetImage(location.imageID, true); // Currently not really using this feature, imageIDs aren't actually coming from GameBrain so this will just set one of the random placeholders
 			selectLocationButton.SetAtCurrentLocation(showingCurrent);
 		}
 
