@@ -42,7 +42,7 @@ using UnityEngine;namespace Managers{	/// <summary>
 			if (getRandomIfNotFound)
 			{
                 var s = GetRandomImage();
-				if (s != null) images.Add(imageID, s);
+				if (s != null && !string.IsNullOrEmpty(imageID)) images.Add(imageID, s);
                 return s;
             }
 			
