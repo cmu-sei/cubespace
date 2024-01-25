@@ -234,7 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1288435104721843136}
   videoControls: {fileID: 401694726}
-  transmissionsMixerGroup: {fileID: 0}
+  transmissionsMixerGroup: {fileID: 1439580044319456257, guid: 2c4af0275188e4e799c263ab050302f5,
+    type: 2}
   videoTimeout: 6
   preparedVideoURL: 
 --- !u!328 &1288435104721843136
