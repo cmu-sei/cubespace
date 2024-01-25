@@ -21,47 +21,22 @@ using UnityEngine;
 /// </summary>
 public class UIHudMissionManager : Singleton<UIHudMissionManager>
 {
-    /// <summary>
-    /// The map of missions to icons.
-    /// </summary>
     [SerializeField]
     private IDToImageMap missionIconMap;
-    /// <summary>
-    /// The list of mission items, which should be stored in numeric order.
-    /// </summary>
     [SerializeField]
-    private List<UIHudMissionItem> missionItems;
-    /// <summary>
-    /// A reference to the scripted slider for highlighting items.
-    /// </summary>
+    private Dictionary<string, UIHudMissionItem> missionItems = new Dictionary<string, UIHudMissionItem>();
     [SerializeField]
     private UIHudMissionSlider missionSlider;
-    /// <summary>
-    /// Mission listing prefab to spawn in, in case more items need to be displayed.
-    /// </summary>
-    [SerializeField]
-    private GameObject missionListingItemPrefab;
-
-    /// <summary>
-    /// The details of each mission.
-    /// </summary>
-    [SerializeField]
-    private UIHudMissionDetailsPanel missionDetails;
-
-    /// <summary>
-    /// Mission list parent object, holding the mission list items.
-    /// </summary>
     [SerializeField]
     private Transform missionListParent;
+    [SerializeField]
+    private GameObject missionListingItemPrefab;
+    [SerializeField]
+    private UIHudMissionDetailsPanel missionDetailsPanel;
 
-    /// <summary>
-    /// The last selected mission's index.
-    /// </summary>
-    private int lastSelectedIndex = 0;
+    private string lastSelectedId = "";
 
-    /// <summary>
-    /// Unity event function that initiates the mission and icon mapping.
-    /// </summary>
+
     public override void Awake()
     {
         base.Awake();
@@ -69,35 +44,22 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         missionIconMap.InitiateDictionary();
     }
 
-    /// <summary>
-    /// Unity event function that subscribes to the event fired when mission data changes and selects the correct mission.
-    /// </summary>
     public void OnEnable()
     {
         ShipStateManager.OnMissionDatasChange += OnMissionDataChange;
     }
 
-    /// <summary>
-    /// Unity event function that unsubscribes from the event fired when mission data changes and hides the vignette.
-    /// </summary>
     private void OnDisable()
     {
         ShipStateManager.OnMissionDatasChange -= OnMissionDataChange;
     }
 
-    /// <summary>
-    /// Sets the object from received mission data.
-    /// </summary>
-    /// <param name="data">The mission data received.</param>
     private void OnMissionDataChange(List<MissionData> data)
     {
         SetMissionItemsFromMissionData(data);
         UpdateDetailsForSelectedMission(data);
     }
 
-    /// <summary>
-    /// Called when the mission log is opened to initialize the mission log. Starts a coroutine to wait a frame before initialization
-    /// </summary>
     public void OnOpen()
     {
         StartCoroutine(Co_Open());
@@ -112,18 +74,24 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         SetMissionItemsFromMissionData(ShipStateManager.Instance.MissionDatas);
 
         // If the last selected mission is still valid, open the log to it
-        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionItems.Count && missionItems[lastSelectedIndex].CachedMissionData.visible)
+        UIHudMissionItem prevSelectedItem;
+        missionItems.TryGetValue(lastSelectedId, out prevSelectedItem);
+
+        if (prevSelectedItem != null && prevSelectedItem.CachedMissionData.visible)
         {
-            SelectMission(missionItems[lastSelectedIndex]);
+            SelectMission(prevSelectedItem);
         }
-        // Else default to first in the list
-        else if (missionItems.Count > 0 && missionItems[0].CachedMissionData.visible)
+        // Else default to first item we can find that isn't hidden
+        else if (missionItems.Count > 0)
         {
-            SelectMission(missionItems[0]);
-        }
-        else
-        {
-            Debug.LogWarning("Mission log failed to open previously selected mission");
+            foreach (UIHudMissionItem item in missionItems.Values)
+            {
+                if (item.CachedMissionData.visible)
+                {
+                    SelectMission(item, true);
+                    break;
+                }
+            }
         }
     }
 
@@ -133,34 +101,63 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// <param name="missionData">The mission data received.</param>
     public void SetMissionItemsFromMissionData(List<MissionData> missionData)
     {
-        for (int i = 0; i < missionData.Count; i++)
+        // Check to see if any missions we currently have items for have been removed from the data coming in
+        if (missionItems.Count > 0)
         {
-            if (i >= missionItems.Count)
+            List<string> keysToBeRemoved = new List<string>();
+
+            foreach (string id in missionItems.Keys)
             {
-                GameObject missionListing = Instantiate(missionListingItemPrefab, missionListParent);
-                missionItems.Add(missionListing.GetComponent<UIHudMissionItem>());
+                if (!missionData.Exists((o) => { return o.missionID == id; }))
+                {
+                    keysToBeRemoved.Add(id);
+                }
             }
 
-            if (missionData[i].visible)
+            foreach (string key in keysToBeRemoved)
             {
-                missionItems[i].gameObject.SetActive(true);
-                missionItems[i].SetMissionData(missionData[i]);
+                Destroy(missionItems[key].gameObject);
+                missionItems.Remove(key);
             }
-            else
+        }
+        
+        foreach (MissionData md in missionData)
+        {
+            if (!missionItems.ContainsKey(md.missionID))
             {
-                missionItems[i].gameObject.SetActive(false);
+                GameObject missionListing = Instantiate(missionListingItemPrefab, missionListParent);
+                missionItems.Add(md.missionID, missionListing.GetComponent<UIHudMissionItem>());
             }
+
+            UIHudMissionItem item;
+            missionItems.TryGetValue(md.missionID, out item);
+            item.SetMissionData(md);
+            item.gameObject.SetActive(md.visible);
         }
     }
 
-    /// <summary>
-    /// Updates the details panel for the currently selected mission when new mission data is recieved
-    /// </summary>
+    // Updates the details panel for the currently selected mission when new mission data is recieved
     private void UpdateDetailsForSelectedMission(List<MissionData> missionData)
     {
-        if (lastSelectedIndex >= 0 && lastSelectedIndex < missionData.Count && missionData[lastSelectedIndex].visible)
+        UIHudMissionItem selectedItem;
+        missionItems.TryGetValue(lastSelectedId, out selectedItem);
+
+        if (selectedItem != null && selectedItem.CachedMissionData.visible)
         {
-            missionDetails.SetMissionDetailsData(missionData[lastSelectedIndex]);
+            missionDetailsPanel.SetMissionDetailsData(selectedItem.CachedMissionData); // safe because the items in missionItems all get updated before this is called so the cached mission will be up to date
+            SelectMission(selectedItem);
+        }
+        else if (missionItems.Count > 0)
+        {
+            // previously selected mission either doesn't exist or is now hidden so choose another random mission to select
+            foreach (UIHudMissionItem item in missionItems.Values)
+            {
+                if (item.CachedMissionData.visible)
+                {
+                    SelectMission(item, true);
+                    break;
+                }
+            }
         }
     }
 
@@ -170,20 +167,29 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
     /// <param name="item">The UI piece for a mission.</param>
     public void SelectMission(UIHudMissionItem item, bool jumpToPosition = false)
     {
-        var index = Array.IndexOf(missionItems.ToArray(), item);
-        lastSelectedIndex = index;
+        if (!item.CachedMissionData.visible)
+        {
+            Debug.LogWarning("Tried to select hidden mission");
+            return;
+        }
+
+        string id = item.CachedMissionData.missionID;
+        lastSelectedId = id;
 
         // Set the status as selected on every item in the array
-        for (int i = 0; i < missionItems.Count; i++)
+        foreach (UIHudMissionItem i in missionItems.Values)
         {
-            missionItems[i].SetSelected(i == index);
+            if (i.CachedMissionData.visible)
+            {
+                i.SetSelected(i.CachedMissionData.missionID == id);
+            }
         }
-        missionDetails.SetMissionDetailsData(item.CachedMissionData);
+        missionDetailsPanel.SetMissionDetailsData(item.CachedMissionData);
+
         if (jumpToPosition)
         {
             ScrollToMission(item);
         }
-
         //update after scrolltomission.
         missionSlider.SetPosition(item, jumpToPosition);
     }
@@ -201,10 +207,14 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
         missionParent.anchoredPosition = new Vector3(missionParent.anchoredPosition.x, -offset/2);
     }
 
-    public void SelectMission(int index,bool jumpToPosition =false )
+    public void SelectMission(string missionID, bool jumpToPosition = false )
     {
-        UIHudMissionItem item = missionItems[index]; // TODO: make this search based on id, not index
-        SelectMission(item, jumpToPosition);
+        UIHudMissionItem item;
+        missionItems.TryGetValue(missionID, out item);
+        if (item != null)
+        {
+            SelectMission(item, jumpToPosition);
+        }
     }
 }
 

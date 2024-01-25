@@ -29,7 +29,7 @@ namespace UI
         /// <summary>
         /// The ID to image map to look up backdrops.
         /// </summary>
-        [SyncVar(hook = nameof(UpdateBackdrop))] private string currentBackdropID = "";
+        [SyncVar(hook = nameof(UpdateBackdrop))] private string currentBackdropID = "N/A";
         [SerializeField]
         private IDToImageMap _backdropLookup;
         /// <summary>
@@ -119,7 +119,7 @@ namespace UI
                 return;
             }
 
-            _image.sprite = _backdropLookup.GetImage(id, backdropIdFallback);
+            _image.sprite = _backdropLookup.GetImage(id, false, backdropIdFallback);
 
             if (_image.sprite == null)
             {

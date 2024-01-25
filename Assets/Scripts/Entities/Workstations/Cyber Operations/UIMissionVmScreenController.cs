@@ -43,7 +43,7 @@ namespace Entities.Workstations.CyberOperationsParts
             for (int i = 0; i < missionVMs.Length; i++)
             {
                 UIMissionVmButton button = Instantiate(missionVmButtonPrefab, missionButtonGridParent).GetComponent<UIMissionVmButton>();
-                button.SetMissionVmButton(controller, missionVMs[i], imageMap.GetImage(missionVMs[i].missionIcon, "default_vm_image"));
+                button.SetMissionVmButton(controller, missionVMs[i], imageMap.GetImage(missionVMs[i].missionIcon, false, "default_vm_image"));
             }
         }
 

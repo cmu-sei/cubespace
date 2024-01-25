@@ -111,7 +111,7 @@ namespace UI.HUD
             group.interactable = true;
             group.alpha = 1;
 
-            missionIcon.sprite = missionIconMap.GetImage(data.missionIcon);
+            missionIcon.sprite = missionIconMap.GetImage(data.missionIcon, false);
             missionIconCompletedBG.enabled = data.complete;
 
             if (data.isSpecial && !showAsSelected)

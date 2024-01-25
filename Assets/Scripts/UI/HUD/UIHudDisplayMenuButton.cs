@@ -164,9 +164,12 @@ namespace UI.HUD
 		public void OnClick()
 		{
 			// Do a lazy check here just to make extra sure the button should be enabled
-			if (menuState == HUDController.MenuState.GalaxyMap && ShipStateManager.Instance != null)
+			if (menuState == HUDController.MenuState.GalaxyMap)
 			{
-				if (!ShipStateManager.Instance.useGalaxyMap) return;
+				if (ShipStateManager.Instance == null || !ShipStateManager.Instance.useGalaxyMap)
+				{
+					return;
+				}
 			}
 
 			//play audio on click or just open

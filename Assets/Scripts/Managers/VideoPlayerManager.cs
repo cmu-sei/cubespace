@@ -1,10 +1,9 @@
-using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UI.HUD;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Video;
 
 namespace Managers
@@ -14,8 +13,12 @@ namespace Managers
     public class VideoPlayerManager : ConnectedSingleton<VideoPlayerManager>
     {
         [SerializeField] private VideoPlayer videoPlayer;
-        [SerializeField] private AudioSource audioSource;
         [SerializeField] private VideoControls videoControls;
+
+        [SerializeField] AudioMixerGroup transmissionsMixerGroup;
+        private AudioSource audioSource;
+
+        [SerializeField] private float videoTimeout = 6.0f;
 
         private Coroutine currentVideoCoroutine = null;
         private bool autoPlayVideoOnPrepare = false;
@@ -25,6 +28,25 @@ namespace Managers
         public static Action<string, bool> OnVideoCompleted; // (url, didVideoFinish?)
 
         private bool paused = false;
+
+        public override void Start()
+        {
+            base.Start();
+
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.outputAudioMixerGroup = transmissionsMixerGroup;
+
+            audioSource.loop = false;
+            audioSource.clip = null;
+            audioSource.playOnAwake = false;
+            audioSource.mute = false;
+            audioSource.spatialBlend = 0;
+            audioSource.volume = 1;
+            audioSource.pitch = 1;
+            audioSource.bypassReverbZones = false;
+
+            videoPlayer.SetTargetAudioSource(0, audioSource);
+        }
 
         private void OnEnable()
         {
@@ -41,6 +63,9 @@ namespace Managers
  
         public bool InitializeVideo(string url, RenderTexture tex, bool playAfterPrepared, bool showControls = false)
         {
+            // For testing:
+            // url = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
             if (videoPlayer == null)
             {
                 Debug.LogError("No video player set for VideoPlayerManager!");
@@ -125,71 +150,45 @@ namespace Managers
             videoPlayer.Play();
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(true);
 
+            int prevFrame = -1;
+            float timeSinceLastNewFrame = 0.0f;
+            float warningSecond = 1.0f;
+            
+            int droppedFrames = 0;
+            videoPlayer.frameDropped += (_) => { droppedFrames += 1; };
+
             while (videoPlayer.isPlaying || paused)
             {
-                yield return null;
-            }
-
-            /*
-            int prevFrame = -1;
-            float timeBuffering = 0.0f;
-            int attemptsToRestart = 0;
-
-            // Video player was cutting the video short instead of buffering when it didn't get frames quickly enough so this is the hack to get around it
-            while (_videoPlayer.isPlaying || (int)_videoPlayer.frame < (int)_videoPlayer.frameCount - 2) // to prevent hanging on last frame??
-            {
-                if (networkManager && networkManager.isInDevMode && Input.GetKeyDown(networkManager.skipVideoKeyCode))
+                if (videoPlayer.frame == prevFrame)
                 {
-                    break;
-                }
-
-                // Manually check for buffering, if we get stuck for longer than the timeout attempt to restart or interupt the video and print an error
-                // This will prevent the callback from firing, which means that the video will not register as completed and the player should be able to rewatch it
-                if ((int)_videoPlayer.frame == prevFrame)
-                {
-                    timeBuffering += Time.deltaTime;
-                    if (timeBuffering > videoTimeout)
+                    timeSinceLastNewFrame += Time.deltaTime;
+                    if (timeSinceLastNewFrame >= videoTimeout)
                     {
-                        // TODO: display these log statement to player
-                        Debug.LogError("Sensor station video system timed out on frame" + prevFrame + " of " + _videoPlayer.frameCount + " after " + videoTimeout + " seconds");
-
-                        // TODO: This should really be checking how long since the last timeout instead of just using an arbitrary fixed number of attempts
-                        //       if it immediatly fails to get new frames a few times in a row, quit trying, if it works for a while then hangs, keep restarting
-                        if (attemptsToRestart <= maximumAttemptsToRestartVideo)
-                        {
-                            Debug.LogError("Attempting to restart video...");
-                            attemptsToRestart++;
-
-                            // Attempt to restart the video from where it timed out
-                            _videoPlayer.Stop();
-                            yield return null; // give it a frame to Stop
-
-                            _videoPlayer.frame = prevFrame;
-                            _videoPlayer.Prepare();
-                            while (!_videoPlayer.isPrepared)
-                            {
-
-                                yield return null;
-                            }
-
-                            _videoPlayer.Play();
-                            timeBuffering = 0.0f;
-                        }
-                        else
-                        {
-                            InterruptVideo(); // this call will stop the coroutine
-                        }
+                        // TODO: display this log statement to player in game and provide an exit/restart button as a failsafe
+                        Debug.LogError("Video player timed out on frame" + prevFrame + " of " + videoPlayer.frameCount + " after " + timeSinceLastNewFrame + " seconds");
+                        StopVideo();
+                    }
+                    else if (timeSinceLastNewFrame >= warningSecond)
+                    {
+                        Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds. Video will timeout and exit after " + (videoTimeout - warningSecond) + " more seconds.");
+                        warningSecond += 1;
                     }
                 }
                 else
                 {
-                    timeBuffering = 0.0f;
-                    prevFrame = (int)_videoPlayer.frame;
+                    timeSinceLastNewFrame = 0.0f;
+                    prevFrame = (int)videoPlayer.frame;
+                    warningSecond = 1.0f;
                 }
 
                 yield return null;
             }
-            */
+            
+            if (droppedFrames > 10)
+            {
+                Debug.LogWarning("Video dropped " + droppedFrames + " frames!");
+            }
+
 
             Audio.AudioPlayer.Instance.SetMuteSFXSnapshot(false);
             OnVideoCompleted.Invoke(videoPlayer.url, true);

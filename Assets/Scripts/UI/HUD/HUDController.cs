@@ -129,6 +129,9 @@ namespace UI.HUD
             #else
             quitButton.SetActive(networkManager && networkManager.isInDevMode);
             #endif
+
+            // TODO: The placement of this is somewhat arbitrary. Loading sequence should be better scripted
+            LoadingSystem.Instance.EndLoad();
         }
 
         /// <summary>
@@ -187,26 +190,16 @@ namespace UI.HUD
                 //can't toggle between off and off.
                 return;
             }
-
-            if (_menuState == MenuState.None)
+            else if (_menuState == MenuState.None || _menuState != toggleState)
             {
-                //turn on when off
                 SetMenuState(toggleState);
             }
-            else
+            else if (_menuState == toggleState)
             {
-                //close the open state.
-                if (_menuState == toggleState)
-                {
-                    SetMenuState(MenuState.None);
-                }
-                else
-                {
-                    //switch directly to a different state. ie: from missionLog even when settings is open.
-                    SetMenuState(toggleState);
-                }
+                SetMenuState(MenuState.None);
             }
         }
+
         public void SetMenuState(MenuState newState)
         {
             //change state

@@ -49,6 +49,9 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     [SerializeField]
     private Image pointsInnerBacking;
+    // Affects width of highlight circle on systems
+    [SerializeField] 
+    private Image backingImageMask;
 
     /// <summary>
     /// The text object showing the point value.
@@ -88,17 +91,16 @@ public class NavReaderGalaxySystem : TooltipControl
     private Image targetImage;
 
     /// <summary>
-    /// The index of the mission associated with this system.
-    /// </summary>
-    [HideInInspector]
-    public int index = -1; // TODO: This is only used for selection missions. Should rework all that to use IDs instead and get rid of all referencing to missions by index which is fragile AF
-    /// <summary>
     /// The mission associated with this system, cached when updated mission data is sent from the ShipStateManager
     /// </summary>
     [HideInInspector]
     public MissionData missionData = null;
 
     [SerializeField] private ColorPalette _palette;
+    
+    // Used for highlighting cache complete missions
+    [SerializeField] private Sprite goldBorderSprite;
+    [SerializeField] private Sprite defaultBorderSprite;
 
     /// <summary>
     /// Unity event function that starts a coroutine when the mouse enters this object.
@@ -107,7 +109,6 @@ public class NavReaderGalaxySystem : TooltipControl
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
-
         StartCoroutine("WaitForInput");
     }
 
@@ -118,7 +119,6 @@ public class NavReaderGalaxySystem : TooltipControl
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-
         StopCoroutine("WaitForInput");
     }
 
@@ -133,40 +133,36 @@ public class NavReaderGalaxySystem : TooltipControl
             if (Input.GetMouseButtonDown(0))
             {
                 HUDController.Instance.OpenMissionLog();
-                UIHudMissionManager.Instance.SelectMission(index, true); // TODO: Just pass along missionID and get rid of the index altogether
+                UIHudMissionManager.Instance.SelectMission(missionData.missionID, true);
                 // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
             }
-
             yield return null;
         }
     }
 
-    public void InitializeSystem(MissionData md, int missionIndex, GameObject line, GameObject target)
+    public void InitializeSystem(MissionData md, GameObject line, GameObject target)
     {
         lineObj = line;
         targetObj = target;
         lineImage = line.transform.GetComponent<Image>();
         targetImage = target.transform.GetChild(0).GetComponent<Image>();
 
-        UpdateSystem(md, missionIndex);
+        UpdateSystem(md);
     }
 
     /// <summary>
     /// Sets the information of the system based on the mission provided and links it to a mission's place in the Mission Log. Then updates the visual state based on completion.
     /// </summary>
     /// <param name="md">The mission data to populate this system with.</param>
-    /// <param name="index">The index of the mission in the mission log.</param>
     /// <param name="line">The line drawn between the system and its target point.</param>
     /// <param name="target">The target point.</param>
-    public void UpdateSystem(MissionData md, int missionIndex)
+    public void UpdateSystem(MissionData md)
     {
         if (lineObj == null || targetObj == null)
         {
             Debug.LogError("Tried to update a galaxy map system without initializing it first!");
             return;
         }
-
-        index = missionIndex;
         missionData = md;
 
         ToggleState(missionData.visible);
@@ -186,7 +182,7 @@ public class NavReaderGalaxySystem : TooltipControl
 
             // Update the solve count and image
             solveCountText.text = $"{missionData.solveTeams}/{missionData.totalTeams}";
-            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon);
+            spriteImage.sprite = imageMap.GetImage(missionData.missionIcon, false);
 
             UpdateVisualState(missionData);
             UpdatePosition(missionData);
@@ -212,78 +208,89 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     private void UpdateVisualState(MissionData m)
     {
-        Color setColor = _palette.incompleteHighlightColor;
-
-        int currentScore = m.currentScore;
-
         // If incomplete and not started
-        if (!m.complete && currentScore == 0)
+        if (!m.complete && m.currentScore == 0)
         {
-            pointsInnerBacking.color = Color.white;
-            pointsText.color = Color.black;
+            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.incompleteHighlightColor, Color.white, Color.black);
         }
         // If partially solved
-        else if (!m.complete && currentScore > 0)
+        else if (!m.complete && m.currentScore > 0)
         {
-            pointsInnerBacking.color = Color.white;
-            pointsText.color = Color.black;
-            setColor = _palette.partiallyCompletedHighlightColor;
+            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.partiallyCompletedHighlightColor, Color.white, Color.black);
         }
         // If fully solved
         else if (m.complete)
         {
-            // Check to see if all associated missions have been completed
-            bool cacheComplete = true;
-            foreach (AssociatedChallengeData associatedChallenge in m.associatedChallenges)
+            if (IsMissionCacheComplete(m))
             {
-                foreach (MissionData associatedMission in ShipStateManager.Instance.MissionDatas)
-                {
-                    if (associatedMission.missionID == associatedChallenge.missionID)
-                    {
-                        cacheComplete &= associatedMission.complete;
-                    }
-                }
-            }
+                SetHighlightColors(goldBorderSprite, 0.95f, _palette.cacheCompleteHighlightColor, Color.black, Color.white, goldBorderSprite);
 
-            if (cacheComplete)
-            {
-                pointsInnerBacking.color = Color.black;
-                pointsText.color = Color.white;
-                setColor = _palette.cacheCompleteHighlightColor;
+                //repeat for 3 tooltips
+                // Set line image to gold, color to white
+                // Set target point to gold image
             }
             else
             {
-                pointsInnerBacking.color = Color.black;
-                pointsText.color = Color.white;
-                setColor = _palette.completedHighlightColor;
+                SetHighlightColors(defaultBorderSprite, 1.0f, _palette.completedHighlightColor, Color.black, Color.white);
             }
         }
 
         // Flip the display, points, and solve count tooltips if specified
         bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
-
         // Check if the tooltips are being displayed for this mission, if so update those tooltips with this new data
         if (DisplayTooltip.Instance.id == m.missionID)
         {
             DisplayTooltip.Instance.SetProperties(m, flip);
         }
-
         if (PointsTooltip.Instance.id == m.missionID)
         {
             PointsTooltip.Instance.SetProperties(m, flip);
         }
-
         if (SolveCountTooltip.Instance.id == m.missionID)
         {
             SolveCountTooltip.Instance.SetProperties(m, flip);
         }
+    }
 
-        // Update colors
-        lineImage.color = setColor;
-        targetImage.color = setColor;
-        displayBorderImage.color = setColor;
-        solveCountBorderImage.color = setColor;
-        pointsBorderImage.color = setColor;
+    private void SetHighlightColors(Sprite borderSprite, float backingScale, Color highlightCol, Color pointsBackingCol, Color pointsTextCol, Sprite lineSprite = null)
+    {
+        pointsInnerBacking.color = pointsBackingCol;
+        pointsText.color = pointsTextCol;
+
+        lineImage.color = highlightCol;
+        targetImage.color = highlightCol;
+
+        displayBorderImage.sprite = borderSprite;
+        displayBorderImage.color = highlightCol;
+        solveCountBorderImage.sprite = borderSprite;
+        solveCountBorderImage.color = highlightCol;
+        pointsBorderImage.sprite = borderSprite;
+        pointsBorderImage.color = highlightCol;
+
+        backingImageMask.transform.localScale = new Vector2(backingScale, backingScale);
+
+        lineImage.sprite = lineSprite;
+        lineImage.color = highlightCol;
+        targetImage.sprite = borderSprite;
+        targetImage.color = highlightCol;
+    }
+
+    private bool IsMissionCacheComplete(MissionData mission)
+    {
+        bool cacheComplete = true;
+
+        // Check to see if all associated missions have been completed
+        foreach (AssociatedChallengeData associatedChallenge in mission.associatedChallenges)
+        {
+            foreach (MissionData associatedMission in ShipStateManager.Instance.MissionDatas)
+            {
+                if (associatedMission.missionID == associatedChallenge.missionID)
+                {
+                    cacheComplete &= associatedMission.complete;
+                }
+            }
+        }
+        return cacheComplete;
     }
 
     // Sets the position of the system, line, and target on the galaxy map
@@ -293,7 +300,7 @@ public class NavReaderGalaxySystem : TooltipControl
         GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapXPos, md.galaxyMapYPos);
         targetObj.GetComponent<RectTransform>().localPosition = new Vector2(md.galaxyMapTargetXPos, md.galaxyMapTargetYPos);
 
-        // Get TectTransform references
+        // Get RectTransform references
         RectTransform lineRect = lineObj.GetComponent<RectTransform>();
         RectTransform coreDisplayTransform = CoreDisplayRect;
         RectTransform targetRectTransform = targetObj.GetComponent<RectTransform>();

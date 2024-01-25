@@ -23,27 +23,18 @@ namespace Audio
     /// </summary>
     public class AudioPlayer : Singleton<AudioPlayer>
     {
-        // Reference for the Scene object that holds all sounds
-        [SerializeField]
-        private SoundRefManager soundRefManager;
-        // The Master mixer item in the heirarchy
-        [SerializeField]
-        private AudioMixerGroup masterMixer;
-        // The AudioListener object
-        [SerializeField]
-        private AudioListener listener;
-        // The object in the Scene this AudioPlayer is following
+        [SerializeField] private SoundRefManager soundRefManager;
+        [SerializeField] private AudioMixerGroup masterMixer;
+        [SerializeField] private AudioListener listener;
         public GameObject following;
-        // Amount to change the pitch and volume
+
         [Header("Flight Engineer Thruster Volume Variables")]
         [SerializeField]
         float pitchRaisePerThruster = 0.1f;
         [SerializeField]
         float volumeRaisePerThruster = 0.2f;
 
-        // Ambiance object reference
         private AudioSource ambience;
-        // Reference to the player object
         private GameObject player;
         // The original rotation of the AudioListener
         private Quaternion originalRotation;
@@ -76,15 +67,10 @@ namespace Audio
         // The coroutines used to fade in/out the power routing tube sounds
         private Coroutine[] powerRoutingTubesFades = new Coroutine[8];
 
-        // Antenna variables
         // The AudioSource used to play the antenna extension sound
         private AudioSource antennaExtend;
-
-        // Cube station variables
         // The AudioSource used to play the hologram sound on cube insertion
         private AudioSource cubeHologram;
-
-        // Sensor variables
         // The AudioSource used to play the transmission alert sound at the sensor station
         private AudioSource transmissionAlert;
 
@@ -94,7 +80,6 @@ namespace Audio
         /// </summary>
         public override void Start()
         {
-            // Call the original Singleton Start function
             base.Start();
             // Set the loading message
             LoadingSystem.Instance.UpdateLoadingMessage("Auditorizing Information...");
@@ -102,14 +87,6 @@ namespace Audio
             // Set the object this AudioPlayer is following and use its rotation
             following = gameObject;
             originalRotation = listener.transform.rotation;
-
-            // Automatically find listener for testing
-            #if UNITY_EDITOR
-            if (following == null)
-            {
-                following = FindObjectOfType<Camera>().gameObject;
-            }
-            #endif
         }
 
         /// <summary>
@@ -704,6 +681,10 @@ namespace Audio
         }
 
         /* Cube Drive Workstation */
+        public void CubeHologramPowerOn(Transform transform)
+        {
+            AudioManager.Instance.PlayOneShot(SoundType.CS_HologramPower, transform);
+        }
 
         /// <summary>
         /// Plays a sound for when the cube hologram should appear (when the cube is inserted into the Cube Drive workstation).

@@ -29,8 +29,8 @@ namespace Customization
 		/// </summary>
 		public ColorChoice()
 		{
-			color = Color.magenta;
-			colorName = "Magenta";
+			color = Color.clear;
+			colorName = "Clear";
 		}
 	}
 }

@@ -14,9 +14,7 @@ using TMPro;
 using UnityEngine;
 using Systems;
 
-/// <summary>
-/// The text used to display a team name.
-/// </summary>
+// No longer in use
 [RequireComponent(typeof(TMP_Text))]
 public class UITeamNameText : NetworkBehaviour
 {
@@ -90,7 +88,8 @@ public class UITeamNameText : NetworkBehaviour
 
         if (isClient)
         {
-            LoadingSystem.Instance.EndLoad();
+            // Moved to HUDController because this component isn't in use anymore
+            //LoadingSystem.Instance.EndLoad();
         }
     }
 

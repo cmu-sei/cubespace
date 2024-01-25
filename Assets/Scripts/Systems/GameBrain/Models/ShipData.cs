@@ -128,7 +128,7 @@ namespace Systems.GameBrain
 		public string workstation3URL;
 		public string workstation4URL;
 		public string workstation5URL;
-        // New data structure for VM URLs available for each mission at CyberOps stations. If this field is present, they will be used over the old structure above
+        // New data structure for VM URLs available for each mission at CyberOps stations. If this field is non-null, they will be used over the old structure above
         public MissionVMs[] challengeURLs;
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Systems.GameBrain
 		// If the new data structure is present, use it
 		public bool IsMissionVMsStructureInUse()
 		{
-			return challengeURLs != null && challengeURLs.Length > 0;
+			return challengeURLs != null;
 		}
 	}
 

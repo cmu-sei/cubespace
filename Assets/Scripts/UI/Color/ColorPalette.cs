@@ -93,6 +93,14 @@ namespace UI.ColorPalettes
                     return UISpecialMissionSelected;
                 case PaletteColor.UISpecialMissionUnselected:
                     return UISpecialMissionUnseleceted;
+                case PaletteColor.incompleteHighlight:
+                    return incompleteHighlightColor;
+                case PaletteColor.partiallyCompletedHighlight:
+                    return partiallyCompletedHighlightColor;
+                case PaletteColor.completedHighlight:
+                    return completedHighlightColor;
+                case PaletteColor.cacheCompleteHighlight:
+                    return cacheCompleteHighlightColor;
             }
 
             return Color.white;
@@ -203,6 +211,10 @@ namespace UI.ColorPalettes
         NavButtonWarning,
         UIAccentColorOne,
         UISpecialMissionSelected,
-        UISpecialMissionUnselected
+        UISpecialMissionUnselected,
+        incompleteHighlight,
+        partiallyCompletedHighlight,
+        completedHighlight,
+        cacheCompleteHighlight
     }
 }

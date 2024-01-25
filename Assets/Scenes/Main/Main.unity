@@ -571,7 +571,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7784201, y: 1}
+    m_SensorSize: {x: 2.0385356, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5069,7 +5069,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 467f2af05830c1647a61bd66c0268fdb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9ae6fe9278b4adc459064ad79f772292, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20323,11 +20323,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1288435104721843136, guid: 057ed80e0c56552408b21d3eb9d6e517,
-        type: 3}
-      propertyPath: m_TargetAudioSources.Array.data[0]
-      value: 
-      objectReference: {fileID: 1288435104280375479}
     - target: {fileID: 1288435104721843138, guid: 057ed80e0c56552408b21d3eb9d6e517,
         type: 3}
       propertyPath: m_Name
@@ -20390,12 +20385,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057ed80e0c56552408b21d3eb9d6e517, type: 3}
---- !u!82 &1288435104280375479 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1288435104721843139, guid: 057ed80e0c56552408b21d3eb9d6e517,
-    type: 3}
-  m_PrefabInstance: {fileID: 1288435104280375478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1300172496872596336
 GameObject:
   m_ObjectHideFlags: 0

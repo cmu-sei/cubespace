@@ -8,26 +8,53 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using System.Collections.Generic;using UnityEngine;namespace Managers{	/// <summary>
+using System.Collections.Generic;
+using UnityEngine;namespace Managers{	/// <summary>
 	/// ScriptableObject defining a mapping between a location identifier and a background image.
 	/// </summary>	[CreateAssetMenu(fileName = "ID To Image Map", menuName = "Game Data/ID To Image Map", order = 1)]	public class IDToImageMap : ScriptableObject	{		// A list of location IDs and the background images that are associated with a location		[SerializeField]		private List<LocationIDImagePair> pairs = new List<LocationIDImagePair>();		// A dictionary of location IDs and the location image		private readonly Dictionary<string, Sprite> images = new Dictionary<string, Sprite>();		/// <summary>
 		/// Creates the dictionary when the script loads in game or the pairs List is modified in the Inspector.
 		/// </summary>		void OnValidate()		{			InitiateDictionary();		}		/// <summary>
 		/// Populates a dictionary with a location ID and an image.
 		/// </summary>		public void InitiateDictionary()		{			// Clear the existing dictionary if it exists			images.Clear();			// Loop through the list of pairs and make sure the pair exists and has both attributes			foreach (LocationIDImagePair pair in pairs)			{				if (!images.ContainsKey(pair.GetLocationID()) && pair.GetLocationID() != "" && pair.GetImage() != null)				{					images.Add(pair.GetLocationID(), pair.GetImage());				}			}		}		/// <summary>
-		/// Gets the Sprite object representing the background image of a location.
+		/// Gets a sprite from this image map
 		/// </summary>
-		/// <param name="imageID">The ID for the location image.</param>
+		/// <param name="imageID">The ID for the image.</param>
+		/// /// <param name="getRandomIfNotFound">Should it set a random image to this ID if the right image can't be found.</param>
 		/// <param name="defaultID">A default to use in case the function cannot find the image with the given ID.</param>
-		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, string defaultID = "")		{			// Return null if there is no image ID given or the images dictionary is empty			if (string.IsNullOrEmpty(imageID) || images == null)			{				return null;			}
-			// If the image ID exists in the dictionary, return the corresponding image			if (images.TryGetValue(imageID, out Sprite image))			{				return image;			}			// Otheriwse, if the default ID was given and is in the dictionary, return it			else if (defaultID != "" && images.TryGetValue(defaultID, out image))
-            {
+		/// <returns>The Sprite object representing a background image.</returns>		public Sprite GetImage(string imageID, bool getRandomIfNotFound, string defaultID = "")		{			if (images == null || images.Count == 0)
+			{
+				if (pairs.Count == 0)
+				{
+                    Debug.LogWarning("Tried to get image with id: " + imageID + " and defaultID: " + defaultID + "from empty image map");
+                }
+				else
+				{
+					InitiateDictionary();
+				}
+				return null;
+			}
+
+            Sprite image;
+            if (string.IsNullOrEmpty(imageID))
+			{
+				if (defaultID != "" && images.TryGetValue(defaultID, out image))
+				{
+                    return image;
+                }
+			}
+			else if (images.TryGetValue(imageID, out image))
+			{
 				return image;
-			}			// If neither case is true, get a random image for this ID and put it in the dictionary
-			// TODO: This should probably require calling this with a flag or something. I don't want this behavior by default
-			var s = GetRandomImage();
-			images.Add(imageID, s);
-			return s;		}		/// <summary>
+			}
+
+			if (getRandomIfNotFound)
+			{
+                var s = GetRandomImage();
+				if (s != null && !string.IsNullOrEmpty(imageID)) images.Add(imageID, s);
+                return s;
+            }
+			
+			return null;		}		/// <summary>
 		/// Gets a random image from the list of location ID and image pairs.
 		/// </summary>
 		/// <returns>A random image from the list.</returns>		private Sprite GetRandomImage()		{			// Return a random image from the list of pairs			if (pairs.Count > 0)			{				return pairs[Random.Range(0, pairs.Count)].GetImage();			}			// Otherwise return null			else			{				return null;			}		}	}	/// <summary>

@@ -162,9 +162,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Base Scripts\VMWorkstation.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\HUDController.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\DestinationDisplayNavScreenComponents\ComponentUpdaters\ThrusterEngagedText.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\PauseMenu\UIPauseMenu.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\CubeStatusText.cs" />
-    <Compile Include="Assets\Scripts\UI\DeactivatePlayerInputWhenEnabled.cs" />
     <Compile Include="Assets\Scripts\UI\VideoControls.cs" />
     <Compile Include="Assets\Scripts\Managers\NetworkedSingleton.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\AntennaUI\AntennaScreen.cs" />
@@ -175,6 +173,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\PoweredComponent.cs" />
     <Compile Include="Assets\Scripts\Systems\GameBrain\Gamebrain Interfaces\GameBrainInterface.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Cube Station\CubeStation.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIButtonCutout.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Flight Engineer\FlightEngineer.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\WorkstationLEDStrip.cs" />
@@ -197,6 +196,7 @@
     <Compile Include="Assets\Scripts\Managers\SO\SceneController.cs" />
     <Compile Include="Assets\Scripts\Systems\GameBrain\Models\ShipData.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\SensorStationUI\Sensor Screens\SensorScreenProbe.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudGalaxyMapHelpButton.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\DestinationDisplayNavScreenComponents\ComponentUpdaters\NavReaderDialText.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UIHudDisplayToggleButton.cs" />
     <Compile Include="Assets\Scripts\Managers\ExternalMessageManager.cs" />
@@ -221,7 +221,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Cube Station\CubeState.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\MissionPogs\UIMissionPogContainer.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Cyber Operations\CyberOperationsMouse.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD\PauseMenu\UIVolumeSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIVolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Managers\CameraUtility.cs" />
     <Compile Include="Assets\Scripts\UI\Customization\PlayerColorSelectionOption.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UICurrentWorkstationPowerStatusDisplay.cs" />
@@ -238,6 +238,7 @@
     <Compile Include="Assets\Scripts\Customization\IconChoice.cs" />
     <Compile Include="Assets\Scripts\UI\Customization\PlayerColorSelectionPanel.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Codex\CodexStation.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD\UIHudTotalScore.cs" />
     <Compile Include="Assets\Scripts\Systems\Credential Requests\Models\PostData.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\WorkstationSlider.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\UITeamNameText.cs" />
@@ -245,7 +246,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\UI\LinkHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -270,7 +270,6 @@
     <None Include="Assets\Rendering\Shaders\Custom Lighting\LEDLit.shader" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\UI\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>

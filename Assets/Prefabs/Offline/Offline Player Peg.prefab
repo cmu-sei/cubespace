@@ -189,7 +189,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5674743247346984211}
+  m_Father: {fileID: 1578744506593732631}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7506840086225065012
@@ -5001,7 +5001,7 @@ Transform:
   m_Children:
   - {fileID: 6877259288560222559}
   - {fileID: 6004622426302790922}
-  m_Father: {fileID: 5674743247346984211}
+  m_Father: {fileID: 1578744506593732631}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7700522150783638542
@@ -5012,7 +5012,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5674743247346984211}
+  - component: {fileID: 1578744506593732631}
   - component: {fileID: 6855723751367983367}
   m_Layer: 0
   m_Name: Offline Player Peg
@@ -5021,16 +5021,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5674743247346984211
-RectTransform:
+--- !u!4 &1578744506593732631
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7700522150783638542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 127.46088, y: 159.32616, z: 127.46088}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.665556, y: 173.21497, z: 143.5371}
+  m_LocalScale: {x: 37.327526, y: 46.659428, z: 37.327526}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4396450160137447006}
@@ -5038,11 +5038,6 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -128.5}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6855723751367983367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5060,6 +5055,9 @@ MonoBehaviour:
   _playerParticleSystem: {fileID: 7506840086225065012}
   _playerIconDisplayImage: {fileID: 0}
   rotationRate: 20
+  connectButtonParent: {fileID: 0}
+  colorPanel: {fileID: 0}
+  iconPanel: {fileID: 0}
 --- !u!1 &7959023935909506829
 GameObject:
   m_ObjectHideFlags: 0

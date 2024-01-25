@@ -63,17 +63,6 @@ namespace Managers
             workstationManager.Init();
 
         }
-
-        /// <summary>
-        /// Unity event function that instantiates the AudioManager on a given frame in case it does not exist (it should exist, however).
-        /// </summary>
-        private void Update()
-        {
-            if (AudioManager.Instance == null || AudioPlayer.Instance == null)
-            {
-                Instantiate(audioPrefab);
-            }
-        }
         #endregion
 
         #region Mirror events
