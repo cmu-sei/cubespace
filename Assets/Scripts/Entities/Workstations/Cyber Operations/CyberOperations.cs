@@ -120,6 +120,7 @@ namespace Entities.Workstations.CyberOperationsParts
             base.ChangePower(isPowered);
             if (!isPowered)
             {
+                // This function has been commented out and will not actually do anything (see the method itself for details)
                 windowController.CloseVM(StationID);
             }
         }
@@ -129,7 +130,7 @@ namespace Entities.Workstations.CyberOperationsParts
         /// </summary>
         public override void ResetWorkstation()
         {
-            windowController.CloseVM(StationID);
+            windowController.CloseVM(StationID); // This function has been commented out and will not actually do anything (see the method itself for details)
             base.ResetWorkstation();
         }
 
