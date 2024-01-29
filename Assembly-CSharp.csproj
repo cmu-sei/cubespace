@@ -207,7 +207,6 @@
     <Compile Include="Assets\Scripts\UI\Color\SetTMPTextColor.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Power Routing\PowerRoutingLightButton.cs" />
     <Compile Include="Assets\Scripts\UI\Offline\FlashBox.cs" />
-    <Compile Include="Assets\To Import\Effects\TriggerEffects.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Utility Parts\PoweredSprite.cs" />
     <Compile Include="Assets\Scripts\UI\Color\ColorPaletteSetter.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioSourcePool.cs" />
