@@ -202,36 +202,22 @@ namespace UI.HUD
 
         public void SetMenuState(MenuState newState)
         {
-            //change state
-            //this can be done with 'UIMenuPanelActiveWithState', but that only works when gameobjects begin active; which would be a change in how we have treated them, and unexpected.
-            //to fix, we could switch the above script to work on an empty parent object that's always active to enable and disable children.
-            if (newState == MenuState.MissionLog)
-            {
-                missionLogPanel.SetActive(newState == MenuState.MissionLog);
-                missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable
-            }
+            missionLogPanel.SetActive(newState == MenuState.MissionLog);
+            if (newState == MenuState.MissionLog) missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable, which works for the other panels
             settingsPanel.SetActive(newState == MenuState.Settings);
             galaxyMapPanel.SetActive(newState == MenuState.GalaxyMap);
 
             if (newState != MenuState.None)
             {
-                //any state open
                 Entities.Player.LockLocalPlayerInput();
                 UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
             }
             else
             {
-                //any menu close
                 Entities.Player.UnlockLocalPlayerInput();
                 UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-
-                //close the mission log specific case
-                if (_menuState == MenuState.MissionLog)
-                {
-                    taskList.CloseAdditionalInfo();
-                }
             }
-            
+
             //should check for going from state to same, but then would have to deal with init flow.
             _menuState = newState;
             OnMenuStateChange?.Invoke(_menuState);
