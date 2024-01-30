@@ -68,18 +68,18 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
         }
 
         this.id = mission.missionID;
-        Color setColor = _palette.GetPaletteColor(PaletteColor.incompleteHighlight);
+        Color setColor = ColorPalette.GetColor(PaletteColor.incompleteHighlight);
         if (!mission.complete && mission.currentScore == 0)
         {
             // Nothing here
         }
         else if (!mission.complete && mission.currentScore > 0)
         {
-            setColor = _palette.GetPaletteColor(PaletteColor.partiallyCompletedHighlight);
+            setColor = ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight);
         }
         else if (mission.complete)
         {
-            setColor = _palette.GetPaletteColor(PaletteColor.completedHighlight);
+            setColor = ColorPalette.GetColor(PaletteColor.completedHighlight);
         }
 
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);

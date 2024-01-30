@@ -211,19 +211,19 @@ public class NavReaderGalaxySystem : TooltipControl
         // If incomplete and not started
         if (!m.complete && m.currentScore == 0)
         {
-            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.incompleteHighlightColor, Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.incompleteHighlight), Color.white, Color.black);
         }
         // If partially solved
         else if (!m.complete && m.currentScore > 0)
         {
-            SetHighlightColors(defaultBorderSprite, 1.0f, _palette.partiallyCompletedHighlightColor, Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight), Color.white, Color.black);
         }
         // If fully solved
         else if (m.complete)
         {
             if (IsMissionCacheComplete(m))
             {
-                SetHighlightColors(goldBorderSprite, 0.95f, _palette.cacheCompleteHighlightColor, Color.black, Color.white, goldBorderSprite);
+                SetHighlightColors(goldBorderSprite, 0.95f, ColorPalette.GetColor(PaletteColor.cacheCompleteHighlight), Color.black, Color.white, goldBorderSprite);
 
                 //repeat for 3 tooltips
                 // Set line image to gold, color to white
@@ -231,7 +231,7 @@ public class NavReaderGalaxySystem : TooltipControl
             }
             else
             {
-                SetHighlightColors(defaultBorderSprite, 1.0f, _palette.completedHighlightColor, Color.black, Color.white);
+                SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.completedHighlight), Color.black, Color.white);
             }
         }
 
