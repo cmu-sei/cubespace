@@ -760,7 +760,7 @@ PlayerSettings:
   webGLExceptionSupport: 1
   webGLNameFilesAsHashes: 1
   webGLDataCaching: 1
-  webGLDebugSymbols: 2
+  webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
   webGLTemplate: PROJECT:PresCup
