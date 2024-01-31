@@ -198,6 +198,9 @@ namespace Systems
         /// <returns>A yield return while trying to fade out the black screen.</returns>
         private IEnumerator FinishLoad()
         {
+            // Little delay to hide background loading in
+            yield return new WaitForSeconds(2.0f);
+
             // Adjust the Canvas Group's alpha value
             while (loadingGroup.alpha > 0.0f)
             {

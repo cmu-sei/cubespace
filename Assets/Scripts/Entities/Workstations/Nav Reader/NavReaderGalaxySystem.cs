@@ -236,15 +236,15 @@ public class NavReaderGalaxySystem : TooltipControl
         // Flip the display, points, and solve count tooltips if specified
         bool flip = GetComponent<RectTransform>().localPosition.x > flipTooltipXThreshold;
         // Check if the tooltips are being displayed for this mission, if so update those tooltips with this new data
-        if (DisplayTooltip.Instance.id == m.missionID)
+        if (!string.IsNullOrEmpty(DisplayTooltip.Instance.id) && DisplayTooltip.Instance.id == m.missionID)
         {
             DisplayTooltip.Instance.SetProperties(m, flip);
         }
-        if (PointsTooltip.Instance.id == m.missionID)
+        if (!string.IsNullOrEmpty(PointsTooltip.Instance.id) && PointsTooltip.Instance.id == m.missionID)
         {
             PointsTooltip.Instance.SetProperties(m, flip);
         }
-        if (SolveCountTooltip.Instance.id == m.missionID)
+        if (!string.IsNullOrEmpty(SolveCountTooltip.Instance.id) && SolveCountTooltip.Instance.id == m.missionID)
         {
             SolveCountTooltip.Instance.SetProperties(m, flip);
         }
