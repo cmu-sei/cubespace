@@ -12,8 +12,6 @@ using UI.ColorPalettes;
 /// </summary>
 public class SolveCountTooltip : Singleton<SolveCountTooltip>
 {
-    [SerializeField] private ColorPalette _palette;
-
     /// <summary>
     /// The image used as the border of the tooltip.
     /// </summary>

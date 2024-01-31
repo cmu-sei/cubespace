@@ -81,11 +81,6 @@ namespace UI.HUD
         [SerializeField]
         private GameObject quitButton;
         /// <summary>
-        /// The color palette used to set colors.
-        /// </summary>
-        [SerializeField]
-        private ColorPalette palette;
-        /// <summary>
         /// The CanvasGroup used to make the HUD visible or invisible.
         /// </summary>
         [SerializeField]

@@ -20,13 +20,7 @@ namespace UI.NavScreen.NavScreenComponents
 	/// The button used within the destination display screen.
 	/// </summary>
 	public class DestinationDisplayButton : MonoBehaviour, IRefreshableUI
-	{
-		/// <summary>
-		/// The color palette used.
-		/// </summary>
-		[SerializeField]
-		private ColorPalette palette;
-		
+	{	
 		/// <summary>
 		/// Whether to show the button as selected.
 		/// </summary>
@@ -105,7 +99,18 @@ namespace UI.NavScreen.NavScreenComponents
 		/// </summary>
 		public void RefreshDisplay()
 		{
-			image.color = palette.GetNavButtonColor(showComplete, showSelected);
+			if (showComplete)
+			{
+                image.color = ColorPalette.GetColor(PaletteColor.NavItemComplete);
+            }
+			else if (showSelected)
+			{
+                image.color = ColorPalette.GetColor(PaletteColor.NavButtonWarning);
+            }
+			else
+			{
+                image.color = ColorPalette.GetColor(PaletteColor.NavButtonBase);
+            }
 		}
 		
 		/// <summary>

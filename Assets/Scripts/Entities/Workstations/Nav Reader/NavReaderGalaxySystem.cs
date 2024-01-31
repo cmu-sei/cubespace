@@ -95,8 +95,6 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     [HideInInspector]
     public MissionData missionData = null;
-
-    [SerializeField] private ColorPalette _palette;
     
     // Used for highlighting cache complete missions
     [SerializeField] private Sprite goldBorderSprite;

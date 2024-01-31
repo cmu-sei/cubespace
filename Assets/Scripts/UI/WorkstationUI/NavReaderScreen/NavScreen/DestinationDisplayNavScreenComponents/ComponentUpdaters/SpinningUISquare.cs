@@ -57,7 +57,7 @@ namespace UI.NavScreen.NavScreenComponents
 		{
 			spinning = spin;
 			
-			Color newSquareColor = spin ? ColorPalette.activeColorPalette.NavSquareBaseColor : ColorPalette.activeColorPalette.NavItemCompleteColor;
+			Color newSquareColor = spin ? ColorPalette.GetColor(PaletteColor.NavSquareBase) : ColorPalette.GetColor(PaletteColor.NavItemComplete);
 			foreach (Image i in imagesToColor)
             {
 				i.color = newSquareColor;

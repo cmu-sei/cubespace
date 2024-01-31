@@ -49,12 +49,6 @@ namespace UI.NavScreen.NavScreenComponents
 		/// </summary>
 		[SerializeField]
 		private TMP_Text statusText;
-		
-		/// <summary>
-		/// The color palette to use for setting the color.
-		/// </summary>
-		[SerializeField]
-		private ColorPalette palette;
 
 		/// <summary>
 		/// Sets the workstation.
@@ -83,9 +77,9 @@ namespace UI.NavScreen.NavScreenComponents
 				spacingText.text += ".";
 			}
 			
-			labelText.color = palette.GetNavReaderDestinationScreenTextColor(on);
-			spacingText.color = palette.GetNavReaderDestinationScreenTextColor(on);
-			statusText.color = palette.GetNavReaderDestinationScreenTextColor(on);
+			labelText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
+			spacingText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
+			statusText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
 		}
 	}
 }

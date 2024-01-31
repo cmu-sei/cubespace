@@ -50,9 +50,6 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     [HideInInspector]
     public RectTransform rect;
 
-    [SerializeField] private ColorPalette _palette;
-
-
     /// <summary>
     /// Unity event function that gets the rect transform on this tooltip.
     /// </summary>
@@ -70,7 +67,7 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     public void SetProperties(MissionData mission, bool placeLeft = false)
     {
         this.id = mission.missionID;
-        Color setColor = _palette.incompleteHighlightColor;
+        Color setColor = ColorPalette.GetColor(PaletteColor.incompleteHighlight);
         if (!mission.complete && mission.currentScore == 0)
         {
             tooltipText.text = "Incomplete";
@@ -78,12 +75,12 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
         else if (!mission.complete && mission.currentScore > 0)
         {
             tooltipText.text = "Partially completed";
-            setColor = _palette.partiallyCompletedHighlightColor;
+            setColor = ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight);
         }
         else if (mission.complete)
         {
             tooltipText.text = "Completed";
-            setColor = _palette.completedHighlightColor;
+            setColor = ColorPalette.GetColor(PaletteColor.completedHighlight);
 
             // Display coordinates for cache missions once main mission is complete
             if (mission.associatedChallenges != null && mission.associatedChallenges.Length > 0)

@@ -41,27 +41,27 @@ namespace UI.NavScreen.NavScreenComponents
             {
                 case (CubeState.InCubeDrive):
                     cubeEncoderText.text = "Cube Status - Ejected";
-                    cubeEncoderText.color = ColorPalette.activeColorPalette.NavItemCompleteColor;
+                    cubeEncoderText.color = ColorPalette.GetColor(PaletteColor.NavItemComplete);
                     cubeDriveText.text = "Engaged";
-                    cubeDriveText.color = ColorPalette.activeColorPalette.NavItemCompleteColor;
+                    cubeDriveText.color = ColorPalette.GetColor(PaletteColor.NavItemComplete);
                     break;
                 case (CubeState.InNavReader):
                     cubeEncoderText.text = "Cube Status - Please Eject";
-                    cubeEncoderText.color = ColorPalette.activeColorPalette.NavButtonBaseColor;
+                    cubeEncoderText.color = ColorPalette.GetColor(PaletteColor.NavButtonBase);
                     cubeDriveText.text = "Awaiting Data Cube";
-                    cubeDriveText.color = ColorPalette.activeColorPalette.NavItemSelectedColor;
+                    cubeDriveText.color = ColorPalette.GetColor(PaletteColor.NavItemSelected);
                     break;
                 case (CubeState.InPlayerHands):
                     cubeEncoderText.text = "Cube Status - Ejected";
-                    cubeEncoderText.color = ColorPalette.activeColorPalette.NavItemCompleteColor;
+                    cubeEncoderText.color = ColorPalette.GetColor(PaletteColor.NavItemComplete);
                     cubeDriveText.text = "Awaiting Data Cube";
-                    cubeDriveText.color = ColorPalette.activeColorPalette.NavItemSelectedColor;
+                    cubeDriveText.color = ColorPalette.GetColor(PaletteColor.NavItemSelected);
                     break;
                 case (CubeState.NotAvailable):
                     cubeEncoderText.text = "Cube Status - Not Encoded";
-                    cubeEncoderText.color = ColorPalette.activeColorPalette.NavItemSelectedColor;
+                    cubeEncoderText.color = ColorPalette.GetColor(PaletteColor.NavItemSelected);
                     cubeDriveText.text = "Awaiting Data Cube";
-                    cubeDriveText.color = ColorPalette.activeColorPalette.NavItemSelectedColor;
+                    cubeDriveText.color = ColorPalette.GetColor(PaletteColor.NavItemSelected);
                     break;
             }
         }

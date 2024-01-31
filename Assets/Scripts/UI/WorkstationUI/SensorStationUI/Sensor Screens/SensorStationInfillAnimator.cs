@@ -134,7 +134,7 @@ namespace UI.SensorScreen.SensorScreenComponents
         /// </summary>
         public void ActivateScanAnimation()
         {
-            AnimatePieSliceCircle(new PieSliceZone[3] { PieSliceZone.inner, PieSliceZone.middle, PieSliceZone.outer }, ColorPalette.activeColorPalette.PoweredColor);
+            AnimatePieSliceCircle(new PieSliceZone[3] { PieSliceZone.inner, PieSliceZone.middle, PieSliceZone.outer }, ColorPalette.GetColor(PaletteColor.Powered));
         }
 
         /// <summary>
