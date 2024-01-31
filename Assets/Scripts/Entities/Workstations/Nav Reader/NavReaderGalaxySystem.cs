@@ -244,16 +244,7 @@ public class NavReaderGalaxySystem : TooltipControl
         {
             PointsTooltip.Instance.SetProperties(m, flip);
         }
-        Debug.Log("NavReaderGalaxySystem:247 -> UpdateVisualState");
-        if (SolveCountTooltip.Instance == null)
-        {
-            Debug.LogError("NavReaderGalaxySystem:250 -> UpdateVisualState: No SolveCountTooltip!");
-        }
-        else if (string.IsNullOrEmpty(SolveCountTooltip.Instance.id))
-        {
-            Debug.LogError("NavReaderGalaxySystem:254 -> UpdateVisualState: id null or empty!");
-        }
-        if (!string.IsNullOrEmpty(SolveCountTooltip.Instance.id) && SolveCountTooltip.Instance.id == m.missionID)
+        if (SolveCountTooltip.Instance.id == m.missionID)
         {
             SolveCountTooltip.Instance.SetProperties(m, flip);
         }
