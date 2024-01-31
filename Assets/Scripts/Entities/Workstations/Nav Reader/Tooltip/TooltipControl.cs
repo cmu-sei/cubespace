@@ -34,6 +34,10 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         else if (tooltipType == TooltipType.SolveCount)
         {
+            if (SolveCountTooltip.Instance == null)
+            {
+                Debug.LogError("TooltipControl:39 -> Awake: No SolveCountTooltip");
+            }
             SolveCountTooltip.Instance.gameObject.SetActive(false);
         }
         else
@@ -48,6 +52,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">The mouse enter data.</param>
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("TooltipControl:51 -> OnPointerEnter");
         // Store an initial tooltip rect and establish a baseline final position for the tooltip
         RectTransform rect = DisplayTooltip.Instance.rect;
         Vector2 finalPosition = systemRect.localPosition;
@@ -58,13 +63,26 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         // Set the position of the main tooltip
         if (tooltipType == TooltipType.Display)
         {
+            Debug.Log("TooltipControl:62 -> OnPointerEnter: Type == Display");
+            if (DisplayTooltip.Instance == null)
+            {
+                Debug.Log("TooltipControl:65 -> OnPointerEnter: No DisplayTooltip");
+            }
             DisplayTooltip.Instance.gameObject.SetActive(true);
             DisplayTooltip.Instance.SetProperties(system.missionData, flip);
-
         }
         // Sets the position of the tooltip displaying the solve count
         else if (tooltipType == TooltipType.SolveCount)
         {
+            Debug.Log("TooltipControl:73 -> OnPointerEnter: Type == SolveCount");
+            if (DisplayTooltip.Instance == null)
+            {
+                Debug.Log("TooltipControl:76 -> OnPointerEnter: No SolveCountTooltip");
+            }
+            else if (DisplayTooltip.Instance.rect == null || DisplayTooltip.Instance.gameObject == null)
+            {
+                Debug.Log("TooltipControl:80 -> OnPointerEnter: No SolveCountTooltip.rect");
+            }
             SolveCountTooltip.Instance.gameObject.SetActive(true);
             SolveCountTooltip.Instance.SetProperties(system.missionData, flip);
             rect = SolveCountTooltip.Instance.rect;
@@ -73,6 +91,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         // Sets the position of the tooltip displaying the number of points
         else
         {
+            Debug.Log("TooltipControl:51 -> OnPointerEnter: Type == Points");
             PointsTooltip.Instance.gameObject.SetActive(true);
             PointsTooltip.Instance.SetProperties(system.missionData, flip);
             rect = PointsTooltip.Instance.rect;
@@ -99,12 +118,18 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">The mouse exit data.</param>
     public virtual void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("TooltipControl:117 -> OnPointerExit");
         if (tooltipType == TooltipType.Display)
         {
             DisplayTooltip.Instance.gameObject.SetActive(false);
         }
         else if (tooltipType == TooltipType.SolveCount)
         {
+            Debug.Log("TooltipControl:124 -> OnPointerExit: type == SolveCount");
+            if (SolveCountTooltip.Instance == null)
+            {
+                Debug.Log("TooltipControl:127 -> OnPointerExit: SolveCount.Instance == null");
+            }
             SolveCountTooltip.Instance.gameObject.SetActive(false);
         }
         else

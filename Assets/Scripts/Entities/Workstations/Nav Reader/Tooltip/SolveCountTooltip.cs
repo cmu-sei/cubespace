@@ -60,9 +60,15 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     /// <param name="placeLeft">Whether to place this tooltip to the left of the system.</param>
     public void SetProperties(MissionData mission, bool placeLeft=false)
     {
+        Debug.Log("SolveCountTooltip:63 -> SetProperties");
         if (mission == null)
         {
             Debug.LogError("Tried to set properties for solve count tooltip with a null mission!");
+        }
+        else
+        {
+            Debug.Log("SolveCountTooltip:70 -> MissionID: " + mission.missionID);
+            Debug.Log("SolveCountTooltip:71 -> SolveTeams: " + mission.solveTeams);
         }
 
         this.id = mission.missionID;
@@ -80,12 +86,20 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
             setColor = ColorPalette.GetColor(PaletteColor.completedHighlight);
         }
 
+        if (setColor == null)
+        {
+            Debug.LogError("SolveCountTooltip:91 -> SetProperties: No setColor!");
+        }
+
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);
         rightSolveTooltipArrowBorderImage.gameObject.SetActive(placeLeft);
 
         teamsCompletedText.text = $"{mission.solveTeams} team{(mission.solveTeams == 1 ? " has" : "s have")} solved this challenge";
+        Debug.Log("SolveCountTooltip:102 -> SetProperties string: " + $"{mission.solveTeams} team{(mission.solveTeams == 1 ? " has" : "s have")} solved this challenge");
         solveTooltipBorderImage.color = setColor;
         solveTooltipArrowBorderImage.color = setColor;
         rightSolveTooltipArrowBorderImage.color = setColor;
+
+        Debug.Log("SolveCountTooltip:102 -> SetProperties Done");
     }
 }
