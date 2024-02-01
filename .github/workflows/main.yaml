@@ -38,6 +38,7 @@ jobs:
           fetch-depth: 0
           lfs: false
       # Generate Library
+      # This and the Build step below are identical. It is unclear why, but without both the builds/deploys get messed up. Having both does not significantly impact build times
       - name: Generate Library folder
         uses: game-ci/unity-builder@v2.1.1
         env:
@@ -50,6 +51,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          # Uncomment the devBuild flag here AND BELOW to do a dev build, which will perform SIGNIFICANTLY worse, but will print much better errors with stack traces
           customParameters: -devBuild
       # Build
       - name: Build ${{ matrix.targetPlatform }}
@@ -63,7 +65,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          # Uncomment the devBuild flag here to do a dev build, which will perform SIGNIFICANTLY worse, but will print much better errors with stack traces
+          # Uncomment the devBuild flag here AND ABOVE to do a dev build
           customParameters: -devBuild
       # Upload
       - name: Upload game artifact
