@@ -35,8 +35,7 @@ namespace UnityBuilderAction
             {
                 PlayerSettings.WebGL.decompressionFallback = false;
             }
-            buildPlayerOptions.options = BuildOptions.None;
-            EditorUserBuildSettings.development = true;
+            buildPlayerOptions.options = BuildOptions.Development;       
 
             // Copy Scene List from the Build Settings Window
             string[] sceneList = new string[EditorBuildSettings.scenes.Length];
