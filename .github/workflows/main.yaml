@@ -38,20 +38,6 @@ jobs:
           fetch-depth: 0
           lfs: false
 
-      # Generate Library
-      - name: Generate Library folder
-        uses: game-ci/unity-builder@v2.1.1
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-        with:
-          buildMethod: UnityBuilderAction.BuildScript.BuildGame
-          # If we have custom parameters, add them here with: customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
-          projectPath: ${{ matrix.projectPath }}
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-
       # Build
       - name: Build ${{ matrix.targetPlatform }}
         uses: game-ci/unity-builder@v2.1.1
@@ -64,6 +50,8 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          # Uncomment the devBuild flag here to do a dev build, which will perform SIGNIFICANTLY worse, but will print much better errors with stack traces
+          customParameters: -devBuild
 
       # Upload
       - name: Upload game artifact

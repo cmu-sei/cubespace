@@ -14,6 +14,7 @@ namespace UnityBuilderAction
     {
         private static readonly string Eol = Environment.NewLine;
 
+        // This function gets called by Github CI action as defined in main.yaml
         public static void BuildGame()
         {
             // Get command line arguments
@@ -35,7 +36,18 @@ namespace UnityBuilderAction
             {
                 PlayerSettings.WebGL.decompressionFallback = false;
             }
-            buildPlayerOptions.options = BuildOptions.Development;       
+
+            // if devBuild flag was included in customParameters
+            if (options.TryGetValue("devBuild", out string _))
+            {
+                buildPlayerOptions.options = BuildOptions.Development;
+                PlayerSettings.WebGL.debugSymbolMode = WebGLDebugSymbolMode.Embedded;
+            }
+            else
+            {
+                buildPlayerOptions.options = BuildOptions.None;
+                PlayerSettings.WebGL.debugSymbolMode = WebGLDebugSymbolMode.Off;
+            }
 
             // Copy Scene List from the Build Settings Window
             string[] sceneList = new string[EditorBuildSettings.scenes.Length];
