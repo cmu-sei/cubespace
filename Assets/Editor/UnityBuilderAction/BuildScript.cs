@@ -37,7 +37,11 @@ namespace UnityBuilderAction
                 PlayerSettings.WebGL.decompressionFallback = false;
             }
 
-            // if devBuild flag was included in customParameters
+            // if devBuild flag was included in customParameters, build in dev mode
+            // First cache this setting so that we can change it back (otherwise the branch will become dirty in the middle of the github action, causing it to fail)
+            // In other words, building the game should never change a file, in this case ProjectSettings
+            WebGLDebugSymbolMode cachedDebugSymbolMode = PlayerSettings.WebGL.debugSymbolMode; 
+
             if (options.TryGetValue("devBuild", out string _))
             {
                 buildPlayerOptions.options = BuildOptions.Development;
@@ -82,6 +86,9 @@ namespace UnityBuilderAction
                     EditorApplication.Exit(103);
                     break;
             }
+
+            // Change this back in case we messed with it (prevents building the game from changing any files, specifically ProjectSettings.asset)
+            PlayerSettings.WebGL.debugSymbolMode = cachedDebugSymbolMode;
         }
 
         /// <summary>
