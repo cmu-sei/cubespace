@@ -143,6 +143,28 @@ namespace UI.HUD
             {
                 ToggleHUDVisibility();
             }
+
+            // Debugging
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("SolveCountTooltip diagnostics:");
+                if (SolveCountTooltip.Instance != null)
+                {
+                    Debug.Log("Instance is active and enabled: " + SolveCountTooltip.Instance.isActiveAndEnabled);
+                    Debug.Log("Instance gameobject active in hieracrchy: " + SolveCountTooltip.Instance.gameObject.activeInHierarchy);
+                    Debug.Log("Instance id: " + SolveCountTooltip.Instance.id);
+                    Debug.Log("Instance rect position:" + SolveCountTooltip.Instance.rect.position);
+                }
+                else
+                {
+                    Debug.Log("Instance == null");
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("Toggling tooltip state");
+                SolveCountTooltip.Instance.gameObject.SetActive(!SolveCountTooltip.Instance.gameObject.activeInHierarchy);
+            }
         }
 
         /// <summary>
