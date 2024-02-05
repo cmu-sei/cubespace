@@ -1390,7 +1390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &683120274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5891,7 +5891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1782965945
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5932,7 +5932,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <font-weight=500>Map</font-weight>
+  m_text: <font-weight=500>PROGRESS</font-weight>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 890457bb92dca484385550a8eb62e04b, type: 2}
   m_sharedMaterial: {fileID: -533661128425418502, guid: 890457bb92dca484385550a8eb62e04b,
@@ -7194,7 +7194,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -339.5, y: -24.999939}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 253.9, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1993381450
 MonoBehaviour:
@@ -7232,7 +7232,7 @@ MonoBehaviour:
   menuState: 3
   onColor: 0
   offColor: 12
-  toggledText: <font-weight=500>Map</font-weight>
+  toggledText: <font-weight=500>[X] Close</font-weight>
 --- !u!114 &1993381452
 MonoBehaviour:
   m_ObjectHideFlags: 0
