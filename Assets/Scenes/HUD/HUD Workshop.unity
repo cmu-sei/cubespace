@@ -245,7 +245,6 @@ MonoBehaviour:
   missionLogPanel: {fileID: 612479992}
   galaxyMapPanel: {fileID: 1304477546}
   quitButton: {fileID: 2079642152}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   group: {fileID: 57120343}
   _mapButton: {fileID: 1993381451}
 --- !u!225 &57120343
@@ -569,7 +568,6 @@ MonoBehaviour:
   menuState: 1
   onColor: 0
   offColor: 12
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   toggledText: <font-weight=500>[X] Close Log</font-weight>
 --- !u!1 &321754741
 GameObject:
@@ -3984,6 +3982,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GalaxyPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1363160663533565297, guid: 2719617e361108a4fbf81b9f330f2527,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1416522414708907477, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
       propertyPath: m_RootOrder
@@ -5452,7 +5455,6 @@ MonoBehaviour:
   menuState: 2
   onColor: 0
   offColor: 12
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   toggledText: <font-weight=500><size=55%>[X] Close Settings</font-weight>
 --- !u!1 &1739354741
 GameObject:
@@ -7230,7 +7232,6 @@ MonoBehaviour:
   menuState: 3
   onColor: 0
   offColor: 12
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   toggledText: <font-weight=500>Map</font-weight>
 --- !u!114 &1993381452
 MonoBehaviour:
@@ -7930,7 +7931,6 @@ MonoBehaviour:
       m_Calls: []
   onColor: 0
   offColor: 12
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   toggledText: 
   closeOnly: 0
 --- !u!114 &2079642155
@@ -8165,6 +8165,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_TaskObject
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1264813140947269175, guid: 4ff55b65c0bb9dd4782203f012fc9539, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ff55b65c0bb9dd4782203f012fc9539, type: 3}
