@@ -279,6 +279,12 @@ namespace Managers
                 videoPlayer.time -= seconds;
             }
         }
+
+        // Should only be used for WebGL, where it is necessary since video player audio can't be routed through the main mixer in WebGL
+        public void SetVolume(float val)
+        {
+            videoPlayer.SetDirectAudioVolume(0, val);
+        }
     }
 }
 

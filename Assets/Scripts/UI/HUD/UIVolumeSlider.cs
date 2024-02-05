@@ -14,26 +14,12 @@ using Audio;
 
 namespace UI
 {
-    /// <summary>
-    /// A class used for a slider which sets the volume.
-    /// </summary>
     public class UIVolumeSlider : MonoBehaviour
     {
-        /// <summary>
-        /// THe master volume mixer object.
-        /// </summary>
-        [SerializeField]
-        private UnityEngine.Audio.AudioMixerGroup masterMixer;
-        /// <summary>
-        /// The group used within the mixer.
-        /// </summary>
-        [SerializeField]
-        private string groupName = "SFXVol";
-        /// <summary>
-        /// The slider UI object used by the player to change the volume.
-        /// </summary>
-        [SerializeField]
-        private Slider slider;
+        [SerializeField] private UnityEngine.Audio.AudioMixerGroup masterMixer;
+        /// The group within the mixer affected by this slider
+        [SerializeField] private string groupName = "SFXVol";
+        [SerializeField] private Slider slider;
 
         /// <summary>
         /// Sets the volume of the group when the slider's value changes.
@@ -41,6 +27,21 @@ namespace UI
         public void SetVolume() 
         {
             AudioPlayer.Instance.SetGroupVolume(Mathf.Log10(slider.value) * 20, groupName);
+
+            // Volume of video players can not be routed through the mixer in WebGL so we have to set the volume of them directly
+#if UNITY_WEBGL && !UNITY_EDITOR
+            if (string.Compare(groupName, "TransmissionVol") == 0)
+            {
+                if (Managers.VideoPlayerManager.Instance == null)
+                {
+                    Debug.LogWarning("Failed to set volume, couldn't find video player");
+                    return;
+                }
+
+                // Video player volume is on range [0, 1], just like slider.value
+                Managers.VideoPlayerManager.Instance.SetVolume(slider.value);
+            }
+#endif
         }
     }
 }
