@@ -67,6 +67,7 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
 
         this.id = mission.missionID;
         Color setColor = ColorPalette.GetColor(PaletteColor.incompleteHighlight);
+
         if (!mission.complete && mission.currentScore == 0)
         {
             // Nothing here
