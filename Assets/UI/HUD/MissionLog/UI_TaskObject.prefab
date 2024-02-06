@@ -863,6 +863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completeIcon: {fileID: 8522822152096382729}
+  checkmarkIcon: {fileID: 5463979821949926218}
   incompleteIcon: {fileID: 8522822150797496416}
   taskDescription: {fileID: 8522822151626980230}
   additionalInfoButton: {fileID: 4304946366098816774}

@@ -28,6 +28,11 @@ public class UIHudTaskListItem : MonoBehaviour
     [SerializeField]
     private Image completeIcon;
     /// <summary>
+    /// The icon to use when a task is complete.
+    /// </summary>
+    [SerializeField]
+    private Image checkmarkIcon;
+    /// <summary>
     /// The icon to use when a task is incomplete.
     /// </summary>
     [SerializeField]
@@ -125,6 +130,7 @@ public class UIHudTaskListItem : MonoBehaviour
         data = taskData;
         
         completeIcon.enabled = taskData.complete;
+        checkmarkIcon.enabled = taskData.complete;
         incompleteIcon.enabled = !taskData.complete;
 
         additionalInfoIcon.enabled = taskData.infoPresent;
