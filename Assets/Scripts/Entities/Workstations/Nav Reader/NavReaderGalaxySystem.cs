@@ -37,6 +37,13 @@ public class NavReaderGalaxySystem : TooltipControl
     [Header("Solve Count References")]
     [SerializeField]
     private Image solveCountBorderImage;
+    [SerializeField]
+    private Image solveCountInnerBacking;
+    /// <summary>
+    /// The text object showing the number of teams who have solved the mission.
+    /// </summary>
+    [SerializeField]
+    private TextMeshProUGUI solveCountText;
 
     /// <summary>
     /// The image acting as a border on the system's points rect.
@@ -58,11 +65,6 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     [SerializeField]
     private TextMeshProUGUI pointsText;
-    /// <summary>
-    /// The text object showing the number of teams who have solved the mission.
-    /// </summary>
-    [SerializeField]
-    private TextMeshProUGUI solveCountText;
 
     [Header("Configuration Variables")]
     /// <summary>
@@ -209,19 +211,19 @@ public class NavReaderGalaxySystem : TooltipControl
         // If incomplete and not started
         if (!m.complete && m.currentScore == 0)
         {
-            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.incompleteHighlight), Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.incompleteHighlight), Color.white, Color.black, Color.white, Color.black);
         }
         // If partially solved
         else if (!m.complete && m.currentScore > 0)
         {
-            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight), Color.white, Color.black);
+            SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight), Color.white, Color.black, Color.white, Color.black);
         }
         // If fully solved
         else if (m.complete)
         {
             if (IsMissionCacheComplete(m))
             {
-                SetHighlightColors(goldBorderSprite, 0.95f, ColorPalette.GetColor(PaletteColor.cacheCompleteHighlight), Color.black, Color.white, goldBorderSprite);
+                SetHighlightColors(goldBorderSprite, 0.95f, ColorPalette.GetColor(PaletteColor.cacheCompleteHighlight), Color.black, Color.white, Color.black, Color.white, goldBorderSprite);
 
                 //repeat for 3 tooltips
                 // Set line image to gold, color to white
@@ -229,7 +231,7 @@ public class NavReaderGalaxySystem : TooltipControl
             }
             else
             {
-                SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.completedHighlight), Color.black, Color.white);
+                SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.completedHighlight), Color.black, Color.white, Color.black, Color.white);
             }
         }
 
@@ -250,18 +252,21 @@ public class NavReaderGalaxySystem : TooltipControl
         }
     }
 
-    private void SetHighlightColors(Sprite borderSprite, float backingScale, Color highlightCol, Color pointsBackingCol, Color pointsTextCol, Sprite lineSprite = null)
+    private void SetHighlightColors(Sprite borderSprite, float backingScale, Color highlightCol, Color pointsBackingCol, Color pointsTextCol, Color solveCountBackingCol, Color solveCountTextCol, Sprite lineSprite = null)
     {
-        pointsInnerBacking.color = pointsBackingCol;
-        pointsText.color = pointsTextCol;
-
         lineImage.color = highlightCol;
         targetImage.color = highlightCol;
 
         displayBorderImage.sprite = borderSprite;
         displayBorderImage.color = highlightCol;
+
+        solveCountInnerBacking.color = solveCountBackingCol;
+        solveCountText.color = solveCountTextCol;
         solveCountBorderImage.sprite = borderSprite;
         solveCountBorderImage.color = highlightCol;
+
+        pointsInnerBacking.color = pointsBackingCol;
+        pointsText.color = pointsTextCol;
         pointsBorderImage.sprite = borderSprite;
         pointsBorderImage.color = highlightCol;
 

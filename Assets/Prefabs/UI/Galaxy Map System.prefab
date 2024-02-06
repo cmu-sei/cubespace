@@ -484,15 +484,15 @@ MonoBehaviour:
   displayBorderImage: {fileID: 8139437740265585903}
   spriteImage: {fileID: 5233924857510909609}
   solveCountBorderImage: {fileID: 1133308225170941825}
+  solveCountInnerBacking: {fileID: 1348253629940324646}
+  solveCountText: {fileID: 8244730923961684026}
   pointsBorderImage: {fileID: 1131604237419110171}
   pointsInnerBacking: {fileID: 4738582822386404439}
   backingImageMask: {fileID: 2945095013435914534}
   pointsText: {fileID: 3993332594575991321}
-  solveCountText: {fileID: 8244730923961684026}
   imageMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
   flipTooltipXThreshold: 100
   tooltipHorizontalBuffer: 60
-  index: -1
   missionData:
     missionID: 
     possibleMaximumScore: 0
@@ -515,7 +515,6 @@ MonoBehaviour:
     galaxyMapYPos: 0
     galaxyMapTargetXPos: 0
     galaxyMapTargetYPos: 0
-  _palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
   goldBorderSprite: {fileID: 21300000, guid: fb280482d8d447a44b801a0805ed8b8e, type: 3}
   defaultBorderSprite: {fileID: 21300000, guid: 310f3ba8719dbc544924494f80d774c6,
     type: 3}
