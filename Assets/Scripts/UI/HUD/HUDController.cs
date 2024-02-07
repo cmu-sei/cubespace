@@ -81,11 +81,6 @@ namespace UI.HUD
         [SerializeField]
         private GameObject quitButton;
         /// <summary>
-        /// The color palette used to set colors.
-        /// </summary>
-        [SerializeField]
-        private ColorPalette palette;
-        /// <summary>
         /// The CanvasGroup used to make the HUD visible or invisible.
         /// </summary>
         [SerializeField]
@@ -148,6 +143,28 @@ namespace UI.HUD
             {
                 ToggleHUDVisibility();
             }
+
+            // Debugging
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("SolveCountTooltip diagnostics:");
+                if (SolveCountTooltip.Instance != null)
+                {
+                    Debug.Log("Instance is active and enabled: " + SolveCountTooltip.Instance.isActiveAndEnabled);
+                    Debug.Log("Instance gameobject active in hieracrchy: " + SolveCountTooltip.Instance.gameObject.activeInHierarchy);
+                    Debug.Log("Instance id: " + SolveCountTooltip.Instance.id);
+                    Debug.Log("Instance rect position:" + SolveCountTooltip.Instance.rect.position);
+                }
+                else
+                {
+                    Debug.Log("Instance == null");
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("Toggling tooltip state");
+                SolveCountTooltip.Instance.gameObject.SetActive(!SolveCountTooltip.Instance.gameObject.activeInHierarchy);
+            }
         }
 
         /// <summary>
@@ -202,36 +219,22 @@ namespace UI.HUD
 
         public void SetMenuState(MenuState newState)
         {
-            //change state
-            //this can be done with 'UIMenuPanelActiveWithState', but that only works when gameobjects begin active; which would be a change in how we have treated them, and unexpected.
-            //to fix, we could switch the above script to work on an empty parent object that's always active to enable and disable children.
-            if (newState == MenuState.MissionLog)
-            {
-                missionLogPanel.SetActive(newState == MenuState.MissionLog);
-                missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable
-            }
+            missionLogPanel.SetActive(newState == MenuState.MissionLog);
+            if (newState == MenuState.MissionLog) missionManager.OnOpen(); // This is to prevent an order of operations issue with just using OnEnable, which works for the other panels
             settingsPanel.SetActive(newState == MenuState.Settings);
             galaxyMapPanel.SetActive(newState == MenuState.GalaxyMap);
 
             if (newState != MenuState.None)
             {
-                //any state open
                 Entities.Player.LockLocalPlayerInput();
                 UIExitWorkstationButton.Instance.SetHiddenByHudPanel(true);
             }
             else
             {
-                //any menu close
                 Entities.Player.UnlockLocalPlayerInput();
                 UIExitWorkstationButton.Instance.SetHiddenByHudPanel(false);
-
-                //close the mission log specific case
-                if (_menuState == MenuState.MissionLog)
-                {
-                    taskList.CloseAdditionalInfo();
-                }
             }
-            
+
             //should check for going from state to same, but then would have to deal with init flow.
             _menuState = newState;
             OnMenuStateChange?.Invoke(_menuState);

@@ -101,6 +101,10 @@ namespace UI.ColorPalettes
                     return completedHighlightColor;
                 case PaletteColor.cacheCompleteHighlight:
                     return cacheCompleteHighlightColor;
+                case PaletteColor.LaunchModePowered:
+                    return LaunchModePoweredColor;
+                case PaletteColor.ExplorationModePowered:
+                    return ExplorationModePoweredColor;
             }
 
             return Color.white;
@@ -142,29 +146,6 @@ namespace UI.ColorPalettes
         }
 
         /// <summary>
-        /// Gets the button for a nav color.
-        /// </summary>
-        /// <param name="isComplete">Whether to render the button as being colored as complete.</param>
-        /// <param name="isSelected">Whether the button is on a selected screen.</param>
-        /// <returns>The appropriate color for the nav button.</returns>
-        public Color GetNavButtonColor(bool isComplete, bool isSelected)
-        {
-            if (isComplete)
-            {
-                return NavItemCompleteColor;
-            }
-
-            if (isSelected)
-            {
-                return NavButtonWarningColor;
-            }
-            else
-            {
-                return NavButtonBaseColor;
-            }
-        }
-        
-        /// <summary>
         /// Makes this the active color palette when this object is enabled.
         /// </summary>
         private void OnEnable()
@@ -186,9 +167,16 @@ namespace UI.ColorPalettes
         /// </summary>
         /// <param name="isReadyForLaunch">Whether the NavReader is ready to launch.</param>
         /// <returns>The color for the destination screen text on the NavReader.</returns>
-        public Color GetNavReaderDestinationScreenTextColor(bool isReadyForLaunch)
+        public static Color GetNavReaderDestinationScreenTextColor(bool isReadyForLaunch)
         {
-            return isReadyForLaunch ? NavItemCompleteColor : UIButtonTextColor;
+            if (isReadyForLaunch)
+            {
+                return GetColor(PaletteColor.NavItemComplete);
+            }
+            else
+            {
+                return GetColor(PaletteColor.UIButtonText);
+            }
         }
     }
 
@@ -215,6 +203,8 @@ namespace UI.ColorPalettes
         incompleteHighlight,
         partiallyCompletedHighlight,
         completedHighlight,
-        cacheCompleteHighlight
+        cacheCompleteHighlight,
+        LaunchModePowered,
+        ExplorationModePowered
     }
 }

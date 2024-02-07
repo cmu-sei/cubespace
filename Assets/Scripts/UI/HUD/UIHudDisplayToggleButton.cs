@@ -61,11 +61,6 @@ namespace UI.HUD
 		[SerializeField] private PaletteColor offColor;
 
 		/// <summary>
-		/// The full color palette.
-		/// </summary>
-		[SerializeField] private ColorPalette palette;
-
-		/// <summary>
 		/// The text used when the HUD display can be toggled off.
 		/// </summary>
 		[SerializeField] private string toggledText;
@@ -115,14 +110,14 @@ namespace UI.HUD
 
 			panelOpen = closeOnly;
 			_buttonAudio.activated = false;
-			_image.color = palette.GetPaletteColor(offColor);
+			_image.color = ColorPalette.GetColor(offColor);
 		}
 
 		public void SetVisuals(bool open)
 		{
 			if (open)
 			{
-				_image.color = palette.GetPaletteColor(onColor);
+				_image.color = ColorPalette.GetColor(onColor);
 				// Swap the text back to normal
 				if (isDifferentTextWhenToggled)
 				{
@@ -131,7 +126,7 @@ namespace UI.HUD
 			}
 			else
 			{
-				_image.color = palette.GetPaletteColor(offColor);
+				_image.color = ColorPalette.GetColor(offColor);
 				// Swap the text to the toggled text
 				if (isDifferentTextWhenToggled)
 				{

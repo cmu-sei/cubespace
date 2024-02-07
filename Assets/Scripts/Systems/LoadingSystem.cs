@@ -30,6 +30,8 @@ namespace Systems
         // The time it takes to totally fade in the loading screen
         [SerializeField]
         private float timeToFadeIn = 1.0f;
+        // Seconds to wait before finishing loading and fading out (hides some things)
+        private float finishLoadDelay = 2.0f;
         // The time it takes to totally fade out the loading screen
         [SerializeField]
         private float timeToFadeOut = 1.0f;
@@ -198,6 +200,9 @@ namespace Systems
         /// <returns>A yield return while trying to fade out the black screen.</returns>
         private IEnumerator FinishLoad()
         {
+            // Little delay to hide background loading in
+            yield return new WaitForSeconds(finishLoadDelay);
+
             // Adjust the Canvas Group's alpha value
             while (loadingGroup.alpha > 0.0f)
             {

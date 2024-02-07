@@ -58,11 +58,6 @@ namespace UI.NavScreen.NavScreenComponents
 		[Header("Setup")]
 		[SerializeField]
 		private WorkstationManager _workstationManager;
-		/// <summary>
-		/// The color palette.
-		/// </summary>
-		[SerializeField]
-		private ColorPalette palette;
 		
 		/// <summary>
 		/// The FlightEngineer workstation.
@@ -94,9 +89,9 @@ namespace UI.NavScreen.NavScreenComponents
 				spacingText.text += ".";
 			}
 
-			labelText.color = palette.GetNavReaderDestinationScreenTextColor(on);
-			spacingText.color = palette.GetNavReaderDestinationScreenTextColor(on);
-			statusText.color = palette.GetNavReaderDestinationScreenTextColor(on);
+			labelText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
+			spacingText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
+			statusText.color = ColorPalette.GetNavReaderDestinationScreenTextColor(on);
 		}
 
 		/// <summary>

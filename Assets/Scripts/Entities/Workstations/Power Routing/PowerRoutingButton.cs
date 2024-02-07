@@ -55,10 +55,6 @@ namespace Entities.Workstations.PowerRouting
 		/// The button image used.
 		/// </summary>
 		private Image _buttonImage;
-		/// <summary>
-		/// The color palette used.
-		/// </summary>
-		private ColorPalette palette;
         #endregion
 
         #region Unity event functions
@@ -72,14 +68,6 @@ namespace Entities.Workstations.PowerRouting
 			_button.onClick.AddListener(OnButtonClick);
 			
 			_connectionLineImage = _button.transform.GetChild(0).GetComponent<Image>();
-		}
-
-		/// <summary>
-		/// Unity event function that gets the active color palette.
-		/// </summary>
-		private void Start()
-		{
-			palette = ColorPalette.activeColorPalette;
 		}
 
 		/// <summary>
@@ -135,19 +123,19 @@ namespace Entities.Workstations.PowerRouting
             {
                 if (workstation.UsedInLaunchMode)
                 {
-                    _buttonImage.color = palette.LaunchModePoweredColor;
-                    _connectionLineImage.color = palette.PoweredColor;
+                    _buttonImage.color = ColorPalette.GetColor(PaletteColor.LaunchModePowered);
+                    _connectionLineImage.color = ColorPalette.GetColor(PaletteColor.Powered);
                 }
                 else if (workstation.UsedInExplorationMode)
                 {
-                    _buttonImage.color = palette.ExplorationModePoweredColor;
-                    _connectionLineImage.color = palette.PoweredColor;
+                    _buttonImage.color = ColorPalette.GetColor(PaletteColor.ExplorationModePowered);
+                    _connectionLineImage.color = ColorPalette.GetColor(PaletteColor.Powered);
                 }
                 else
                 {
                     Debug.LogError("Tried to toggle power to a station that isn't used in launch mode or exploration mode");
-                    _buttonImage.color = palette.PoweredColor;
-                    _connectionLineImage.color = palette.PoweredColor;
+                    _buttonImage.color = ColorPalette.GetColor(PaletteColor.Powered);
+                    _connectionLineImage.color = ColorPalette.GetColor(PaletteColor.Powered);
                 }
                 
 				pipe.SetEmissionPower(WorkstationPipe.ON_EMISSION_POWER);
@@ -155,8 +143,8 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                _buttonImage.color = palette.UnpoweredColor;
-                _connectionLineImage.color = palette.UnpoweredColor;
+                _buttonImage.color = ColorPalette.GetColor(PaletteColor.Unpowered);
+                _connectionLineImage.color = ColorPalette.GetColor(PaletteColor.Unpowered);
                 pipe.SetEmissionPower(WorkstationPipe.OFF_EMISSION_POWER);
                 Audio.AudioPlayer.Instance.PowerRoutingTubeOff(workstationToPower);
             }

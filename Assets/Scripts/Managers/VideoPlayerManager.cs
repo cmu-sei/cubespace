@@ -173,6 +173,12 @@ namespace Managers
                         Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds. Video will timeout and exit after " + (videoTimeout - warningSecond) + " more seconds.");
                         warningSecond += 1;
                     }
+
+                    // Streamed videos in webgl like to get stuck on the last few frames so just cut those off if that happens
+                    if ((int)videoPlayer.frameCount - videoPlayer.frame <= 6 && timeSinceLastNewFrame > 0.2f)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -278,6 +284,12 @@ namespace Managers
             {
                 videoPlayer.time -= seconds;
             }
+        }
+
+        // Should only be used for WebGL, where it is necessary since video player audio can't be routed through the main mixer in WebGL
+        public void SetVolume(float val)
+        {
+            videoPlayer.SetDirectAudioVolume(0, val);
         }
     }
 }

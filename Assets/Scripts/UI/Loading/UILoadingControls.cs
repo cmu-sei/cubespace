@@ -90,14 +90,14 @@ public class UILoadingControls : MonoBehaviour
     }
 
     /// <summary>
-    /// Launches only the client.
+    /// Launches only the client. Called by connect and reconnect buttons
     /// </summary>
     public void LaunchClientOnly()
     {
         if (LoadingSystem.Instance)
         {
             // NetworkManager.singleton.networkAddress = LoadingSystem.Instance.serverLink;
-            LoadingSystem.OnLoadStarted += NetworkManager.singleton.StartClient;
+            LoadingSystem.OnLoadStarted += NetworkManager.singleton.StartClient; // I'm concerned that this might not be getting cleaned up if the load fails. What if user trys to reconnect twice in a row?
             LoadingSystem.Instance.BeginLoad();
         }
     }

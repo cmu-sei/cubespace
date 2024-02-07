@@ -34,11 +34,6 @@ namespace UI.NavScreen.NavScreenComponents
 		/// </summary>
 		[SerializeField]
 		private TMP_Text[] textsToUpdateColor;
-		/// <summary>
-		/// The color palette used.
-		/// </summary>
-		[SerializeField]
-		private ColorPalette palette;
 
 		/// <summary>
 		/// Updates the text on the NavReader encoder.
@@ -50,7 +45,7 @@ namespace UI.NavScreen.NavScreenComponents
 		{
 			statusText.text = status;
 			labelText.text = label;
-			Color c = palette.GetNavReaderDestinationScreenTextColor(ready);
+			Color c = ColorPalette.GetNavReaderDestinationScreenTextColor(ready);
 			
 			statusText.color = c;
 			labelText.color = c;

@@ -10,6 +10,7 @@ DM23-0100
 
 using Systems.GameBrain;
 using TMPro;
+using UI.HUD;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -62,6 +63,9 @@ public class UIHudTaskList : MonoBehaviour
         additionalInfoCloseButton.onClick.AddListener(CloseAdditionalInfo);
         CloseAdditionalInfo();
         additionalInfoText.text = "";
+
+        // This should be handled by the mission log panel but just disabling the panel everytime the menu state changes works well enough
+        HUDController.Instance.OnMenuStateChange += (_) => { CloseAdditionalInfo(); }; // Disables itself anytime the menu state changes
     }
 
     /// <summary>

@@ -14,7 +14,6 @@ using UI.ColorPalettes;
 /// </summary>
 public class PointsTooltip : Singleton<PointsTooltip>
 {
-    [SerializeField] private ColorPalette _palette;
     /// <summary>
     /// The image used as the border of the tooltip.
     /// </summary>
@@ -89,7 +88,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
     public void SetProperties(MissionData mission, bool placeLeft = false)
     {
         this.id = mission.missionID;
-        Color setColor = _palette.incompleteHighlightColor;
+        Color setColor = ColorPalette.GetColor(PaletteColor.incompleteHighlight);
         if (!mission.complete && mission.currentScore == 0)
         {
             pointsWrapper.SetActive(true);
@@ -99,14 +98,14 @@ public class PointsTooltip : Singleton<PointsTooltip>
         {
             pointsWrapper.SetActive(true);
             scoredWrapper.SetActive(false);
-            setColor = _palette.partiallyCompletedHighlightColor;
+            setColor = ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight);
         }
         else if (mission.complete)
         {
             pointsWrapper.SetActive(false);
             scoredWrapper.SetActive(true);
             scoredText.text = $"You have scored {mission.currentScore} PTS";
-            setColor = _palette.completedHighlightColor;
+            setColor = ColorPalette.GetColor(PaletteColor.completedHighlight);
         }
 
         pointsTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);

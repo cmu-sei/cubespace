@@ -119,6 +119,7 @@ namespace Entities.Workstations
             base.ChangePower(isPowered);
             if (!isPowered) 
             {
+                // This function has been commented out and will not actually do anything (see the method itself for details)
                 _windowController.CloseVM(StationID);
             }
         }
@@ -128,7 +129,7 @@ namespace Entities.Workstations
         /// </summary>
         public override void ResetWorkstation()
         {
-            _windowController.CloseVM(StationID);
+            _windowController.CloseVM(StationID); // This function has been commented out and will not actually do anything (see the method itself for details)
             base.ResetWorkstation();
         }
 
