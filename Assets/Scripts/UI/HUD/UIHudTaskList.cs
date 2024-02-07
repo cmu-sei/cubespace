@@ -38,7 +38,12 @@ public class UIHudTaskList : MonoBehaviour
     /// The additional information panel.
     /// </summary>
     [SerializeField]
-    private GameObject additionalInfoPanel; 
+    private GameObject additionalInfoPanel;
+    /// <summary>
+    /// Text displayed in additional info box for a complete task
+    /// </summary>
+    [SerializeField]
+    private string additionalInfoTaskCompleteMessage = "This task has been completed!";
 
     /// <summary>
     /// The task list viewable by the player.
@@ -160,7 +165,16 @@ public class UIHudTaskList : MonoBehaviour
         {
             OpenAdditionalInfo();
             additionalInfoTask = data;
-            additionalInfoText.text = data.infoText;
+            if (data.complete)
+            {
+                // If the task is marked as complete, ignore whatever gamebrain is saying and display this message
+                // Ideally gamebrain would handle this to remove the edge case and ensure that cubespace is respecting whatever gamebrain says
+                additionalInfoText.text = additionalInfoTaskCompleteMessage;
+            }
+            else
+            {
+                additionalInfoText.text = data.infoText;
+            }
         }
     }
 }
