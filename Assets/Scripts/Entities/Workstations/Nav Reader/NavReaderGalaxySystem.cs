@@ -108,9 +108,7 @@ public class NavReaderGalaxySystem : TooltipControl
     /// <param name="eventData">The mouse enter data.</param>
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Subclass OnPointerEnter");
         base.OnPointerEnter(eventData);
-        Debug.Log("Subclass OnPointerEnter, starting WaitForInput");
         StartCoroutine("WaitForInput");
     }
 

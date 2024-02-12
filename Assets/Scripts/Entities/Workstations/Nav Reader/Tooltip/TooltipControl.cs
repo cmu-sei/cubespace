@@ -48,16 +48,12 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">The mouse enter data.</param>
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        PrintDebug();
         // Store an initial tooltip rect and establish a baseline final position for the tooltip
         RectTransform rect = DisplayTooltip.Instance.rect;
-        PrintDebug();
         Vector2 finalPosition = systemRect.localPosition;
-        PrintDebug();
 
         // Decide whether to flip this tooltip
         bool flip = systemRect.localPosition.x >= system.flipTooltipXThreshold;
-        PrintDebug();
 
         // Set the position of the main tooltip
         if (tooltipType == TooltipType.Display)
@@ -69,15 +65,10 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         // Sets the position of the tooltip displaying the solve count
         else if (tooltipType == TooltipType.SolveCount)
         {
-            PrintDebug("entered else if for SolveCount");
             SolveCountTooltip.Instance.gameObject.SetActive(true);
-            PrintDebug();
             SolveCountTooltip.Instance.SetProperties(system.missionData, flip);
-            PrintDebug();
             rect = SolveCountTooltip.Instance.rect;
-            PrintDebug();
             finalPosition.y -= 30;
-            PrintDebug();
         }
         // Sets the position of the tooltip displaying the number of points
         else
@@ -97,11 +88,9 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             finalPosition.x += (rect.sizeDelta.x / 2 + system.tooltipHorizontalBuffer);
         }
-        PrintDebug();
 
         // Set the tooltip's position
         rect.localPosition = finalPosition;
-        PrintDebug();
     }
 
     /// <summary>
@@ -132,12 +121,5 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Display,
         SolveCount,
         Points
-    }
-
-    private int printNum = 0;
-    public void PrintDebug(string extra = "")
-    {
-        Debug.Log("Print: " + printNum + "\nSolveCountTooltip.Instance is null?: " + (SolveCountTooltip.Instance == null).ToString() + "\n" + extra);
-        printNum += 1;
     }
 }
