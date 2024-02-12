@@ -578,7 +578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -665,7 +665,6 @@ GameObject:
   - component: {fileID: 8372911581549271409}
   - component: {fileID: 7673963628815196344}
   - component: {fileID: 8244730923961684026}
-  - component: {fileID: 2141992347632986246}
   m_Layer: 0
   m_Name: Name
   m_TagString: Untagged
@@ -715,7 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -791,21 +790,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2141992347632986246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121309325442034599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12114d1a79a574148a5fac5440f1f6eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipType: 1
-  system: {fileID: 3424262870000253321}
-  systemRect: {fileID: 1197876717712904762}
 --- !u!1 &3423619399443232429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1123,7 @@ GameObject:
   - component: {fileID: 1279027802982222747}
   - component: {fileID: 3373553698523721478}
   - component: {fileID: 1607735553997100534}
+  - component: {fileID: 8139472314775854939}
   m_Layer: 0
   m_Name: Solve Count
   m_TagString: Untagged
@@ -1196,8 +1181,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 827c9cd4a3943534f909ac6473e17288, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: b98502764fb703b47b964f59fbd52a61, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1205,7 +1190,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.01
 --- !u!114 &1607735553997100534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1204,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &8139472314775854939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5930605599466097000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12114d1a79a574148a5fac5440f1f6eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipType: 1
+  system: {fileID: 3424262870000253321}
+  systemRect: {fileID: 1197876717712904762}
 --- !u!1 &6543585723601487253
 GameObject:
   m_ObjectHideFlags: 0
