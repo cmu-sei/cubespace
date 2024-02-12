@@ -14,7 +14,6 @@ using Mirror;
 using System.Linq;
 using Managers;
 using Systems.GameBrain;
-using System.Collections;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -93,7 +92,7 @@ namespace Entities.Workstations.PowerRouting
         {
             if (!AlwaysHasPower)
             {
-                Debug.Log("Power station must have power. Set AlwaysHasPower to true for powerRouting workstation", this);
+                Debug.LogError("Power station must have power. Set AlwaysHasPower to true for powerRouting workstation", this);
             }
 
             base.Awake();
