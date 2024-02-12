@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287b701ecc20afe4fa8c924034452270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionIconMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
+  missionIconMap: {fileID: 11400000, guid: d18ec8d153c691941abc85c6bf3737b4, type: 2}
   missionSlider: {fileID: 1096651939}
   missionListParent: {fileID: 1777680922}
   missionListingItemPrefab: {fileID: 3350503601528500809, guid: 7feb21347c841d442a67353711f08786,
@@ -6135,7 +6135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 2
-  missionIconLookup: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
+  missionIconLookup: {fileID: 11400000, guid: d18ec8d153c691941abc85c6bf3737b4, type: 2}
   MissionPogPrefab: {fileID: 8737326376524990935, guid: 6e48eb863afc35a49af073d0d25ca362,
     type: 3}
   layoutGroupParent: {fileID: 1794512440}
@@ -6632,6 +6632,7 @@ MonoBehaviour:
   taskItemParent: {fileID: 1796518606}
   additionalInfoText: {fileID: 1936380295}
   additionalInfoPanel: {fileID: 1004912230}
+  additionalInfoTaskCompleteMessage: This task has been completed!
   additionalInfoCloseButton: {fileID: 1933152071}
 --- !u!1 &1933152069
 GameObject:

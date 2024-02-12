@@ -26,7 +26,7 @@ namespace UI.HUD
         /// The map between missions and icons.
         /// </summary>
         [SerializeField]
-        private IDToImageMap missionIconMap;
+        private IDToImageMap missionIconMap; // b&w hex mission icons
         /// <summary>
         /// The background of the selected mission.
         /// </summary>

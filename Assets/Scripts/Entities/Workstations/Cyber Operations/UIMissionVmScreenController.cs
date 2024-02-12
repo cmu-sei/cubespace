@@ -13,7 +13,7 @@ namespace Entities.Workstations.CyberOperationsParts
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject missionVmButtonPrefab;
         [SerializeField] private Transform missionButtonGridParent;
-        [SerializeField] private IDToImageMap imageMap;
+        [SerializeField] private IDToImageMap imageMap; // non-hex mission icons
 
         private Image background;
 

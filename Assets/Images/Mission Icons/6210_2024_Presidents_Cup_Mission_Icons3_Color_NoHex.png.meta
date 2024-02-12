@@ -1,0 +1,464 @@
+fileFormatVersion: 2
+guid: cd5627b2d6d630249984792d591c5bb2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1080
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_0
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 53
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a9e509b092781f478932ad2def82c6e
+      internalID: 2010940561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_1
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 45
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30801c6d4414a1a41b82329cdac078e9
+      internalID: 2091690899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_2
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 44
+        width: 152
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9940c3e733e127f45a6d17722dc8e189
+      internalID: -1596961587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_3
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 44
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 099a73ea4e48aed49b485367f2771007
+      internalID: 1629597014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_4
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 52
+        width: 135
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f311c28599445a74481b06dc130c3a8f
+      internalID: -956654753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_5
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 44
+        width: 147
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16fd65fe8eafbc44b52ee16995ea6cf
+      internalID: -183241942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_6
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 56
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe95a00ed5a4364bab18c0c4f6eaacf
+      internalID: 832480838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_7
+      rect:
+        serializedVersion: 2
+        x: 1786
+        y: 43
+        width: 142
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a390498c8ba4ac49b17761f1b560f7b
+      internalID: -1905702603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_8
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 53
+        width: 148
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf9e1b6472c8a73468866966505843e5
+      internalID: -276754269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_9
+      rect:
+        serializedVersion: 2
+        x: 2262
+        y: 37
+        width: 166
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0238f745c43613342a745cb8571d579b
+      internalID: -1150414413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_10
+      rect:
+        serializedVersion: 2
+        x: 2505
+        y: 38
+        width: 164
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42133669a08aa4f419b98930a9411c77
+      internalID: -843434767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_11
+      rect:
+        serializedVersion: 2
+        x: 2733
+        y: 23
+        width: 189
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bffb2941c500bd46a5082c7524f0807
+      internalID: -11296017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_12
+      rect:
+        serializedVersion: 2
+        x: 3000
+        y: 52
+        width: 141
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be40152c5a77a934796c1e837a20b85f
+      internalID: -719239434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_13
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 40
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c841f9fafb99e3e4da3e02b9607899ec
+      internalID: -607445916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_14
+      rect:
+        serializedVersion: 2
+        x: 3474
+        y: 43
+        width: 164
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf4b2d0372db4e4ab3d868eb0be0812
+      internalID: 2070142565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_5: -183241942
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_10: -843434767
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_8: -276754269
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_9: -1150414413
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_13: -607445916
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_0: 2010940561
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_2: -1596961587
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_3: 1629597014
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_7: -1905702603
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_12: -719239434
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_6: 832480838
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_1: 2091690899
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_4: -956654753
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_11: -11296017
+      6210_2024_Presidents_Cup_Mission_Icons3_Color_NoHex_14: 2070142565
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

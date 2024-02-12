@@ -26,11 +26,11 @@ namespace UI.HUD
 		/// Maps the missions to icons.
 		/// </summary>
 		[SerializeField]
-		private IDToImageMap missionIconLookup;
-		/// <summary>
-		/// The prefab to use to represent a mission pog.
-		/// </summary>
-		[SerializeField]
+		private IDToImageMap missionIconLookup; // b&w hex mission icons
+        /// <summary>
+        /// The prefab to use to represent a mission pog.
+        /// </summary>
+        [SerializeField]
 		GameObject MissionPogPrefab;
 		
 		/// <summary>

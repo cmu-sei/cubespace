@@ -71,7 +71,7 @@ public class NavReaderGalaxySystem : TooltipControl
     /// The image map with IDs corresponding to system images.
     /// </summary>
     [SerializeField]
-    private IDToImageMap imageMap;
+    private IDToImageMap imageMap; // non-hex mission icons
     /// <summary>
     /// The x coordinate where tooltips should flip to the other side.
     /// </summary>

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47760c011d64c734093a67a4709256d2, type: 3}
-  m_Name: MissionSpriteMap
+  m_Name: MissionHexSpriteMap
   m_EditorClassIdentifier: 
   pairs:
   - locationID: lagrange
