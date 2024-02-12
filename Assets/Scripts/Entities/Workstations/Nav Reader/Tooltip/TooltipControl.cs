@@ -137,7 +137,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private int printNum = 0;
     public void PrintDebug(string extra = "")
     {
-        Debug.Log("Print: " + printNum + "\nSolveCountTooltip.Instance is null?: " + SolveCountTooltip.Instance == null + "\n" + extra);
+        Debug.Log("Print: " + printNum + "\nSolveCountTooltip.Instance is null?: " + (SolveCountTooltip.Instance == null).ToString() + "\n" + extra);
         printNum += 1;
     }
 }

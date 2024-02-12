@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -80,7 +78,7 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
         {
             setColor = ColorPalette.GetColor(PaletteColor.completedHighlight);
         }
-        Debug.Log("Set Properties: After SetColor" + "\nSolveCountTooltip.Instance == null?: " + SolveCountTooltip.Instance == null);
+        Debug.Log("Set Properties: After SetColor" + "\nSolveCountTooltip.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
 
         solveTooltipArrowBorderImage.gameObject.SetActive(!placeLeft);
         rightSolveTooltipArrowBorderImage.gameObject.SetActive(placeLeft);
@@ -89,6 +87,6 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
         solveTooltipBorderImage.color = setColor;
         solveTooltipArrowBorderImage.color = setColor;
         rightSolveTooltipArrowBorderImage.color = setColor;
-        Debug.Log("Set Properties: finished" + "\nSolveCountTooltip.Instance == null?: " + SolveCountTooltip.Instance == null);
+        Debug.Log("Set Properties: finished" + "\nSolveCountTooltip.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
     }
 }
