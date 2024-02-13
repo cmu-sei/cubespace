@@ -52,7 +52,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           # Uncomment the devBuild flag here AND BELOW to do a dev build, which will perform SIGNIFICANTLY worse, but will print much better errors with stack traces
-          #customParameters: -devBuild
+          customParameters: -devBuild
       # Build
       - name: Build ${{ matrix.targetPlatform }}
         uses: game-ci/unity-builder@v2.1.1
@@ -66,7 +66,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           # Uncomment the devBuild flag here AND ABOVE to do a dev build
-          #customParameters: -devBuild
+          customParameters: -devBuild
       # Upload
       - name: Upload game artifact
         uses: actions/upload-artifact@v2

@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairs:
   - locationID: lagrange
-    locationImage: {fileID: -1150414413, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
-  - locationID: museum
-    locationImage: {fileID: 2070142565, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
-  - locationID: raider
     locationImage: {fileID: -11296017, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
-  - locationID: xeno
+  - locationID: museum
+    locationImage: {fileID: -1083199321, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+  - locationID: raider
     locationImage: {fileID: -607445916, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+  - locationID: xeno
+    locationImage: {fileID: -1794173398, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: ruins
-    locationImage: {fileID: -719239434, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 2070142565, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: exo
-    locationImage: {fileID: -843434767, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -719239434, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: empty
     locationImage: {fileID: -2083680387, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
   - locationID: completedBg
@@ -40,15 +40,15 @@ MonoBehaviour:
   - locationID: ringrot
     locationImage: {fileID: 1629597014, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: ergocon
-    locationImage: {fileID: -276754269, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -843434767, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: penmass
-    locationImage: {fileID: -1905702603, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -1150414413, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: electro
     locationImage: {fileID: -956654753, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: radiant
-    locationImage: {fileID: -183241942, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -1905702603, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: conduit
-    locationImage: {fileID: 832480838, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -276754269, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: cache
     locationImage: {fileID: 2010940561, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
   - locationID: default_vm_image
