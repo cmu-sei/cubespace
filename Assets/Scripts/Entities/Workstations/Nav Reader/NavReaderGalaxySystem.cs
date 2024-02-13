@@ -132,9 +132,17 @@ public class NavReaderGalaxySystem : TooltipControl
         {
             if (Input.GetMouseButtonDown(0))
             {
+                // Disable any tooltips that might be open
+                if (DisplayTooltip.Instance) DisplayTooltip.Instance.gameObject.SetActive(false);
+                if (PointsTooltip.Instance) PointsTooltip.Instance.gameObject.SetActive(false);
+                if (SolveCountTooltip.Instance) SolveCountTooltip.Instance.gameObject.SetActive(false);
+
+                // Open mission log and select the mission that correlates to this system
                 HUDController.Instance.OpenMissionLog();
                 UIHudMissionManager.Instance.SelectMission(missionData.missionID, true);
-                // HUDController.Instance.MissionLogButton.OnClick();//I thiiiiink this was to match the visual button state to the menu open state? but I fixed that disconnect, now HUDController manages state in one place - Smokey
+
+                // Break out of loop and stop the coroutine
+                break;
             }
             yield return null;
         }
