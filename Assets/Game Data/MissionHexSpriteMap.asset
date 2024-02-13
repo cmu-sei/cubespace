@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairs:
   - locationID: lagrange
-    locationImage: {fileID: -1150414413, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 1235982028, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: museum
-    locationImage: {fileID: 2070142565, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -2027113062, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: raider
-    locationImage: {fileID: -11296017, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -238033755, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: xeno
-    locationImage: {fileID: -607445916, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 446780881, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: ruins
-    locationImage: {fileID: -719239434, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -1205485598, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: exo
-    locationImage: {fileID: -843434767, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 48396936, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: empty
     locationImage: {fileID: -2083680387, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
   - locationID: completedBg
@@ -34,22 +34,22 @@ MonoBehaviour:
   - locationID: reset
     locationImage: {fileID: 21300000, guid: a94c9a7eb94ceec4a8d67a1890e22e51, type: 3}
   - locationID: gravcon
-    locationImage: {fileID: 2091690899, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -940032062, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: reactor
-    locationImage: {fileID: -1596961587, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 1990618717, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: ringrot
-    locationImage: {fileID: 1629597014, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 1971655135, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: ergocon
-    locationImage: {fileID: -276754269, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 185221915, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: penmass
-    locationImage: {fileID: -1905702603, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -1549246039, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: electro
-    locationImage: {fileID: -956654753, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 1218390737, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: radiant
-    locationImage: {fileID: -183241942, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -91231934, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: conduit
-    locationImage: {fileID: 832480838, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: -1006465716, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: cache
-    locationImage: {fileID: 2010940561, guid: cd5627b2d6d630249984792d591c5bb2, type: 3}
+    locationImage: {fileID: 940109608, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
   - locationID: default_vm_image
     locationImage: {fileID: -1474257596, guid: 31f71adcac5b034418c2f244c639cb5a, type: 3}

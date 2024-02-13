@@ -1,0 +1,464 @@
+fileFormatVersion: 2
+guid: c1627e4d73e47cc41b116b464e7e6451
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1080
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_0
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bbce1eef5e4cc0419e4d7124e6b0f1b
+      internalID: 940109608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_1
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af18448e659c83d4b93bb9d41875d4b4
+      internalID: -940032062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_2
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb1ef4066ace60d4eb6f1acf2a501577
+      internalID: 1990618717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_3
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 19
+        width: 129
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7a43b56cb261f489f02853cd84bb20
+      internalID: 1971655135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_4
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 19
+        width: 127
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7bf7eed0071ca4f81ebedcde483433
+      internalID: 1218390737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_5
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f384523a2239b546896f7906856813f
+      internalID: -91231934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_6
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d22d08fbe3a6ec499d370222abf1bb7
+      internalID: -1006465716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_7
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c219461cbcca244b2d1cef0565d032
+      internalID: -1549246039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_8
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 19
+        width: 128
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 925221b2e611aa84bae98e51f929557e
+      internalID: 185221915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_9
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 20
+        width: 127
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53b4c46430134b04ba8fef041e24ee03
+      internalID: 1235982028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_10
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 20
+        width: 127
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c371d2e6e899b644fb18a3769eecfa91
+      internalID: 48396936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_11
+      rect:
+        serializedVersion: 2
+        x: 1747
+        y: 20
+        width: 125
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08dbdf987a32ffa48816d36c279a6744
+      internalID: -238033755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_12
+      rect:
+        serializedVersion: 2
+        x: 1902
+        y: 20
+        width: 126
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b39c6a7e73d6f94983dcce21d0ce22c
+      internalID: -1205485598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_13
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 20
+        width: 126
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aa834bd4397643428c4f601762f9277
+      internalID: 446780881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_14
+      rect:
+        serializedVersion: 2
+        x: 2213
+        y: 20
+        width: 125
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f9498e583a3474d988736ccae3ba6f
+      internalID: -2027113062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f02c20fcbed43144e90b3ba211ddf37b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_8: 185221915
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_6: -1006465716
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_4: 1218390737
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_10: 48396936
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_14: -2027113062
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_9: 1235982028
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_1: -940032062
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_3: 1971655135
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_13: 446780881
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_5: -91231934
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_12: -1205485598
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_2: 1990618717
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_11: -238033755
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_0: 940109608
+      6210_2024_Presidents_Cup_Mission_Icons4_B&W Icons_7: -1549246039
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
