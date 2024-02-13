@@ -42,7 +42,7 @@ namespace UI.HUD
             // These should be disabled by their controllers but if there's no missions their controllers aren't instantiated and the tooltips stay open.
             // These calls will be redundant in other cases but will prevent that problem
             if (DisplayTooltip.Instance != null) DisplayTooltip.Instance.gameObject.SetActive(false);
-            if (SolveCountTooltip.Instance != null) SolveCountTooltip.Instance.gameObject.SetActive(false);
+            //if (SolveCountTooltip.Instance != null) SolveCountTooltip.Instance.gameObject.SetActive(false);
             if (PointsTooltip.Instance != null) PointsTooltip.Instance.gameObject.SetActive(false);
         }
 
