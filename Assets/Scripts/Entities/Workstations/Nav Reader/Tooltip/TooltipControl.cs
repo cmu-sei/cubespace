@@ -24,25 +24,6 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private RectTransform systemRect;
 
     /// <summary>
-    /// Unity event function that deactivates this object's tooltip based on the set TooltipType.
-    /// </summary>
-    public virtual void Awake()
-    {
-        if (tooltipType == TooltipType.Display)
-        {
-            DisplayTooltip.Instance.gameObject.SetActive(false);
-        }
-        else if (tooltipType == TooltipType.SolveCount)
-        {
-            SolveCountTooltip.Instance.gameObject.SetActive(false);
-        }
-        else
-        {
-            PointsTooltip.Instance.gameObject.SetActive(false);
-        }
-    }
-
-    /// <summary>
     /// Unity event function that sets the position of this object's tooltip when the mouse enters this object.
     /// </summary>
     /// <param name="eventData">The mouse enter data.</param>

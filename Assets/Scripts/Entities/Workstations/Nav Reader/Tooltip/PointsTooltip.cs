@@ -78,6 +78,7 @@ public class PointsTooltip : Singleton<PointsTooltip>
     {
         base.Awake();
         rect = transform as RectTransform;
+        gameObject.SetActive(false);
     }
 
     /// <summary>

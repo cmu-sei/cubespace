@@ -49,6 +49,7 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     {
         base.Awake();
         rect = transform as RectTransform;
+        gameObject.SetActive(false);
     }
 
     /// <summary>
