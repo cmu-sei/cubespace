@@ -34,7 +34,7 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         else if (tooltipType == TooltipType.SolveCount)
         {
-            //SolveCountTooltip.Instance.gameObject.SetActive(false);
+            SolveCountTooltip.Instance.gameObject.SetActive(false);
         }
         else
         {
@@ -91,11 +91,6 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         // Set the tooltip's position
         rect.localPosition = finalPosition;
-
-        if (tooltipType == TooltipType.SolveCount)
-        {
-            Debug.Log("Finished OnPointerEnter. SolveCount.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
-        }
     }
 
     /// <summary>
@@ -104,21 +99,18 @@ public class TooltipControl : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData">The mouse exit data.</param>
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        if (tooltipType == TooltipType.SolveCount) Debug.Log("Starting OnPointerExit. SolveCount.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
         if (tooltipType == TooltipType.Display)
         {
             DisplayTooltip.Instance.gameObject.SetActive(false);
         }
         else if (tooltipType == TooltipType.SolveCount)
         {
-            Debug.Log("OnPointerExit, setting active to false. SolveCount.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
             SolveCountTooltip.Instance.gameObject.SetActive(false);
         }
         else
         {
             PointsTooltip.Instance.gameObject.SetActive(false);
         }
-        if (tooltipType == TooltipType.SolveCount) Debug.Log("Finished OnPointerExit. SolveCount.Instance == null?: " + (SolveCountTooltip.Instance == null).ToString());
     }
 
     /// <summary>
