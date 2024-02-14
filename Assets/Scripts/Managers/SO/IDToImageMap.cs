@@ -65,12 +65,12 @@ namespace Managers
 				if (pairs.Count == 0)
 				{
                     Debug.LogWarning("Tried to get image with id: " + imageID + " and defaultID: " + defaultID + "from empty image map");
+                    return null;
                 }
 				else
 				{
 					InitiateDictionary();
-				}
-				return null;
+				}	
 			}
 
             Sprite image;
