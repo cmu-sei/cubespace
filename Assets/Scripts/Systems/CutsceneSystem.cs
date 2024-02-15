@@ -8,16 +8,10 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
-using System;
 using System.Collections;
 using UnityEngine;
-using Cinemachine;
 using Entities;
-using UnityEngine.Video;
 using Managers;
-using System.Text.RegularExpressions;
-using Mirror;
-using UnityEngine.UI;
 
 namespace Systems
 {
@@ -28,7 +22,6 @@ namespace Systems
     {
         [SerializeField] private GameObject videoCanvas;
 
-        [SerializeField] private CinemachineVirtualCamera cutsceneCam;
         [SerializeField] private RenderTexture cutsceneRenderTex;
 
         [SerializeField] private GameObject archivesVideoCanvas;
@@ -39,7 +32,6 @@ namespace Systems
             base.Start();
             videoCanvas.SetActive(false);
             archivesVideoCanvas.SetActive(false);
-            cutsceneCam.enabled = false;
         }
 
         private void OnEnable()
@@ -75,7 +67,6 @@ namespace Systems
             {
                 Player.LockLocalPlayerInput();
                 videoCanvas.SetActive(true);
-                cutsceneCam.enabled = true;
                 VideoPlayerManager.OnVideoCompleted += OnCutsceneCompleted;
                 return true;
             }

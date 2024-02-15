@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -51,6 +49,7 @@ public class SolveCountTooltip : Singleton<SolveCountTooltip>
     {
         base.Awake();
         rect = transform as RectTransform;
+        gameObject.SetActive(false);
     }
 
     /// <summary>

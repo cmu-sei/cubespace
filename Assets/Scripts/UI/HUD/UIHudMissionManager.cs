@@ -22,7 +22,7 @@ using UnityEngine;
 public class UIHudMissionManager : Singleton<UIHudMissionManager>
 {
     [SerializeField]
-    private IDToImageMap missionIconMap;
+    private IDToImageMap missionIconMap; // b&w hex mission icons
     [SerializeField]
     private Dictionary<string, UIHudMissionItem> missionItems = new Dictionary<string, UIHudMissionItem>();
     [SerializeField]

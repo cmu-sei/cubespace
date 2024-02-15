@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97043b2dfe8348648a354a2bf7ae06f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionIconMap: {fileID: 11400000, guid: fba8b7b38a847f641a1f9bb8e80f5611, type: 2}
+  missionIconMap: {fileID: 11400000, guid: d18ec8d153c691941abc85c6bf3737b4, type: 2}
   backgroundSelectedObj: {fileID: 5258508763681144302}
   backgroundCompletedObj: {fileID: 1324049706506285072}
   missionIcon: {fileID: 4649470568916270592}

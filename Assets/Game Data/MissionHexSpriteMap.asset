@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47760c011d64c734093a67a4709256d2, type: 3}
+  m_Name: MissionHexSpriteMap
+  m_EditorClassIdentifier: 
+  pairs:
+  - locationID: lagrange
+    locationImage: {fileID: 1235982028, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: museum
+    locationImage: {fileID: -2027113062, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: raider
+    locationImage: {fileID: -238033755, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: xeno
+    locationImage: {fileID: 446780881, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: ruins
+    locationImage: {fileID: -1205485598, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: exo
+    locationImage: {fileID: 48396936, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: empty
+    locationImage: {fileID: -2083680387, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
+  - locationID: completedBg
+    locationImage: {fileID: 410277137, guid: 297da00282a61f24fb7ac3f7ad8d4389, type: 3}
+  - locationID: camera
+    locationImage: {fileID: 21300000, guid: a3983c59ebf804b4abba687bd7c9e92f, type: 3}
+  - locationID: reset
+    locationImage: {fileID: 21300000, guid: a94c9a7eb94ceec4a8d67a1890e22e51, type: 3}
+  - locationID: gravcon
+    locationImage: {fileID: -940032062, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: reactor
+    locationImage: {fileID: 1990618717, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: ringrot
+    locationImage: {fileID: 1971655135, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: ergocon
+    locationImage: {fileID: 185221915, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: penmass
+    locationImage: {fileID: -1549246039, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: electro
+    locationImage: {fileID: 1218390737, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: radiant
+    locationImage: {fileID: -91231934, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: conduit
+    locationImage: {fileID: -1006465716, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: cache
+    locationImage: {fileID: 940109608, guid: c1627e4d73e47cc41b116b464e7e6451, type: 3}
+  - locationID: default_vm_image
+    locationImage: {fileID: -1474257596, guid: 31f71adcac5b034418c2f244c639cb5a, type: 3}

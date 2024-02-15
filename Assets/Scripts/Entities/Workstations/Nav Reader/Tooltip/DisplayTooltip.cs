@@ -57,6 +57,7 @@ public class DisplayTooltip : Singleton<DisplayTooltip>
     {
         base.Awake();
         rect = transform as RectTransform;
+        gameObject.SetActive(false);
     }
 
     /// <summary>
