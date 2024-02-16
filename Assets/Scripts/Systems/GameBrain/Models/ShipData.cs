@@ -519,7 +519,7 @@ namespace Systems.GameBrain
 		// The comm event being sent at this location, if there is one (only shown if incomingTransmission is true)
 		public CommEvent incomingTransmissionObject;
 		// The current power mode
-		public PoweredState powerState;
+		public PoweredState powerState; // TODO: Cubespace is the authority on this, so it shouldn't really need to be getting this var from gamebrain
 
 		/// <summary>
 		/// The power mode of the ship, given its power configuration.

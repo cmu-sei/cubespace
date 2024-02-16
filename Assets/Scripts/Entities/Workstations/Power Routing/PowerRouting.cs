@@ -28,6 +28,11 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         [SyncVar(hook = nameof(OnChangePoweredStations))]
         private int poweredStations = 0;
+        /// <summary>
+        /// Cached power mode. Checked when power changes at all to determine if we need to update gamebrain
+        /// </summary>
+        [SyncVar]
+        private CurrentLocationGameplayData.PoweredState curPowerMode = CurrentLocationGameplayData.PoweredState.Standby; // TODO: Move this enum somewhere else (it's own file or here)
 
         /// <summary>
         /// The total power remaining that can be allocated. Derives from a private variable.
@@ -137,6 +142,14 @@ namespace Entities.Workstations.PowerRouting
             ChangePoweredLightStrip(GetPowerRemaining());
 
             OnChangePoweredStations(GetPowerRemaining(), GetPowerRemaining());
+
+            if (GetAllPoweredForExploration())
+                curPowerMode = CurrentLocationGameplayData.PoweredState.ExplorationMode;
+            else if (GetAllPoweredForLaunch())
+                curPowerMode = CurrentLocationGameplayData.PoweredState.LaunchMode;
+            else
+                curPowerMode = CurrentLocationGameplayData.PoweredState.Standby;
+
             base.OnStartClient();
         }
 
@@ -326,9 +339,12 @@ namespace Entities.Workstations.PowerRouting
             {
                 poweredState = CurrentLocationGameplayData.PoweredState.ExplorationMode;
             }
-
-            // Ask Gamebrain to update the power state
-            ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
+            
+            if (poweredState != curPowerMode)
+            {
+                // Ask Gamebrain to update the power state
+                ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
+            }
         }
         #endregion
 
