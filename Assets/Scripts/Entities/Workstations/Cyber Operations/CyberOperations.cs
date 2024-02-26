@@ -141,18 +141,19 @@ namespace Entities.Workstations.CyberOperationsParts
         /// <param name="data">The ship data received.</param>
         private void OnShipDataChanged(ShipData data)
         {   
-            bool usingNewStructure = data.IsMissionVMsStructureInUse();
+            bool usingOldStructure = !data.IsMissionVMsStructureInUse();
 
-            if (!screenController.usingOldStructure != usingNewStructure)
+            if (screenController.usingOldStructure != usingOldStructure)
             {
-                screenController.usingOldStructure = !usingNewStructure;
+                screenController.usingOldStructure = usingOldStructure;
             }
 
-            if (!usingNewStructure)
+            if (usingOldStructure)
             {
-                if (string.IsNullOrEmpty(vmURL))
+                string url = data.GetURLForStation(StationID);
+                if (string.Compare(url, vmURL) != 0)
                 {
-                    vmURL = data.GetURLForStation(StationID);
+                    vmURL = url;
                 }
             }
             else
