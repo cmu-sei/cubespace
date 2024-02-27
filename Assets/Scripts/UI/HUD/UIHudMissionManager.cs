@@ -79,7 +79,7 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
         if (prevSelectedItem != null && prevSelectedItem.CachedMissionData.visible)
         {
-            SelectMission(prevSelectedItem);
+            SelectMission(prevSelectedItem, true);
         }
         // Else default to first item we can find that isn't hidden
         else if (missionItems.Count > 0)
@@ -209,6 +209,10 @@ public class UIHudMissionManager : Singleton<UIHudMissionManager>
 
     public void SelectMission(string missionID, bool jumpToPosition = false )
     {
+        // Even if the mission isn't found in our list we set this ID as the previously selected mission,
+        // which handles the case where we try to select a mission before the log has been initialized OnEnable (from a galaxy system for example)
+        lastSelectedId = missionID; 
+
         UIHudMissionItem item;
         missionItems.TryGetValue(missionID, out item);
         if (item != null)
