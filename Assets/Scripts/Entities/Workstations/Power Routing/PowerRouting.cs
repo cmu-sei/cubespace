@@ -279,6 +279,7 @@ namespace Entities.Workstations.PowerRouting
             if (poweredState != curPowerMode)
             {
                 // Ask Gamebrain to update the power state
+                curPowerMode = poweredState;
                 ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
             }
         }
@@ -335,6 +336,7 @@ namespace Entities.Workstations.PowerRouting
 
             if (targetState != curPowerMode)
             {
+                curPowerMode = targetState;
                 ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(targetState);
             }
         }
