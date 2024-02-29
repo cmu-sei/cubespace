@@ -69,26 +69,20 @@ namespace UI.HUD
 		private int previousMissionCount = 0;
 
 		/// <summary>
-		/// Starts coroutine that waits until session data comes in to initialize pogs
-		/// </summary>
-		private void Awake()
-		{
-			StartCoroutine(WaitToInitializePogs());
-		}
-
-		/// <summary>
-		/// Subscribes to the mission data change event to update icons.
+		/// Initializes pogs and subscribes to the mission data change event to update icons.
 		/// </summary>
 		private void OnEnable()
 		{
-			ShipStateManager.OnMissionDatasChange += UpdatePogs;
+            StartCoroutine(WaitToInitializePogs());
 		}
 
 		/// <summary>
-		/// Unsubscribes from the mission data change event.
+		/// Gets disabled by HUDController when useCodices gets changed 
 		/// </summary>
 		private void OnDisable()
 		{
+			initialized = false;
+			ClearChildren();
 			ShipStateManager.OnMissionDatasChange -= UpdatePogs;
 		}
 
@@ -97,16 +91,16 @@ namespace UI.HUD
 		/// </summary>
 		private IEnumerator WaitToInitializePogs()
         {
-			// TODO: This line doesn't work here but does work elsewhere in the project? The while loop works just as well but it's weird anyways
-			//yield return new WaitUntil(() => ShipStateManager.Instance != null && ShipStateManager.Instance.Session != null);
-
 			while (ShipStateManager.Instance == null || ShipStateManager.Instance.Session == null || ShipStateManager.Instance.MissionDatas == null)
 			{
 				yield return null;
 			}
 
-			// If useCodices is false, disable pogs
-			if (!ShipStateManager.Instance.Session.useCodices)
+			// Subscribe to event to update pogs when mission data gets changed
+            ShipStateManager.OnMissionDatasChange += UpdatePogs;
+
+            // If useCodices is false, disable pogs
+            if (!ShipStateManager.Instance.Session.useCodices)
 			{
 				if ((CustomNetworkManager.singleton as CustomNetworkManager).isInDebugMode || (CustomNetworkManager.singleton as CustomNetworkManager).isInDevMode)
 				{
@@ -134,7 +128,16 @@ namespace UI.HUD
 		private void UpdatePogs(List<MissionData> missions)
 		{
 			if (!initialized) return;
-			else if (previousMissionCount != missions.Count)
+
+			// TODO: This should be set only if it actually changes as reported by gamebrain
+			if (ShipStateManager.Instance != null && displayEmptyIcons != ShipStateManager.Instance.Session.displayIncompleteMissionPogs)
+			{
+                displayEmptyIcons = ShipStateManager.Instance.Session.displayIncompleteMissionPogs;
+                previousMissionCount = missions.Count;
+                ClearChildren();
+                CreatePogs(missions.Count);
+            }
+            else if (previousMissionCount != missions.Count)
 			{
 				previousMissionCount = missions.Count;
 				ClearChildren();

@@ -88,6 +88,8 @@ namespace UI.HUD
 
         [SerializeField] private UIHudDisplayMenuButton _mapButton;
 
+        [SerializeField] private UIMissionPogContainer pogContainer;
+
         /// <summary>
         /// The custom NetworkManager object used.
         /// </summary>
@@ -254,6 +256,11 @@ namespace UI.HUD
                 _mapButton.SetVisable(false);
                 _mapButton.enabled = false;
             }
+        }
+
+        public void UpdatePogVisibility(bool pogsEnabled)
+        {
+            pogContainer.enabled = pogsEnabled;
         }
     }
 }

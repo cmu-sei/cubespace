@@ -128,7 +128,7 @@ namespace Systems.GameBrain
 		public string workstation3URL;
 		public string workstation4URL;
 		public string workstation5URL;
-        // New data structure for VM URLs available for each mission at CyberOps stations. If this field is non-null, they will be used over the old structure above
+        // New data structure for VM URLs available for each mission at CyberOps stations
         public MissionVMs[] challengeURLs;
 
         /// <summary>
@@ -160,8 +160,9 @@ namespace Systems.GameBrain
 		// If the new data structure is present, use it
 		public bool IsMissionVMsStructureInUse()
 		{
-			return challengeURLs != null;
-		}
+			// If we have a non-empty list of challengeURLs, use the new structure. Otherwise, use the old structure unless the workstation1URL is null or empty
+			return (challengeURLs != null && challengeURLs.Length > 0) || string.IsNullOrEmpty(workstation1URL);
+        }
 	}
 
     /// <summary>
@@ -519,7 +520,7 @@ namespace Systems.GameBrain
 		// The comm event being sent at this location, if there is one (only shown if incomingTransmission is true)
 		public CommEvent incomingTransmissionObject;
 		// The current power mode
-		public PoweredState powerState;
+		public PoweredState powerState; // TODO: Cubespace is the authority on this, so it shouldn't really need to be getting this var from gamebrain
 
 		/// <summary>
 		/// The power mode of the ship, given its power configuration.

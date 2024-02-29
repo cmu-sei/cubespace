@@ -17,77 +17,37 @@ using Systems.GameBrain;
 
 namespace Entities.Workstations.PowerRouting
 {
-    /// <summary>
-    /// Defines the PowerRouting workstation, used to turn workstations on or off.
-    /// </summary>
     public class PowerRouting : Workstation
     {
         #region Variables
-        /// <summary>
-        /// The power that clients can allocate to systems. When the power value is changed by one client, a callback function is called across all clients.
-        /// </summary>
         [SyncVar(hook = nameof(OnChangePoweredStations))]
         private int poweredStations = 0;
+        [SyncVar]
+        private CurrentLocationGameplayData.PoweredState curPowerMode = CurrentLocationGameplayData.PoweredState.Standby; // TODO: Move this enum somewhere else (it's own file or here)
 
-        /// <summary>
-        /// The total power remaining that can be allocated. Derives from a private variable.
-        /// </summary>
         public int TotalPower => totalPower;
-        /// <summary>
-        /// The total power remaining that can be allocated.
-        /// </summary>
         [SerializeField]
         private int totalPower = 5;
-        /// <summary>
-        /// The pipes on the outermost of the PowerRouting workstation.
-        /// </summary>
         [SerializeField]
         private List<WorkstationPipe> outerPipes;
-        /// <summary>
-        /// The opacity to fade the Available Power text to.
-        /// </summary>
         [SerializeField]
         private float fadeOpacity = 0.0627451f;
 
-        /// <summary>
-        /// The power states of all systems in the ship, synchronized across clients.
-        /// </summary>
         private readonly SyncDictionary<WorkstationID, bool> systemIDPowerStates = new SyncDictionary<WorkstationID, bool>();
 
-        /// <summary>
-        /// The lights used to show the total amount of remaining power.
-        /// </summary>
         public WorkstationLight[] powerLights;
-        /// <summary>
-        /// The light used to show if the PowerRouting is in Launch Mode.
-        /// </summary>
         public WorkstationLight launchModeLight;
-        /// <summary>
-        /// The light used to show if the PowerRouting is in the Exploration mode.
-        /// </summary>
         public WorkstationLight explorationModeLight;
-        /// <summary>
-        /// The list of buttons on the PowerRouting workstation.
-        /// </summary>
         public PowerRoutingButton[] workstationButtons;
 
-        /// <summary>
-        /// A dictionary mapping WorkstationIDs to buttons on the PowerRouting workstation.
-        /// </summary>
         public Dictionary<WorkstationID, PowerRoutingButton> workstationButtonDict;
 
-        /// <summary>
-        /// The CustomNetworkManager component of the main NetworkManager singleton.
-        /// </summary>
         private CustomNetworkManager networkManager;
 
         private NetworkIdentity networkIdentity;
         #endregion
 
         #region Unity event functions
-        /// <summary>
-        /// Unity event function that adds workstation IDs and buttons to a dictionary.
-        /// </summary>
         protected override void Awake()
         {
             if (!AlwaysHasPower)
@@ -105,14 +65,11 @@ namespace Entities.Workstations.PowerRouting
                 }
                 else
                 {
-                    // Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
+                    Debug.LogWarning("Workstation Power Button Dictionary already contains key for " + tri.WorkstationID);
                 }
             }
         }
 
-        /// <summary>
-        /// Unity event function that gets a reference to the location text.
-        /// </summary>
         protected override void Start()
         {
             base.Start();
@@ -123,9 +80,6 @@ namespace Entities.Workstations.PowerRouting
         #endregion
 
         #region Mirror methods
-        /// <summary>
-        /// Subscribes to the OnSystemPowerStateChange callback and calls mehtods to change lighting.
-        /// </summary>
         public override void OnStartClient()
         {
             systemIDPowerStates.Callback += OnSystemPowerStateChange;
@@ -137,12 +91,17 @@ namespace Entities.Workstations.PowerRouting
             ChangePoweredLightStrip(GetPowerRemaining());
 
             OnChangePoweredStations(GetPowerRemaining(), GetPowerRemaining());
+
+            if (GetAllPoweredForExploration())
+                curPowerMode = CurrentLocationGameplayData.PoweredState.ExplorationMode;
+            else if (GetAllPoweredForLaunch())
+                curPowerMode = CurrentLocationGameplayData.PoweredState.LaunchMode;
+            else
+                curPowerMode = CurrentLocationGameplayData.PoweredState.Standby;
+
             base.OnStartClient();
         }
 
-        /// <summary>
-        /// Sets the light state of each light displaying the remaining amount of power.
-        /// </summary>
         public override void OnStartServer()
         {
             foreach (Workstation station in _workstationManager.GetWorkstations())
@@ -160,9 +119,7 @@ namespace Entities.Workstations.PowerRouting
         #endregion
 
         #region SyncVar hooks
-        /// <summary>
-        /// Callback function that occurs when the power remaining amount is changed. This should be used to do stuff like change UI.
-        /// </summary>
+        // Callback function that occurs when the power remaining amount is changed. This should be used to do stuff like change UI.
         private void OnChangePoweredStations(int oldPower, int newPower)
         {
             if (newPower < 0 || newPower > totalPower)
@@ -211,9 +168,6 @@ namespace Entities.Workstations.PowerRouting
         #endregion
 
         #region Workstation methods
-        /// <summary>
-        /// Toggles the UI (based on the power state) when entering the workstation.
-        /// </summary>
         protected override void Enter()
         {
             base.Enter();
@@ -229,9 +183,6 @@ namespace Entities.Workstations.PowerRouting
             }
         }
 
-        /// <summary>
-        /// Turns off the tubes when exiting the workstation.
-        /// </summary>
         protected override void Exit()
         {
             base.Exit();
@@ -247,9 +198,7 @@ namespace Entities.Workstations.PowerRouting
             }
         }
 
-        /// <summary>
-        /// Turns off the power to all workstations.
-        /// </summary>
+        // Turns off the power to all workstations.
         public override void ResetWorkstation()
         {
             // Loop using button dict because it avoids touching unmodifiable power states like VMs
@@ -326,9 +275,70 @@ namespace Entities.Workstations.PowerRouting
             {
                 poweredState = CurrentLocationGameplayData.PoweredState.ExplorationMode;
             }
+            
+            if (poweredState != curPowerMode)
+            {
+                // Ask Gamebrain to update the power state
+                curPowerMode = poweredState;
+                ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
+            }
+        }
 
-            // Ask Gamebrain to update the power state
-            ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
+        /// <summary>
+        /// Forcefully sets power to given mode all at once on the server. Standby turns everything off
+        /// Handling this all in one call prevents problems with checking for power in the middle of a batch operation
+        /// </summary>
+        /// <param name="workstationID">The workstation whose power state should chang.</param>
+        /// <param name="state">Resulting powered state of this operation.</param>
+        [Command(requiresAuthority = false)]
+        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, CurrentLocationGameplayData.PoweredState targetState)
+        {
+            // Set all power states
+            foreach (Workstation w in _workstationManager.GetWorkstations())
+            {
+                // Ignore all stations that are always powered
+                if (w.AlwaysHasPower) continue;
+
+                // For standby mode, turn everything off
+                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                {
+                    if (w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                {
+                    if (!w.UsedInExplorationMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInExplorationMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else
+                {
+                    if (!w.UsedInLaunchMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInLaunchMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+            }
+
+            // Get the number of powered workstations
+            poweredStations = systemIDPowerStates.Count(x => x.Value);
+
+            if (targetState != curPowerMode)
+            {
+                curPowerMode = targetState;
+                ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(targetState);
+            }
         }
         #endregion
 
@@ -342,10 +352,6 @@ namespace Entities.Workstations.PowerRouting
         }
 
         #region Power status methods
-        /// <summary>
-        /// Turns the lights on the powered light strip on or off.
-        /// </summary>
-        /// <param name="litLightCount">The number of lights to turn on.</param>
         public void ChangePoweredLightStrip(int litLightCount)
         {
             for (int i = 0; i < powerLights.Length; i++)
@@ -387,6 +393,53 @@ namespace Entities.Workstations.PowerRouting
                 Debug.Log("Failed to toggle power for " + workstationID);
                 workstationButtonDict[workstationID].OnPowerFail();
             }
+        }
+
+        // TODO: Rewrite PowerRouting with better handling of client/server communication and caching
+        // This a bit of a hack to make the exploration/launch buttons work by skipping checks to make sure power is avaible, which is fine since we know the end state of this call is allowable
+        // Calling this with targetState == Standby will turn all stations off
+        public void SetPowerStateToMode(CurrentLocationGameplayData.PoweredState targetState)
+        {
+            foreach (Workstation w in _workstationManager.GetWorkstations())
+            {
+                // Ignore all stations that are always powered
+                if (w.AlwaysHasPower) continue;
+
+                // For standby mode, turn everything off
+                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                {
+                    if (w.IsPowered)
+                    {
+                        // Toggle the button UI locally, immediatly. Actually power state updated later
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                {
+                    if (!w.UsedInExplorationMode && w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                    else if (w.UsedInExplorationMode && !w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+                else
+                {
+                    if (!w.UsedInLaunchMode && w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                    else if (w.UsedInLaunchMode && !w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+            }
+
+            // Updates power on the server
+            CmdSetSystemPowerStateToMode(netIdentity, targetState);
         }
 
         /// <summary>

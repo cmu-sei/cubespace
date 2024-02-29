@@ -146,6 +146,12 @@ namespace Managers
         public bool useGalaxyMap = false;
 
         /// <summary>
+        /// Used to determine whether or not mission pogs should be displayed. Also contained in `session`, duplicated here so that hook is only called when this actually changes, not just anything in session. TODO: make an onSessionChange event or something
+        /// </summary>
+        [SyncVar(hook = nameof(UseCodicesHook))][HideInInspector]
+        public bool useCodices = true;
+
+        /// <summary>
         /// The list of thrusters with their original flipped states.
         /// </summary>
         public readonly SyncList<bool> thrusters = new SyncList<bool>() { false, false, false, false };
@@ -359,6 +365,11 @@ namespace Managers
             {
                 useGalaxyMap = data.session.useGalaxyDisplayMap;
             }
+            // TODO: don't keep doing this
+            if (data.session.useCodices != useCodices)
+            {
+                useCodices = data.session.useCodices;
+            }
 
             // Mark whether first contact was completed
             firstContactEstablished = data.currentStatus.firstContactComplete;
@@ -482,6 +493,17 @@ namespace Managers
             if (HUDController.Instance)
             {
                 HUDController.Instance.UpdateMapButtonVisibility(newState);
+            }
+        }
+
+        /// <summary>
+        /// A function that runs on clients as a SyncVar hook when useCodices has been changed by GameBrain. TODO: There's a cleaner way to handle these little gamebrain controlled UI things surely
+        /// </summary>
+        private void UseCodicesHook(bool prevState, bool newState)
+        {
+            if (HUDController.Instance)
+            {
+                HUDController.Instance.UpdatePogVisibility(newState);
             }
         }
         #endregion
