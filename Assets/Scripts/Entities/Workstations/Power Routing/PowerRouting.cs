@@ -282,6 +282,62 @@ namespace Entities.Workstations.PowerRouting
                 ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
             }
         }
+
+        /// <summary>
+        /// Forcefully sets power to given mode all at once on the server. Standby turns everything off
+        /// Handling this all in one call prevents problems with checking for power in the middle of a batch operation
+        /// </summary>
+        /// <param name="workstationID">The workstation whose power state should chang.</param>
+        /// <param name="state">Resulting powered state of this operation.</param>
+        [Command(requiresAuthority = false)]
+        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, CurrentLocationGameplayData.PoweredState targetState)
+        {
+            // Set all power states
+            foreach (Workstation w in _workstationManager.GetWorkstations())
+            {
+                // Ignore all stations that are always powered
+                if (w.AlwaysHasPower) continue;
+
+                // For standby mode, turn everything off
+                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                {
+                    if (w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                {
+                    if (!w.UsedInExplorationMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInExplorationMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else
+                {
+                    if (!w.UsedInLaunchMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInLaunchMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+            }
+
+            // Get the number of powered workstations
+            poweredStations = systemIDPowerStates.Count(x => x.Value);
+
+            if (targetState != curPowerMode)
+            {
+                ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(targetState);
+            }
+        }
         #endregion
 
         /// <summary>
@@ -335,6 +391,53 @@ namespace Entities.Workstations.PowerRouting
                 Debug.Log("Failed to toggle power for " + workstationID);
                 workstationButtonDict[workstationID].OnPowerFail();
             }
+        }
+
+        // TODO: Rewrite PowerRouting with better handling of client/server communication and caching
+        // This a bit of a hack to make the exploration/launch buttons work by skipping checks to make sure power is avaible, which is fine since we know the end state of this call is allowable
+        // Calling this with targetState == Standby will turn all stations off
+        public void SetPowerStateToMode(CurrentLocationGameplayData.PoweredState targetState)
+        {
+            foreach (Workstation w in _workstationManager.GetWorkstations())
+            {
+                // Ignore all stations that are always powered
+                if (w.AlwaysHasPower) continue;
+
+                // For standby mode, turn everything off
+                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                {
+                    if (w.IsPowered)
+                    {
+                        // Toggle the button UI locally, immediatly. Actually power state updated later
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                {
+                    if (!w.UsedInExplorationMode && w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                    else if (w.UsedInExplorationMode && !w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+                else
+                {
+                    if (!w.UsedInLaunchMode && w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                    else if (w.UsedInLaunchMode && !w.IsPowered)
+                    {
+                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
+                    }
+                }
+            }
+
+            // Updates power on the server
+            CmdSetSystemPowerStateToMode(netIdentity, targetState);
         }
 
         /// <summary>

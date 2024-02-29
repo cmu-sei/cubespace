@@ -32,26 +32,19 @@ namespace Entities.Workstations.PowerRouting
         /// </summary>
         private void OnMouseDown()
         {
-            if (isExplorationButton && powerRouting.GetAllPoweredForExploration())
+            // If we're in the mode the player hit the button for, turn off everything (this will turn off stations for the other mode if they're on as well, oh well)
+            if ((isExplorationButton && powerRouting.GetAllPoweredForExploration()) || (!isExplorationButton && powerRouting.GetAllPoweredForLaunch()))
             {
-                SetExplorationMode(false);
+                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.Standby);
                 return;
             }
-            else if (!isExplorationButton && powerRouting.GetAllPoweredForLaunch())
+            else if (isExplorationButton)
             {
-                SetLaunchMode(false);
-                return;
-            }
-
-            DepowerUnneededStations();
-
-            if (isExplorationButton)
-            {
-                SetExplorationMode(true);
+                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.ExplorationMode);
             }
             else
             {
-                SetLaunchMode(true);
+                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.LaunchMode);
             }
         }
 
