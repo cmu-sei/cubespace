@@ -130,6 +130,7 @@ namespace Systems.CredentialRequests
         public void SendClientToken(string clientToken)
         {
             ClientToken token = JsonUtility.FromJson<ClientToken>(clientToken);
+            Debug.LogWarning("?DEBUGGING?: ClientCredentialSender.cs:133\nSending new clients access token: " + token.access_token + " with my server token: " + ShipStateManager.Instance.token);
             gameBrainInterface.SendClientToken(ShipStateManager.Instance.SetTeamID, token.access_token, ShipStateManager.Instance.token);
         }
         #endregion

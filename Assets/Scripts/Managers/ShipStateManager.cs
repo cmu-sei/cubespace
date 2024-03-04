@@ -1028,6 +1028,7 @@ namespace Managers
         /// <param name="response">The team ID wrapped in a JSON layer.</param>
         public void SetTeamID(TeamID response)
         {
+            Debug.LogWarning("?DEBUGGING?: ShipStateManager.cs:1031\nServer recieved a response from /privileged/get_team endpoint and fired the SetTeamID callback with this teamID: " + response.teamID);
             teamID = response.teamID;
         }
 

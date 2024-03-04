@@ -89,11 +89,17 @@ namespace Systems.GameBrain
 		{
 			if (isServer)
 			{
-				// If the server is tracking a team (and it should be), make a call to check if they're still active
-				if (checkIfTeamIsActive && ShipStateManager.Instance.teamID != "")
+                Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:92\nServer is polling for data like it does ever 2 seconds");
+                // If the server is tracking a team (and it should be), make a call to check if they're still active
+                if (checkIfTeamIsActive && ShipStateManager.Instance.teamID != "")
 				{
-					_gameBrainInterface.GetTeamActive(ShipStateManager.Instance.teamID, GetTeamActiveCallback);
-				}
+                    Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:97\nServer has a teamID == " + ShipStateManager.Instance.teamID + " so it will hit the team_active endpoint");
+                    _gameBrainInterface.GetTeamActive(ShipStateManager.Instance.teamID, GetTeamActiveCallback);
+                }
+				else
+				{
+                    Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:101\nServer does NOT have a teamID, so it will not hit the team_active endpoint");
+                }
 
 				// Do the forceful update
 				_gameBrainInterface.GetShipData(PollShipDataCallback);
@@ -227,14 +233,17 @@ namespace Systems.GameBrain
 		/// <param name="isTeamActiveResponse">The team response data received from GameBrain.</param>
 		private void GetTeamActiveCallback(GenericResponse isTeamActiveResponse)
 		{
-			// Shut the server down if everyone's gone and the team isn't active - it should automatically get restarted by Kubernetes
-			if (ShipStateManager.Instance != null && !isTeamActiveResponse.success && ShipStateManager.Instance.teamID != "")
+            Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:236\nServer received a response from the team_active endpoint and fired the GetTeamActiveCallback callback\nisTeamActiveResponse.success == " + isTeamActiveResponse.success + "\nShipStateManager.Instance.teamID == " + ShipStateManager.Instance.teamID);
+
+            // Shut the server down if everyone's gone and the team isn't active - it should automatically get restarted by Kubernetes
+            if (ShipStateManager.Instance != null && !isTeamActiveResponse.success && ShipStateManager.Instance.teamID != "")
 			{
 				if (networkManager && networkManager.isInDebugMode)
                 {
 					Debug.Log("Restarting server");
                 }
-				Application.Quit();
+                Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:245\nResponse from team_active endpoint was unsuccessful and ShipStateManager.Instance.teamID == " + ShipStateManager.Instance.teamID + "which is not an empty string, so the server will nuke itself");
+                Application.Quit();
 			}
 		}
 
