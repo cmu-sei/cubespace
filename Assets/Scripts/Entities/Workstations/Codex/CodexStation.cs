@@ -109,7 +109,7 @@ namespace Entities.Workstations.CodexStationParts
         /// The number of pieces obtained for the codex.
         /// </summary>
         [SyncVar(hook = nameof(OnCodexPieceCountChangeHook))]
-        private int codexPieceCount;
+        private int codexPieceCount = 0; // This should stay as 0 for PC5
         #endregion
 
         #region Workstation Functions
