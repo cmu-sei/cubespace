@@ -23,11 +23,11 @@ MonoBehaviour:
     colorName: Red
   - color: {r: 1, g: 0.5452945, b: 0, a: 1}
     colorName: Orange
-  - color: {r: 0.08962262, g: 0.3051993, b: 1, a: 1}
+  - color: {r: 0, g: 0.27705598, b: 1, a: 1}
     colorName: Blue
-  - color: {r: 0.29803923, g: 0.08627451, b: 1, a: 1}
-    colorName: Violet
-  - color: {r: 1, g: 0.4292453, b: 1, a: 1}
+  - color: {r: 0.3483631, g: 0, b: 0.764151, a: 1}
+    colorName: Purple
+  - color: {r: 1, g: 0.28773582, b: 0.9671003, a: 1}
     colorName: Pink
   _iconChoices:
   - Icon: {fileID: 178898365, guid: fcd6e762522f6fc4b83c7c9dd1dc0a7a, type: 3}
