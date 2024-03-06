@@ -28,8 +28,8 @@ namespace Entities.Workstations.SensorStationParts
         /// <summary>
         /// Whether there is an incoming transmission event.
         /// </summary>
-        [SyncVar]
-        private bool incomingTransmission;
+        [SyncVar(hook = nameof(OnIncomingTransmissionChangeHook))]
+        private bool incomingTransmission = false;
         /// <summary>
         /// Whether first contact has been completed at this location.
         /// </summary>
@@ -152,14 +152,6 @@ namespace Entities.Workstations.SensorStationParts
                         TryReadyVideo(data.currentStatus.incomingTransmissionObject.videoURL);
                     }
                 }
-            }
-
-            // TODO: this is happening every 2 seconds for no reason??? (BAD)
-            RpcTrySetIncomingTransmissionIcon();
-            // For host + client
-            if (isClient)
-            {
-                TrySetTransmissionIcon();
             }
         }
 
@@ -517,6 +509,16 @@ namespace Entities.Workstations.SensorStationParts
         private void RpcSetScreenNoResults(CommEvent commEvent)
         {
             _screenController.SetScanFromCommEvent(commEvent);
+        }
+        #endregion
+
+        #region SyncVar hooks
+        /// <summary>
+        /// Updates the transmission icon when incomingTransmission changes
+        /// </summary>
+        private void OnIncomingTransmissionChangeHook(bool oldVal, bool newVal)
+        {
+            TrySetTransmissionIcon();
         }
         #endregion
 
