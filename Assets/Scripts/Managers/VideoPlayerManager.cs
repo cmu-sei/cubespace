@@ -78,7 +78,8 @@ namespace Managers
             }
             else if (string.IsNullOrEmpty(url))
             {
-                Debug.LogError("No URL provided for InitializeVideo call");
+                // This message was getting printed after videos succesuflly played and I can't see why it would be. Commenting out for now until something starts breaking
+                //Debug.LogError("No URL provided for InitializeVideo call");
                 return false;
             }
             else if (currentVideoCoroutine != null)
@@ -92,7 +93,7 @@ namespace Managers
             Uri uriResult;
             if (!Uri.TryCreate(url, UriKind.Absolute, out uriResult))
             {
-                Debug.LogError($"URL provided is not a valid URL. URL provided: {url}");
+                Debug.LogError($"URL provided is not a valid URL. URL provided: '{url}'");
                 return false;
             }
             // URL does not use HTTPS or HTTP
@@ -152,7 +153,6 @@ namespace Managers
 
             int prevFrame = -1;
             float timeSinceLastNewFrame = 0.0f;
-            float warningSecond = 1.0f;
             
             int droppedFrames = 0;
             videoPlayer.frameDropped += (_) => { droppedFrames += 1; };
@@ -164,14 +164,8 @@ namespace Managers
                     timeSinceLastNewFrame += Time.deltaTime;
                     if (timeSinceLastNewFrame >= videoTimeout)
                     {
-                        // TODO: display this log statement to player in game and provide an exit/restart button as a failsafe
                         Debug.LogError("Video player timed out on frame" + prevFrame + " of " + videoPlayer.frameCount + " after " + timeSinceLastNewFrame + " seconds");
                         StopVideo();
-                    }
-                    else if (timeSinceLastNewFrame >= warningSecond)
-                    {
-                        Debug.LogWarning("Video player has received 0 new frames in " + warningSecond + " seconds. Video will timeout and exit after " + (videoTimeout - warningSecond) + " more seconds.");
-                        warningSecond += 1;
                     }
 
                     // Streamed videos in webgl like to get stuck on the last few frames so just cut those off if that happens
@@ -184,7 +178,6 @@ namespace Managers
                 {
                     timeSinceLastNewFrame = 0.0f;
                     prevFrame = (int)videoPlayer.frame;
-                    warningSecond = 1.0f;
                 }
 
                 yield return null;
@@ -192,7 +185,8 @@ namespace Managers
             
             if (droppedFrames > 10)
             {
-                Debug.LogWarning("Video dropped " + droppedFrames + " frames!");
+                // The count this is reporting is unreliable and almost certainly incorrect most of the time so I'm not going to report it anymore
+                //Debug.LogWarning("Video dropped " + droppedFrames + " frames!");
             }
 
 

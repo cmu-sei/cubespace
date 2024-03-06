@@ -51,7 +51,8 @@ namespace Entities.Workstations.SensorStationParts
 
             if (!VideoPlayerManager.Instance.InitializeVideo(url, tex, false))
             {
-                Debug.LogWarning("Video initialization failed!");
+                // This message was getting printed after videos succesuflly played and I can't see why it would be. Commenting out for now until something starts breaking
+                //Debug.LogWarning("Video initialization failed!");
                 return false;
             }
             return true;
