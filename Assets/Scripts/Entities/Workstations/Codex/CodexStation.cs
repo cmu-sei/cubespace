@@ -154,9 +154,6 @@ namespace Entities.Workstations.CodexStationParts
         {
             base.ChangePower(isPowered);
 
-            // Call the server to set the power state of the codex workstation on Gamebrain
-            CmdSetCodexPower(isPowered);
-
             // If this client is at the codex workstation, turn on or off the animations and VM canvas
             if (playerAtWorkstation != null && playerAtWorkstation.isLocalPlayer)
             {   
@@ -228,18 +225,6 @@ namespace Entities.Workstations.CodexStationParts
             {
                 codexHologram.SetNumberActivePieces(newVal);
             }
-        }
-        #endregion
-
-        #region Commands
-        /// <summary>
-        /// Sends a request on the server to Gamebrain to change the power status of the codex workstation.
-        /// </summary>
-        /// <param name="isPowered">Whether the codex is powered.</param>
-        [Command(requiresAuthority = false)]
-        private void CmdSetCodexPower(bool isPowered)
-        {
-            ShipStateManager.Instance.ShipGameBrainUpdater.TrySetCodexPower(isPowered);
         }
         #endregion
 

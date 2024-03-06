@@ -141,17 +141,6 @@ namespace Systems.GameBrain
 			string uri = NetConfiguration.GetTryUpdatePowerModeURI(powerMode, ShipStateManager.Instance.teamID);
 			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
 		}
-
-		/// <summary>
-		/// Tries to set the power state of the codex station.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station is powered.</param>
-		/// <param name="callback">The function to call after this method completes.</param>
-		public override void TrySetCodexPower(bool isPowered, DataCallback<GenericResponse> callback)
-		{
-			string uri = NetConfiguration.GetTrySetCodexPowerURI(isPowered, ShipStateManager.Instance.teamID);
-			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
-		}
         #endregion
 
         #region Token methods

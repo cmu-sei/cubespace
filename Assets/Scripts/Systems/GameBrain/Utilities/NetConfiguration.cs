@@ -149,24 +149,6 @@ namespace Systems.GameBrain
 		{
 			return CreateGameDataURI($"PowerMode/{CurrentLocationGameplayData.PoweredStateAsString(powerMode)}/{teamID}");
 		}
-
-		/// <summary>
-		/// Gets the URI used to attempt to update the power state of the codex station. The URI received depends on isPowered.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station should be powered or not.</param>
-		/// <param name="teamID">The ID of the team. An empty string by default, but necessary for the request using this URI to work.</param>
-		/// <returns>The URI used to try to set the power state of the codex station.</returns>
-		public static string GetTrySetCodexPowerURI(bool isPowered, string teamID = "")
-		{
-			if (isPowered) 
-			{
-				return CreateGameDataURI($"CodexStationPowerOn/{teamID}");
-			}
-			else
-			{
-				return CreateGameDataURI($"CodexStationPowerOff/{teamID}");
-			}
-		}
         #endregion
     }
 }

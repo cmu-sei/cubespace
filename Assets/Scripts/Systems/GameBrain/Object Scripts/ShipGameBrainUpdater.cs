@@ -168,15 +168,6 @@ namespace Systems.GameBrain
 		}
 
 		/// <summary>
-		/// Sends a request to set the codex station's power state, used for decoding the codex.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station is powered.</param>
-		public void TrySetCodexPower(bool isPowered)
-		{
-			_gameBrainInterface.TrySetCodexPower(isPowered, TrySetCodexPowerCallback);
-		}
-
-		/// <summary>
 		/// Sends a request to complete the comm event at the current location.
 		/// </summary>
 		public void TryCompleteCommEvent()
