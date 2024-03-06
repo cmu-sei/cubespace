@@ -170,6 +170,7 @@ public class UIHudTaskListItem : MonoBehaviour
     /// </summary>
     public void OnVideoButtonClick()
     {
+        if (string.IsNullOrEmpty(taskDescription.text)) Debug.LogError("Tried to play archive video without an existing videoURL!");
         CutsceneSystem.Instance.PlayArchivesVideo(data.videoURL);
     }
 }

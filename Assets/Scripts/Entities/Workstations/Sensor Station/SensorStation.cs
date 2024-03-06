@@ -146,6 +146,10 @@ namespace Entities.Workstations.SensorStationParts
                 if (incomingTransmissionEvent == null || !incomingTransmissionEvent.IsEquivalentTo(data.currentStatus.incomingTransmissionObject))
                 {
                     incomingTransmissionEvent = data.currentStatus.incomingTransmissionObject;
+
+                    if (string.IsNullOrEmpty(incomingTransmissionEvent.videoURL)) 
+                        Debug.LogError("Recieved incoming transmission event with a null or empty videoURL! ID is: " + incomingTransmissionEvent.commID);
+
                     RpcTryReadyVideo(data.currentStatus.incomingTransmissionObject.videoURL);
                     if (isClient) // For host + client
                     {
