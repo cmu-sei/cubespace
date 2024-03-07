@@ -400,6 +400,7 @@ namespace Entities.Workstations.PowerRouting
         // Calling this with targetState == Standby will turn all stations off
         public void SetPowerStateToMode(CurrentLocationGameplayData.PoweredState targetState)
         {
+            // This updates the local UI for everything
             foreach (Workstation w in _workstationManager.GetWorkstations())
             {
                 // Ignore all stations that are always powered
@@ -438,7 +439,7 @@ namespace Entities.Workstations.PowerRouting
                 }
             }
 
-            // Updates power on the server
+            // Actually updates power on the server
             CmdSetSystemPowerStateToMode(netIdentity, targetState);
         }
 

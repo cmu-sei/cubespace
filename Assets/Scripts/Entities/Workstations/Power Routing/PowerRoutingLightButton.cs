@@ -47,58 +47,5 @@ namespace Entities.Workstations.PowerRouting
                 powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.LaunchMode);
             }
         }
-
-        /// <summary>
-        /// Powers off all workstations except
-        /// </summary>
-        private void DepowerUnneededStations()
-        {
-            foreach (Workstation w in _workstationManager.GetWorkstations())
-            {
-                if (isExplorationButton)
-                {
-                    if (!w.AlwaysHasPower && !w.UsedInExplorationMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
-                }
-                else
-                {
-                    if (!w.AlwaysHasPower && !w.UsedInLaunchMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggles the power state of all launch mode workstations that are currently unpowered
-        /// </summary>
-        private void SetLaunchMode(bool power)
-        {
-            List<Workstation> ws = _workstationManager.GetLaunchWorkstations();
-            foreach (Workstation w in _workstationManager.GetLaunchWorkstations())
-            {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
-                {
-                    powerRouting.TogglePowerState(w.StationID);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggles the power state of all exploration mode workstations that are currently unpowered
-        /// </summary>
-        private void SetExplorationMode(bool power)
-        {
-            foreach (Workstation w in _workstationManager.GetExplorationWorkstations())
-            {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
-                {
-                    powerRouting.TogglePowerState(w.StationID);
-                }
-            }
-        }
     }
 }
