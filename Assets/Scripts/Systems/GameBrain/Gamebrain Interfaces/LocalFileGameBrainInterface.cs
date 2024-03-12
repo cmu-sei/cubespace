@@ -141,19 +141,6 @@ namespace Systems.GameBrain
 			response.success = true;
 			callback.Invoke(response);
 		}
-
-		/// <summary>
-		/// Tries to set the power state of the codex station.
-		/// Because this is a local file interface, this function spoofs a response and always returns a response marking the attempt as successful.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station is powered.</param>
-		/// <param name="callback">The function to call after this method completes.</param>
-		public override void TrySetCodexPower(bool isPowered, DataCallback<GenericResponse> callback)
-		{
-			var response = new GenericResponse();
-			response.success = true;
-			callback.Invoke(response);
-		}
 		#endregion
 	}
 }

@@ -88,13 +88,6 @@ namespace Systems.GameBrain
 		/// <param name="powerMode">The power state of the ship based on its current power configuration.</param>
 		/// <param name="callback">The function to call after this method completes.</param>
 		public abstract void TryUpdatePowerMode(CurrentLocationGameplayData.PoweredState powerMode, DataCallback<GenericResponse> callback);
-
-		/// <summary>
-		/// Abstract function used to set whether the codex station is powered.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station is powered.</param>
-		/// <param name="callback">The function to call after this method completes.</param>
-		public abstract void TrySetCodexPower(bool isPowered, DataCallback<GenericResponse> callback);
 		#endregion
     }
 }

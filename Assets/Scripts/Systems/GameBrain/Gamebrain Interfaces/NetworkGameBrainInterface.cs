@@ -62,7 +62,8 @@ namespace Systems.GameBrain
 		/// <param name="callback">The function to call after this method completes.</param>
 		public override void GetTeamActive(string teamID, DataCallback<GenericResponse> callback)
 		{
-			string uri = NetConfiguration.GetTeamActiveURI(ShipStateManager.Instance.teamID);
+            Debug.LogWarning("?DEBUGGING?: NetworkGameBrainInterface.cs:65\nServer sending a GET request to team_active endpoint with this teamId: " + teamID);
+            string uri = NetConfiguration.GetTeamActiveURI(ShipStateManager.Instance.teamID);
 			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
 		}
 		#endregion
@@ -138,17 +139,6 @@ namespace Systems.GameBrain
 		public override void TryUpdatePowerMode(CurrentLocationGameplayData.PoweredState powerMode, DataCallback<GenericResponse> callback)
 		{
 			string uri = NetConfiguration.GetTryUpdatePowerModeURI(powerMode, ShipStateManager.Instance.teamID);
-			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
-		}
-
-		/// <summary>
-		/// Tries to set the power state of the codex station.
-		/// </summary>
-		/// <param name="isPowered">Whether the codex station is powered.</param>
-		/// <param name="callback">The function to call after this method completes.</param>
-		public override void TrySetCodexPower(bool isPowered, DataCallback<GenericResponse> callback)
-		{
-			string uri = NetConfiguration.GetTrySetCodexPowerURI(isPowered, ShipStateManager.Instance.teamID);
 			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
 		}
         #endregion

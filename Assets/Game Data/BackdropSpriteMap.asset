@@ -35,3 +35,19 @@ MonoBehaviour:
     locationImage: {fileID: 21300000, guid: 483a5b78c5fa2494295e7c302bfdc4b5, type: 3}
   - locationID: bkd_stars
     locationImage: {fileID: 21300000, guid: 9ae6fe9278b4adc459064ad79f772292, type: 3}
+  - locationID: bkd_cache_1
+    locationImage: {fileID: 21300000, guid: 8a24444239ccd1d438b0939667a913d6, type: 3}
+  - locationID: bkd_cache_2
+    locationImage: {fileID: 21300000, guid: 4887c4597650f2544a8c4f467d717470, type: 3}
+  - locationID: bkd_cache_3
+    locationImage: {fileID: 21300000, guid: d8fb1a8db55f6df46bc73e9dafeb16d9, type: 3}
+  - locationID: bkd_cache_4
+    locationImage: {fileID: 21300000, guid: 5588b90d785b48541bca72a91eaa7fc2, type: 3}
+  - locationID: bkd_cache_5
+    locationImage: {fileID: 21300000, guid: 65bc15ff24818604c801367c732908a3, type: 3}
+  - locationID: bkd_cache_6
+    locationImage: {fileID: 21300000, guid: 9ca375b8317e877449b1423b9885ca74, type: 3}
+  - locationID: bkd_cache_7
+    locationImage: {fileID: 21300000, guid: 8e209f80d57ec3b429f64f905b840544, type: 3}
+  - locationID: bkd_cache_8
+    locationImage: {fileID: 21300000, guid: be40f1e08ef58fd4fa5f4acb777afcc3, type: 3}

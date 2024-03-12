@@ -114,6 +114,7 @@ namespace Systems
         /// </summary>
         private void PlayLaunchCutscene()
         {
+            if (string.IsNullOrEmpty(ShipStateManager.Instance.Session.jumpCutsceneURL)) Debug.LogError("Tried to play launch cutscene without a jumpCutsceneURL set!");
             PlayCutscene(ShipStateManager.Instance.Session.jumpCutsceneURL);
         }     
     }
