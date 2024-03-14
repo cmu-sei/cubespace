@@ -340,7 +340,7 @@ namespace Systems.GameBrain
             return true;
         }
 
-		public string toString()
+		public override string ToString()
 		{
             string res = $"missionID: {missionID}\n" +
 				  $"possibleMaximumScore: {possibleMaximumScore}\n" +
@@ -373,7 +373,7 @@ namespace Systems.GameBrain
 			res += "     [\n";
 			foreach (AssociatedChallengeData acd in associatedChallenges)
 			{
-				res += $"       (missionID: {acd.missionID}, unlockCode: {acd.unlockCode})\n";
+				res += $"       (missionID: {acd.missionID}, unlockCode: {acd.unlockCode}, complete: {acd.complete})\n";
 			}
 			res += "     ]\n";
             res += "---------------------------------------------";
@@ -445,10 +445,12 @@ namespace Systems.GameBrain
 		public string missionID;
 		// The coordinates of the location the mission is at, shown to player in the galaxy map when the mission this is associated with is complete
 		public string unlockCode;
+		// Whether or not the associated mission is complete
+		public bool complete;
 
         public bool IsEquivalentTo(AssociatedChallengeData obj)
         {
-            return missionID == obj.missionID && unlockCode == obj.unlockCode;
+            return missionID == obj.missionID && unlockCode == obj.unlockCode && complete == obj.complete;
         }
     }
 

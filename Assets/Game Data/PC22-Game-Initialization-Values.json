@@ -116,7 +116,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "gravconcache",
-					"unlockCode": "123456"
+					"unlockCode": "123456",
+					"complete":  false
 				}
 			],
 			"totalTeams": 5,
@@ -157,7 +158,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "reactorcache",
-					"unlockCode": "ABC456"
+					"unlockCode": "ABC456",
+					"complete": true
 				}
 			],
 			"totalTeams": 5,
@@ -198,7 +200,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "ringrotcache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
@@ -239,7 +242,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "ergoconcache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
@@ -280,7 +284,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "penmasscache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
@@ -321,7 +326,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "electrocache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
@@ -362,7 +368,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "radiantcache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
@@ -403,7 +410,8 @@
 			"associatedChallenges": [
 				{
 					"missionID": "conduitcache",
-					"unlockCode": null
+					"unlockCode": null,
+					"complete": false
 				}
 			],
 			"totalTeams": 5,
