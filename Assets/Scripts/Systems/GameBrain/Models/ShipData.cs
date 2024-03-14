@@ -339,6 +339,55 @@ namespace Systems.GameBrain
             }
             return true;
         }
+
+		public string toString()
+		{
+            string res = $"missionID: {missionID}\n" +
+				  $"possibleMaximumScore: {possibleMaximumScore}\n" +
+				  $"baseSolveValue: {baseSolveValue}\n" +
+				  $"bonusRemaining: {bonusRemaining}\n" +
+				  $"currentScore: {currentScore}\n" +
+				  $"totalTeams: {totalTeams}\n" +
+				  $"solveTeams: {solveTeams}\n" +
+				  $"visible: {visible}\n" +
+				  $"complete: {complete}\n" +
+				  $"isSpecial: {isSpecial}\n" +
+				  $"title: {title}\n" +
+				  $"missionIcon: {missionIcon}\n" +
+				  $"summaryShort: {summaryShort}\n" +
+				  $"summaryLong: {summaryLong}\n" +
+				  $"galaxyMapXPos: {galaxyMapXPos}\n" +
+				  $"galaxyMapYPos: {galaxyMapYPos}\n" +
+				  $"galaxyMapTargetXPos: {galaxyMapTargetXPos}\n" +
+				  $"galaxyMapTargetYPos: {galaxyMapTargetYPos}\n";
+			res += "roleList: [";
+			foreach (string r in roleList)
+			{
+				res += $"{r}, ";
+			}
+			res += "]\n";
+
+			res += "---------------------------------------------";
+			res += "AssociatedChallenges:\n";
+			res += $"    Count: {associatedChallenges.Count()}\n";
+			res += "     [\n";
+			foreach (AssociatedChallengeData acd in associatedChallenges)
+			{
+				res += $"       (missionID: {acd.missionID}, unlockCode: {acd.unlockCode})\n";
+			}
+			res += "     ]\n";
+            res += "---------------------------------------------";
+            res += "TaskDatas:\n";
+            res += $"    Count: {taskList.Count()}\n";
+            res += "     [\n";
+            foreach (TaskData td in taskList)
+            {
+                res += $"       (taskID: {td.taskID}, missionID: {td.missionID}, complete: {td.complete}, infoPresent: {td.infoPresent}, videoPresent: {td.videoPresent}, videoURL: {td.videoURL}, infoTest: {td.infoText}, descriptionText: {td.descriptionText})\n";
+            }
+            res += "     ]";
+
+            return res;
+		}
     }
 
 	/// <summary>
