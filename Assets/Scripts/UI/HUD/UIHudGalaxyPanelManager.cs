@@ -83,11 +83,6 @@ namespace UI.HUD
             // Update and create new systems as necessary
             foreach (MissionData md in mds)
             {
-                if (md.missionID == "mission_a")
-                {
-                    Debug.Log("Updating Art of the Heist:\n\n" + md.ToString());
-                }
-
                 // Update system attributes if it already exists
                 if (idsToSystems.ContainsKey(md.missionID))
                 {

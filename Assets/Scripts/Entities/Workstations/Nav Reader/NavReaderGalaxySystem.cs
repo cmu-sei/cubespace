@@ -216,11 +216,6 @@ public class NavReaderGalaxySystem : TooltipControl
     /// </summary>
     private void UpdateVisualState(MissionData m)
     {
-        if (m.missionID == "mission_a")
-        {
-            Debug.Log("Updating visuals for mission_a!");
-        }
-
         // If incomplete and not started
         if (!m.complete && m.currentScore == 0)
         {
@@ -230,10 +225,6 @@ public class NavReaderGalaxySystem : TooltipControl
         else if (!m.complete && m.currentScore > 0)
         {
             SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.partiallyCompletedHighlight), Color.white, Color.black, Color.white, Color.black);
-            if (m.missionID == "mission_a")
-            {
-                Debug.Log("mission_a is marked as partially solved (!m.complete && m.currentScore > 0)");
-            }
         }
         // If fully solved
         else if (m.complete)
@@ -245,18 +236,10 @@ public class NavReaderGalaxySystem : TooltipControl
                 //repeat for 3 tooltips
                 // Set line image to gold, color to white
                 // Set target point to gold image
-                if (m.missionID == "mission_a")
-                {
-                    Debug.Log("mission_a is marked as cache complete");
-                }
             }
             else
             {
                 SetHighlightColors(defaultBorderSprite, 1.0f, ColorPalette.GetColor(PaletteColor.completedHighlight), Color.black, Color.white, Color.black, Color.white);
-                if (m.missionID == "mission_a")
-                {
-                    Debug.Log("mission_a is marked as normal complete");
-                }
             }
         }
 
