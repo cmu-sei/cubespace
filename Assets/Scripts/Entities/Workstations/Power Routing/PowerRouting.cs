@@ -331,27 +331,7 @@ namespace Entities.Workstations.PowerRouting
                 }
             }
 
-            bool launch = GetAllPoweredForLaunch();
-            bool exploration = GetAllPoweredForExploration();
-            if (launch && exploration)
-            {
-                Debug.LogError("We should not be able to be in both launch and exploration mode!");
-            }
-
-            if (targetState == CurrentLocationGameplayData.PoweredState.LaunchMode && !launch)
-            {
-                Debug.LogError("Failed to set power to launch mode!");
-            }
-            else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode && !exploration)
-            {
-                Debug.LogError("Failed to set power to exploration mode!");
-            }
-            else if (targetState == CurrentLocationGameplayData.PoweredState.Standby && (launch || exploration))
-            {
-                Debug.LogError("Failed to set power to standby mode!");
-            }
-
-            // Get the number of powered workstations
+            // Get the number of powered workstations (hook on this var updates lights and things)
             poweredStations = systemIDPowerStates.Count(x => x.Value);
 
             if (targetState != curPowerMode)
@@ -429,33 +409,16 @@ namespace Entities.Workstations.PowerRouting
                 // For standby mode, turn everything off
                 if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
                 {
-                    if (w.IsPowered)
-                    {
-                        // Toggle the button UI locally, immediatly. Actually power state updated later
-                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
-                    }
+                    // Set the button UI locally, immediatly. Actually power state updated later
+                    TogglePowerStateRoutingUI(w.StationID, false);
                 }
                 else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
                 {
-                    if (!w.UsedInExplorationMode && w.IsPowered)
-                    {
-                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
-                    }
-                    else if (w.UsedInExplorationMode && !w.IsPowered)
-                    {
-                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
-                    }
+                    TogglePowerStateRoutingUI(w.StationID, w.UsedInExplorationMode);
                 }
                 else
                 {
-                    if (!w.UsedInLaunchMode && w.IsPowered)
-                    {
-                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
-                    }
-                    else if (w.UsedInLaunchMode && !w.IsPowered)
-                    {
-                        TogglePowerStateRoutingUI(w.StationID, !w.IsPowered);
-                    }
+                    TogglePowerStateRoutingUI(w.StationID, w.UsedInLaunchMode);
                 }
             }
 
