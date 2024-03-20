@@ -87,7 +87,7 @@ namespace Systems.GameBrain
 		/// </summary>
 		/// <param name="powerMode">The power state of the ship based on its current power configuration.</param>
 		/// <param name="callback">The function to call after this method completes.</param>
-		public abstract void TryUpdatePowerMode(CurrentLocationGameplayData.PoweredState powerMode, DataCallback<GenericResponse> callback);
+		public abstract void TryUpdatePowerMode(PoweredState powerMode, DataCallback<GenericResponse> callback);
 		#endregion
     }
 }

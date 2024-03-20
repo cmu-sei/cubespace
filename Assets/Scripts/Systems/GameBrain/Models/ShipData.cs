@@ -570,18 +570,8 @@ namespace Systems.GameBrain
 		public string currentLocationSurroundings;
 		// The comm event being sent at this location, if there is one (only shown if incomingTransmission is true)
 		public CommEvent incomingTransmissionObject;
-		// The current power mode
-		public PoweredState powerState; // TODO: Cubespace is the authority on this, so it shouldn't really need to be getting this var from gamebrain
-
-		/// <summary>
-		/// The power mode of the ship, given its power configuration.
-		/// </summary>
-		public enum PoweredState
-		{
-			Standby,
-			LaunchMode,
-			ExplorationMode,
-		}
+		// The current power mode as last reported to gamebrain; should not be used by cubespace for anything 
+		public PoweredState powerState;
 
 		/// <summary>
 		/// Retrieves a given power state as the PoweredState data type.

@@ -154,7 +154,7 @@ namespace Systems.GameBrain
 		/// Sends a request to set the state of the ship's power.
 		/// </summary>
 		/// <param name="state">The type of state the ship has with its current power configuration.</param>
-		public void TrySetPowerMode(CurrentLocationGameplayData.PoweredState state)
+		public void TrySetPowerMode(PoweredState state)
 		{
 			_gameBrainInterface.TryUpdatePowerMode(state, TrySetPowerModeCallback);
 		}

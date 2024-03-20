@@ -23,7 +23,7 @@ namespace Entities.Workstations.PowerRouting
         [SyncVar(hook = nameof(OnChangePoweredStations))]
         private int poweredStations = 0;
         [SyncVar]
-        private CurrentLocationGameplayData.PoweredState curPowerMode = CurrentLocationGameplayData.PoweredState.Standby; // TODO: Move this enum somewhere else (it's own file or here)
+        private PoweredState curPowerMode = PoweredState.Standby;
 
         public int TotalPower => totalPower;
         [SerializeField]
@@ -93,11 +93,11 @@ namespace Entities.Workstations.PowerRouting
             OnChangePoweredStations(GetPowerRemaining(), GetPowerRemaining());
 
             if (GetAllPoweredForExploration())
-                curPowerMode = CurrentLocationGameplayData.PoweredState.ExplorationMode;
+                curPowerMode = PoweredState.ExplorationMode;
             else if (GetAllPoweredForLaunch())
-                curPowerMode = CurrentLocationGameplayData.PoweredState.LaunchMode;
+                curPowerMode = PoweredState.LaunchMode;
             else
-                curPowerMode = CurrentLocationGameplayData.PoweredState.Standby;
+                curPowerMode = PoweredState.Standby;
 
             base.OnStartClient();
         }
@@ -266,14 +266,14 @@ namespace Entities.Workstations.PowerRouting
             }
 
             // Set a power mode to send; if we have no power mode, set it as standby
-            CurrentLocationGameplayData.PoweredState poweredState = CurrentLocationGameplayData.PoweredState.Standby;
+            PoweredState poweredState = PoweredState.Standby;
             if (launch)
             {
-                poweredState = CurrentLocationGameplayData.PoweredState.LaunchMode;
+                poweredState = PoweredState.LaunchMode;
             }
             else if (exploration)
             {
-                poweredState = CurrentLocationGameplayData.PoweredState.ExplorationMode;
+                poweredState = PoweredState.ExplorationMode;
             }
             
             if (poweredState != curPowerMode)
@@ -291,7 +291,7 @@ namespace Entities.Workstations.PowerRouting
         /// <param name="workstationID">The workstation whose power state should chang.</param>
         /// <param name="state">Resulting powered state of this operation.</param>
         [Command(requiresAuthority = false)]
-        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, CurrentLocationGameplayData.PoweredState targetState)
+        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, PoweredState targetState)
         {
             // Set all power states
             foreach (Workstation w in _workstationManager.GetWorkstations())
@@ -300,34 +300,17 @@ namespace Entities.Workstations.PowerRouting
                 if (w.AlwaysHasPower) continue;
 
                 // For standby mode, turn everything off
-                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                if (targetState == PoweredState.Standby)
                 {
-                    if (w.IsPowered)
-                    {
-                        systemIDPowerStates[w.StationID] = !w.IsPowered;
-                    }
+                    systemIDPowerStates[w.StationID] = false;
                 }
-                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                else if (targetState == PoweredState.ExplorationMode)
                 {
-                    if (!w.UsedInExplorationMode && w.IsPowered)
-                    {
-                        systemIDPowerStates[w.StationID] = !w.IsPowered;
-                    }
-                    else if (w.UsedInExplorationMode && !w.IsPowered)
-                    {
-                        systemIDPowerStates[w.StationID] = !w.IsPowered;
-                    }
+                    systemIDPowerStates[w.StationID] = w.UsedInExplorationMode;
                 }
                 else
                 {
-                    if (!w.UsedInLaunchMode && w.IsPowered)
-                    {
-                        systemIDPowerStates[w.StationID] = !w.IsPowered;
-                    }
-                    else if (w.UsedInLaunchMode && !w.IsPowered)
-                    {
-                        systemIDPowerStates[w.StationID] = !w.IsPowered;
-                    }
+                    systemIDPowerStates[w.StationID] = w.UsedInLaunchMode;
                 }
             }
 
@@ -398,7 +381,7 @@ namespace Entities.Workstations.PowerRouting
         // TODO: Rewrite PowerRouting with better handling of client/server communication and caching
         // This a bit of a hack to make the exploration/launch buttons work by skipping checks to make sure power is avaible, which is fine since we know the end state of this call is allowable
         // Calling this with targetState == Standby will turn all stations off
-        public void SetPowerStateToMode(CurrentLocationGameplayData.PoweredState targetState)
+        public void SetPowerStateToMode(PoweredState targetState)
         {
             // This updates the local UI for everything
             foreach (Workstation w in _workstationManager.GetWorkstations())
@@ -407,12 +390,12 @@ namespace Entities.Workstations.PowerRouting
                 if (w.AlwaysHasPower) continue;
 
                 // For standby mode, turn everything off
-                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                if (targetState == PoweredState.Standby)
                 {
                     // Set the button UI locally, immediatly. Actually power state updated later
                     TogglePowerStateRoutingUI(w.StationID, false);
                 }
-                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                else if (targetState == PoweredState.ExplorationMode)
                 {
                     TogglePowerStateRoutingUI(w.StationID, w.UsedInExplorationMode);
                 }
