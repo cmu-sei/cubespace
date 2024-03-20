@@ -13,7 +13,6 @@ using UnityEngine;
 using Mirror;
 using System.Linq;
 using Managers;
-using Systems.GameBrain;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -92,9 +91,18 @@ namespace Entities.Workstations.PowerRouting
 
             OnChangePoweredStations(GetPowerRemaining(), GetPowerRemaining());
 
-            if (GetAllPoweredForExploration())
+            bool launch = GetAllPoweredForLaunch();
+            bool exploration = GetAllPoweredForExploration();
+
+            launchModeLight.Lit = launch;
+            explorationModeLight.Lit = exploration;
+
+            if (launch || exploration) outerPipes.ForEach(p => p.SetEmissionPower(1f));
+            else outerPipes.ForEach(p => p.SetEmissionPower(0f));
+
+            if (exploration)
                 curPowerMode = PoweredState.ExplorationMode;
-            else if (GetAllPoweredForLaunch())
+            else if (launch)
                 curPowerMode = PoweredState.LaunchMode;
             else
                 curPowerMode = PoweredState.Standby;
@@ -119,7 +127,7 @@ namespace Entities.Workstations.PowerRouting
         #endregion
 
         #region SyncVar hooks
-        // Callback function that occurs when the power remaining amount is changed. This should be used to do stuff like change UI.
+        // Callback function that occurs when the power remaining amount is changed. Updates power remaining indicators
         private void OnChangePoweredStations(int oldPower, int newPower)
         {
             if (newPower < 0 || newPower > totalPower)
@@ -130,15 +138,6 @@ namespace Entities.Workstations.PowerRouting
                 }
             }
             ChangePoweredLightStrip(GetPowerRemaining());
-
-            bool launch = GetAllPoweredForLaunch();
-            bool exploration = GetAllPoweredForExploration();
-
-            launchModeLight.Lit = launch;
-            explorationModeLight.Lit = exploration;
-
-            if (launch || exploration) outerPipes.ForEach(p => p.SetEmissionPower(1f));
-            else outerPipes.ForEach(p => p.SetEmissionPower(0f));
         }
         #endregion
 
@@ -158,6 +157,16 @@ namespace Entities.Workstations.PowerRouting
                 // Setting a key's value changes the power
                 case SyncDictionary<WorkstationID, bool>.Operation.OP_SET:
                     _workstationManager.GetWorkstation(key).ChangePower(value);
+
+                    // Set lights
+                    bool launch = GetAllPoweredForLaunch();
+                    bool exploration = GetAllPoweredForExploration();
+
+                    launchModeLight.Lit = launch;
+                    explorationModeLight.Lit = exploration;
+
+                    if (launch || exploration) outerPipes.ForEach(p => p.SetEmissionPower(1f));
+                    else outerPipes.ForEach(p => p.SetEmissionPower(0f));
                     break;
                 case SyncDictionary<WorkstationID, bool>.Operation.OP_REMOVE:
                     break;
