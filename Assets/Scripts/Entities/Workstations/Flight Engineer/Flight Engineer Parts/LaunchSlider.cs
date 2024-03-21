@@ -65,8 +65,8 @@ namespace Entities.Workstations.FlightEngineerParts
         protected override void Start()
         {
             base.Start();
-            interactable = flightEngineer.IsPowered;
             startX = transform.localPosition.x;
+            OnStateChange();
         }
 
         /// <summary>
@@ -78,8 +78,9 @@ namespace Entities.Workstations.FlightEngineerParts
             FlightEngineer.OnLaunchableChange += OnLaunchableChange;
 
             // Non-static workstation events
-            flightEngineer.OnPowerOn += OnPowerOn;
-            flightEngineer.OnPowerOff += OnPowerOff;
+            flightEngineer.OnPowerOn += OnStateChange;
+            flightEngineer.OnPowerOff += OnStateChange;
+            flightEngineer.OnEnter += OnStateChange;
             flightEngineer.OnResetState += ResetState;
         }
 
@@ -92,8 +93,9 @@ namespace Entities.Workstations.FlightEngineerParts
             FlightEngineer.OnLaunchableChange -= OnLaunchableChange;
 
             // Non-static workstation events
-            flightEngineer.OnPowerOn -= OnPowerOn;
-            flightEngineer.OnPowerOff -= OnPowerOff;
+            flightEngineer.OnPowerOn -= OnStateChange;
+            flightEngineer.OnPowerOff -= OnStateChange;
+            flightEngineer.OnEnter -= OnStateChange;
             flightEngineer.OnResetState -= ResetState;
         }
 
@@ -154,7 +156,7 @@ namespace Entities.Workstations.FlightEngineerParts
         protected void OnLaunchableChange(bool isLaunchable)
         {
             // If the slider can launch, activate the LEDs
-            if (isLaunchable)
+            if (isLaunchable && flightEngineer.IsPowered)
             {
                 LEDParent.ActivateAnimation();
             }
@@ -166,6 +168,14 @@ namespace Entities.Workstations.FlightEngineerParts
 
             // This slider can be moved if the ship is launchable and the Flight Engineer is powered
             interactable = flightEngineer.IsLaunchable() && flightEngineer.IsPowered;
+        }
+
+        /// <summary>
+        /// Changes the interactability of the slider and checks if the LEDs should be activated when the Flight Engineer is powered on, off, or entered.
+        /// </summary>
+        protected void OnStateChange()
+        {
+            OnLaunchableChange(flightEngineer.IsLaunchable());
         }
 
         /// <summary>
@@ -187,36 +197,6 @@ namespace Entities.Workstations.FlightEngineerParts
         {
             yield return new WaitForSeconds(timeToWaitBeforeReset);
             base.ResetState();
-        }
-
-        /// <summary>
-        /// Changes the interactability of the slider and checks if the LEDs should be activated when the Flight Engineer is powered on.
-        /// </summary>
-        protected override void OnPowerOn()
-        {
-            // Check if the slider is interactable
-            interactable = flightEngineer.IsLaunchable() && flightEngineer.IsPowered;
-
-            // If the Flight Engineer is launchable, check if this slider is also launchable
-            if (flightEngineer.IsLaunchable()) 
-            {
-                OnLaunchableChange(true);
-            }
-        }
-
-        /// <summary>
-        /// Changes the interactability of the slider and checks if the LEDs should be deactivated when the Flight Engineer is powered off.
-        /// </summary>
-        protected override void OnPowerOff()
-        {
-            // If the Flight Engineer is launchable, this slider should not be, because the Flight Engineer would not be powered
-            if (flightEngineer.IsLaunchable()) 
-            {
-                OnLaunchableChange(false);
-            }
-
-            // Check if the slider is interactable
-            interactable = flightEngineer.IsLaunchable() && flightEngineer.IsPowered;
         }
         #endregion
 
