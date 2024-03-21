@@ -322,6 +322,61 @@ namespace Entities.Workstations.PowerRouting
                     systemIDPowerStates[w.StationID] = w.UsedInLaunchMode;
                 }
             }
+            
+            if (poweredState != curPowerMode)
+            {
+                // Ask Gamebrain to update the power state
+                curPowerMode = poweredState;
+                ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(poweredState);
+            }
+        }
+
+        /// <summary>
+        /// Forcefully sets power to given mode all at once on the server. Standby turns everything off
+        /// Handling this all in one call prevents problems with checking for power in the middle of a batch operation
+        /// </summary>
+        /// <param name="workstationID">The workstation whose power state should chang.</param>
+        /// <param name="state">Resulting powered state of this operation.</param>
+        [Command(requiresAuthority = false)]
+        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, CurrentLocationGameplayData.PoweredState targetState)
+        {
+            // Set all power states
+            foreach (Workstation w in _workstationManager.GetWorkstations())
+            {
+                // Ignore all stations that are always powered
+                if (w.AlwaysHasPower) continue;
+
+                // For standby mode, turn everything off
+                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                {
+                    if (w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                {
+                    if (!w.UsedInExplorationMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInExplorationMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+                else
+                {
+                    if (!w.UsedInLaunchMode && w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                    else if (w.UsedInLaunchMode && !w.IsPowered)
+                    {
+                        systemIDPowerStates[w.StationID] = !w.IsPowered;
+                    }
+                }
+            }
 
             // Get the number of powered workstations (hook on this var updates lights and things)
             poweredStations = systemIDPowerStates.Count(x => x.Value);
