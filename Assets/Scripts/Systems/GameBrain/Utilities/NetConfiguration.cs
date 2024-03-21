@@ -145,7 +145,7 @@ namespace Systems.GameBrain
 		/// <param name="powerMode">The power mode (exploration, launch, or standby) to set the ship to have.</param>
 		/// <param name="teamID">The ID of the team. An empty string by default, but necessary for the request using this URI to work.</param>
 		/// <returns>The URI used to try to update the ship's current power mode.</returns>
-		public static string GetTryUpdatePowerModeURI(CurrentLocationGameplayData.PoweredState powerMode, string teamID = "")
+		public static string GetTryUpdatePowerModeURI(PoweredState powerMode, string teamID = "")
 		{
 			return CreateGameDataURI($"PowerMode/{CurrentLocationGameplayData.PoweredStateAsString(powerMode)}/{teamID}");
 		}

@@ -1,6 +1,6 @@
 using Managers;
+using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -27,78 +27,43 @@ namespace Entities.Workstations.PowerRouting
         [SerializeField]
         private WorkstationManager _workstationManager;
 
+        // Used to disable buttons for breif period after clicking, which is a bad but effective hack
+        [SerializeField]
+        private PowerRoutingLightButton otherButton;
+        private bool isPressable = true;
+
         /// <summary>
         /// Unity event function that powers on or off the stations used in the specified mode all at once.
         /// </summary>
         private void OnMouseDown()
         {
+            if (!isPressable) return;
+
             // If we're in the mode the player hit the button for, turn off everything (this will turn off stations for the other mode if they're on as well, oh well)
             if ((isExplorationButton && powerRouting.GetAllPoweredForExploration()) || (!isExplorationButton && powerRouting.GetAllPoweredForLaunch()))
             {
-                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.Standby);
-                return;
+                powerRouting.SetPowerStateToMode(PoweredState.Standby);
             }
             else if (isExplorationButton)
             {
-                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.ExplorationMode);
+                powerRouting.SetPowerStateToMode(PoweredState.ExplorationMode);
             }
             else
             {
-                powerRouting.SetPowerStateToMode(Systems.GameBrain.CurrentLocationGameplayData.PoweredState.LaunchMode);
+                powerRouting.SetPowerStateToMode(PoweredState.LaunchMode);
             }
+
+            StartCoroutine(Co_DisableButtonForQuarterSecond());
+            StartCoroutine(otherButton.Co_DisableButtonForQuarterSecond());
         }
 
-        /// <summary>
-        /// Powers off all workstations except
-        /// </summary>
-        private void DepowerUnneededStations()
+        // This is a hack to prevent many bugs arising from quickly pressing these buttons
+        // A better solution would be to rewrite PowerRouting and handle powered state in a sane way, but this works too
+        public IEnumerator Co_DisableButtonForQuarterSecond()
         {
-            foreach (Workstation w in _workstationManager.GetWorkstations())
-            {
-                if (isExplorationButton)
-                {
-                    if (!w.AlwaysHasPower && !w.UsedInExplorationMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
-                }
-                else
-                {
-                    if (!w.AlwaysHasPower && !w.UsedInLaunchMode && w.IsPowered)
-                    {
-                        powerRouting.TogglePowerState(w.StationID);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggles the power state of all launch mode workstations that are currently unpowered
-        /// </summary>
-        private void SetLaunchMode(bool power)
-        {
-            List<Workstation> ws = _workstationManager.GetLaunchWorkstations();
-            foreach (Workstation w in _workstationManager.GetLaunchWorkstations())
-            {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
-                {
-                    powerRouting.TogglePowerState(w.StationID);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Toggles the power state of all exploration mode workstations that are currently unpowered
-        /// </summary>
-        private void SetExplorationMode(bool power)
-        {
-            foreach (Workstation w in _workstationManager.GetExplorationWorkstations())
-            {
-                if (!w.AlwaysHasPower && w.IsPowered != power)
-                {
-                    powerRouting.TogglePowerState(w.StationID);
-                }
-            }
+            isPressable = false;
+            yield return new WaitForSeconds(0.25f);
+            isPressable = true;
         }
     }
 }

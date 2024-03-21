@@ -293,13 +293,7 @@ public class NavReaderGalaxySystem : TooltipControl
         // Check to see if all associated missions have been completed
         foreach (AssociatedChallengeData associatedChallenge in mission.associatedChallenges)
         {
-            foreach (MissionData associatedMission in ShipStateManager.Instance.MissionDatas)
-            {
-                if (associatedMission.missionID == associatedChallenge.missionID)
-                {
-                    cacheComplete &= associatedMission.complete;
-                }
-            }
+            cacheComplete &= associatedChallenge.complete;
         }
         return cacheComplete;
     }

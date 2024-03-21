@@ -135,7 +135,7 @@ namespace Systems.GameBrain
 		/// </summary>
 		/// <param name="powerMode">The power state of the ship based on its current power configuration.</param>
 		/// <param name="callback">The function to call after this method completes.</param>
-		public override void TryUpdatePowerMode(CurrentLocationGameplayData.PoweredState powerMode, DataCallback<GenericResponse> callback)
+		public override void TryUpdatePowerMode(PoweredState powerMode, DataCallback<GenericResponse> callback)
 		{
 			var response = new GenericResponse();
 			response.success = true;

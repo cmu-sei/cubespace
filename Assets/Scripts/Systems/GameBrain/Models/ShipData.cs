@@ -339,6 +339,55 @@ namespace Systems.GameBrain
             }
             return true;
         }
+
+		public override string ToString()
+		{
+            string res = $"missionID: {missionID}\n" +
+				  $"possibleMaximumScore: {possibleMaximumScore}\n" +
+				  $"baseSolveValue: {baseSolveValue}\n" +
+				  $"bonusRemaining: {bonusRemaining}\n" +
+				  $"currentScore: {currentScore}\n" +
+				  $"totalTeams: {totalTeams}\n" +
+				  $"solveTeams: {solveTeams}\n" +
+				  $"visible: {visible}\n" +
+				  $"complete: {complete}\n" +
+				  $"isSpecial: {isSpecial}\n" +
+				  $"title: {title}\n" +
+				  $"missionIcon: {missionIcon}\n" +
+				  $"summaryShort: {summaryShort}\n" +
+				  $"summaryLong: {summaryLong}\n" +
+				  $"galaxyMapXPos: {galaxyMapXPos}\n" +
+				  $"galaxyMapYPos: {galaxyMapYPos}\n" +
+				  $"galaxyMapTargetXPos: {galaxyMapTargetXPos}\n" +
+				  $"galaxyMapTargetYPos: {galaxyMapTargetYPos}\n";
+			res += "roleList: [";
+			foreach (string r in roleList)
+			{
+				res += $"{r}, ";
+			}
+			res += "]\n";
+
+			res += "---------------------------------------------";
+			res += "AssociatedChallenges:\n";
+			res += $"    Count: {associatedChallenges.Count()}\n";
+			res += "     [\n";
+			foreach (AssociatedChallengeData acd in associatedChallenges)
+			{
+				res += $"       (missionID: {acd.missionID}, unlockCode: {acd.unlockCode}, complete: {acd.complete})\n";
+			}
+			res += "     ]\n";
+            res += "---------------------------------------------";
+            res += "TaskDatas:\n";
+            res += $"    Count: {taskList.Count()}\n";
+            res += "     [\n";
+            foreach (TaskData td in taskList)
+            {
+                res += $"       (taskID: {td.taskID}, missionID: {td.missionID}, complete: {td.complete}, infoPresent: {td.infoPresent}, videoPresent: {td.videoPresent}, videoURL: {td.videoURL}, infoTest: {td.infoText}, descriptionText: {td.descriptionText})\n";
+            }
+            res += "     ]";
+
+            return res;
+		}
     }
 
 	/// <summary>
@@ -396,10 +445,12 @@ namespace Systems.GameBrain
 		public string missionID;
 		// The coordinates of the location the mission is at, shown to player in the galaxy map when the mission this is associated with is complete
 		public string unlockCode;
+		// Whether or not the associated mission is complete
+		public bool complete;
 
         public bool IsEquivalentTo(AssociatedChallengeData obj)
         {
-            return missionID == obj.missionID && unlockCode == obj.unlockCode;
+            return missionID == obj.missionID && unlockCode == obj.unlockCode && complete == obj.complete;
         }
     }
 
@@ -519,18 +570,8 @@ namespace Systems.GameBrain
 		public string currentLocationSurroundings;
 		// The comm event being sent at this location, if there is one (only shown if incomingTransmission is true)
 		public CommEvent incomingTransmissionObject;
-		// The current power mode
-		public PoweredState powerState; // TODO: Cubespace is the authority on this, so it shouldn't really need to be getting this var from gamebrain
-
-		/// <summary>
-		/// The power mode of the ship, given its power configuration.
-		/// </summary>
-		public enum PoweredState
-		{
-			Standby,
-			LaunchMode,
-			ExplorationMode,
-		}
+		// The current power mode as last reported to gamebrain; should not be used by cubespace for anything 
+		public PoweredState powerState;
 
 		/// <summary>
 		/// Retrieves a given power state as the PoweredState data type.
