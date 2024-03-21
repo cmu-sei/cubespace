@@ -62,7 +62,7 @@ namespace Systems.GameBrain
 		/// <param name="callback">The function to call after this method completes.</param>
 		public override void GetTeamActive(string teamID, DataCallback<GenericResponse> callback)
 		{
-            Debug.LogWarning("?DEBUGGING?: NetworkGameBrainInterface.cs:65\nServer sending a GET request to team_active endpoint with this teamId: " + teamID);
+            //Debug.LogWarning("?DEBUGGING?: NetworkGameBrainInterface.cs:65\nServer sending a GET request to team_active endpoint with this teamId: " + teamID);
             string uri = NetConfiguration.GetTeamActiveURI(ShipStateManager.Instance.teamID);
 			MakeGetRequest(uri, callback, ShipStateManager.Instance.token);
 		}
@@ -250,8 +250,8 @@ namespace Systems.GameBrain
 				{
 					if (networkManager && networkManager.isInDebugMode)
                     {
-						Debug.Log($"Encountered an exception while trying to parse JSON. Exception: {e}");
-						Debug.Log($"Response received: {response}");
+						Debug.LogWarning($"Encountered an exception while trying to parse JSON. Exception: {e}");
+						Debug.LogWarning($"Response received: {response}");
                     }
 				}
 			}
@@ -304,13 +304,6 @@ namespace Systems.GameBrain
 
 			// Get the CustomNetworkManager to set global parameters if needed
 			CustomNetworkManager manager = NetworkManager.singleton.GetComponent<CustomNetworkManager>();
-
-			// Set the global dev parameter
-			if (providedArguments.TryGetValue("dev", out string dev))
-			{
-				Debug.Log("Running the game in dev mode.");
-				manager.isInDevMode = true;
-			}
 
 			// Set the global debug parameter
 			if (providedArguments.TryGetValue("debug", out string debug))

@@ -129,7 +129,7 @@ namespace Entities.Workstations
             }
             else
             {
-                Debug.LogWarning("Could not extend antenna. " + response.message);
+                Debug.LogWarning("Could not extend antenna.");
             }
         }
 
@@ -145,7 +145,7 @@ namespace Entities.Workstations
             }
             else
             {
-                Debug.LogWarning("Could not retract antenna. " + response.message);
+                Debug.LogWarning("Could not retract antenna.");
             }
         }
         #endregion

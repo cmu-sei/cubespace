@@ -30,7 +30,8 @@ namespace UI.SensorScreen.SensorScreenComponents
         /// <summary>
         /// Activates the object without a comm event attached to it - ideally, this should not happen.
         /// </summary>
-        public override void Activate() {
+        public override void Activate() 
+        {
             base.Activate();
             Debug.LogWarning("Comm Event Screen activated without Comm Event!");
         }

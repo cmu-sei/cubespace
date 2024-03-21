@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -85,7 +86,8 @@ namespace Managers
             else if (currentVideoCoroutine != null)
             {
                 // Stop an existing cutscene and the video player
-                Debug.LogWarning("Trying to prepare video while another video is playing! Stopping the previous video.");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogWarning("Trying to prepare video while another video is playing! Stopping the previous video.");
                 StopVideo();
             }
 

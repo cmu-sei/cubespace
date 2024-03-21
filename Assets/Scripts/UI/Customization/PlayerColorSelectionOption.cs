@@ -68,7 +68,7 @@ namespace UI.Customization
         {
             if (_panel == null)
             {
-                Debug.LogWarning("Button is not part of a panel!",this);
+                Debug.LogWarning("Button is not part of a panel!", this);
                 return;
             }
 

@@ -11,6 +11,8 @@ DM23-0100
 using UnityEngine;
 using TMPro;
 using UI.AntennaScreen.AntennaScreenComponents;
+using Managers;
+using Mirror;
 
 namespace Entities.Workstations.AntennaParts
 {
@@ -91,7 +93,8 @@ namespace Entities.Workstations.AntennaParts
                     antennaScreen = disconnectingScreen;
                     break;
                 default:
-                    Debug.Log("No valid connectionState provided.");
+                    if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                        Debug.Log("No valid connectionState provided.");
                     break;
             }
 

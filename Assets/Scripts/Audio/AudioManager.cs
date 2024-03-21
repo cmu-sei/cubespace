@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Managers;
+using Mirror;
 
 namespace Audio {
     /// <summary>
@@ -118,7 +119,8 @@ namespace Audio {
             // If we've run out of AudioSources, return null, because we can't play the sound then
             if (source == null)
             {
-                Debug.LogWarning("no audioSource from pool to use.");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogWarning("no audioSource from pool to use.");
                 return null;
             }
 
@@ -361,7 +363,8 @@ namespace Audio {
         {
             if (source == null)
             {
-                Debug.LogWarning("Null audio source asked for. Check this stack trace and find the component with a null sound source.");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogWarning("Null audio source asked for.");
                 return;
             }
 

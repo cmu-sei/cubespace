@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.SensorScreen.SensorScreenComponents;
 using Systems.GameBrain;
+using Managers;
+using Mirror;
 
 namespace Entities.Workstations.SensorStationParts
 {
@@ -95,7 +97,8 @@ namespace Entities.Workstations.SensorStationParts
 
             if (!sensorStation)
             {
-                Debug.Log("No Sensor Station component found for screen controller!");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogError("No Sensor Station component found for screen controller!");
             }
         }
         #endregion
@@ -150,7 +153,8 @@ namespace Entities.Workstations.SensorStationParts
                 }
                 default:
                 {
-                    Debug.LogError("Screen from comm event had bad enum");
+                    if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                        Debug.LogError("Screen from comm event had bad enum!");
                     screen = scanResponseScreen;
                     break;
                 }

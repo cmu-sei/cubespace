@@ -102,7 +102,7 @@ namespace UI.HUD
             // If useCodices is false, disable pogs
             if (!ShipStateManager.Instance.Session.useCodices)
 			{
-				if ((CustomNetworkManager.singleton as CustomNetworkManager).isInDebugMode || (CustomNetworkManager.singleton as CustomNetworkManager).isInDevMode)
+				if ((CustomNetworkManager.singleton as CustomNetworkManager).isInDebugMode)
 				{
                     Debug.Log("useCodices is false, disbaling mission pogs");
                 }

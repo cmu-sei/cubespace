@@ -504,7 +504,7 @@ namespace Systems.GameBrain
 				case "":
 					return CommEventTemplate.None;
 				default:
-					Debug.LogWarning("Unknown Comm Event Template:"+template);
+					Debug.LogWarning("Unknown Comm Event Template:" + template);
 					return CommEventTemplate.None;
 			}
 		}

@@ -65,7 +65,8 @@ namespace Entities.Workstations.CyberOperationsParts
             
             if (!AlwaysHasPower)
             {
-                Debug.LogWarning("CyberOperations must always have power! Please check 'always has power' box for this component.", this);
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogError("CyberOperations must always have power! Please check 'always has power' box for this component.", this);
             }
         }
 

@@ -12,6 +12,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UI.ColorPalettes;
+using Managers;
+using Mirror;
 
 namespace Entities.Workstations.PowerRouting
 {
@@ -133,7 +135,8 @@ namespace Entities.Workstations.PowerRouting
                 }
                 else
                 {
-                    Debug.LogError("Tried to toggle power to a station that isn't used in launch mode or exploration mode");
+                    if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                        Debug.LogError("Tried to toggle power to a station that isn't used in launch mode or exploration mode");
                     _buttonImage.color = ColorPalette.GetColor(PaletteColor.Powered);
                     _connectionLineImage.color = ColorPalette.GetColor(PaletteColor.Powered);
                 }
