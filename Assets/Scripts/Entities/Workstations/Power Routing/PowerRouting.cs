@@ -338,7 +338,7 @@ namespace Entities.Workstations.PowerRouting
         /// <param name="workstationID">The workstation whose power state should chang.</param>
         /// <param name="state">Resulting powered state of this operation.</param>
         [Command(requiresAuthority = false)]
-        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, CurrentLocationGameplayData.PoweredState targetState)
+        private void CmdSetSystemPowerStateToMode(NetworkIdentity client, PoweredState targetState)
         {
             // Set all power states
             foreach (Workstation w in _workstationManager.GetWorkstations())
@@ -347,14 +347,14 @@ namespace Entities.Workstations.PowerRouting
                 if (w.AlwaysHasPower) continue;
 
                 // For standby mode, turn everything off
-                if (targetState == CurrentLocationGameplayData.PoweredState.Standby)
+                if (targetState == PoweredState.Standby)
                 {
                     if (w.IsPowered)
                     {
                         systemIDPowerStates[w.StationID] = !w.IsPowered;
                     }
                 }
-                else if (targetState == CurrentLocationGameplayData.PoweredState.ExplorationMode)
+                else if (targetState == PoweredState.ExplorationMode)
                 {
                     if (!w.UsedInExplorationMode && w.IsPowered)
                     {
