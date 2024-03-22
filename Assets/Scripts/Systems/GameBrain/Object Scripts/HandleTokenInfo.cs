@@ -48,12 +48,12 @@ public class HandleTokenInfo : MonoBehaviour
     {
         if (networkManager && networkManager.isInDebugMode)
         {
-            Debug.Log("Info Recieved: " + _tokenInfo);
+            //Debug.Log("Info Recieved: " + _tokenInfo);
         }
 
         if (_tokenInfo == null)
         {
-            Debug.LogError("No Credentials Found");
+            Debug.LogError("No credentials found");
             return;
         }
 
@@ -71,12 +71,12 @@ public class HandleTokenInfo : MonoBehaviour
     {
         if (networkManager && networkManager.isInDebugMode)
         {
-            Debug.Log("Server IP Received: " + _serverLink);
+            //Debug.Log("Server IP Received: " + _serverLink);
         }
 
         if (_serverLink == null)
         {
-            Debug.LogError("No Credentials Found");
+            Debug.LogError("No server link found");
             return;
         }
 

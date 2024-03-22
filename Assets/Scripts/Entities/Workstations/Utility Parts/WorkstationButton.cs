@@ -8,6 +8,8 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using Managers;
+using Mirror;
 using System.Collections;
 using UnityEngine;
 
@@ -86,7 +88,8 @@ namespace Entities.Workstations
                 }
                 else
                 {
-                    Debug.Log("No Depress position set for workstation button! Just calling OnPress functions without the animation");
+                    if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                        Debug.Log("No Depress position set for workstation button! Just calling OnPress functions without the animation");
                     OnFullPress();
                     OnFinish();
                 }

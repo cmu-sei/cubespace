@@ -100,9 +100,9 @@ namespace Entities
             {
                 NewLocalPlayerEvent?.Invoke(this);
                 // Send client token to server to Gamebrain for verification
-                Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
+                //Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
 #if !UNITY_EDITOR
-                Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
+                //Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
                 CmdSendClientToken(LoadingSystem.Instance.token);
 #endif
             }
@@ -117,7 +117,7 @@ namespace Entities
         [Command]
         void CmdSendClientToken(string clientToken)
         {
-            Debug.LogWarning("?DEBUGGING?: Player.cs:120\nCubespace server just recieved command from new client with token: " + clientToken + ". Sending this token to gamebrain to authorize.");
+            //Debug.LogWarning("?DEBUGGING?: Player.cs:120\nCubespace server just recieved command from new client with token: " + clientToken + ". Sending this token to gamebrain to authorize.");
             ClientCredentialSender.Instance.SendClientToken(clientToken);
         }
 

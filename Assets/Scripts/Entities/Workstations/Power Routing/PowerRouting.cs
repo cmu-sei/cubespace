@@ -132,10 +132,7 @@ namespace Entities.Workstations.PowerRouting
         {
             if (newPower < 0 || newPower > totalPower)
             {
-                if (networkManager && networkManager.isInDebugMode)
-                {
-                    Debug.LogError("Power managed to get out of range!");
-                }
+                Debug.LogError("Power managed to get out of range!");
             }
             ChangePoweredLightStrip(GetPowerRemaining());
         }
@@ -255,7 +252,8 @@ namespace Entities.Workstations.PowerRouting
             // Trying to turn something on while there's no power
             if ((!PowerIsAvailable() && state))
             {
-                Debug.LogWarning("Tried to power a workstation on while there was no power remaining! Reverting client's power state");
+                if (networkManager.isInDebugMode)
+                    Debug.LogWarning("Tried to power a workstation on while there was no power remaining! Reverting client's power state");
                 TargetClientRevertLocalWorkstationPowerState(client.connectionToClient, workstationID, state);
                 return;
             }
@@ -353,7 +351,7 @@ namespace Entities.Workstations.PowerRouting
 
             if (litLightCount > powerLights.Length)
             {
-                Debug.LogWarning("More power available than lights to show. Add more lights?", this);
+                Debug.LogWarning("More power available than lights to show!", this);
             }
         }
 
@@ -382,7 +380,8 @@ namespace Entities.Workstations.PowerRouting
             }
             else
             {
-                Debug.Log("Failed to toggle power for " + workstationID);
+                if (networkManager.isInDebugMode)
+                    Debug.Log("Failed to toggle power for " + workstationID);
                 workstationButtonDict[workstationID].OnPowerFail();
             }
         }

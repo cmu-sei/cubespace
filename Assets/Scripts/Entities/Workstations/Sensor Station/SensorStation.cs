@@ -259,7 +259,7 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (!incomingTransmission || incomingTransmissionEvent == null)
             {
-                Debug.Log("can't complete null event");
+                Debug.LogError("Can't complete null comm event!");
                 return;
             }
 
@@ -334,14 +334,12 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (!ableToScan)
             {
-                Debug.Log("unable to scan");
                 scanningInProgress = false;
                 return;
             }
 
             if (scanningInProgress)
             {
-                Debug.Log("already scanning.");
                 return;
             }
 
@@ -393,7 +391,7 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (incomingTransmissionEvent == null || urlOfVideoFinished != incomingTransmissionEvent.videoURL)
             {
-                Debug.Log("Can't complete null event.");
+                Debug.LogError("Can't complete null incomingTransmission event!");
                 return;
             }
 
@@ -407,7 +405,7 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (incomingTransmissionEvent == null)
             {
-                Debug.Log("Can't complete null event.");
+                Debug.LogWarning("Can't complete null incomingTransition event.");
                 return;
             }
 
@@ -462,7 +460,7 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (hasEvent && commEvent == null)
             {
-                Debug.Log("indicated we have comm event, but no event object.");
+                Debug.LogError("Indicated we have comm event, but no event object given!");
             }
             
             if (commEvent != null)

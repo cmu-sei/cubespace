@@ -274,28 +274,6 @@ namespace Managers
         }
 
         /// <summary>
-        /// Unity event function that checks for dev hotkeys if enabled.
-        /// </summary>
-        private void Update()
-        {
-            // If hotkeys are enabled and this is a client
-            if (networkManager && networkManager.isInDevMode && isClient)
-            {
-                // Jump if the hotkey is pressed
-                if (Input.GetKeyDown(networkManager.jumpKeyCode) && locationSet)
-                {
-                    CmdJump();
-                }
-
-                // Abort the jump preparation process if the hotkey is pressed
-                if (Input.GetKeyDown(networkManager.abortKeyCode))
-                {
-                    CmdResetShip();
-                }
-            }
-        }
-
-        /// <summary>
         /// Unity event function that subscribes to GameBrain actions.
         /// </summary>
         private void OnEnable()
@@ -680,10 +658,7 @@ namespace Managers
             else if (locationIndex < 0 || locationIndex >= unlockedLocations.Count)
             {
                 // Return if the index is not within the bounds of the location list
-                if (networkManager && networkManager.isInDebugMode)
-                {
-                    Debug.Log("Location index is not within the bounds of the unlocked locations.");
-                }
+                Debug.LogWarning("Location index is not within the bounds of the unlocked locations.");
             }
             else
             {
@@ -694,11 +669,6 @@ namespace Managers
                 // Set the targets of each dial
                 Location loc = unlockedLocations[locationIndex];
                 flightEngineer.SetAllDialTargets(loc.trajectoryLaunch, loc.trajectoryCorrection, loc.trajectoryCube);
-
-                if (networkManager.isInDebugMode)
-                {
-                    Debug.Log($"Location index of {locationIndex} received");
-                }
             }
         }
         #endregion
@@ -1028,7 +998,7 @@ namespace Managers
         /// <param name="response">The team ID wrapped in a JSON layer.</param>
         public void SetTeamID(TeamID response)
         {
-            Debug.LogWarning("?DEBUGGING?: ShipStateManager.cs:1031\nServer recieved a response from /privileged/get_team endpoint and fired the SetTeamID callback with this teamID: " + response.teamID);
+            //Debug.LogWarning("?DEBUGGING?: ShipStateManager.cs:1031\nServer recieved a response from /privileged/get_team endpoint and fired the SetTeamID callback with this teamID: " + response.teamID);
             teamID = response.teamID;
         }
 

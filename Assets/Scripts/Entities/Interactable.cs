@@ -39,7 +39,7 @@ namespace Entities
         {
             if (player == null)
             {
-                Debug.LogWarning("Interactable being interacted with by null interactor", this);
+                Debug.LogError("Interactable being interacted with by null interactor", this);
             }
             else
             {

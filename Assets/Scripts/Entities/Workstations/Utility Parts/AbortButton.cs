@@ -101,6 +101,7 @@ public class AbortButton : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        // TODO: This is bad. Should be in OnMouseEnter
         if (_active && _animationCoroutine == null && Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;

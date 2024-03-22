@@ -27,12 +27,12 @@ namespace Managers
         public WorkstationManager workstationManager = null;
         // Objects that get put in DontDestroyOnLoad need to be destroyed manually when a player disconnects
         private List<GameObject> objectsToDestroyOnDisconnect = new List<GameObject>();
-        // Configurations to run this app in dev mode or debug mode (set externally)
-        public bool isInDevMode;
+        // Configuration to run this app in debug mode (set externally)
         public bool isInDebugMode;
 
-        // Developer hotkeys, used only when the game runs in dev mode
-        [Header("Developer Hotkeys - dev mode only")]
+        // Functionality for these has not been maintained so I wouldn't trust using them in development
+        /*
+        [Header("Developer Hotkeys")]
         public KeyCode hideHUDKeyCode = KeyCode.H;
         public KeyCode skipVideoKeyCode = KeyCode.V;
         public KeyCode jumpKeyCode = KeyCode.J;
@@ -40,6 +40,7 @@ namespace Managers
         public KeyCode launchModeKeyCode = KeyCode.L;
         public KeyCode explorationModeKeyCode = KeyCode.E;
         public KeyCode standbyModeKeyCode = KeyCode.S;
+        */
 
         // The AudioManager/AudioPlayer prefab
         [Header("Non-networked prefabs to instantiate in the first scene")]
@@ -119,11 +120,6 @@ namespace Managers
         {
             base.OnStopClient();
 
-            if (isInDebugMode)
-            {
-                Debug.Log("In OnStopClient");
-            }
-
             // Destroy the objects registered to be destroyed on disconnect
             DestroyRegisteredObjects();
         }
@@ -134,11 +130,6 @@ namespace Managers
         public override void OnClientDisconnect()
         {
             base.OnClientDisconnect();
-
-            if (isInDebugMode)
-            {
-                Debug.Log("In OnClientDisconnect");
-            }
 
             // Reset the AudioSource pool to avoid errors when disconnecting
             AudioManager.Instance.ResetPool();
@@ -156,11 +147,6 @@ namespace Managers
         /// <param name="obj">The object to destroy when a player disconnects (along with other objects).</param>
         public void RegisterObjectToDestroyOnDisconnect(GameObject obj)
         {
-            if (isInDebugMode)
-            {
-                Debug.Log($"Registered {obj.name} to be destroyed on disconnect.");
-            }
-
             // Add the object to the list of objects to destroy
             objectsToDestroyOnDisconnect.Add(obj);
         }
@@ -170,21 +156,12 @@ namespace Managers
         /// </summary>
         private void DestroyRegisteredObjects()
         {
-            if (isInDebugMode)
-            {
-                Debug.Log("Destroying objects registered in CustomNetworkManager.");
-            }
-
             // Loop through all objects to destroy when a player disconnects and destroy them
             foreach (GameObject obj in objectsToDestroyOnDisconnect)
             {
                 // As long as the object still exists, destroy it
                 if (obj)
                 {
-                    if (isInDebugMode)
-                    {
-                        Debug.Log($"Destroying {obj.name} in CustomNetworkManager.");
-                    }
                     Destroy(obj);
                 }
             }

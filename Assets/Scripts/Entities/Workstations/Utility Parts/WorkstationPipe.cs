@@ -10,6 +10,7 @@ DM23-0100
 
 using System.Collections;
 using Managers;
+using Mirror;
 using UnityEngine;
 
 namespace Entities.Workstations 
@@ -102,7 +103,8 @@ namespace Entities.Workstations
             }
             else
             {
-                Debug.Log("workstation pipe destroyed, and has no workstation?");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.Log("workstation pipe destroyed, and has no workstation?");
             }
         }
         #endregion

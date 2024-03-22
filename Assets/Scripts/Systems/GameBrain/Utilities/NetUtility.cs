@@ -59,7 +59,7 @@ namespace Systems.GameBrain
 					break;
 				// If the method is not one of the ones cased above, we cannot proceed with the request
 				default:
-					Debug.Log("Unsupported web request type provided. The type provided should only be GET or POST.");
+					Debug.LogWarning("Unsupported web request type provided. The type provided should only be GET or POST.");
 					break;
 			}
 

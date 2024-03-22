@@ -45,7 +45,7 @@ namespace Entities.Workstations.SensorStationParts
         {
             if (!VideoPlayerManager.Instance)
             {
-                Debug.LogError("Couldn't Find video player manager!");
+                Debug.LogError("Sensor station couldn't find video player manager!");
                 return false;
             }
 

@@ -158,19 +158,6 @@ namespace Entities.Workstations
             camStoryboard.m_Alpha = 1f;
         }
 
-        /// <summary>
-        /// Unity event function that changes the power of this workstation if in the editor and a hotkey is pressed.
-        /// </summary>
-        protected virtual void Update()
-        {
-            #if UNITY_EDITOR
-            if (playerAtWorkstation && playerAtWorkstation.isLocalPlayer && Input.GetKeyDown(KeyCode.P))
-            {
-                ChangePower(!IsPowered);
-            }
-            #endif
-        }
-
         protected void OnDestroy()
         {
             _workstationManager.DeregisterWorkstation(stationID, this);
@@ -192,10 +179,6 @@ namespace Entities.Workstations
                 {
                     isPowered = AlwaysHasPower || powerRouting.GetPowerStateForWorkstation(stationID);
                 }
-            }
-            else if (((CustomNetworkManager) NetworkManager.singleton).isInDebugMode)
-            {
-                Debug.Log("No workstations.");
             }
 
             base.OnStartServer();

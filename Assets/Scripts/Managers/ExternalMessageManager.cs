@@ -34,7 +34,7 @@ namespace Managers
             base.Awake();
             if (gameObject.name != "ExternalMessageManager")
             {
-                Debug.LogWarning("ExternalMessageManager gameObject must have the exact name 'ExternalMessageManager'!");
+                Debug.LogError("ExternalMessageManager gameObject must have the exact name 'ExternalMessageManager'!");
                 gameObject.name = "ExternalMessageManager";
             }
         }

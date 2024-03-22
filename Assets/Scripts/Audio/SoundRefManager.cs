@@ -8,6 +8,8 @@ This Software includes and/or makes use of Third-Party Software each subject to 
 DM23-0100
 */
 
+using Managers;
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -42,14 +44,16 @@ namespace Audio {
         /// </summary>
         void Awake()
         {
-            foreach (Sound sound in soundList) {
+            foreach (Sound sound in soundList) 
+            {
                 if (!soundDict.ContainsKey(sound.Type))
                 {
                     soundDict.Add(sound.Type, sound);
                 }
                 else
                 {
-                    Debug.LogWarning("Can't add two sounds of same type ("+sound.Type+") to dictionary.", this);
+                    if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                        Debug.LogError("Can't add two sounds of same type (" + sound.Type + ") to dictionary.", this);
                 }
             }
         }
@@ -64,13 +68,14 @@ namespace Audio {
             if (soundDict.TryGetValue(soundType,out var sound))
             {
                 return sound;
-            }else
+            }
+            else
             {
-                Debug.LogWarning("No sound in SoundRefManager for "+soundType);
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogWarning("No sound in SoundRefManager for " + soundType);
                 return null;
             }
         }
-
     }
 }
 

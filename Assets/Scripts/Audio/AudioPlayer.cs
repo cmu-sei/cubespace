@@ -14,6 +14,7 @@ using Managers;
 using UnityEngine.Audio;
 using Entities.Workstations;
 using Systems;
+using Mirror;
 
 namespace Audio
 {
@@ -107,7 +108,8 @@ namespace Audio
             }
             else
             {
-                Debug.LogWarning("audio listener tracking null!");
+                if (((CustomNetworkManager)NetworkManager.singleton).isInDebugMode)
+                    Debug.LogWarning("audio listener tracking null!");
             }
         }
 

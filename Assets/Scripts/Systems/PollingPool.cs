@@ -107,7 +107,7 @@ namespace Systems {
             // Otherwise, we have run out of space in the pool
             else
             {
-                Debug.Log("Polling Pool has run out of space!");
+                Debug.LogError("Polling Pool has run out of space!");
                 return null;
             }
         }
