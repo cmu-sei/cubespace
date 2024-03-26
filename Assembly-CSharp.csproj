@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Entities\Workstations\Antenna\Antenna Parts\AntennaScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\HUD\TextProOnACurve.cs" />
     <Compile Include="Assets\Scripts\UI\WorkstationUI\NavReaderScreen\NavScreen\DestinationDisplayNavScreenComponents\CubeDriveDestinationSubScreen.cs" />
+    <Compile Include="Assets\Scripts\Systems\GameBrain\Models\PowerState.cs" />
     <Compile Include="Assets\Scripts\Systems\Credential Requests\Models\Profile.cs" />
     <Compile Include="Assets\Scripts\UI\Offline\OfflinePlayerPeg.cs" />
     <Compile Include="Assets\Scripts\UI\Customization\PlayerIconSelectionPanel.cs" />
@@ -245,7 +246,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\Systems\GameBrain\Models\PowerState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />

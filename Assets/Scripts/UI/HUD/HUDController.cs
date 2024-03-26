@@ -123,6 +123,8 @@ namespace UI.HUD
 
             #if UNITY_EDITOR
             quitButton.SetActive(true);
+            #else
+            quitButton.SetActive(false);
             #endif
 
             // TODO: The placement of this is somewhat arbitrary. Loading sequence should be better scripted

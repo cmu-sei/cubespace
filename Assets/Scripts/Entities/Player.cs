@@ -102,7 +102,7 @@ namespace Entities
                 // Send client token to server to Gamebrain for verification
                 //Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
 #if !UNITY_EDITOR
-                //Debug.LogWarning("?DEBUGGING?: Player.cs:103\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
+                //Debug.LogWarning("?DEBUGGING?: Player.cs:105\nCubespace client just started loading main scenes. Sending command to server to send my token for authorization.");
                 CmdSendClientToken(LoadingSystem.Instance.token);
 #endif
             }
