@@ -121,6 +121,10 @@ namespace Entities.Workstations
         /// Whether the player is in the process of exiting this workstation.
         /// </summary>
         private bool isExiting = false;
+        /// <summary>
+        /// Coroutine that runs while the player is in the process of entering this workstation
+        /// </summary>
+        private Coroutine enteringCoroutine = null;
 
         /// <summary>
         /// The camera assigned to this workstation, contained within one of its children.
@@ -236,7 +240,7 @@ namespace Entities.Workstations
             Audio.AudioPlayer.Instance.SetListenerLocation(Camera.main.gameObject, true);
 
             // Zoom the player into this workstation
-            StartCoroutine(EnterWorkstationView());
+            enteringCoroutine = StartCoroutine(EnterWorkstationView());
         }
 
         /// <summary>
@@ -254,8 +258,15 @@ namespace Entities.Workstations
         /// <param name="willReset">Whether to reset the workstation's state while exiting the view.</param>
         public virtual void Deactivate(bool willReset = false)
         {
+            // If we're already in the process of exiting, ignore this call
             if (!isExiting)
             {
+                // Check to see if we're in the middle of the zoom in camera coroutine and if we are cancel it
+                if (enteringCoroutine != null)
+                {
+                    StopCoroutine(enteringCoroutine);
+                    enteringCoroutine = null;
+                }
                 StartCoroutine(ExitWorkstationView(CameraManager.Instance.mainVCam, willReset));
                 UI.HUD.UIExitWorkstationButton.Instance.DisableButton();
                 UI.HUD.UICurrentWorkstationPowerStatusDisplay.ExitWorkstation();
@@ -350,6 +361,7 @@ namespace Entities.Workstations
             camDolly.m_PathPosition = camDolly.m_Path.MaxPos;
             UI.HUD.UIExitWorkstationButton.Instance.EnableButton(this);
             UI.HUD.UICurrentWorkstationPowerStatusDisplay.EnterWorkstation(this);
+            enteringCoroutine = null;
         }
 
         /// <summary>
