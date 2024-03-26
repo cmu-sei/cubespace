@@ -223,7 +223,7 @@ namespace Entities.Workstations
         public virtual void Activate(Player player, CinemachineVirtualCamera currentCam)
         {
             // Assigns authority over this workstation to the player entering this workstation
-            CmdSetWorkstationAuthorityToPlayer(player, true);
+            CmdSetWorkstationAuthorityToPlayer(player);
             // Set the given player to be the one currently at this workstation
             playerAtWorkstation = player;
 
@@ -244,7 +244,7 @@ namespace Entities.Workstations
         /// </summary>
         public virtual void Deactivate()
         {
-            CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, false);
+            CmdRemoveWorkstationAuthority();
             Deactivate(false);
         }
 
@@ -311,13 +311,12 @@ namespace Entities.Workstations
                 OnResetState();
             }
 
+            CmdRemoveWorkstationAuthority();
+
+            // If someone's at this station, kick them out
             if (playerAtWorkstation != null)
             {
-                Deactivate();
-            }
-            else
-            {
-                CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, false);
+                Deactivate(false);
             }
         }
         #endregion
@@ -402,22 +401,21 @@ namespace Entities.Workstations
         #endregion
 
         #region Commands
-        /// <summary>
-        /// Assigns or unassigns authority to or from a player.
-        /// </summary>
-        /// <param name="player">The player to assign authority to or remove authority from.</param>
-        /// <param name="authority">Whether to assign authority to the player.</param>
         [Command(requiresAuthority = false)]
-        private void CmdSetWorkstationAuthorityToPlayer(Player player, bool authority)
+        private void CmdSetWorkstationAuthorityToPlayer(Player player)
         {
-            if (authority)
+            if (player == null)
             {
-                netIdentity.AssignClientAuthority(player.connectionToClient);
+                Debug.LogError("Tried to assign workstation authority to non-existant player!");
+                return;
             }
-            else
-            {
-                netIdentity.RemoveClientAuthority();
-            }
+            netIdentity.AssignClientAuthority(player.connectionToClient);
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdRemoveWorkstationAuthority()
+        {
+            netIdentity.RemoveClientAuthority();
         }
 
         /// <summary>
@@ -457,7 +455,7 @@ namespace Entities.Workstations
         {
             if (_workstationManager.GetWorkstation(workstationID).playerAtWorkstation)
             {
-                _workstationManager.GetWorkstation(workstationID).CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, true);
+                _workstationManager.GetWorkstation(workstationID).CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation);
             }
         }
 
