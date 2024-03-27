@@ -201,7 +201,7 @@ namespace UI.NavScreen
 		{
 			if (ShipStateManager.Instance.unlockedLocations.Count == 0)
 			{
-				Debug.Log("0 locations. Nav screen standing by for location data.");
+				Debug.LogWarning("0 locations coming from Gamebrain. Nav screen standing by for location data.");
 				return null;
 			}
 
@@ -237,6 +237,11 @@ namespace UI.NavScreen
 		/// </summary>
 		private void OnSelectLocationClick()
 		{
+			if (GetCurrentVisibleLocation() == null)
+			{
+				Debug.LogError("Tried to select a location when none are present! Ignoring button press.");
+				return;
+			}
 			_navScreenController.SetNavScreen(confirmLocationScreen);
 		}
 

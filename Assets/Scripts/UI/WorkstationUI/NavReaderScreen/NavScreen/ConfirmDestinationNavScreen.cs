@@ -99,6 +99,11 @@ namespace UI.NavScreen
 		/// </summary>
 		void OnConfirmButtonClick()
 		{
+			if (locationToConfirm == null)
+			{
+				Debug.LogError("Tried to confirm null destination! Ignoring.");
+				return;
+			}
 			_navScreenController._navReaderWorkstation.ConfirmLocation(locationToConfirm);
 			
 			_navScreenController.SetNavScreen(destinationDisplayNavScreen);
