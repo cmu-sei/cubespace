@@ -989,7 +989,7 @@ RectTransform:
   - {fileID: 1221347758}
   - {fileID: 1070582323}
   m_Father: {fileID: 1535981563}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2423,7 +2423,7 @@ RectTransform:
   - {fileID: 1501412899}
   - {fileID: 1933152070}
   m_Father: {fileID: 1535981563}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -2617,7 +2617,7 @@ PrefabInstance:
     - target: {fileID: 5662066553745560398, guid: 61250713e2c304635b010ee6718a357b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5662066553745560398, guid: 61250713e2c304635b010ee6718a357b,
         type: 3}
@@ -2687,12 +2687,12 @@ PrefabInstance:
     - target: {fileID: 5662066553745560398, guid: 61250713e2c304635b010ee6718a357b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5662066553745560398, guid: 61250713e2c304635b010ee6718a357b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 5662066553745560398, guid: 61250713e2c304635b010ee6718a357b,
         type: 3}
@@ -3901,7 +3901,7 @@ PrefabInstance:
     - target: {fileID: 1363160663533565296, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1363160663533565296, guid: 2719617e361108a4fbf81b9f330f2527,
         type: 3}
@@ -4228,7 +4228,7 @@ RectTransform:
   - {fileID: 2079642158}
   - {fileID: 1993381448}
   m_Father: {fileID: 1535981563}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4925,11 +4925,11 @@ RectTransform:
   - {fileID: 1990403706}
   - {fileID: 1308483872}
   - {fileID: 2050566045}
-  - {fileID: 1350728188}
   - {fileID: 612479993}
   - {fileID: 1004912231}
   - {fileID: 1058496528}
   - {fileID: 1304477545}
+  - {fileID: 1350728188}
   - {fileID: 716996254}
   m_Father: {fileID: 57120341}
   m_RootOrder: 0
