@@ -348,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178bd9f544164aa5be3d6bc614b1bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &195318207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,7 +2555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178bd9f544164aa5be3d6bc614b1bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &1247083456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,7 +2780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178bd9f544164aa5be3d6bc614b1bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &1424918592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,7 +3300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178bd9f544164aa5be3d6bc614b1bac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &1687105533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3807,7 +3803,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &218823642963620972
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,7 +4705,7 @@ GameObject:
   - component: {fileID: 8738009771095309808}
   - component: {fileID: 155224851730402331}
   m_Layer: 8
-  m_Name: TopButton
+  m_Name: TopText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5222,7 +5217,6 @@ MonoBehaviour:
   statusText: {fileID: 3571474214307821156}
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &874869132278353496
 GameObject:
   m_ObjectHideFlags: 0
@@ -12730,7 +12724,6 @@ MonoBehaviour:
   labelText: {fileID: 6532015245711508985}
   spacingText: {fileID: 8414775983151693422}
   statusText: {fileID: 1615525310680935257}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &1991635729295973234
 GameObject:
   m_ObjectHideFlags: 0
@@ -13127,7 +13120,6 @@ MonoBehaviour:
   statusText: {fileID: 6844309286698890701}
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &2202854412676832821
 GameObject:
   m_ObjectHideFlags: 0
@@ -14323,7 +14315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: aaa/a__
+  m_text: AAA/AAA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5395c2f8fa7de3e479a103d84a5636e9, type: 2}
   m_sharedMaterial: {fileID: -6171328580237170278, guid: 5395c2f8fa7de3e479a103d84a5636e9,
@@ -15223,7 +15215,6 @@ MonoBehaviour:
   labelText: {fileID: 8036200747641274133}
   spacingText: {fileID: 6342263690598680034}
   statusText: {fileID: 620401465951349998}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &3183113421094410489
 GameObject:
   m_ObjectHideFlags: 0
@@ -15949,7 +15940,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &3654457200389758467
 GameObject:
   m_ObjectHideFlags: 0
@@ -17428,7 +17418,6 @@ MonoBehaviour:
   labelText: {fileID: 2154122396463248268}
   spacingText: {fileID: 7755763805260195321}
   statusText: {fileID: 1465555973283318202}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &4634036468027653141
 GameObject:
   m_ObjectHideFlags: 0
@@ -17742,7 +17731,6 @@ MonoBehaviour:
   labelText: {fileID: 659514574716418020}
   spacingText: {fileID: 3053518359160091337}
   statusText: {fileID: 6125043903186785167}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &4894120288929851729
 GameObject:
   m_ObjectHideFlags: 0
@@ -18633,7 +18621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Atlus V
+  m_text: N/A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5395c2f8fa7de3e479a103d84a5636e9, type: 2}
   m_sharedMaterial: {fileID: -6171328580237170278, guid: 5395c2f8fa7de3e479a103d84a5636e9,
@@ -22080,7 +22068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e50fe082c84695acb04f463b57d7e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideOnStart: 1
+  hideOnStart: 0
   flightEngineerButton: {fileID: 4595014882678302100}
   flightEngineerStatusSubScreen: {fileID: 3033932568700254972}
   flightSquare: {fileID: 9152735321588754591}
@@ -23471,9 +23459,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'KEPLER
-
-    (KEP/LER)'
+  m_text: N/A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5395c2f8fa7de3e479a103d84a5636e9, type: 2}
   m_sharedMaterial: {fileID: -6171328580237170278, guid: 5395c2f8fa7de3e479a103d84a5636e9,
@@ -26516,7 +26502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a48f525250d463e4c9fbda647abba1f0, type: 3}
+  m_Sprite: {fileID: 1462738275, guid: b8ee372e3bb75a34ebd277934435a17d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27002,7 +26988,6 @@ MonoBehaviour:
   statusText: {fileID: 6448320700567451909}
   _workstationManager: {fileID: 11400000, guid: e8d48b82c9f70d44a9c703080baf9b8a,
     type: 2}
-  palette: {fileID: 11400000, guid: 032f6096514b7a14496ffd8c32fd4076, type: 2}
 --- !u!1 &9047489388492552988
 GameObject:
   m_ObjectHideFlags: 0

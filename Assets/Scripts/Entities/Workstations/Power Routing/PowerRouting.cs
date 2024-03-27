@@ -123,6 +123,9 @@ namespace Entities.Workstations.PowerRouting
 
             // Change the light strip based on the powered workstations
             ChangePoweredLightStrip(poweredStations);
+
+            // When the server starts up, the ship will always be in standby mode. If the server gets restarted, this will fix gamebrain's record of the power mode
+            ShipStateManager.Instance.ShipGameBrainUpdater.TrySetPowerMode(PoweredState.Standby);
         }
         #endregion
 
@@ -207,15 +210,7 @@ namespace Entities.Workstations.PowerRouting
         // Turns off the power to all workstations.
         public override void ResetWorkstation()
         {
-            // Loop using button dict because it avoids touching unmodifiable power states like VMs
-            foreach (KeyValuePair<WorkstationID, PowerRoutingButton> pair in workstationButtonDict)
-            {
-                if (systemIDPowerStates[pair.Value.WorkstationID])
-                {
-                    TogglePowerState(pair.Key);
-                }
-            }
-
+            SetPowerStateToMode(PoweredState.Standby);
             base.ResetWorkstation();
         }
         #endregion

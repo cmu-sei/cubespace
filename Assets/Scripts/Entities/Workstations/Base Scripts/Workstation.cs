@@ -121,6 +121,10 @@ namespace Entities.Workstations
         /// Whether the player is in the process of exiting this workstation.
         /// </summary>
         private bool isExiting = false;
+        /// <summary>
+        /// Coroutine that runs while the player is in the process of entering this workstation
+        /// </summary>
+        private Coroutine enteringCoroutine = null;
 
         /// <summary>
         /// The camera assigned to this workstation, contained within one of its children.
@@ -223,7 +227,7 @@ namespace Entities.Workstations
         public virtual void Activate(Player player, CinemachineVirtualCamera currentCam)
         {
             // Assigns authority over this workstation to the player entering this workstation
-            CmdSetWorkstationAuthorityToPlayer(player, true);
+            CmdSetWorkstationAuthorityToPlayer(player);
             // Set the given player to be the one currently at this workstation
             playerAtWorkstation = player;
 
@@ -236,7 +240,7 @@ namespace Entities.Workstations
             Audio.AudioPlayer.Instance.SetListenerLocation(Camera.main.gameObject, true);
 
             // Zoom the player into this workstation
-            StartCoroutine(EnterWorkstationView());
+            enteringCoroutine = StartCoroutine(EnterWorkstationView());
         }
 
         /// <summary>
@@ -244,7 +248,7 @@ namespace Entities.Workstations
         /// </summary>
         public virtual void Deactivate()
         {
-            CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, false);
+            CmdRemoveWorkstationAuthority();
             Deactivate(false);
         }
 
@@ -254,8 +258,15 @@ namespace Entities.Workstations
         /// <param name="willReset">Whether to reset the workstation's state while exiting the view.</param>
         public virtual void Deactivate(bool willReset = false)
         {
+            // If we're already in the process of exiting, ignore this call
             if (!isExiting)
             {
+                // Check to see if we're in the middle of the zoom in camera coroutine and if we are cancel it
+                if (enteringCoroutine != null)
+                {
+                    StopCoroutine(enteringCoroutine);
+                    enteringCoroutine = null;
+                }
                 StartCoroutine(ExitWorkstationView(CameraManager.Instance.mainVCam, willReset));
                 UI.HUD.UIExitWorkstationButton.Instance.DisableButton();
                 UI.HUD.UICurrentWorkstationPowerStatusDisplay.ExitWorkstation();
@@ -311,13 +322,12 @@ namespace Entities.Workstations
                 OnResetState();
             }
 
+            CmdRemoveWorkstationAuthority();
+
+            // If someone's at this station, kick them out
             if (playerAtWorkstation != null)
             {
-                Deactivate();
-            }
-            else
-            {
-                CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, false);
+                Deactivate(false);
             }
         }
         #endregion
@@ -351,6 +361,7 @@ namespace Entities.Workstations
             camDolly.m_PathPosition = camDolly.m_Path.MaxPos;
             UI.HUD.UIExitWorkstationButton.Instance.EnableButton(this);
             UI.HUD.UICurrentWorkstationPowerStatusDisplay.EnterWorkstation(this);
+            enteringCoroutine = null;
         }
 
         /// <summary>
@@ -402,22 +413,21 @@ namespace Entities.Workstations
         #endregion
 
         #region Commands
-        /// <summary>
-        /// Assigns or unassigns authority to or from a player.
-        /// </summary>
-        /// <param name="player">The player to assign authority to or remove authority from.</param>
-        /// <param name="authority">Whether to assign authority to the player.</param>
         [Command(requiresAuthority = false)]
-        private void CmdSetWorkstationAuthorityToPlayer(Player player, bool authority)
+        private void CmdSetWorkstationAuthorityToPlayer(Player player)
         {
-            if (authority)
+            if (player == null)
             {
-                netIdentity.AssignClientAuthority(player.connectionToClient);
+                Debug.LogError("Tried to assign workstation authority to non-existant player!");
+                return;
             }
-            else
-            {
-                netIdentity.RemoveClientAuthority();
-            }
+            netIdentity.AssignClientAuthority(player.connectionToClient);
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdRemoveWorkstationAuthority()
+        {
+            netIdentity.RemoveClientAuthority();
         }
 
         /// <summary>
@@ -457,7 +467,7 @@ namespace Entities.Workstations
         {
             if (_workstationManager.GetWorkstation(workstationID).playerAtWorkstation)
             {
-                _workstationManager.GetWorkstation(workstationID).CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation, true);
+                _workstationManager.GetWorkstation(workstationID).CmdSetWorkstationAuthorityToPlayer(playerAtWorkstation);
             }
         }
 
