@@ -65,6 +65,13 @@ namespace Systems
         // The link to the server the client will connect to
         public string serverLink = null;
 
+        // Print a startup message for quality of life
+        public override void Start()
+        {
+            Debug.Log("*** Cubespace version " + Application.version + " starting up ***");
+            base.Start();
+        }
+
         #region Public loading methods
         /// <summary>
         /// Calls an event to trigger actions when first loading the game, then begins fading in the loading screen.
