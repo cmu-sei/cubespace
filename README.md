@@ -78,13 +78,6 @@ and end the argument with a `/`.
 - `-uriBase`: The domain where this game resides, used to retrieve a JSON Web Key for the headless client.
 - `-clientID`: The OAuth identifier for the headless client.
 - `-clientSecret`: The secret stored in Identity for all headless clients (StandaloneLinux64 builds).
-- `-dev`: Enables developer shortcuts and hotkeys. This takes no additional values and is only really useful in-editor.
 - `-debug`: Enables verbose logging. This takes no additional values.
-
-#### Hotkeys (dev mode only)
-- A: Abort launch sequence
-- H: Hide HUD
-- J: Jump to location (if already chosen)
-- V: Skip jump video/transmission
 
 
