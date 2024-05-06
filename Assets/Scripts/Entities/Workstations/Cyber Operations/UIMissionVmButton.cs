@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Entities.Workstations.CyberOperationsParts;
 using UnityEngine.UI;
 using TMPro;
 using Systems.GameBrain;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 
 namespace Entities.Workstations.CyberOperationsParts
 {
+    /// <summary>
+    /// A single button associated with a mission on the mission select screen of the cyber ops stations
+    /// </summary>
     public class UIMissionVmButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         private MissionVMs vms;

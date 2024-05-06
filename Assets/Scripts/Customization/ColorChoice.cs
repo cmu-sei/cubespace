@@ -25,10 +25,11 @@ namespace Customization
 		public string colorName;
 
 		/// <summary>
-		/// Sets a default color choice (magenta).
+		/// Sets default color, which is clear
 		/// </summary>
 		public ColorChoice()
 		{
+			// Clear as the default prevents the player's particle system from fading from the default color to the chosen color when they spawn (they are invisable when they spawn now) 
 			color = Color.clear;
 			colorName = "Clear";
 		}

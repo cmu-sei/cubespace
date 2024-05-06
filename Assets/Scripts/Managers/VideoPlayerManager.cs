@@ -9,8 +9,10 @@ using UnityEngine.Video;
 
 namespace Managers
 {
-    // Wrapper for Unity's video player that handles buffering, audio desync, and other problems
-    // Used by the cutscene system for jump videos and mission log videos and sensor station for transmissions
+    /// <summary>
+    /// Wrapper for Unity's video player
+    /// Used by the cutscene system for jump videos and mission log videos and sensor station for transmissions
+    /// </summary>
     public class VideoPlayerManager : ConnectedSingleton<VideoPlayerManager>
     {
         [SerializeField] private VideoPlayer videoPlayer;

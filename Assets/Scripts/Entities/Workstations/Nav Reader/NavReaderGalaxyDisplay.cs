@@ -1,7 +1,6 @@
 using Managers;
 using UI.HUD;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI.WorkstationUI.NavReaderScreens
 {

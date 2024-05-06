@@ -9,10 +9,8 @@ DM23-0100
 */
 
 using UnityEngine;
-using UnityEngine.UI;
 using Systems.GameBrain;
 using Mirror;
-using UI;
 using Audio;
 using Managers;
 
@@ -50,9 +48,6 @@ namespace Entities.Workstations.CyberOperationsParts
         /// The name used for the confirmation window if using the old structure
         /// </summary>
         public string staticVmName = "Cyber Operations";
-
-        // True if someone is at the station
-        private bool inUse;
         #endregion
 
         #region Unity event functions
@@ -96,7 +91,6 @@ namespace Entities.Workstations.CyberOperationsParts
         public override void Activate(Player player, Cinemachine.CinemachineVirtualCamera currentCam)
         {
             base.Activate(player, currentCam);
-            inUse = true;
             screenController.ResetState();
         }
 
@@ -108,7 +102,6 @@ namespace Entities.Workstations.CyberOperationsParts
             // Unmute the game in case a separate tab was open
             AudioPlayer.Instance.SetMuteSnapshot(false);
             base.Deactivate();
-            inUse = false;
             screenController.ResetState();
         }
 

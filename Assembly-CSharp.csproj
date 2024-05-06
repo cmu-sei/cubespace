@@ -246,7 +246,6 @@
     <Compile Include="Assets\Scripts\UI\HUD\UIHudTaskListItem.cs" />
     <Compile Include="Assets\Scripts\Entities\Workstations\Sensor Station\SensorStation.cs" />
     <Compile Include="Assets\Scripts\Utilities\DestroyObjectOnMainSceneLoad.cs" />
-    <Compile Include="Assets\Scripts\Systems\GameBrain\Models\PowerState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />

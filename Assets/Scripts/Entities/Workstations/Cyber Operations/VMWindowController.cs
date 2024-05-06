@@ -119,7 +119,9 @@ namespace Entities.Workstations.CyberOperationsParts
         /// <param name="stationID">The ID of the workstation opening this window. This is used to send an OnClose message to fire a callback.</param>
         public void CloseVM(WorkstationID stationID)
         {
-            // This works but isn't being used since we can't prevent players from just copying the URL and opening a new tab and therefore can't enforce comp rules with this method
+            // This works but isn't being used
+            // we can't prevent players from just copying the URL and opening a new tab and therefore can't enforce comp rules with this method,
+            // so we'd rather not enable this behavior at all
             /*
             #if (!UNITY_EDITOR && UNITY_WEBGL)
             CloseWindow((int) stationID);

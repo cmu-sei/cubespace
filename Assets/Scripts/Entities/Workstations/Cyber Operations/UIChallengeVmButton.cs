@@ -1,45 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using Systems.GameBrain;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIChallengeVmButton : MonoBehaviour
+
+namespace Entities.Workstations.CyberOperationsParts
 {
-    private ChallengeVM vm;
-    CyberOperationsScreenController screenController;
-
-    [SerializeField] private TextMeshProUGUI buttonText;
-    private Button button;
-
-    public void SetChallengeVmButton(CyberOperationsScreenController controller, ChallengeVM challengeVM)
+    /// <summary>
+    /// A button for opening a specific VM at the Cyber ops station
+    /// </summary>
+    public class UIChallengeVmButton : MonoBehaviour
     {
-        if (challengeVM == null || controller == null)
+        private ChallengeVM vm;
+        CyberOperationsScreenController screenController;
+
+        [SerializeField] private TextMeshProUGUI buttonText;
+        private Button button;
+
+        public void SetChallengeVmButton(CyberOperationsScreenController controller, ChallengeVM challengeVM)
         {
-            Destroy(gameObject);
-            return;
+            if (challengeVM == null || controller == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            if (button == null)
+            {
+                button = gameObject.GetComponent<Button>();
+            }
+
+            vm = challengeVM;
+            screenController = controller;
+
+            buttonText.text = vm.vmName;
+
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(OpenConfirmationWindow);
         }
-        if (button == null)
+
+        public void OpenConfirmationWindow()
         {
-            button = gameObject.GetComponent<Button>();
+            if (screenController == null || vm == null)
+            {
+                return;
+            }
+            screenController.OpenConfirmationWindow(vm.vmName, vm.vmURL);
         }
-
-        vm = challengeVM;
-        screenController = controller;
-
-        buttonText.text = vm.vmName;
-
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(OpenConfirmationWindow);
-    }
-
-    public void OpenConfirmationWindow()
-    {
-        if (screenController == null || vm == null)
-        {
-            return;
-        }
-        screenController.OpenConfirmationWindow(vm.vmName, vm.vmURL);
     }
 }

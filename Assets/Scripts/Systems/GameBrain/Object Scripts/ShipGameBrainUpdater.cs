@@ -90,6 +90,7 @@ namespace Systems.GameBrain
 			if (isServer)
 			{
                 //Debug.LogWarning("?DEBUGGING?: ShipGameBrainUpdater.cs:92\nServer is polling for data like it does ever 2 seconds");
+
                 // If the server is tracking a team (and it should be), make a call to check if they're still active
                 if (checkIfTeamIsActive && ShipStateManager.Instance.teamID != "")
 				{
