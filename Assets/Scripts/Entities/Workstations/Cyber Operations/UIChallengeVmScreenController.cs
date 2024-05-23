@@ -1,56 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using Systems.GameBrain;
 using UnityEngine;
-using Entities.Workstations.CyberOperationsParts;
 using UnityEngine.UI;
 
-public class UIChallengeVmScreenController : MonoBehaviour
+namespace Entities.Workstations.CyberOperationsParts
 {
-    [SerializeField] private CyberOperations workstation;
-    [SerializeField] private CyberOperationsScreenController controller;
-
-    [SerializeField] private GameObject panel;
-    private Image background;
-    [SerializeField] private Transform listParent;
-
-    [SerializeField] private GameObject buttonPrefab;
-
-    private void Awake()
+    /// <summary>
+    /// The screen for selecting an individual VM at a cyber ops station
+    /// </summary>
+    public class UIChallengeVmScreenController : MonoBehaviour
     {
-        background = GetComponent<Image>();
-    }
+        [SerializeField] private CyberOperations workstation;
+        [SerializeField] private CyberOperationsScreenController controller;
 
-    public void Activate()
-    {
-        panel.SetActive(true);
-        background.enabled = true;
-    }
+        [SerializeField] private GameObject panel;
+        private Image background;
+        [SerializeField] private Transform listParent;
 
-    public void Deactivate()
-    {
-        panel.SetActive(false);
-        background.enabled = false;
-    }
+        [SerializeField] private GameObject buttonPrefab;
 
-    public void Initialize(MissionVMs missionVMs)
-    {
-        DestroyButtons();
-
-        if (missionVMs == null || missionVMs.vmURLs == null || missionVMs.vmURLs.Length == 0) return;
-
-        for (int i = 0; i < missionVMs.vmURLs.Length; i++)
+        private void Awake()
         {
-            UIChallengeVmButton button = Instantiate(buttonPrefab, listParent).GetComponent<UIChallengeVmButton>();
-            button.SetChallengeVmButton(controller, missionVMs.vmURLs[i]);
+            background = GetComponent<Image>();
         }
-    }
 
-    private void DestroyButtons()
-    {
-        foreach (Transform c in listParent.transform)
+        public void Activate()
         {
-            Destroy(c.gameObject);
+            panel.SetActive(true);
+            background.enabled = true;
+        }
+
+        public void Deactivate()
+        {
+            panel.SetActive(false);
+            background.enabled = false;
+        }
+
+        public void Initialize(MissionVMs missionVMs)
+        {
+            DestroyButtons();
+
+            if (missionVMs == null || missionVMs.vmURLs == null || missionVMs.vmURLs.Length == 0) return;
+
+            for (int i = 0; i < missionVMs.vmURLs.Length; i++)
+            {
+                UIChallengeVmButton button = Instantiate(buttonPrefab, listParent).GetComponent<UIChallengeVmButton>();
+                button.SetChallengeVmButton(controller, missionVMs.vmURLs[i]);
+            }
+        }
+
+        private void DestroyButtons()
+        {
+            foreach (Transform c in listParent.transform)
+            {
+                Destroy(c.gameObject);
+            }
         }
     }
 }

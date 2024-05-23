@@ -290,7 +290,7 @@ namespace Entities.Workstations.PowerRouting
         /// Forcefully sets power to given mode all at once on the server. Standby turns everything off
         /// Handling this all in one call prevents problems with checking for power in the middle of a batch operation
         /// </summary>
-        /// <param name="workstationID">The workstation whose power state should chang.</param>
+        /// <param name="workstationID">The workstation whose power state should change</param>
         /// <param name="state">Resulting powered state of this operation.</param>
         [Command(requiresAuthority = false)]
         private void CmdSetSystemPowerStateToMode(NetworkIdentity client, PoweredState targetState)

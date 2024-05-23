@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Entities.Workstations.CyberOperationsParts;
 using Systems.GameBrain;
 using Managers;
 
 namespace Entities.Workstations.CyberOperationsParts
 {
+    /// <summary>
+    /// The mission select screen at the cyber ops station
+    /// </summary>
     public class UIMissionVmScreenController : MonoBehaviour
     {
         [SerializeField] private CyberOperationsScreenController controller;
@@ -13,7 +15,7 @@ namespace Entities.Workstations.CyberOperationsParts
         [SerializeField] private GameObject panel;
         [SerializeField] private GameObject missionVmButtonPrefab;
         [SerializeField] private Transform missionButtonGridParent;
-        [SerializeField] private IDToImageMap imageMap; // non-hex mission icons
+        [SerializeField] private IDToImageMap imageMap; // non-hex, color mission icons
 
         private Image background;
 

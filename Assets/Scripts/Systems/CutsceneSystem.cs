@@ -16,14 +16,17 @@ using Managers;
 namespace Systems
 {
     /// <summary>
-    /// Class that plays cutscenes, which currently only include the video that plays when the ship jumps
+    /// Wrapper for the VideoPlayerManager which handles playing the jump cutscene and replaying sensor station
+    /// videos from the mission log 
     /// </summary>
     public class CutsceneSystem : ConnectedSingleton<CutsceneSystem>
     {
+        // The canvas used for the jump cutscene
         [SerializeField] private GameObject videoCanvas;
-
+        // The blank render texture assigned to the cutscene canvas
         [SerializeField] private RenderTexture cutsceneRenderTex;
 
+        // The canvas and tex used for playing archived videos
         [SerializeField] private GameObject archivesVideoCanvas;
         [SerializeField] private RenderTexture archivesRenderTex;
 
@@ -55,6 +58,8 @@ namespace Systems
             }
         }
 
+        // Plays video fullscreen without any further initialization needed. May fail based on the state of the VideoPlayerManager
+        // Returns bool the reports whther or not video initialization was successful
         public bool PlayCutscene(string videoURL)
         {
             if (!VideoPlayerManager.Instance)
@@ -73,6 +78,8 @@ namespace Systems
             return false;
         }
 
+        // Plays video in archives octogon window without any further initialization needed. May fail based on the state of the VideoPlayerManager
+        // Returns bool the reports whther or not video initialization was successful
         public bool PlayArchivesVideo(string videoURL)
         {
             if (!VideoPlayerManager.Instance)
@@ -109,9 +116,7 @@ namespace Systems
             }
         }
 
-        /// <summary>
-        /// Plays a cutscene when the ship jumps to a location.
-        /// </summary>
+        /// Plays jump cutscene
         private void PlayLaunchCutscene()
         {
             PlayCutscene(ShipStateManager.Instance.Session.jumpCutsceneURL);
