@@ -13,7 +13,7 @@ jobs:
   # Phase 1 - Unity Build (docs: https://game.ci/docs/2/github/builder)
   build:
     name: Build game
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
